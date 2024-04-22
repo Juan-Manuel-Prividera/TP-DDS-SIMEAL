@@ -1,14 +1,14 @@
 package ar.edu.utn.frba.dds;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Scanner;
 
 
 public class PasswordValidator {
   private File passwordBlacklist;
-  private final int minimumLength = 8;
 
   // Safe to pass null.
   PasswordValidator(String pathToPasswordBlacklist) {
@@ -28,25 +28,28 @@ public class PasswordValidator {
   }
 
   private boolean lengthTest(String potentialPassword) {
+    int minimumLength = 8;
     return potentialPassword.length() >= minimumLength;
   }
 
-  // Returns true if "potentialPassword" does not match any line in the "blacklistFile" OR if the file is missing.
+  // Returns true if "potentialPassword" does not match any line
+  // in the "blacklistFile" OR if the file is missing.
   private boolean blacklistTest(String potentialPassword) {
     if (passwordBlacklist == null) {
       return true;
     }
 
     try {
-      Scanner scanner = new Scanner(passwordBlacklist);
+      Scanner scanner = new Scanner(passwordBlacklist, StandardCharsets.UTF_8);
 
       while (scanner.hasNextLine()) {
         if (Objects.equals(scanner.nextLine(), potentialPassword)) {
           return false;
         }
       }
-    } catch (FileNotFoundException e) {
-      // It should never reach this block, we validated the blacklist path in the constructor... but who knows.
+    } catch (IOException e) {
+      // It should never reach this block, we validated the blacklist
+      // path in the constructor... but who knows.
       System.out.printf("Exception: " + e.getMessage());
       return true;
     }
