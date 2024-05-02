@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds;
 
 
+import ar.edu.utn.frba.dds.service.PasswordValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

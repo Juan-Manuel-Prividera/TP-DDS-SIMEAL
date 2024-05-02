@@ -11,7 +11,13 @@ function cargarMapa(){
 		lat : -34.656032172926906, 
 		lng : -58.426227983358935,
 	}
-  		
+
+  	var heladeraIcon = L.icon({
+  	  iconUrl: 'heladeraMapa.png',
+      iconSize: [20,40]
+ 	});
+
+
     // Inicializar el mapa y establecer su punto central y el nivel de zoom
     map = L.map('mapid').setView([puntoCentral.lat,puntoCentral.lng], 13);
     
@@ -23,8 +29,8 @@ function cargarMapa(){
     map.doubleClickZoom.disable();
 
     // Añadir puntos en el mapa
-    agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO",map);
-    agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS",map);
+    agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO",map,heladeraIcon);
+    agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS",map,heladeraIcon);
 
     // Añadir heladeras al mapa haciendo doble click
     // Salta un cuadro de dialogo para que el usuario ingrese el nombre de la heladera
@@ -32,14 +38,14 @@ function cargarMapa(){
         var nombreHeladera = prompt("Ingrese el nombre de la heladera", "Heladera1")
         if(nombreHeladera != null){
             var punto = event.latlng;
-            agregarHeladera(punto.lat, punto.lng, nombreHeladera,map);
+            agregarHeladera(punto.lat, punto.lng, nombreHeladera,map,heladeraIcon);
         }
     });
     
 }
 
-function agregarHeladera(latitud,longitud,nombreHeladera,map){
-    var marker = L.marker([latitud, longitud]).addTo(map);
+function agregarHeladera(latitud,longitud,nombreHeladera,map, heladeraIcon){
+    var marker = L.marker([latitud, longitud], {icon: heladeraIcon}).addTo(map);
     marker.bindPopup("<b>"+nombreHeladera+"</b>").openPopup();
     
 }
