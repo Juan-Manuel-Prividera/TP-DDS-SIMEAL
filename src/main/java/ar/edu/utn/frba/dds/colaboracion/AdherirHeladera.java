@@ -1,12 +1,15 @@
 package ar.edu.utn.frba.dds.colaboracion;
 
-import ar.edu.utn.frba.dds.Heladera.Heladera;
-import ar.edu.utn.frba.dds.Ubicacion.Ubicacion;
+import ar.edu.utn.frba.dds.heladera.Heladera;
+import ar.edu.utn.frba.dds.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public class AdherirHeladera implements Colaboracion{
 

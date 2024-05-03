@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.Ubicacion;
+package ar.edu.utn.frba.dds.ubicacion;
 
 public class Ubicacion {
   private Float latitud, longitud;

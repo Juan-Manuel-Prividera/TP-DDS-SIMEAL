@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.Heladera;
+package ar.edu.utn.frba.dds.heladera;
 
 public enum estadoHeladera {
   //TODO
