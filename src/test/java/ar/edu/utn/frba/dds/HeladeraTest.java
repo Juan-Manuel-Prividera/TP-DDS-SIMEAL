@@ -6,5 +6,5 @@ import org.junit.jupiter.api.Test;
 public class HeladeraTest {
 
   @Test @DisplayName("")
-  public void
+  public void test(){}
 }

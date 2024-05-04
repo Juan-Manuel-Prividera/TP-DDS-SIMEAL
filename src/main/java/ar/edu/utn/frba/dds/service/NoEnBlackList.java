@@ -10,7 +10,7 @@ public class NoEnBlackList implements Condicion {
   File blackList;
 
   // Safe to pass null.
-  NoEnBlackList(String pathToPasswordBlacklist) {
+  public NoEnBlackList(String pathToPasswordBlacklist) {
     if (pathToPasswordBlacklist != null) {
       // Once we check the path is not null, we also check it is actually a valid file.
       // If it isn't we print a warning a set the passwordFile to null.
