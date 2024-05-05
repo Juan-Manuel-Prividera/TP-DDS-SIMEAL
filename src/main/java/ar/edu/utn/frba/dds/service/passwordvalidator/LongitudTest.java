@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.service;
+package ar.edu.utn.frba.dds.service.passwordvalidator;
 
 public class LongitudTest implements Condicion {
   int minimunLenght;

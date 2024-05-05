@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds;
 
 
-import ar.edu.utn.frba.dds.service.Condicion;
-import ar.edu.utn.frba.dds.service.LongitudTest;
-import ar.edu.utn.frba.dds.service.NoEnBlackList;
-import ar.edu.utn.frba.dds.service.PasswordValidator;
+import ar.edu.utn.frba.dds.service.passwordvalidator.Condicion;
+import ar.edu.utn.frba.dds.service.passwordvalidator.LongitudTest;
+import ar.edu.utn.frba.dds.service.passwordvalidator.NoEnBlackList;
+import ar.edu.utn.frba.dds.service.passwordvalidator.PasswordValidator;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
