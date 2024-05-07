@@ -1,7 +1,9 @@
 package ar.edu.utn.frba.dds.domain.ubicacion;
 
+import ar.edu.utn.frba.dds.service.ubicacionesapi.Punto;
+
 public class Ubicacion {
-  private Float latitud, longitud;
+  private Punto ponto;
   private String nombreCalle;
   private Integer altura;
 }
