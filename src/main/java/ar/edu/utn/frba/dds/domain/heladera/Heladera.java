@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.domain.heladera;
 
+import ar.edu.utn.frba.dds.domain.heladera.estados.EstadoHeladera;
+import ar.edu.utn.frba.dds.domain.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.domain.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.domain.viandas.Vianda;
 import lombok.Getter;
@@ -15,12 +17,17 @@ public class Heladera {
   final private Ubicacion ubicacion;
   final private LocalDate fechaColocacion;
   private List<Vianda> viandas;
-  private estadoHeladera estado;
-  private List<Alerta> alertas;
+  private EstadoHeladera estado;
+  private AdministradorAlertas administradorAlertas;
+  private List<Sensor> sensores;
   private List<Desperfecto> desperfectos;
-  private Float tempMax;
-  private Float tempMin;
+  private Modelo modelo;
   private Float ultimaTempRegistrada;
+
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+    this.ubicacion = ubicacion;
+    this.fechaColocacion = fechaColocacion;
+  }
 
   //TODO
 

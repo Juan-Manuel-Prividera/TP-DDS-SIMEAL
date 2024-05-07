@@ -1,2 +1,6 @@
-package ar.edu.utn.frba.dds.domain.personas.colaborador;public enum TipoColaborador {
+package ar.edu.utn.frba.dds.domain.personas.colaborador;
+
+public enum TipoColaborador {
+  JURIDICO, HUMANO
+
 }
