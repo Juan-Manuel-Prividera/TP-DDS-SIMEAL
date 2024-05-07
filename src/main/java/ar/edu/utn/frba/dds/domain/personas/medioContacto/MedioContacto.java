@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.domain.personas.medioContacto;
 
 public interface MedioContacto {
-  //TODO
+
+
+  public void notificar(String mensaje);
 }
+
