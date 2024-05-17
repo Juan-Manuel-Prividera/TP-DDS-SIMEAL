@@ -1,6 +1,5 @@
-package ar.edu.utn.frba.dds.domain.personas.personaVulnerable;
+package ar.edu.utn.frba.dds.domain.personas;
 
-import ar.edu.utn.frba.dds.domain.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.domain.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.domain.ubicacion.Ubicacion;
 import lombok.RequiredArgsConstructor;

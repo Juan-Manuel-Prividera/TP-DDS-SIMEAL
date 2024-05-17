@@ -1,15 +1,30 @@
 package ar.edu.utn.frba.dds.domain.colaboracion;
 
-import ar.edu.utn.frba.dds.domain.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.domain.personas.Colaborador;
+import ar.edu.utn.frba.dds.domain.personas.documentacion.Tarjeta;
+import ar.edu.utn.frba.dds.domain.personas.PersonaVulnerable;
+import jdk.jfr.BooleanFlag;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class DarDeAltaPersonaVulnerable implements Colaboracion{
 
-  private final PersonaVulnerable personaVulnerable;
+  private Colaborador colaborador;
+  private LocalDate fechaDeRealizacion;
+  private PersonaVulnerable personaVulnerable;
   private Float falctorDeReconocimiento = 2F;
+  private Tarjeta tarjeta;
+/*
+  public DarDeAltaPersonaVulnerable(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    this.colaborador = colaborador;
+    this.fechaDeRealizacion = fechaDeRealizacion;
+  }
+*/
 
   @Override
   public void colaborar(){

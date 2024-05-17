@@ -1,18 +1,33 @@
 package ar.edu.utn.frba.dds.domain.colaboracion;
 
 import ar.edu.utn.frba.dds.domain.Rubro;
+import ar.edu.utn.frba.dds.domain.personas.Colaborador;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class Oferta implements Colaboracion {
-  private final String nombre;
-  //no es final para dar lugar a posibles modificaciones en el coste
-  @Setter Float puntosNecesarios;
-  @Setter Rubro rubro;
-  @Setter String imagen;
+  private Colaborador colaborador;
+  private LocalDate fechaDeRealizacion;
+  private String nombre;
+  @Setter
+  private Float puntosNecesarios;
+  @Setter
+  private Rubro rubro;
+  @Setter
+  private String imagen;
+
+/*
+  public Oferta(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    this.colaborador = colaborador;
+    this.fechaDeRealizacion = fechaDeRealizacion;
+  }
+*/
 
   @Override
   public void colaborar() {

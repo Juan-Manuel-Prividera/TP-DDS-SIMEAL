@@ -16,12 +16,13 @@ public class Heladera {
   private String nombre;
   final private Ubicacion ubicacion;
   final private LocalDate fechaColocacion;
-  private List<Vianda> viandas;
+  private List<Vianda> viandas; //Habria que ver si esto sigue
   private EstadoHeladera estado;
+  private Modelo modelo;
+
   private AdministradorAlertas administradorAlertas;
   private List<Sensor> sensores;
   private List<Desperfecto> desperfectos;
-  private Modelo modelo;
   private Float ultimaTempRegistrada;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {

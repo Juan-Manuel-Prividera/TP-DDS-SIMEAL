@@ -1,31 +1,39 @@
 package ar.edu.utn.frba.dds.domain.colaboracion;
 
 import ar.edu.utn.frba.dds.domain.heladera.Heladera;
+import ar.edu.utn.frba.dds.domain.personas.Colaborador;
 import ar.edu.utn.frba.dds.domain.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@Builder
 public class AdherirHeladera implements Colaboracion{
-
-  private final Ubicacion ubicacion;
-  private LocalDate fechaColocacion = LocalDate.now();
+  private Colaborador colaborador;
+  private LocalDate fechaDeRealizacion;
   private List<Ubicacion> ubicacionesRecomendadas; //Es necesario generarlo con la lista?
   private Float factorDeReconocimiento = 5F;
+  private Heladera heladera;
+
+/*
+  public AdherirHeladera(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    this.colaborador = colaborador;
+    this.fechaDeRealizacion = fechaDeRealizacion;
+  }
+*/
 
   @Override
   public void colaborar(){
-    Heladera heladera = new Heladera(ubicacion, fechaColocacion);
+  //  Heladera heladera = new Heladera();
   }
 
   @Override
   public Float calcularReconocimientoParcial() {
-    Period periodoEnFuncionamiento = Period.between(this.fechaColocacion, LocalDate.now());
+    Period periodoEnFuncionamiento = Period.between(this.fechaDeRealizacion, LocalDate.now());
 
     Integer cantMeses =
         periodoEnFuncionamiento.getYears()*12

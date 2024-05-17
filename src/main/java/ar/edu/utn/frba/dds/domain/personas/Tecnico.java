@@ -1,7 +1,9 @@
-package ar.edu.utn.frba.dds.domain.personas.tecnico;
+package ar.edu.utn.frba.dds.domain.personas;
 
 import ar.edu.utn.frba.dds.domain.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.domain.personas.medioContacto.MedioContacto;
+import ar.edu.utn.frba.dds.domain.ubicacion.AreaDeCobertura;
+
 import java.util.List;
 
 public class Tecnico {

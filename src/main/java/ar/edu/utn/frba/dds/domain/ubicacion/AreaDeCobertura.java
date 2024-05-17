@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.domain.personas.tecnico;
+package ar.edu.utn.frba.dds.domain.ubicacion;
 
 import java.util.List;
 
