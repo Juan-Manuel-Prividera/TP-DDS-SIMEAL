@@ -15,7 +15,6 @@ import java.util.List;
 public class AdherirHeladera implements Colaboracion{
   private Colaborador colaborador;
   private LocalDate fechaDeRealizacion;
-  private List<Ubicacion> ubicacionesRecomendadas; //Es necesario generarlo con la lista?
   private Float factorDeReconocimiento = 5F;
   private Heladera heladera;
 

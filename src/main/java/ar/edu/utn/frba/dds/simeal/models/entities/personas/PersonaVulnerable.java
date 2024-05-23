@@ -13,8 +13,15 @@ public class PersonaVulnerable {
   private final LocalDate fechaNacimiento;
   private final LocalDate fechaRegistro;
   private Ubicacion domilicio;
-  private List<PersonaVulnerable> menoresACargo;
+  private List<PersonaVulnerable> hijos;
   private final Documento documento;
   private final Colaborador colaboradorACargo;
 
+  public boolean esMenor(){
+    return LocalDate.now().getYear() - this.fechaNacimiento.getYear() < 18;
+  }
+
+  public int cantMenoresACargo(){
+    return this.hijos.stream().filter(h-> h.esMenor()).toList().size();
+  }
 }

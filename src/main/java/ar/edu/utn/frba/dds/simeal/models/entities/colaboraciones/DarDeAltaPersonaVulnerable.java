@@ -13,21 +13,14 @@ import java.time.LocalDate;
 public class DarDeAltaPersonaVulnerable implements Colaboracion{
 
   private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
+  private LocalDate fechaDeRealizacion = LocalDate.now();
   private PersonaVulnerable personaVulnerable;
   private Float falctorDeReconocimiento = 2F;
   private Tarjeta tarjeta;
-/*
-  public DarDeAltaPersonaVulnerable(Colaborador colaborador, LocalDate fechaDeRealizacion, Tarjeta tarjeta) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = fechaDeRealizacion;
-    this.tarjeta = tarjeta;
-  }
-*/
+
+
 
   @Override
   public double calcularReconocimientoParcial(){
-    return this.falctorDeReconocimiento;
-  }
-
+    return this.falctorDeReconocimiento;}
 }

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirVianda;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;

@@ -1,10 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.AdministradorAlertas;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
