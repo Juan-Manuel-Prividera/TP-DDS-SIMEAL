@@ -5,7 +5,10 @@ public class Inactiva implements EstadoHeladera {
 
 
   @Override
-  public void notificarEstado() {
-
+  public String notificarEstado() {
+    return null;
+  }
+  public boolean validarEstado(){
+    return false;
   }
 }

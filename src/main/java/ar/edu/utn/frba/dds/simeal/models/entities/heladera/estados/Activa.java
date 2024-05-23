@@ -4,8 +4,11 @@ public class Activa implements EstadoHeladera {
   private String notificacion;
 
   @Override
-  public void notificarEstado() {
-
+  public String notificarEstado() {
+    return null;
+  }
+  public boolean validarEstado(){
+    return true;
   }
 
 }

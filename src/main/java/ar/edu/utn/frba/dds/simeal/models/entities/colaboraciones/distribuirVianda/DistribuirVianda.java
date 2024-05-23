@@ -18,12 +18,11 @@ public class DistribuirVianda implements Colaboracion {
   private Heladera origen, destino;
   private Motivo motivo;
   private List<Vianda> viandas;
-  private int cantidadViandasAMover;
   private double factorDeReconocimiento = 1;
 
   @Override
   public double calcularReconocimientoParcial(){
-    return cantidadViandasAMover * factorDeReconocimiento;
+    return this.cantViandasAfectadas() * factorDeReconocimiento;
   }
 
   public Integer cantViandasAfectadas(){

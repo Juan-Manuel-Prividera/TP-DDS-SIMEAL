@@ -29,4 +29,16 @@ public class Heladera {
     this.fechaColocacion = fechaColocacion;
   }
 
+  public void cambiarDeEstado(EstadoHeladera nuevoEstado){
+    this.estado = nuevoEstado;
+  }
+
+  public boolean validarEstado(){
+    return this.estado.validarEstado();
+  }
+
+  public String enviarNotificacionPorDefecto(){
+    return this.estado.notificarEstado();
+  }
+
 }

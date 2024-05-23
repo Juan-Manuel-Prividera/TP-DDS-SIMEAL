@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
@@ -22,12 +23,12 @@ public class Colaborador {
   Ubicacion direccion;
   String razonSocial;
   Rubro rubro;
-  List<Heladera> heladeras;
   List<MedioContacto> mediosDeContacto = new ArrayList<>();
   TipoJuridico tipoJuridico;
   FormularioContestado formularioContestado;
   private CalculadorDeReconocimientos caluladoraDeReconocimientos = new CalculadorDeReconocimientos();
   double puntosDeReconocimientoGastados;
+  private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
 
   public Colaborador(Documento documento, String nombre, String apellido) {
