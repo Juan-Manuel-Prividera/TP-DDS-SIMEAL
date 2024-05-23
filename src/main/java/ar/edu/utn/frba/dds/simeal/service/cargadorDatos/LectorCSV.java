@@ -19,12 +19,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LectorCSV {
   private final String csvFile;
 
 
-    public LectorCSV(String csvFile) throws FileNotFoundException {
+  public LectorCSV(String csvFile) throws FileNotFoundException {
     this.csvFile = csvFile;
   }
 
@@ -39,29 +40,32 @@ public class LectorCSV {
             .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
             .build();
 
-    while ((line = lector.readNext())!= null){
-      if(!line[0].isBlank()) {
-        TipoDocumento tipoDocumento = TipoDocumento.valueOf(line[0]);
-        String numeroDocumento = line[1];
-        String nombre = line[2];
-        String apellido = line[3];
-        String mail = line[4];
-        LocalDate fechaColaboracion = LocalDate.parse(line[5], formatter);
-        TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
-        int cantidad = Integer.parseInt(line[7]);
+    while ((line = lector.readNext()) != null){
+      if(Objects.equals(line[0], "\n")) continue;
+      for (int i=0; i<line.length; i++)
+        line[i] = line[i].strip();
+
+      TipoDocumento tipoDocumento = TipoDocumento.valueOf(line[0]);
+      String numeroDocumento = line[1];
+      String nombre = line[2];
+      String apellido = line[3];
+      String mail = line[4];
+      LocalDate fechaColaboracion = LocalDate.parse(line[5], formatter);
+      TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
+      int cantidad = Integer.parseInt(line[7]);
 
 
-        Documento documento = new Documento(tipoDocumento, numeroDocumento);
-        Email email = new Email(mail);
-        Colaborador colaborador = new Colaborador(documento, nombre, apellido);
-        colaborador.addMedioContacto(email);
-        colaborador.setDocumento(documento);
-        Colaboracion colaboracion = colaboracionBuilder.crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
+      Documento documento = new Documento(tipoDocumento, numeroDocumento);
+      Email email = new Email(mail);
+      Colaborador colaborador = new Colaborador(documento, nombre, apellido);
+      colaborador.addMedioContacto(email);
+      colaborador.setDocumento(documento);
+      Colaboracion colaboracion = colaboracionBuilder.crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
-        colaborador.sumarPuntosReconocimientos(colaboracion.calcularReconocimientoParcial());
+     // colaborador.sumarPuntosReconocimientos(colaboracion.calcularReconocimientoParcial());
 
-        listadoColaboraciones.add(colaboracion);
-      }
+      listadoColaboraciones.add(colaboracion);
+
 
     }
     return listadoColaboraciones;

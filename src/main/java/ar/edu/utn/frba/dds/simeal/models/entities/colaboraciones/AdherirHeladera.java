@@ -20,7 +20,7 @@ public class AdherirHeladera implements Colaboracion{
   private Heladera heladera;
 
   @Override
-  public Float calcularReconocimientoParcial() {
+  public double calcularReconocimientoParcial() {
     Period periodoEnFuncionamiento = Period.between(this.fechaDeRealizacion, LocalDate.now());
 
     Integer cantMeses =

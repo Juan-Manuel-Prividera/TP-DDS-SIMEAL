@@ -29,8 +29,8 @@ public class Oferta implements Colaboracion {
 */
 
   @Override
-  public Float calcularReconocimientoParcial() {
-    return 0F;
+  public double calcularReconocimientoParcial() {
+    return 0;
   }
 
   public void canjear() {

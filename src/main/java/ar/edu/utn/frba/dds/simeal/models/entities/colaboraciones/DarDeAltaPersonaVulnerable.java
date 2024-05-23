@@ -26,7 +26,7 @@ public class DarDeAltaPersonaVulnerable implements Colaboracion{
 */
 
   @Override
-  public Float calcularReconocimientoParcial(){
+  public double calcularReconocimientoParcial(){
     return this.falctorDeReconocimiento;
   }
 

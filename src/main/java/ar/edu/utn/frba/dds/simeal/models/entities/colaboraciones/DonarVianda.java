@@ -13,10 +13,10 @@ public class DonarVianda implements Colaboracion{
   private Colaborador colaborador;
   private LocalDate fechaDeRealizacion;
   private Vianda vianda;
-  private Float factorDeReconocimiento = 1.5F;
+  private double factorDeReconocimiento = 1.5;
 
   @Override
-  public Float calcularReconocimientoParcial(){
+  public double calcularReconocimientoParcial(){
     return this.factorDeReconocimiento;
   }
 }

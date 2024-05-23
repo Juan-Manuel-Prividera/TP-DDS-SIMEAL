@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class LectorCSVTest {
-    String csvFile = "src/main/java/ar/edu/utn/frba/dds/service/cargadorDatos/datos.csv";
+    String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/service/cargadorDatos/datos.csv";
     ColaboracionBuilder colaboracionFactory = new ColaboracionBuilder();
 
     @Test

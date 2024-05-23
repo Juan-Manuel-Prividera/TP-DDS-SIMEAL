@@ -7,4 +7,7 @@ import java.util.List;
 public class Sensor {
   private TipoSensor tipoSensor;
   private Heladera heladera;
+
+
+  public void administrarMedicion() {}
 }

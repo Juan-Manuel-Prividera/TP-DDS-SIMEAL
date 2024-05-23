@@ -19,10 +19,10 @@ public class DistribuirVianda implements Colaboracion {
   private Motivo motivo;
   private List<Vianda> viandas;
   private int cantidadViandasAMover;
-  private Float factorDeReconocimiento = 1F;
+  private double factorDeReconocimiento = 1;
 
   @Override
-  public Float calcularReconocimientoParcial(){
+  public double calcularReconocimientoParcial(){
     return cantidadViandasAMover * factorDeReconocimiento;
   }
 

@@ -16,10 +16,10 @@ public class DonarDinero implements Colaboracion {
   private Frecuencia frecuencia;
   private LocalDate fechaDeRealizacion;
   private Integer cantidadDinero;
-  private Float factorDeReconocimiento = 0.5F;
+  private double factorDeReconocimiento = 0.5;
 
   @Override
-  public Float calcularReconocimientoParcial(){
+  public double calcularReconocimientoParcial(){
     return cantidadDinero * this.factorDeReconocimiento;
   }
 }
