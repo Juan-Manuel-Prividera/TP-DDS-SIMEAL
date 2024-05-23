@@ -1,9 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+
 import java.util.List;
 
 public class Sensor {
-  private List<Medicion> mediciones;
   private TipoSensor tipoSensor;
-  private AdministradorAlertas administradorAlertas;
+  private Heladera heladera;
 }

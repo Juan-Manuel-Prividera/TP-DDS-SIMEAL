@@ -7,4 +7,5 @@ public class Activa implements EstadoHeladera {
   public void notificarEstado() {
 
   }
+
 }

@@ -22,10 +22,9 @@ import java.util.List;
 
 public class LectorCSV {
   private final String csvFile;
-  private ColaboracionBuilder colaboracionBuilder;
 
 
-  public LectorCSV(String csvFile) throws FileNotFoundException {
+    public LectorCSV(String csvFile) throws FileNotFoundException {
     this.csvFile = csvFile;
   }
 
@@ -34,6 +33,7 @@ public class LectorCSV {
     List<Colaboracion> listadoColaboraciones = new ArrayList<>();
     String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    ColaboracionBuilder colaboracionBuilder = new ColaboracionBuilder();
 
     CSVReader lector = new CSVReaderBuilder(new FileReader(csvFile))
             .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
@@ -56,9 +56,9 @@ public class LectorCSV {
         Colaborador colaborador = new Colaborador(documento, nombre, apellido);
         colaborador.addMedioContacto(email);
         colaborador.setDocumento(documento);
-
-        colaboracionBuilder = new ColaboracionBuilder();
         Colaboracion colaboracion = colaboracionBuilder.crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
+
+        colaborador.sumarPuntosReconocimientos(colaboracion.calcularReconocimientoParcial());
 
         listadoColaboraciones.add(colaboracion);
       }

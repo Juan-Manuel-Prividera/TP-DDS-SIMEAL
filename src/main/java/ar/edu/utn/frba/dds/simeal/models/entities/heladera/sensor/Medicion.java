@@ -6,4 +6,5 @@ public class Medicion {
   private LocalDate fechaMedicion;
   private String medicion;
   private Boolean valor;
+  private Sensor sensor;
 }

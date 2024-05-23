@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.service.enviadorMails.EnviadorDeMails;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
@@ -20,17 +22,28 @@ public class EnviadorDeMailsTest {
     EnviadorDeMails enviadorDeMails;
     GreenMail greenMail;
     Properties props;
+    ConfigReader configReader;
+    String greenmailHost;
+    String greenmailPort;
+
 
     @BeforeEach
     public void setUp(){
-        enviadorDeMails = new EnviadorDeMails("3025","localhost",true);
-        greenMail = new GreenMail(new ServerSetup(3025,"localhost","smtp"));
-        greenMail.setUser("jprividera@frba.utn.edu.ar","bsmn ctyt qbug stah");
+        configReader = new ConfigReader("src/main/application.properties");
+        greenmailPort = configReader.getProperty("greenmail.port");
+        greenmailHost = configReader.getProperty("greenmail.host");
+
+        enviadorDeMails = new EnviadorDeMails(configReader);
+        enviadorDeMails.setHost(greenmailHost);
+        enviadorDeMails.setPort(greenmailPort);
+
+        greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
+        greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
         greenMail.start();
 
         props = new Properties();
-        props.put("mail.smtp.host", "localhost");
-        props.put("mail.smtp.port", "3025");
+        props.put("mail.smtp.host", greenmailHost);
+        props.put("mail.smtp.port", greenmailPort);
     }
 
     @AfterEach
@@ -43,19 +56,20 @@ public class EnviadorDeMailsTest {
         Session session = Session.getInstance(props,null);
 
         MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("jprividera@frba.utn.edu.ar"));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("jprividera@gmail.com"));
+        message.setFrom(new InternetAddress(configReader.getProperty("user.email")));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("jmprividera@gmail.com"));
         message.setSubject("hola");
         message.setText("hola cuerpo");
 
-        enviadorDeMails.enviarMail("jmprividera@gmail.com","hola","hola cuerpo");
+        Mensaje mensaje = new Mensaje("hola cuerpo", "hola");
+        enviadorDeMails.enviar("jmprividera@gmail.com",mensaje);
 
         greenMail.waitForIncomingEmail(5000,1);
         Message[] messages = greenMail.getReceivedMessages();
 
         Assertions.assertEquals(1, messages.length);
-        Assertions.assertEquals("hola", messages[0].getSubject());
-        Assertions.assertEquals("hola cuerpo", messages[0].getContent());
+        Assertions.assertEquals(mensaje.getAsunto(), messages[0].getSubject());
+        Assertions.assertEquals(mensaje.getMensaje(), messages[0].getContent());
 
 
     }

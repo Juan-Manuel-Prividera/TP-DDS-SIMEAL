@@ -17,7 +17,7 @@ public class LectorCSVTest {
     @Test
     public void leerColaboradoresTest() throws IOException, CsvException {
         LectorCSV lectorCSV = new LectorCSV(csvFile);
-       List<Colaboracion> colaboraciones = lectorCSV.leerColaboradores();
+        List<Colaboracion> colaboraciones = lectorCSV.leerColaboradores();
 
         Assertions.assertTrue(colaboraciones.size() == 4);
     }
