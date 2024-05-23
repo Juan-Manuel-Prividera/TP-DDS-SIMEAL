@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto.MedioCo
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,9 @@ public class Colaborador {
   List<MedioContacto> mediosDeContacto = new ArrayList<>();
   TipoJuridico tipoJuridico;
   FormularioContestado formularioContestado;
-  double puntosDeReconocimiento;
+  private CalculadorDeReconocimientos caluladoraDeReconocimientos = new CalculadorDeReconocimientos();
+  double puntosDeReconocimientoGastados;
+
 
   public Colaborador(Documento documento, String nombre, String apellido) {
     this.documento = documento;
@@ -33,14 +36,18 @@ public class Colaborador {
     this.apellido = apellido;
   }
 
-  public void sumarPuntosReconocimientos(double puntos){
-    puntosDeReconocimiento += puntos;
-  }
   public void addMedioContacto(MedioContacto medioContacto) {
     mediosDeContacto.add(medioContacto);
   }
 
+  public void gastarPuntos(float puntos){
+    this.puntosDeReconocimientoGastados += puntos;
+  }
   public boolean puedeCanjear(Oferta oferta){
-    return puntosDeReconocimiento >= oferta.getPuntosNecesarios();
+    return caluladoraDeReconocimientos.calcularReconocimientoTotal(this)
+        -
+        this.puntosDeReconocimientoGastados
+        >= oferta.getPuntosNecesarios();
   }
 }
+

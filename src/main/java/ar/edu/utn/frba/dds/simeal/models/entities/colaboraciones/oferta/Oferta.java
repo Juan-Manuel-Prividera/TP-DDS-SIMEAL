@@ -33,7 +33,13 @@ public class Oferta implements Colaboracion {
     return 0;
   }
 
-  public void canjear() {
-    //TODO
+  public void canjear(Colaborador colaborador) {
+    try{
+      if(!colaborador.puedeCanjear(this))
+        throw new RuntimeException("Colaborador no posee suficientes puntos");
+    }catch (RuntimeException e){
+      return;
+    }
+    colaborador.gastarPuntos(this.puntosNecesarios);
   }
 }

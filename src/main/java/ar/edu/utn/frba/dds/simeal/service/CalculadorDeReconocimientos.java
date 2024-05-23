@@ -2,15 +2,14 @@ package ar.edu.utn.frba.dds.simeal.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CalculadorDeReconocimientos {
-    private List<Colaboracion> colaboraciones;
-
-    public CalculadorDeReconocimientos(List<Colaboracion> colaboraciones) {
-        this.colaboraciones = colaboraciones;
-    }
+    @Setter
+    private List<Colaboracion> colaboraciones = new ArrayList<>();
 
     public float calcularReconocimientoTotal(Colaborador colaborador) {
         float reconocimiento = 0;
