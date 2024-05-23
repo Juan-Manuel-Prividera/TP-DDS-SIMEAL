@@ -18,6 +18,7 @@ public class DonarDinero implements Colaboracion {
   private Integer cantidadDinero;
   private double factorDeReconocimiento = 0.5;
 
+
   @Override
   public double calcularReconocimientoParcial(){
     return cantidadDinero * this.factorDeReconocimiento;

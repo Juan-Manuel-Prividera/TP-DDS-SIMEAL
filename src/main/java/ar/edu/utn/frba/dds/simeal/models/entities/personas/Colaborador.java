@@ -7,12 +7,13 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto.MedioCo
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
+@Setter @Getter
 public class Colaborador {
   String nombre;
   String apellido;
@@ -27,6 +28,9 @@ public class Colaborador {
   double puntosDeReconocimiento;
 
   public Colaborador(Documento documento, String nombre, String apellido) {
+    this.documento = documento;
+    this.nombre = nombre;
+    this.apellido = apellido;
   }
 
   public void sumarPuntosReconocimientos(double puntos){
