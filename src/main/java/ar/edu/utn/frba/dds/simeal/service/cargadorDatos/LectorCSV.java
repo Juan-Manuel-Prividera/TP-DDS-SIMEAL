@@ -11,7 +11,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,10 +39,14 @@ public class LectorCSV {
             .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
             .build();
 
-    while ((line = lector.readNext()) != null){
-      if(Objects.equals(line[0], "\n")) continue;
-      for (int i=0; i<line.length; i++)
+    while ((line = lector.readNext()) != null) {
+      if (Objects.equals(line[0], "\n")) {
+        continue;
+      }
+
+      for (int i = 0; i < line.length; i++) {
         line[i] = line[i].strip();
+      }
 
       TipoDocumento tipoDocumento = TipoDocumento.valueOf(line[0]);
       String numeroDocumento = line[1];
@@ -56,11 +59,13 @@ public class LectorCSV {
 
 
       Documento documento = new Documento(tipoDocumento, numeroDocumento);
-      Email email = new Email(mail,null);
+      Email email = new Email(mail, null);
       Colaborador colaborador = new Colaborador(documento, nombre, apellido);
       colaborador.addMedioContacto(email);
       colaborador.setDocumento(documento);
-      Colaboracion colaboracion = colaboracionBuilder.crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
+
+      Colaboracion colaboracion = colaboracionBuilder
+          .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
       listadoColaboraciones.add(colaboracion);
 

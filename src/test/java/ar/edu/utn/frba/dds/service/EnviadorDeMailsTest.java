@@ -33,19 +33,19 @@ public class EnviadorDeMailsTest {
 
     @BeforeEach
     public void setUp(){
-        configReader = new ConfigReader("src/main/application.properties");
-        greenmailPort = configReader.getProperty("greenmail.port");
-        greenmailHost = configReader.getProperty("greenmail.host");
+    configReader = new ConfigReader("src/main/application.properties");
+    greenmailPort = configReader.getProperty("greenmail.port");
+    greenmailHost = configReader.getProperty("greenmail.host");
 
-        enviadorDeMails = new EnviadorDeMails(configReader, "greenmail");
+    enviadorDeMails = new EnviadorDeMails(configReader, "greenmail");
 
-        greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
-        greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
-        greenMail.start();
+    greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
+    greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
+    greenMail.start();
 
-        props = new Properties();
-        props.put("mail.smtp.host", greenmailHost);
-        props.put("mail.smtp.port", greenmailPort);
+    props = new Properties();
+    props.put("mail.smtp.host", greenmailHost);
+    props.put("mail.smtp.port", greenmailPort);
     }
 
     @AfterEach
@@ -53,11 +53,13 @@ public class EnviadorDeMailsTest {
         greenMail.stop();
     }
 
+/*
     @Test
     public void enviarMailPosta() {
         enviadorDeMails = new EnviadorDeMails(new ConfigReader("src/main/application.properties"));
         enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
     }
+*/
 
     @Test
     public void testSeEnvioElMail() throws MessagingException, IOException {

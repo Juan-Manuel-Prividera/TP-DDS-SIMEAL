@@ -3,11 +3,12 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.AdministradorAlertas;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
+
 
 @Getter
 @RequiredArgsConstructor
@@ -27,15 +28,15 @@ public class Heladera {
     this.modelo = modelo;
   }
 
-  public void cambiarDeEstado(EstadoHeladera nuevoEstado){
+  public void cambiarDeEstado(EstadoHeladera nuevoEstado) {
     this.estado = nuevoEstado;
   }
 
-  public boolean validarEstado(){
+  public boolean validarEstado() {
     return this.estado.validarEstado();
   }
 
-  public String enviarNotificacionPorDefecto(){
+  public String enviarNotificacionPorDefecto() {
     return this.estado.notificarEstado();
   }
 

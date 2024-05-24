@@ -4,18 +4,18 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracio
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 
-@Setter @Getter
+
+@Setter
+@Getter
 public class Colaborador {
   String nombre;
   String apellido;
@@ -23,10 +23,10 @@ public class Colaborador {
   Ubicacion direccion;
   String razonSocial;
   Rubro rubro;
-  List<MedioContacto> mediosDeContacto = new ArrayList<>();
   TipoJuridico tipoJuridico;
   FormularioContestado formularioContestado;
   double puntosDeReconocimientoGastados;
+  List<MedioContacto> mediosDeContacto = new ArrayList<>();
   private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
 
@@ -40,12 +40,12 @@ public class Colaborador {
     mediosDeContacto.add(medioContacto);
   }
 
-  public void gastarPuntos(double puntos){
+  public void gastarPuntos(double puntos) {
     this.puntosDeReconocimientoGastados += puntos;
   }
 
-  public boolean puedeCanjear(Oferta oferta, double puntosTotales){
-    return puntosTotales-puntosDeReconocimientoGastados >= oferta.getPuntosNecesarios();
+  public boolean puedeCanjear(Oferta oferta, double puntosTotales) {
+    return puntosTotales - puntosDeReconocimientoGastados >= oferta.getPuntosNecesarios();
   }
 }
 

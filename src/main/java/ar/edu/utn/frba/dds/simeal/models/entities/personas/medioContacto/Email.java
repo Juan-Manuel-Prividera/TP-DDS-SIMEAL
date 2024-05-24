@@ -15,7 +15,7 @@ public class Email implements MedioContacto {
 
   @Override
   public void notificar(Mensaje mensaje) {
-    enviador.enviar(email,mensaje);
+    enviador.enviar(email, mensaje);
   }
 
 }

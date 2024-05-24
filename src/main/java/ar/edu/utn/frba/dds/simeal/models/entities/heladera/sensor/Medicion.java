@@ -5,14 +5,15 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter @Setter
+@Getter
+@Setter
 public class Medicion {
   private LocalDate fechaMedicion;
   private String medicion;
   private Boolean medicionCritica;
   private TipoMedicion tipoMedicion;
 
-  public boolean generaAlerta(){
+  public boolean generaAlerta() {
     return medicionCritica;
   }
 

@@ -1,9 +1,13 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.usuario;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class Rol {
-    String rol;
-    List<Permisos> permisos;
+  String rol;
+  List<Permisos> permisos;
 }

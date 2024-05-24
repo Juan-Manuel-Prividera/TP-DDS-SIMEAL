@@ -1,8 +1,12 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados;
 
-public class Inactiva implements EstadoHeladera {
-  private String notificacion;
 
+public class Inactiva implements EstadoHeladera {
+  private String notificacion = "La heladera se encuentra inactiva: ";
+
+  public Inactiva(String notificacion) {
+    this.notificacion += notificacion;
+  }
 
   @Override
   public String notificarEstado() {
@@ -10,7 +14,7 @@ public class Inactiva implements EstadoHeladera {
   }
 
   @Override
-  public boolean validarEstado(){
+  public boolean validarEstado() {
     return false;
   }
 }

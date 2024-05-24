@@ -14,6 +14,6 @@ public class Telefono implements MedioContacto {
 
   @Override
   public void notificar(Mensaje mensaje) {
-    enviador.enviar(numero,mensaje);
+    enviador.enviar(numero, mensaje);
   }
 }
