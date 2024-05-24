@@ -8,6 +8,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class ColaboracionBuilder {
 
 
@@ -20,5 +22,6 @@ public class ColaboracionBuilder {
         case OFERTA -> Oferta.builder().colaborador(colaborador).fechaDeRealizacion(fecha).build();
         case ADHERIR_HELADERA -> AdherirHeladera.builder().colaborador(colaborador).fechaDeRealizacion(fecha).build();
       };
+
   }
 }

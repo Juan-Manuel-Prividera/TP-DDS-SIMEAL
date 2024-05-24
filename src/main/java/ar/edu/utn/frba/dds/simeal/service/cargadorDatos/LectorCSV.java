@@ -56,13 +56,11 @@ public class LectorCSV {
 
 
       Documento documento = new Documento(tipoDocumento, numeroDocumento);
-      Email email = new Email(mail);
+      Email email = new Email(mail,null);
       Colaborador colaborador = new Colaborador(documento, nombre, apellido);
       colaborador.addMedioContacto(email);
       colaborador.setDocumento(documento);
       Colaboracion colaboracion = colaboracionBuilder.crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
-
-     // colaborador.sumarPuntosReconocimientos(colaboracion.calcularReconocimientoParcial());
 
       listadoColaboraciones.add(colaboracion);
 

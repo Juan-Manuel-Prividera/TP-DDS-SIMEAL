@@ -17,15 +17,13 @@ public class DistribuirVianda implements Colaboracion {
   private LocalDate fechaDeRealizacion;
   private Heladera origen, destino;
   private Motivo motivo;
-  private List<Vianda> viandas;
+  private int cantidadViandasAMover;
+  @Builder.Default
   private double factorDeReconocimiento = 1;
 
   @Override
   public double calcularReconocimientoParcial(){
-    return this.cantViandasAfectadas() * factorDeReconocimiento;
+    return this.cantidadViandasAMover * factorDeReconocimiento;
   }
 
-  public Integer cantViandasAfectadas(){
-    return this.viandas.size();
-  }
 }

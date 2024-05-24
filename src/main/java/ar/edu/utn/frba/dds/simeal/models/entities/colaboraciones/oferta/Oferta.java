@@ -15,31 +15,25 @@ public class Oferta implements Colaboracion {
   private LocalDate fechaDeRealizacion;
   private String nombre;
   @Setter
-  private Float puntosNecesarios;
+  private double puntosNecesarios;
   @Setter
   private Rubro rubro;
   @Setter
   private String imagen;
 
-/*
-  public Oferta(Colaborador colaborador, LocalDate fechaDeRealizacion) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = fechaDeRealizacion;
-  }
-*/
+
+//  public Oferta(){
+//    fechaDeRealizacion = LocalDate.now();
+//  }
 
   @Override
   public double calcularReconocimientoParcial() {
     return 0;
   }
 
+  // La validacion de si puede canjearla se haria antes de ejecutar este metodo
   public void canjear(Colaborador colaborador) {
-    try{
-      if(!colaborador.puedeCanjear(this))
-        throw new RuntimeException("Colaborador no posee suficientes puntos");
-    }catch (RuntimeException e){
-      return;
-    }
     colaborador.gastarPuntos(this.puntosNecesarios);
   }
+
 }

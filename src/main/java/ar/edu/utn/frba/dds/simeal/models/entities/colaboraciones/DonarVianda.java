@@ -13,7 +13,12 @@ public class DonarVianda implements Colaboracion{
   private Colaborador colaborador;
   private LocalDate fechaDeRealizacion;
   private Vianda vianda;
+  @Builder.Default
   private double factorDeReconocimiento = 1.5;
+
+//  public DonarVianda() {
+//    fechaDeRealizacion = LocalDate.now();
+//  }
 
   @Override
   public double calcularReconocimientoParcial(){

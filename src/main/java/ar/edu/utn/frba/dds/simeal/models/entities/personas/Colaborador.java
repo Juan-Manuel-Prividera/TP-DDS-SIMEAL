@@ -26,7 +26,6 @@ public class Colaborador {
   List<MedioContacto> mediosDeContacto = new ArrayList<>();
   TipoJuridico tipoJuridico;
   FormularioContestado formularioContestado;
-  private CalculadorDeReconocimientos caluladoraDeReconocimientos = new CalculadorDeReconocimientos();
   double puntosDeReconocimientoGastados;
   private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
@@ -41,14 +40,12 @@ public class Colaborador {
     mediosDeContacto.add(medioContacto);
   }
 
-  public void gastarPuntos(float puntos){
+  public void gastarPuntos(double puntos){
     this.puntosDeReconocimientoGastados += puntos;
   }
-  public boolean puedeCanjear(Oferta oferta){
-    return caluladoraDeReconocimientos.calcularReconocimientoTotal(this)
-        -
-        this.puntosDeReconocimientoGastados
-        >= oferta.getPuntosNecesarios();
+
+  public boolean puedeCanjear(Oferta oferta, double puntosTotales){
+    return puntosTotales-puntosDeReconocimientoGastados >= oferta.getPuntosNecesarios();
   }
 }
 

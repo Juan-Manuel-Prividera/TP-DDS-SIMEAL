@@ -15,17 +15,22 @@ import java.util.List;
 public class AdherirHeladera implements Colaboracion{
   private Colaborador colaborador;
   private LocalDate fechaDeRealizacion;
-  private Float factorDeReconocimiento = 5F;
+  @Builder.Default
+  private double factorDeReconocimiento = 5;
   private Heladera heladera;
 
+//  public AdherirHeladera(){
+//    fechaDeRealizacion = LocalDate.now();
+//  }
+//
   @Override
   public double calcularReconocimientoParcial() {
     Period periodoEnFuncionamiento = Period.between(this.fechaDeRealizacion, LocalDate.now());
 
-    Integer cantMeses =
+    double cantMeses =
         periodoEnFuncionamiento.getYears()*12
           +
         periodoEnFuncionamiento.getMonths();
-    return cantMeses.floatValue() * this.factorDeReconocimiento;
+    return cantMeses * this.factorDeReconocimiento;
   }
 }

@@ -11,30 +11,28 @@ import java.util.Properties;
 
 @Setter
 public class EnviadorDeMails implements Enviador {
-    // Estaria bueno sacar esto de un archivo de configuracion
     private String useremail;
     private String password;
     private String host; // smtp.gmail.com
     private String port; // 587
-    private final boolean auth;
+    private boolean auth;
 
+    // Por defecto usar Gmail
     public EnviadorDeMails(ConfigReader configReader) {
-        this.host = configReader.getProperty("gmail.host");
-        this.port = configReader.getProperty("gmail.port");
+        init(configReader,"gmail");
+    }
+    // Para hacer los test o si se quiere usar otro proveedor
+    public EnviadorDeMails(ConfigReader configReader, String proveedor) {
+        init(configReader, proveedor);
+    }
+
+    private void init(ConfigReader configReader, String proveedor) {
+        this.host = configReader.getProperty(proveedor+".host");
+        this.port = configReader.getProperty(proveedor+".port");
         this.useremail = configReader.getProperty("user.email");
         this.password = configReader.getProperty("app.password");
         this.auth = true;
     }
-
-    // Se usa en el test para probar en un servidor local
-//    public EnviadorDeMails(ConfigReader configReader){
-//        this.host = configReader.getProperty("greenmail.host");
-//        this.port = configReader.getProperty("greenmail.port");
-//        this.useremail = configReader.getProperty("user.email");
-//        this.password = configReader.getProperty("app.password");
-//        this.auth = true;
-//    }
-
 
     public void enviar(String destinatario, Mensaje mensaje) {
         Properties properties = new Properties();
@@ -46,25 +44,17 @@ public class EnviadorDeMails implements Enviador {
 
         Session session;
         try {
-            if (auth) {
-                // Creacion de la sesion
-                session = Session.getInstance(properties, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(useremail, password);
-                    }
-                });
-                session.setDebug(true);
-            } else{
-                session = Session.getDefaultInstance(properties, null);
-            }
+            // Creacion de la sesion
+            session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(useremail, password);
+                }
+            });
+            session.setDebug(true);
 
             // Creacion del mensaje
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(useremail)); // Origen del correo
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario)); // Destinatario del correo
-            message.setSubject(mensaje.getAsunto()); // Asunto del mail
-            message.setText(mensaje.getMensaje()); // Cuerpo del mail
+            Message message = crearMessage(session,mensaje,destinatario);
 
             // Envio del mail
             Transport transport = session.getTransport("smtp");
@@ -75,5 +65,15 @@ public class EnviadorDeMails implements Enviador {
         } catch (MessagingException e){
             throw new RuntimeException(e);
         }
+    }
+
+    private Message crearMessage(Session session, Mensaje mensaje, String destinatario) throws MessagingException {
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(useremail)); // Origen del correo
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario)); // Destinatario del correo
+        message.setSubject(mensaje.getAsunto()); // Asunto del mail
+        message.setText(mensaje.getMensaje()); // Cuerpo del mail
+
+        return message;
     }
 }

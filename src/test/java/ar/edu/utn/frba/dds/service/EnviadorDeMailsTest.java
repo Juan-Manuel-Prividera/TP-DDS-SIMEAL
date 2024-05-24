@@ -1,6 +1,10 @@
 package ar.edu.utn.frba.dds.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto.Email;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.service.enviadorMails.EnviadorDeMails;
 import com.icegreen.greenmail.util.GreenMail;
@@ -33,9 +37,7 @@ public class EnviadorDeMailsTest {
         greenmailPort = configReader.getProperty("greenmail.port");
         greenmailHost = configReader.getProperty("greenmail.host");
 
-        enviadorDeMails = new EnviadorDeMails(configReader);
-        enviadorDeMails.setHost(greenmailHost);
-        enviadorDeMails.setPort(greenmailPort);
+        enviadorDeMails = new EnviadorDeMails(configReader, "greenmail");
 
         greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
         greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
@@ -49,6 +51,12 @@ public class EnviadorDeMailsTest {
     @AfterEach
     public void after(){
         greenMail.stop();
+    }
+
+    @Test
+    public void enviarMailPosta() {
+        enviadorDeMails = new EnviadorDeMails(new ConfigReader("src/main/application.properties"));
+        enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
     }
 
     @Test
@@ -72,5 +80,20 @@ public class EnviadorDeMailsTest {
         Assertions.assertEquals(mensaje.getMensaje(), messages[0].getContent());
 
 
+    }
+
+    @Test
+    public void envioNotificacionAColab() throws MessagingException, IOException {
+        Colaborador colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez");
+        colaborador.addMedioContacto(new Email("jperez@gmail.com",enviadorDeMails));
+        Mensaje mensaje = new Mensaje("Hola juan", "Notificacion");
+        colaborador.getMediosDeContacto().get(0).notificar(mensaje);
+
+        greenMail.waitForIncomingEmail(5000,1);
+        Message[] messages = greenMail.getReceivedMessages();
+
+        Assertions.assertEquals(1, messages.length);
+        Assertions.assertEquals(mensaje.getAsunto(), messages[0].getSubject());
+        Assertions.assertEquals(mensaje.getMensaje(), messages[0].getContent());
     }
 }

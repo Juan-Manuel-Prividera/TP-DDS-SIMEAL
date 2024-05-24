@@ -16,7 +16,9 @@ public class DonarDinero implements Colaboracion {
   private Frecuencia frecuencia;
   private LocalDate fechaDeRealizacion;
   private Integer cantidadDinero;
+  @Builder.Default
   private double factorDeReconocimiento = 0.5;
+
 
 
   @Override
