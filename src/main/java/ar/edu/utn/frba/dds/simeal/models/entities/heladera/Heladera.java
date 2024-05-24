@@ -19,11 +19,12 @@ public class Heladera {
   private Modelo modelo;
   private AdministradorAlertas administradorAlertas;
   private List<Desperfecto> desperfectos;
-  private Float ultimaTempRegistrada;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
+    this.nombre = nombre;
+    this.modelo = modelo;
   }
 
   public void cambiarDeEstado(EstadoHeladera nuevoEstado){
