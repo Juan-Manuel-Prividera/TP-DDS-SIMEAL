@@ -17,7 +17,6 @@ public class Tarjeta {
   private PersonaVulnerable personaVulnerable;
   private Colaborador colaborador; // El que entrego la tarjeta
   private List<LocalDate> fechasRetiros;
-  private int limiteUsoDiario;
   private int limiteDeUsoDiario = 4;
   private int retirosAdicionalesPorMenores = 1;
 
