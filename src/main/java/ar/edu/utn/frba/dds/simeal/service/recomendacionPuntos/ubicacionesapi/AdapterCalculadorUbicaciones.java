@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AdapterCalculadorUbicaciones {
   private UbicacionesApi ubicacionesServiceApi;
   private Retrofit retrofit;
-  String urlApi; // Habira que sacarla de un archivo de configuracion pero como no tenemos la API...
+  String urlApi = "https://e3f277f2-b18d-431c-8700-75330aedc45f.mock.pstmn.io"; // Habira que sacarla de un archivo de configuracion pero como no tenemos la API...
 
   public AdapterCalculadorUbicaciones() {
     this.retrofit = new Retrofit.Builder()
