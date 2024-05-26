@@ -36,7 +36,7 @@ public class EnviadorDeMailsTest {
     greenmailPort = configReader.getProperty("greenmail.port");
     greenmailHost = configReader.getProperty("greenmail.host");
 
-    enviadorDeMails = new EnviadorDeMails(configReader, "greenmail");
+    enviadorDeMails = EnviadorDeMails.getInstancia(configReader, "greenmail");
 
     greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
     greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
