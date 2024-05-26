@@ -13,16 +13,13 @@ public class Vianda {
   private final LocalDate fechaCaducidad;
   private final LocalDate fechaDonacion;
   private Colaborador colaborador;
-  private final int calorias;
+  private int calorias;
   private Heladera heladera;
 
-  public Vianda(TipoDeComida tipoDeComida, LocalDate fechaCaducidad,
-                LocalDate fechaDonacion, int calorias, Heladera heladera) {
-
+  public Vianda(TipoDeComida tipoDeComida, LocalDate fechaCaducidad, Heladera heladera) {
     this.tipoDeComida = tipoDeComida;
     this.fechaCaducidad = fechaCaducidad;
-    this.fechaDonacion = fechaDonacion;
-    this.calorias = calorias;
+    this.fechaDonacion =LocalDate.now();
     this.heladera = heladera;
   }
 

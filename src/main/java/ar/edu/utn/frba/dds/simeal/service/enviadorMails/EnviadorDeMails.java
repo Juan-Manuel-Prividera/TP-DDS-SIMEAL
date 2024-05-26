@@ -22,10 +22,18 @@ public class EnviadorDeMails implements Enviador {
   private String port; // 587
   private boolean auth;
 
+  private EnviadorDeMails instancia = null;
   // Por defecto usar Gmail
   public EnviadorDeMails(ConfigReader configReader) {
     init(configReader, "gmail");
   }
+
+//  public EnviadorDeMails getInstancia(){
+//    if(instancia == null){
+//      return new EnviadorDeMails();
+//    } else
+//      return instancia;
+//  }
 
   // Para hacer los test o si se quiere usar otro proveedor
   public EnviadorDeMails(ConfigReader configReader, String proveedor) {
