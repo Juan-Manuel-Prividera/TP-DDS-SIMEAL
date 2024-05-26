@@ -1,8 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class Heladera {
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.modelo = modelo;
+    desperfectos = new ArrayList<>();
   }
 
   public void cambiarDeEstado(EstadoHeladera nuevoEstado) {

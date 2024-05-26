@@ -4,19 +4,26 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PersonaVulnerable {
-  private final String nombre;
-  private final LocalDate fechaNacimiento;
-  private final LocalDate fechaRegistro;
+  private String nombre;
+  private LocalDate fechaNacimiento;
+  private LocalDate fechaRegistro;
   private Ubicacion domilicio;
-  private final List<PersonaVulnerable> hijos;
-  private final Documento documento;
-  private final Colaborador colaborador;
+  private List<PersonaVulnerable> hijos;
+  private Documento documento;
+  private Colaborador colaborador;
+
+  public PersonaVulnerable(List<PersonaVulnerable> hijos, LocalDate fechaNacimiento) {
+    this.hijos = hijos;
+    this.fechaNacimiento = fechaNacimiento;
+  }
+
+
 
   public boolean esMenor() {
     return LocalDate.now().getYear() - this.fechaNacimiento.getYear() < 18;

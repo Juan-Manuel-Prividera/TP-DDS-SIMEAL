@@ -19,6 +19,13 @@ public class Tarjeta {
   private int limiteDeUsoDiario = 4;
   private int retirosAdicionalesPorMenores = 1;
 
+
+  public  Tarjeta(String codigo, PersonaVulnerable personaVulnerable, List<LocalDate> fechasRetiros) {
+    this.codigo = codigo;
+    this.personaVulnerable = personaVulnerable;
+    this.fechasRetiros = fechasRetiros;
+  }
+
   public boolean puedeRetirar() {
     return this.fechasRetiros.stream()
       .filter(f -> f.getDayOfYear() == LocalDate.now().getDayOfYear()).toList().size()

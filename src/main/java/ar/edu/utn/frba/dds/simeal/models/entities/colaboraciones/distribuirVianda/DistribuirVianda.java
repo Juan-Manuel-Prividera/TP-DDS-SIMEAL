@@ -5,12 +5,14 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 
 @Builder
 @Getter
+@AllArgsConstructor
 public class DistribuirVianda implements Colaboracion {
   private Colaborador colaborador;
   private LocalDate fechaDeRealizacion;

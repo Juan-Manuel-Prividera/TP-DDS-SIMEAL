@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donarDinero;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import lombok.ToString;
 
 @Getter
 @Builder
-@ToString
+@AllArgsConstructor
 public class DonarDinero implements Colaboracion {
   private Colaborador colaborador;
   private Frecuencia frecuencia;
