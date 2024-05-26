@@ -5,12 +5,11 @@ import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.Condicion;
 import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.LongitudTest;
 import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.NoEnBlackList;
 import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.PasswordValidator;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 public class ValidadorTest {
 

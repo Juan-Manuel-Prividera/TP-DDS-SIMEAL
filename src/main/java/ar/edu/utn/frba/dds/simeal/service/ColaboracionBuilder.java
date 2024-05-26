@@ -1,7 +1,11 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.*;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirVianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donarDinero.DonarDinero;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;

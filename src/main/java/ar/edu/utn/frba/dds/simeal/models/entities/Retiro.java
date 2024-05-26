@@ -5,7 +5,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 
 @Getter

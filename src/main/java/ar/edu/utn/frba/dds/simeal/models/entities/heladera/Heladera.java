@@ -1,13 +1,12 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.AdministradorAlertas;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
+import lombok.Setter;
 
 
 @Getter
@@ -18,7 +17,6 @@ public class Heladera {
   final private LocalDate fechaColocacion;
   private EstadoHeladera estado;
   private Modelo modelo;
-  private AdministradorAlertas administradorAlertas;
   private List<Desperfecto> desperfectos;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
@@ -36,8 +34,12 @@ public class Heladera {
     return this.estado.validarEstado();
   }
 
-  public String enviarNotificacionPorDefecto() {
-    return this.estado.notificarEstado();
+  public String enviarNotificacionPorDefecto(String mensaje) {
+    return this.estado.notificarEstado(mensaje);
+  }
+
+  public void agregarDesperfecto(Desperfecto desperfecto) {
+    desperfectos.add(desperfecto);
   }
 
 }

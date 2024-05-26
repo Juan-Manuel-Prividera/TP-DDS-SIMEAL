@@ -57,7 +57,8 @@ public class EnviadorDeMails implements Enviador {
           return new PasswordAuthentication(useremail, password);
         }
       });
-      session.setDebug(true);
+
+      // session.setDebug(true);
 
       // Creacion del mensaje
       MimeMessage message = crearMessage(session, mensaje, destinatario);
