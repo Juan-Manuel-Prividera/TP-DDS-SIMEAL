@@ -7,7 +7,7 @@ import retrofit2.http.Query;
 
 public interface UbicacionesApi {
   // Esta seria la solicitud a la API posta
-  @GET
-  Call<PuntosRecomendados> getPuntosRecomendadas(@Query("lat") float lat, @Query("lon") float lon,
-                                                 @Query("radio") float radio);
+  @GET("ubicaciones")
+  Call<PuntosRecomendados> ubicaciones(@Query("lat") double lat, @Query("lon") double lon,
+                                       @Query("radio") double radio);
 }

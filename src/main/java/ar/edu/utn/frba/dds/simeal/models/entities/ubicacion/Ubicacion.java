@@ -8,12 +8,12 @@ import lombok.Setter;
 public class Ubicacion {
   private String nombreCalle;
   private int altura;
-  private double longitud;
-  private double latitud;
+  public double lat;
+  public double lon;
 
   public Ubicacion(double longitud, double latitud) {
-    this.longitud = longitud;
-    this.latitud = latitud;
+    this.lon = longitud;
+    this.lat = latitud;
   }
 
   public Ubicacion(String nombreCalle, int altura) {
@@ -24,7 +24,7 @@ public class Ubicacion {
   public Ubicacion(String nombreCalle, int altura, double longitud, double latitud) {
     this.nombreCalle = nombreCalle;
     this.altura = altura;
-    this.longitud = longitud;
-    this.latitud = latitud;
+    this.lon = longitud;
+    this.lat = latitud;
   }
 }

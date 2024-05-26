@@ -19,15 +19,15 @@ public class DarDeAltaPersonaVulnerable implements Colaboracion {
   private double factorDeReconocimiento = 2;
   private Tarjeta tarjeta;
 
-  public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable, Tarjeta tarjeta) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = LocalDate.now();
-    this.personaVulnerable = personaVulnerable;
-    this.tarjeta = tarjeta;
-
-    tarjeta.setPersonaVulnerable(personaVulnerable);
-  }
-
+//  public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable, Tarjeta tarjeta) {
+//    this.colaborador = colaborador;
+//    this.fechaDeRealizacion = LocalDate.now();
+//    this.personaVulnerable = personaVulnerable;
+//    this.tarjeta = tarjeta;
+//
+//    tarjeta.setPersonaVulnerable(personaVulnerable);
+//  }
+//
 
   @Override
   public double calcularReconocimientoParcial() {

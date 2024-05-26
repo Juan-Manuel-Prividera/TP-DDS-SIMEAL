@@ -32,7 +32,7 @@ public class EnviadorDeMailsTest {
 
     @BeforeEach
     public void setUp(){
-    configReader = new ConfigReader("src/main/application.properties");
+    configReader = new ConfigReader();
     greenmailPort = configReader.getProperty("greenmail.port");
     greenmailHost = configReader.getProperty("greenmail.host");
 

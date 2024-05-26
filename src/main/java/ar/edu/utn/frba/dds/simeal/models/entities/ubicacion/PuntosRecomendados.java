@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class PuntosRecomendados {
-  List<Ubicacion> puntosRecomendado;
+  List<Ubicacion> locations;
 }

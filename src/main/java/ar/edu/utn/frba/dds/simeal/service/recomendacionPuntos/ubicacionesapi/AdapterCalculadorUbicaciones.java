@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.recomendacionPuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
+import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -8,26 +9,29 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class AdapterCalculadorUbicaciones {
+public class AdapterCalculadorUbicaciones implements AdapterUbicacionesAPI {
   private UbicacionesApi ubicacionesServiceApi;
   private Retrofit retrofit;
-  String urlApi = "https://e3f277f2-b18d-431c-8700-75330aedc45f.mock.pstmn.io"; // Habira que sacarla de un archivo de configuracion pero como no tenemos la API...
+  String urlApi;
+  ConfigReader configReader;
 
   public AdapterCalculadorUbicaciones() {
+    configReader = new ConfigReader();
+    this.urlApi = configReader.getProperty("url.api");
+
     this.retrofit = new Retrofit.Builder()
         .baseUrl(urlApi)
         .addConverterFactory(GsonConverterFactory.create())
         .build();
-
-    this.ubicacionesServiceApi = this.retrofit.create(UbicacionesApi.class);
   }
 
-  public PuntosRecomendados getPuntosRecomendados(float lat, float lon, float radio)
+  public PuntosRecomendados getPuntosRecomendados(double lat, double lon, double radio)
       throws IOException {
-    Call<PuntosRecomendados> requestPuntosRecomendados = ubicacionesServiceApi
-        .getPuntosRecomendadas(lat, lon, radio);
+    ubicacionesServiceApi = retrofit.create(UbicacionesApi.class);
+    Call<PuntosRecomendados> requestPuntosRecomendados;
+    requestPuntosRecomendados = ubicacionesServiceApi.ubicaciones(lat, lon, radio);
     Response<PuntosRecomendados> responsePuntosRescomendador = requestPuntosRecomendados.execute();
-
     return responsePuntosRescomendador.body();
+
   }
 }

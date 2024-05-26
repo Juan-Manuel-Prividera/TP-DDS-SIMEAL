@@ -8,8 +8,9 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 
 public class ConfigReader {
   private Configuration configuration;
+  String fileName = "src/main/application.properties";
 
-  public ConfigReader(String fileName) {
+  public ConfigReader() {
     Configurations configs = new Configurations();
     try {
       configuration = configs.properties(new File(fileName));
