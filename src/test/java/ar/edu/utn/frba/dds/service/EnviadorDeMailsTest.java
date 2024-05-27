@@ -55,21 +55,13 @@ public class EnviadorDeMailsTest {
 /*
     @Test
     public void enviarMailPosta() {
-        enviadorDeMails = new EnviadorDeMails(new ConfigReader("src/main/application.properties"));
+        enviadorDeMails = EnviadorDeMails.getInstancia(new ConfigReader(),"gmail");
         enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
     }
 */
 
     @Test
     public void testSeEnvioElMail() throws MessagingException, IOException {
-        Session session = Session.getInstance(props,null);
-
-        MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(configReader.getProperty("user.email")));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("jmprividera@gmail.com"));
-        message.setSubject("hola");
-        message.setText("hola cuerpo");
-
         Mensaje mensaje = new Mensaje("hola cuerpo", "hola");
         enviadorDeMails.enviar("jmprividera@gmail.com",mensaje);
 
@@ -79,8 +71,6 @@ public class EnviadorDeMailsTest {
         Assertions.assertEquals(1, messages.length);
         Assertions.assertEquals(mensaje.getAsunto(), messages[0].getSubject());
         Assertions.assertEquals(mensaje.getMensaje(), messages[0].getContent());
-
-
     }
 
     @Test

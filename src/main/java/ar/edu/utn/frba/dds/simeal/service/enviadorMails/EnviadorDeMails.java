@@ -9,40 +9,36 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import java.util.Objects;
 import java.util.Properties;
+import lombok.Getter;
 import lombok.Setter;
 
 
 
 @Setter
+@Getter
 public class EnviadorDeMails implements Enviador {
   private String useremail;
   private String password;
   private String host; // smtp.gmail.com
   private String port; // 587
   private boolean auth;
+
   private static EnviadorDeMails instancia = null;
 
-  // Por defecto usar Gmail
-  private EnviadorDeMails(ConfigReader configReader) {
-    init(configReader, "gmail");
-  }
 
   public static EnviadorDeMails getInstancia(ConfigReader configReader) {
-    if (instancia == null) {
-      instancia = new EnviadorDeMails(configReader);
-    }
-    return instancia;
+    return getInstancia(configReader, "gmail");
   }
 
   public static EnviadorDeMails getInstancia(ConfigReader configReader, String proveedor) {
-    if (instancia == null) {
+    if (instancia == null || !instancia.port.equals(configReader.getProperty(proveedor + ".port"))) {
       instancia = new EnviadorDeMails(configReader, proveedor);
     }
     return instancia;
   }
 
-  // Para hacer los test
   private EnviadorDeMails(ConfigReader configReader, String proveedor) {
     init(configReader, proveedor);
   }
