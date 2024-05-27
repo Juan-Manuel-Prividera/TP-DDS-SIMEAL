@@ -14,8 +14,9 @@ public class ColaboradorTest {
 
   @BeforeEach
   public void init(){
-    colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"01234567"),"Juan","Perez");
-    oferta = new Oferta(1000);
+    colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"01234567"),"Juan","Perez"
+    );
+    oferta = new Oferta(null, 1000);
   }
 
   @Test

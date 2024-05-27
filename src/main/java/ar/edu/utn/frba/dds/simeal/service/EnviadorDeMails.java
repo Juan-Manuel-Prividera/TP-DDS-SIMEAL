@@ -1,7 +1,6 @@
-package ar.edu.utn.frba.dds.simeal.service.enviadormails;
+package ar.edu.utn.frba.dds.simeal.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import jakarta.mail.Authenticator;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
@@ -16,7 +15,7 @@ import lombok.Getter;
 
 
 @Getter
-public class EnviadorDeMails implements Enviador {
+public class EnviadorDeMails {
   private String useremail;
   private String password;
   private String host; // smtp.gmail.com
@@ -39,16 +38,14 @@ public class EnviadorDeMails implements Enviador {
   }
 
   private EnviadorDeMails(ConfigReader configReader, String proveedor) {
-    init(configReader, proveedor);
-  }
-
-  private void init(ConfigReader configReader, String proveedor) {
     this.host = configReader.getProperty(proveedor + ".host");
     this.port = configReader.getProperty(proveedor + ".port");
     this.useremail = configReader.getProperty("user.email");
     this.password = configReader.getProperty("app.password");
     this.auth = true;
+
   }
+
 
   public void enviar(String destinatario, Mensaje mensaje) {
     Properties properties = new Properties();

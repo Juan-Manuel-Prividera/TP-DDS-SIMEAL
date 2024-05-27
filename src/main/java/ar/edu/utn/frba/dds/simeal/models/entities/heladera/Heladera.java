@@ -12,12 +12,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class Heladera {
-  private String nombre;
+  private final String nombre;
   private final Ubicacion ubicacion;
   private final LocalDate fechaColocacion;
   private EstadoHeladera estado;
-  private Modelo modelo;
-  private List<Desperfecto> desperfectos;
+  private final Modelo modelo;
+  private final List<Desperfecto> desperfectos;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;

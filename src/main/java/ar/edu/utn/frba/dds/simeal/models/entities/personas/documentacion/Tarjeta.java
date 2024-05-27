@@ -13,8 +13,7 @@ import lombok.Setter;
 @Getter
 public class Tarjeta {
   private String codigo;
-  @Setter
-  private PersonaVulnerable personaVulnerable;
+  private final PersonaVulnerable personaVulnerable;
   private final List<LocalDate> fechasRetiros;
   private final int limiteDeUsoDiario = 4;
   private final int retirosAdicionalesPorMenores = 1;

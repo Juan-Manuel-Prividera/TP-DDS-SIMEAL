@@ -33,7 +33,8 @@ public class LectorCSVTest {
         colaboraciones = new ArrayList<>();
         colaboracionBuilder = new ColaboracionBuilder();
 
-        colaboradorPrueba = new Colaborador(new Documento(TipoDocumento.DNI,"01234567"),"JuanManuel","Prividera");
+        colaboradorPrueba = new Colaborador(new Documento(TipoDocumento.DNI,"01234567"),"JuanManuel","Prividera"
+        );
         colaboracionPrueba = colaboracionBuilder.
                 crearColaboracion(TipoColaboracion.DINERO, LocalDate.of(2024,5,21),colaboradorPrueba,2);
     }
@@ -52,7 +53,13 @@ public class LectorCSVTest {
         Assertions.assertEquals(colaboracion.getColaborador().getApellido(), colaboracionPrueba.getColaborador().getApellido());
     }
 
-
+    @Test @DisplayName("Se crean bien las colaboraciones")
+    public void seMuestranLasColaboracionesLeidas() throws IOException, CsvException {
+        colaboraciones = lectorCSV.leerColaboradores();
+        for (Colaboracion colaboracion : colaboraciones) {
+            System.out.println(colaboracion.getColaborador().getNombre());
+        }
+    }
 
 
 }

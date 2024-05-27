@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class AreaDeCobertura {
-  List<Localidad> localidades;
+  private List<Localidad> localidades;
 }

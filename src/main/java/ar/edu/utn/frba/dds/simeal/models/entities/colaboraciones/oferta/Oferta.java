@@ -9,22 +9,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter
 @Builder
 @AllArgsConstructor
 public class Oferta implements Colaboracion {
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
+  @Getter
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
   private String nombre;
 
-  @Setter
+  @Getter
   private double puntosNecesarios;
   @Setter
   private Rubro rubro;
   @Setter
   private String imagen;
 
-  public Oferta(double puntosNecesarios) {
+  public Oferta(Colaborador colaborador, double puntosNecesarios) {
+    this.colaborador = colaborador;
+    this.fechaDeRealizacion = LocalDate.now();
     this.puntosNecesarios = puntosNecesarios;
   }
 

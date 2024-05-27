@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.TipoMedicion;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
@@ -14,13 +15,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class HeladeraTest {
-  Ubicacion ubicacion= new Ubicacion(555,444);;
-  Modelo modelo= new Modelo();;
-  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);;
-  Activa estadoActivo = new Activa();;
-  Inactiva estadoInactivo = new Inactiva();;
-  Medicion medicion = new Medicion();;
-  Desperfecto desperfecto = new Desperfecto("Nada puede ser perfecto", medicion);;
+  Ubicacion ubicacion= new Ubicacion(555,444);
+  Modelo modelo= new Modelo(20,-10,50);
+  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
+  Activa estadoActivo = new Activa();
+  Inactiva estadoInactivo = new Inactiva();
+  Medicion medicion = new Medicion(TipoMedicion.TEMPERATURA);
+  Desperfecto desperfecto = new Desperfecto("Nada puede ser perfecto", medicion);
 
   @Test @DisplayName("Cambiar estado a Activa")
   public void testEstado(){

@@ -8,12 +8,12 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Tecnico {
-  String nombre;
-  String apellido;
-  Documento documento;
-  String cuil;
-  List<MedioContacto> mediosDeContacto;
-  AreaDeCobertura areaDeCobertura;
+  private String nombre;
+  private String apellido;
+  private final Documento documento;
+  private String cuil;
+  private final List<MedioContacto> mediosDeContacto;
+  private final AreaDeCobertura areaDeCobertura;
 
 
 }

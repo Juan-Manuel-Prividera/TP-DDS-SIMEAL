@@ -6,6 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Respuesta {
-  private Pregunta pregunta;
+  private final Pregunta pregunta;
   private String respuesta;
+
+  public Respuesta(Pregunta pregunta) {
+    this.pregunta = pregunta;
+  }
 }

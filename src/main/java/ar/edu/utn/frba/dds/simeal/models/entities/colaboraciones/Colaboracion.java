@@ -8,5 +8,4 @@ public interface Colaboracion {
   double calcularReconocimientoParcial();
 
   Colaborador getColaborador();
-
 }

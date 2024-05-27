@@ -6,5 +6,5 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Permisos {
-  String descripcion;
+  private String descripcion;
 }

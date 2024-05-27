@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class AdapterCalculadorUbicaciones implements AdapterUbicacionesApi {
-  private UbicacionesApi ubicacionesServiceApi;
+  private UbicacionesApi ubicacionesApi;
   private Retrofit retrofit;
   String urlApi;
   ConfigReader configReader;
@@ -27,9 +27,10 @@ public class AdapterCalculadorUbicaciones implements AdapterUbicacionesApi {
 
   public PuntosRecomendados getPuntosRecomendados(double lat, double lon, double radio)
       throws IOException {
-    ubicacionesServiceApi = retrofit.create(UbicacionesApi.class);
+
+    ubicacionesApi = retrofit.create(UbicacionesApi.class);
     Call<PuntosRecomendados> requestPuntosRecomendados;
-    requestPuntosRecomendados = ubicacionesServiceApi.ubicaciones(lat, lon, radio);
+    requestPuntosRecomendados = ubicacionesApi.ubicaciones(lat, lon, radio);
     Response<PuntosRecomendados> responsePuntosRescomendador = requestPuntosRecomendados.execute();
     return responsePuntosRescomendador.body();
 

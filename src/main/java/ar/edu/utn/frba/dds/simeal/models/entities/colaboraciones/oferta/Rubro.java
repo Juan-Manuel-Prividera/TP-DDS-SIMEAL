@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class Rubro {
   private String nombre;
-  private List<Rubro> subRubros;
+  private final List<Rubro> subRubros;
 
   public Rubro(String nombre, List<Rubro> subRubros) {
     this.nombre = nombre;

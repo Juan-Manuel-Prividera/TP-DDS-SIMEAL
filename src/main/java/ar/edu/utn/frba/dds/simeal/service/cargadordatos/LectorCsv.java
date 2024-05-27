@@ -64,7 +64,6 @@ public class LectorCsv {
       Email email = new Email(mail, null);
       Colaborador colaborador = new Colaborador(documento, nombre, apellido);
       colaborador.addMedioContacto(email);
-      colaborador.setDocumento(documento);
 
       Colaboracion colaboracion = colaboracionBuilder
           .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);

@@ -8,14 +8,14 @@ import lombok.Builder;
 import lombok.Getter;
 
 
-@Getter
 @Builder
 public class AdherirHeladera implements Colaboracion {
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
+  @Getter
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
   @Builder.Default
-  private double factorDeReconocimiento = 5;
-  private Heladera heladera;
+  private final double factorDeReconocimiento = 5;
+  private final Heladera heladera;
 
   @Override
   public double calcularReconocimientoParcial() {

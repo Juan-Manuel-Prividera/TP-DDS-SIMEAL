@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Desperfecto {
   private String descripcion;
   private LocalDate fechaDeOcurrencia;
-  private Medicion comoSeDetecto;
+  private final Medicion comoSeDetecto;
 
   public Desperfecto(String descripcion, Medicion comoSeDetecto) {
     this.descripcion = descripcion;

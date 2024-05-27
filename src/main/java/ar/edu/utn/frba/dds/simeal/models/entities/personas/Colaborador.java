@@ -14,20 +14,20 @@ import lombok.Setter;
 
 
 
-@Setter
 @Getter
 public class Colaborador {
-  String nombre;
-  String apellido;
-  Documento documento;
-  Ubicacion direccion;
-  String razonSocial;
-  Rubro rubro;
-  TipoJuridico tipoJuridico;
-  FormularioContestado formularioContestado;
-  double puntosDeReconocimientoGastados;
-  List<MedioContacto> mediosDeContacto = new ArrayList<>();
-  private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
+  private String nombre;
+  private String apellido;
+  private final Documento documento;
+  private Ubicacion direccion;
+  private String razonSocial;
+  private Rubro rubro;
+  private TipoJuridico tipoJuridico;
+  private FormularioContestado formularioContestado;
+  @Setter
+  private double puntosDeReconocimientoGastados;
+  private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
+  private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
 
   public Colaborador(Documento documento, String nombre, String apellido) {

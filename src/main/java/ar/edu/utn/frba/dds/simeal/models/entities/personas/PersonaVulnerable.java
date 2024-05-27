@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +15,16 @@ public class PersonaVulnerable {
   private LocalDate fechaNacimiento;
   private LocalDate fechaRegistro;
   private Ubicacion domilicio;
-  private List<PersonaVulnerable> hijos;
-  private Documento documento;
-  private Colaborador colaborador;
+  private final List<PersonaVulnerable> hijos;
+  private final Documento documento;
+  private final Colaborador colaborador;
 
-  public PersonaVulnerable(List<PersonaVulnerable> hijos, LocalDate fechaNacimiento) {
+  public PersonaVulnerable(List<PersonaVulnerable> hijos, LocalDate fechaNacimiento,
+                            Documento documento, Colaborador colaborador) {
     this.hijos = hijos;
     this.fechaNacimiento = fechaNacimiento;
+    this.documento = documento;
+    this.colaborador = colaborador;
   }
 
   public boolean esMenor() {

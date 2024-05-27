@@ -12,10 +12,10 @@ public class Medicion {
   private LocalDate fechaMedicion;
   private String medicion;
   private Boolean medicionCritica;
-  private TipoMedicion tipoMedicion;
+  private final TipoMedicion tipoMedicion;
 
-  public Medicion() {
-
+  public Medicion(TipoMedicion tipoMedicion) {
+    this.tipoMedicion = tipoMedicion;
   }
 
   public boolean generaAlerta() {

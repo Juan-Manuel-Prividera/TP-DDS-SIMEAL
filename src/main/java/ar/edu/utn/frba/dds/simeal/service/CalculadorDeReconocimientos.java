@@ -16,9 +16,10 @@ public class CalculadorDeReconocimientos {
 
   public double calcularReconocimientoTotal(Colaborador colaborador) {
     double reconocimiento = 0;
-
     for (Colaboracion colaboracion : colaboraciones) {
-      reconocimiento +=  colaboracion.calcularReconocimientoParcial();
+      if (colaboracion.getColaborador().equals(colaborador)) {
+        reconocimiento += colaboracion.calcularReconocimientoParcial();
+      }
     }
     return reconocimiento;
   }

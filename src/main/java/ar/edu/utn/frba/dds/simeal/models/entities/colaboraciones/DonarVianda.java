@@ -8,15 +8,15 @@ import lombok.Builder;
 import lombok.Getter;
 
 
-@Getter
 @Builder
 @AllArgsConstructor
 public class DonarVianda implements Colaboracion {
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
-  private Vianda vianda;
+  @Getter
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
+  private final Vianda vianda;
   @Builder.Default
-  private double factorDeReconocimiento = 1.5;
+  private final double factorDeReconocimiento = 1.5;
 
 
   @Override

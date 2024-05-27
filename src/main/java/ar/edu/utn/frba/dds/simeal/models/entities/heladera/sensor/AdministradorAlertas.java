@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class AdministradorAlertas {
-  private Heladera heladera;
+  private final Heladera heladera;
 
   public void responderAlerta(Medicion alerta) {
     String descripcion = alerta.getMedicion() + " " + alerta.getFechaMedicion() + " "

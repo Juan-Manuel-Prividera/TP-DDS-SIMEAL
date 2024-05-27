@@ -19,9 +19,9 @@ public class PersonaVulnerableTest {
   @BeforeEach
   public void init(){
     hijos = new ArrayList<>();
-    hijoMenor1 = new PersonaVulnerable(null, LocalDate.of(2010,3,21));
-    hijoMenor2 = new PersonaVulnerable(null, LocalDate.of(2019,3,21));
-    hijoMayor = new PersonaVulnerable(null, LocalDate.of(2000,3,21));
+    hijoMenor1 = new PersonaVulnerable(null, LocalDate.of(2010,3,21), null,null);
+    hijoMenor2 = new PersonaVulnerable(null, LocalDate.of(2019,3,21), null,null);
+    hijoMayor = new PersonaVulnerable(null, LocalDate.of(2000,3,21), null,null);
     hijos.add(hijoMenor1);
     hijos.add(hijoMenor2);
     hijos.add(hijoMayor);
@@ -29,7 +29,7 @@ public class PersonaVulnerableTest {
 
   @Test @DisplayName("Cantidad de hijos menores de una persona vulnerable")
   public void cantidadHijosMenoresTest(){
-    personaVulnerable = new PersonaVulnerable(hijos, LocalDate.of(1990,3,21));
+    personaVulnerable = new PersonaVulnerable(hijos, LocalDate.of(1990,3,21), null,null);
     Assertions.assertEquals(2,personaVulnerable.cantHijosMenores());
   }
 }

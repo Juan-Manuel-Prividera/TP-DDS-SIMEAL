@@ -23,7 +23,8 @@ public class CalculadorDeReconocimientoTest {
     @BeforeEach
     public void init(){
         colaboraciones = new ArrayList<>();
-        colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez");
+        colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez"
+        );
         colaboracionBuilder = new ColaboracionBuilder();
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.DINERO, LocalDate.now(),colaborador,10)); // 10 * 0.5 = 5
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5

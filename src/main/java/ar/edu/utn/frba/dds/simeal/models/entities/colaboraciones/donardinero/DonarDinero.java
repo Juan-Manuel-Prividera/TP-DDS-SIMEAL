@@ -8,16 +8,16 @@ import lombok.Builder;
 import lombok.Getter;
 
 
-@Getter
 @Builder
 @AllArgsConstructor
 public class DonarDinero implements Colaboracion {
-  private Colaborador colaborador;
-  private Frecuencia frecuencia;
-  private LocalDate fechaDeRealizacion;
+  @Getter
+  private final Colaborador colaborador;
+  private final Frecuencia frecuencia;
+  private final LocalDate fechaDeRealizacion;
   private double cantidadDinero;
   @Builder.Default
-  private double factorDeReconocimiento = 0.5;
+  private final double factorDeReconocimiento = 0.5;
 
 
 

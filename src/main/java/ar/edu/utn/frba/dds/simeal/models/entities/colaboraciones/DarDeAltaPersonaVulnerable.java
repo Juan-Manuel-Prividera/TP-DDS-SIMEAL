@@ -10,16 +10,16 @@ import lombok.Getter;
 
 
 
-@Getter
 @Builder
 @AllArgsConstructor
 public class DarDeAltaPersonaVulnerable implements Colaboracion {
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
-  private PersonaVulnerable personaVulnerable;
+  @Getter
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
+  private final PersonaVulnerable personaVulnerable;
   @Builder.Default
   private double factorDeReconocimiento = 2;
-  private Tarjeta tarjeta;
+  private final Tarjeta tarjeta;
 
   public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable,
                                     Tarjeta tarjeta) {
@@ -28,7 +28,6 @@ public class DarDeAltaPersonaVulnerable implements Colaboracion {
     this.personaVulnerable = personaVulnerable;
     this.tarjeta = tarjeta;
 
-    tarjeta.setPersonaVulnerable(personaVulnerable);
   }
 
 

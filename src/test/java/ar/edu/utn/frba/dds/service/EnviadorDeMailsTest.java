@@ -6,7 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import ar.edu.utn.frba.dds.simeal.service.enviadormails.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.service.EnviadorDeMails;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import jakarta.mail.Message;
@@ -50,11 +50,13 @@ public class EnviadorDeMailsTest {
     }
 
 /*
+
     @Test
     public void enviarMailPosta() {
         enviadorDeMails = EnviadorDeMails.getInstancia(new ConfigReader(),"gmail");
         enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
     }
+
 */
 
     @Test
@@ -72,7 +74,8 @@ public class EnviadorDeMailsTest {
 
     @Test
     public void envioNotificacionAColab() throws MessagingException, IOException {
-        Colaborador colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez");
+        Colaborador colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez"
+        );
         colaborador.addMedioContacto(new Email("jperez@gmail.com",enviadorDeMails));
         Mensaje mensaje = new Mensaje("Hola juan", "Notificacion");
         colaborador.getMediosDeContacto().get(0).notificar(mensaje);

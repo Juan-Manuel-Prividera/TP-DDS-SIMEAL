@@ -8,8 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class FormularioContestado {
-  private List<Respuesta> respuestas;
+  private final List<Respuesta> respuestas;
   private LocalDate fechaRespuesta;
 
 
+  public FormularioContestado(List<Respuesta> respuestas) {
+    this.respuestas = respuestas;
+  }
 }

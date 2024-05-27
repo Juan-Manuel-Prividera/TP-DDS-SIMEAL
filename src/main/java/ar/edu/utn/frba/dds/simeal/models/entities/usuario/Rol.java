@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Rol {
-  String rol;
-  List<Permisos> permisos;
+  private String rol;
+  private List<Permisos> permisos;
 }

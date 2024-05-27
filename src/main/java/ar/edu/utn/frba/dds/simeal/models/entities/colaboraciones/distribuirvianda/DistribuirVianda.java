@@ -11,17 +11,17 @@ import lombok.Getter;
 
 
 @Builder
-@Getter
 @AllArgsConstructor
 public class DistribuirVianda implements Colaboracion {
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
-  private Heladera origen;
-  private Heladera destino;
-  private Motivo motivo;
+  @Getter
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
+  private final Heladera origen;
+  private final Heladera destino;
+  private final Motivo motivo;
   private int cantidadViandasMover;
   @Builder.Default
-  private double factorDeReconocimiento = 1;
+  private final double factorDeReconocimiento = 1;
 
 
   @Override

@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Localidad {
-  String nombre;
-  Provincia provincia;
+  private String nombre;
+  private Provincia provincia;
 }
