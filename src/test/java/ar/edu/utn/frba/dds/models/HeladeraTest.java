@@ -14,26 +14,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class HeladeraTest {
-  Ubicacion ubicacion;
-  Modelo modelo;
-  Heladera heladera;
-  Activa estadoActivo;
-  Inactiva estadoInactivo;
-  Medicion medicion;
-  Desperfecto desperfecto;
-
-  @BeforeEach
-  public void init(){
-    ubicacion = new Ubicacion(555,444);
-    modelo = new Modelo();
-    heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
-    estadoActivo = new Activa();
-    estadoInactivo = new Inactiva();
-    medicion = new Medicion();
-    desperfecto = new Desperfecto("Nada puede ser perfecto", medicion);
-
-  }
-
+  Ubicacion ubicacion= new Ubicacion(555,444);;
+  Modelo modelo= new Modelo();;
+  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);;
+  Activa estadoActivo = new Activa();;
+  Inactiva estadoInactivo = new Inactiva();;
+  Medicion medicion = new Medicion();;
+  Desperfecto desperfecto = new Desperfecto("Nada puede ser perfecto", medicion);;
 
   @Test @DisplayName("Cambiar estado a Activa")
   public void testEstado(){
