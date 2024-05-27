@@ -1,30 +1,31 @@
-package ar.edu.utn.frba.dds.simeal.service.cargadorDatos;
+package ar.edu.utn.frba.dds.simeal.service.cargadordatos;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto.Email;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class LectorCSV {
+public class LectorCsv {
   private final String csvFile;
 
 
-  public LectorCSV(String csvFile) throws FileNotFoundException {
+  public LectorCsv(String csvFile) {
     this.csvFile = csvFile;
   }
 
@@ -35,7 +36,8 @@ public class LectorCSV {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     ColaboracionBuilder colaboracionBuilder = new ColaboracionBuilder();
 
-    CSVReader lector = new CSVReaderBuilder(new FileReader(csvFile))
+    CSVReader lector = new CSVReaderBuilder(
+        new InputStreamReader(new FileInputStream(csvFile), StandardCharsets.UTF_8))
             .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
             .build();
 

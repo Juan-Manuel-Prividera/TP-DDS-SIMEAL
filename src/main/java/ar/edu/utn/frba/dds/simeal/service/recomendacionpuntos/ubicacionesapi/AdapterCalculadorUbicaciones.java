@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.recomendacionPuntos.ubicacionesapi;
+package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class AdapterCalculadorUbicaciones implements AdapterUbicacionesAPI {
+public class AdapterCalculadorUbicaciones implements AdapterUbicacionesApi {
   private UbicacionesApi ubicacionesServiceApi;
   private Retrofit retrofit;
   String urlApi;

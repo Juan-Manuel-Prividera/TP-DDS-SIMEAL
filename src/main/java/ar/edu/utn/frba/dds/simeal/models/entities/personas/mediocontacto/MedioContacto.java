@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto;
+package ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 

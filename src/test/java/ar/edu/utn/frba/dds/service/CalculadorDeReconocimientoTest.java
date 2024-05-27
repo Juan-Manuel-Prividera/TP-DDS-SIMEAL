@@ -29,11 +29,11 @@ public class CalculadorDeReconocimientoTest {
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.ENTREGA_TARJETA,LocalDate.now(),colaborador,1)); // 1 * 2 = 2
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.REDISTRIBUCION_VIANDA,LocalDate.now(),colaborador,4)); // 4 * 1 = 4
-        calculadorDeReconocimientos = new CalculadorDeReconocimientos(colaboraciones);                                                 // Total = 12.5
     }
 
     @Test
     public void calculoDeReconocimientoSinHeladera(){
+        calculadorDeReconocimientos = new CalculadorDeReconocimientos(colaboraciones);                                                 // Total = 12.5
         double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal(colaborador);
         Assertions.assertEquals(12.5, reconocimiento);
     }
@@ -41,6 +41,7 @@ public class CalculadorDeReconocimientoTest {
     @Test
     public void calculoDeReconocimientoConHeladera() {
         colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
+        calculadorDeReconocimientos = new CalculadorDeReconocimientos(colaboraciones);                                                 // Total = 12.5
         double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal(colaborador);
         // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5
         Assertions.assertEquals(72.5,reconocimiento);

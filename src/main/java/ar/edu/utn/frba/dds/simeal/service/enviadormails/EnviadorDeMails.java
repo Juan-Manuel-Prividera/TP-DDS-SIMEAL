@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.enviadorMails;
+package ar.edu.utn.frba.dds.simeal.service.enviadormails;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
@@ -9,14 +9,12 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.util.Objects;
 import java.util.Properties;
 import lombok.Getter;
-import lombok.Setter;
 
 
 
-@Setter
+
 @Getter
 public class EnviadorDeMails implements Enviador {
   private String useremail;
@@ -33,7 +31,8 @@ public class EnviadorDeMails implements Enviador {
   }
 
   public static EnviadorDeMails getInstancia(ConfigReader configReader, String proveedor) {
-    if (instancia == null || !instancia.port.equals(configReader.getProperty(proveedor + ".port"))) {
+    if (instancia == null
+        || !instancia.port.equals(configReader.getProperty(proveedor + ".port"))) {
       instancia = new EnviadorDeMails(configReader, proveedor);
     }
     return instancia;

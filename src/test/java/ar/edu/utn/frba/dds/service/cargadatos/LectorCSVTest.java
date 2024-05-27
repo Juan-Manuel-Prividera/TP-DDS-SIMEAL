@@ -6,7 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
-import ar.edu.utn.frba.dds.simeal.service.cargadorDatos.LectorCSV;
+import ar.edu.utn.frba.dds.simeal.service.cargadordatos.LectorCsv;
 import com.opencsv.exceptions.CsvException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LectorCSVTest {
-    String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/service/cargadorDatos/datos.csv";
-    LectorCSV lectorCSV;
+    String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/service/cargadordatos/datos.csv";
+    LectorCsv lectorCSV;
     List<Colaboracion> colaboraciones;
     Colaboracion colaboracionPrueba;
     ColaboracionBuilder colaboracionBuilder;
@@ -29,7 +29,7 @@ public class LectorCSVTest {
 
     @BeforeEach
     public void init() throws FileNotFoundException {
-        lectorCSV = new LectorCSV(csvFile);
+        lectorCSV = new LectorCsv(csvFile);
         colaboraciones = new ArrayList<>();
         colaboracionBuilder = new ColaboracionBuilder();
 

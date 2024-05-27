@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.recomendacionPuntos.ubicacionesapi;
+package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
 import retrofit2.Call;

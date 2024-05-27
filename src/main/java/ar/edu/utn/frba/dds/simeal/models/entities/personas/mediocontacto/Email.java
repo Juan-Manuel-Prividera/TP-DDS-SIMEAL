@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.personas.medioContacto;
+package ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.enviadorMails.Enviador;
+import ar.edu.utn.frba.dds.simeal.service.enviadormails.Enviador;
 
 public class Email implements MedioContacto {
   String email;

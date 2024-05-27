@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
@@ -14,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Heladera {
   private String nombre;
-  final private Ubicacion ubicacion;
-  final private LocalDate fechaColocacion;
+  private final Ubicacion ubicacion;
+  private final LocalDate fechaColocacion;
   private EstadoHeladera estado;
   private Modelo modelo;
   private List<Desperfecto> desperfectos;

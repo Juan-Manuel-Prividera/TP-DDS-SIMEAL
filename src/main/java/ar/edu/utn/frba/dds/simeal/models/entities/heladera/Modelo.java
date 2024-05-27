@@ -10,4 +10,5 @@ public class Modelo {
   private double temperaturaMin;
   private int capacidadMax;
 
+
 }

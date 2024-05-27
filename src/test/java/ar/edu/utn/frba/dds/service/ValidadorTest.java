@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.models;
+package ar.edu.utn.frba.dds.service;
 
 
 import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.Condicion;

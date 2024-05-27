@@ -14,7 +14,9 @@ public class Medicion {
   private Boolean medicionCritica;
   private TipoMedicion tipoMedicion;
 
-  public Medicion() {}
+  public Medicion() {
+
+  }
 
   public boolean generaAlerta() {
     return medicionCritica;

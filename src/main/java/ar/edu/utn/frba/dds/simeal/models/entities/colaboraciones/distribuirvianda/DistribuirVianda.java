@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirVianda;
+package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda;
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
@@ -22,6 +22,7 @@ public class DistribuirVianda implements Colaboracion {
   private int cantidadViandasMover;
   @Builder.Default
   private double factorDeReconocimiento = 1;
+
 
   @Override
   public double calcularReconocimientoParcial() {

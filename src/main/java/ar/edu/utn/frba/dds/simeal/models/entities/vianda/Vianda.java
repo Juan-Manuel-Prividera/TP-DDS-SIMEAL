@@ -3,11 +3,12 @@ package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class Vianda {
   private final TipoDeComida tipoDeComida;
   private final LocalDate fechaCaducidad;
@@ -19,7 +20,7 @@ public class Vianda {
   public Vianda(TipoDeComida tipoDeComida, LocalDate fechaCaducidad, Heladera heladera) {
     this.tipoDeComida = tipoDeComida;
     this.fechaCaducidad = fechaCaducidad;
-    this.fechaDonacion =LocalDate.now();
+    this.fechaDonacion = LocalDate.now();
     this.heladera = heladera;
   }
 
