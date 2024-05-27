@@ -19,7 +19,7 @@ public class Tarjeta {
   private final int retirosAdicionalesPorMenores = 1;
 
 
-  public  Tarjeta(String codigo, PersonaVulnerable personaVulnerable,
+  public Tarjeta(String codigo, PersonaVulnerable personaVulnerable,
                   List<LocalDate> fechasRetiros) {
     this.codigo = codigo;
     this.personaVulnerable = personaVulnerable;

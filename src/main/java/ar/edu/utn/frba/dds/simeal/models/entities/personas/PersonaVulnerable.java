@@ -17,15 +17,6 @@ public class PersonaVulnerable {
   private Ubicacion domilicio;
   private final List<PersonaVulnerable> hijos;
   private final Documento documento;
-  private final Colaborador colaborador;
-
-  public PersonaVulnerable(List<PersonaVulnerable> hijos, LocalDate fechaNacimiento,
-                            Documento documento, Colaborador colaborador) {
-    this.hijos = hijos;
-    this.fechaNacimiento = fechaNacimiento;
-    this.documento = documento;
-    this.colaborador = colaborador;
-  }
 
   public boolean esMenor() {
     return LocalDate.now().getYear() - this.fechaNacimiento.getYear() < 18;

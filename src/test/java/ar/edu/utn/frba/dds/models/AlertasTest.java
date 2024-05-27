@@ -20,7 +20,7 @@ public class AlertasTest {
 
   @BeforeEach
   public void init() {
-    heladera = new Heladera(new Ubicacion("Calle",123), LocalDate.now(),"Heladera",null);
+      heladera = new Heladera(new Ubicacion("Calle",123), LocalDate.now(),"Heladera",null);
     administradorAlertas = new AdministradorAlertas(heladera);
     medicionMovimiento = new Medicion(LocalDate.now(),"Temeratura normal",true, TipoMedicion.MOVIMIENTO);
     medicionCritica = new Medicion(LocalDate.now(),"Se nos derrite la heladera",true, TipoMedicion.TEMPERATURA);
