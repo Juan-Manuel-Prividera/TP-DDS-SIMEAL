@@ -72,4 +72,5 @@ public class TarjetaTest {
       tarjeta.agregarRetiro(retiro);
       Assertions.assertTrue(tarjeta.getFechasRetiros().stream().anyMatch(fecha -> retiro.getFechaRetiro().equals(fecha)));
   }
+
 }
