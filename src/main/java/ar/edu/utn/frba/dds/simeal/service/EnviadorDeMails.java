@@ -43,7 +43,6 @@ public class EnviadorDeMails {
     this.useremail = configReader.getProperty("user.email");
     this.password = configReader.getProperty("app.password");
     this.auth = true;
-
   }
 
 

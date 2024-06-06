@@ -9,7 +9,7 @@ import lombok.Getter;
 
 
 @Builder
-public class AdherirHeladera implements Colaboracion {
+public class AdherirHeladera implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;

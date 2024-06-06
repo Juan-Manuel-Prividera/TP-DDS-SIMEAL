@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @Builder
 @AllArgsConstructor
-public class DarDeAltaPersonaVulnerable implements Colaboracion {
+public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;

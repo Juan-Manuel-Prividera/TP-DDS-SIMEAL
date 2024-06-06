@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Builder
 @AllArgsConstructor
-public class DonarVianda implements Colaboracion {
+public class DonarVianda implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;

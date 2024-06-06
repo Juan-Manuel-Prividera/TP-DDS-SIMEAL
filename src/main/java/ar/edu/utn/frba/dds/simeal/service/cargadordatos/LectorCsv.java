@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.cargadordatos;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
@@ -30,8 +30,8 @@ public class LectorCsv {
   }
 
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
-  public List<Colaboracion> leerColaboradores() throws IOException, CsvException {
-    List<Colaboracion> listadoColaboraciones = new ArrayList<>();
+  public List<ColaboracionPuntuable> leerColaboradores() throws IOException, CsvException {
+    List<ColaboracionPuntuable> listadoColaboraciones = new ArrayList<>();
     String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     ColaboracionBuilder colaboracionBuilder = new ColaboracionBuilder();
@@ -56,7 +56,7 @@ public class LectorCsv {
       String apellido = line[3];
       String mail = line[4];
       LocalDate fechaColaboracion = LocalDate.parse(line[5], formatter);
-      TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
+      TipoColaboracionPuntuable tipoColaboracionPuntuable = TipoColaboracionPuntuable.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
 
 
@@ -65,10 +65,10 @@ public class LectorCsv {
       Colaborador colaborador = new Colaborador(documento, nombre, apellido);
       colaborador.addMedioContacto(email);
 
-      Colaboracion colaboracion = colaboracionBuilder
-          .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
+      ColaboracionPuntuable colaboracionPuntuable = colaboracionBuilder
+          .crearColaboracion(tipoColaboracionPuntuable, fechaColaboracion, colaborador, cantidad);
 
-      listadoColaboraciones.add(colaboracion);
+      listadoColaboraciones.add(colaboracionPuntuable);
 
 
     }

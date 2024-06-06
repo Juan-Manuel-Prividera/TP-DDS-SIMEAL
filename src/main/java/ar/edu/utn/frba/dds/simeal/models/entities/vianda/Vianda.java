@@ -26,5 +26,10 @@ public class Vianda {
   public void moverA(Heladera heladera) {
     this.heladera = heladera;
   }
+  public void retirar()
+  {
+    this.heladera = null;
+    entregada = true;
+  }
 
 }

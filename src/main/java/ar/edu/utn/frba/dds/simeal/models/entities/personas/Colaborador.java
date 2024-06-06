@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
@@ -27,7 +27,7 @@ public class Colaborador {
   @Setter
   private double puntosDeReconocimientoGastados;
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
-  private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
+  private final List<TipoColaboracionPuntuable> formasDeColaborar = new ArrayList<>();
 
 
   public Colaborador(Documento documento, String nombre, String apellido) {

@@ -1,25 +1,30 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import java.util.ArrayList;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import java.util.List;
 
 
+// Es una buena idea hacer esto singleton?
 public class CalculadorDeReconocimientos {
+  private static CalculadorDeReconocimientos instancia = null;
+  private final List<ColaboracionPuntuable> colaboraciones;
 
-  private final List<Colaboracion> colaboraciones;
+  public static CalculadorDeReconocimientos getInstance(List<ColaboracionPuntuable> colaboraciones)
+  {
+    if (instancia == null || instancia.colaboraciones != colaboraciones) {
+      instancia = new CalculadorDeReconocimientos(colaboraciones);
+    }
 
-  public CalculadorDeReconocimientos(List<Colaboracion> colaboraciones) {
-    this.colaboraciones = new ArrayList<>(colaboraciones);
+    return instancia;
+  }
+  private CalculadorDeReconocimientos(List<ColaboracionPuntuable> colaboraciones) {
+    this.colaboraciones = colaboraciones;
   }
 
-  public double calcularReconocimientoTotal(Colaborador colaborador) {
+  public double calcularReconocimientoTotal() {
     double reconocimiento = 0;
-    for (Colaboracion colaboracion : colaboraciones) {
-      if (colaboracion.getColaborador().equals(colaborador)) {
-        reconocimiento += colaboracion.calcularReconocimientoParcial();
-      }
+    for (ColaboracionPuntuable colaboracionPuntuable : colaboraciones) {
+      reconocimiento += colaboracionPuntuable.calcularReconocimientoParcial();
     }
     return reconocimiento;
   }
