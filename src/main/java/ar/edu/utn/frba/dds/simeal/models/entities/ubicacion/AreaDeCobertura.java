@@ -7,5 +7,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class AreaDeCobertura {
-  private List<Localidad> localidades;
+  private Ubicacion ubicacion;
+  private double radioDeCobertura;
 }

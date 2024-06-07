@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.service;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Coordenada;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.CalculadorPuntosRecomendados;
@@ -14,14 +15,14 @@ import org.junit.jupiter.api.Test;
 public class UbicacionesApiTest {
   AdapterUbicacionesApi adapterCalculadorUbicaciones;
   CalculadorPuntosRecomendados calculadorPuntosRecomendados;
-  Ubicacion ubicacion1;
-  Ubicacion ubicacion2;
+  Coordenada punto1;
+  Coordenada punto2;
 
   @BeforeEach
   public void init() {
     adapterCalculadorUbicaciones = new AdapterCalculadorUbicaciones();
-    ubicacion1 = new Ubicacion(29,20);
-    ubicacion2 = new Ubicacion(29,38);
+    punto1 = new Coordenada(20,29);
+    punto2 = new Coordenada(38,29);
 
   }
 
@@ -30,10 +31,10 @@ public class UbicacionesApiTest {
     PuntosRecomendados puntosRecomendados;
     puntosRecomendados = adapterCalculadorUbicaciones.getPuntosRecomendados(12,32,5);
 
-    Assertions.assertEquals(ubicacion1.getLat(),puntosRecomendados.getLocations().get(0).getLat());
-    Assertions.assertEquals(ubicacion1.getLon(),puntosRecomendados.getLocations().get(0).getLon());
-    Assertions.assertEquals(ubicacion2.getLat(),puntosRecomendados.getLocations().get(1).getLat());
-    Assertions.assertEquals(ubicacion2.getLon(),puntosRecomendados.getLocations().get(1).getLon());
+    Assertions.assertEquals(punto1.getLatitud(),puntosRecomendados.getLocations().get(0).getLatitud());
+    Assertions.assertEquals(punto1.getLongitud(),puntosRecomendados.getLocations().get(0).getLongitud());
+    Assertions.assertEquals(punto2.getLatitud(),puntosRecomendados.getLocations().get(1).getLatitud());
+    Assertions.assertEquals(punto2.getLongitud(),puntosRecomendados.getLocations().get(1).getLongitud());
 
   }
 
@@ -42,10 +43,11 @@ public class UbicacionesApiTest {
     calculadorPuntosRecomendados = new CalculadorPuntosRecomendados(adapterCalculadorUbicaciones);
     PuntosRecomendados puntosRecomendados = calculadorPuntosRecomendados.getPuntosRecomendados(12,32,5);
 
-    Assertions.assertEquals(ubicacion1.getLat(),puntosRecomendados.getLocations().get(0).getLat());
-    Assertions.assertEquals(ubicacion1.getLon(),puntosRecomendados.getLocations().get(0).getLon());
-    Assertions.assertEquals(ubicacion2.getLat(),puntosRecomendados.getLocations().get(1).getLat());
-    Assertions.assertEquals(ubicacion2.getLon(),puntosRecomendados.getLocations().get(1).getLon());
+    Assertions.assertEquals(punto1.getLatitud(),puntosRecomendados.getLocations().get(0).getLatitud());
+    Assertions.assertEquals(punto1.getLongitud(),puntosRecomendados.getLocations().get(0).getLongitud());
+    Assertions.assertEquals(punto2.getLatitud(),puntosRecomendados.getLocations().get(1).getLatitud());
+    Assertions.assertEquals(punto2.getLongitud(),puntosRecomendados.getLocations().get(1).getLongitud());
+
 
   }
 

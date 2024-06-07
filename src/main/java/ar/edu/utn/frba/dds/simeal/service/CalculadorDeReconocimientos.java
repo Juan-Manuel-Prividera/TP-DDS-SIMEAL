@@ -9,15 +9,17 @@ public class CalculadorDeReconocimientos {
   private static CalculadorDeReconocimientos instancia = null;
   private final List<ColaboracionPuntuable> colaboraciones;
 
-  public static CalculadorDeReconocimientos getInstance(List<ColaboracionPuntuable> colaboraciones)
-  {
+  public static CalculadorDeReconocimientos getInstance(
+      List<ColaboracionPuntuable> colaboraciones) {
+
     if (instancia == null || instancia.colaboraciones != colaboraciones) {
       instancia = new CalculadorDeReconocimientos(colaboraciones);
     }
 
     return instancia;
   }
-  private CalculadorDeReconocimientos(List<ColaboracionPuntuable> colaboraciones) {
+  private CalculadorDeReconocimientos(
+      List<ColaboracionPuntuable> colaboraciones) {
     this.colaboraciones = colaboraciones;
   }
 

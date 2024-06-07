@@ -28,3 +28,8 @@ target/**
 # IJ files
 *.iml
 .idea/**
+
+# Properties
+src/main/application.properties
+
+
