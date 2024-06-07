@@ -30,6 +30,6 @@ target/**
 .idea/**
 
 # Properties
-src/main/application.properties
+application.properties
 
 
