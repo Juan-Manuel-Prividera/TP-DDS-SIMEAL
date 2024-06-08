@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracionPuntuable;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
@@ -26,10 +26,10 @@ public class CalculadorDeReconocimientoTest {
         colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez"
         );
         colaboracionBuilder = new ColaboracionBuilder();
-        colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracionPuntuable.DINERO, LocalDate.now(),colaborador,10)); // 10 * 0.5 = 5
-        colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracionPuntuable.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5
-        colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracionPuntuable.ENTREGA_TARJETA,LocalDate.now(),colaborador,1)); // 1 * 2 = 2
-        colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracionPuntuable.REDISTRIBUCION_VIANDA,LocalDate.now(),colaborador,4)); // 4 * 1 = 4
+        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DINERO, LocalDate.now(),colaborador,10)); // 10 * 0.5 = 5
+        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5
+        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ENTREGA_TARJETA,LocalDate.now(),colaborador,1)); // 1 * 2 = 2
+        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.REDISTRIBUCION_VIANDA,LocalDate.now(),colaborador,4)); // 4 * 1 = 4
     }
 
     @Test
@@ -41,7 +41,7 @@ public class CalculadorDeReconocimientoTest {
 
     @Test
     public void calculoDeReconocimientoConHeladera() {
-        colaboraciones.add(colaboracionBuilder.crearColaboracion(TipoColaboracionPuntuable.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
+        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
         calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);                                                 // Total = 12.5
         double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal();
         // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracionPuntuable;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
@@ -24,11 +24,11 @@ public class Colaborador {
   private Rubro rubro;
   private TipoJuridico tipoJuridico;
   private FormularioContestado formularioContestado;
-  @Setter
-  private double puntosDeReconocimientoGastados;
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
-  private final List<TipoColaboracionPuntuable> formasDeColaborar = new ArrayList<>();
+  private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
+  @Setter
+  private double puntosDeReconocimientoParcial;
 
   public Colaborador(Documento documento, String nombre, String apellido) {
     this.documento = documento;
@@ -41,11 +41,16 @@ public class Colaborador {
   }
 
   public void gastarPuntos(double puntos) {
-    this.puntosDeReconocimientoGastados += puntos;
+    this.puntosDeReconocimientoParcial -= puntos;
   }
 
+  public void sumarPuntosReconocimiento(double puntosDeReconocimiento) {
+    this.puntosDeReconocimientoParcial += puntosDeReconocimiento;
+  }
+
+  // Actualizar TODO
   public boolean puedeCanjear(Oferta oferta, double puntosTotales) {
-    return puntosTotales - puntosDeReconocimientoGastados >= oferta.getPuntosNecesarios();
+    return puntosTotales - puntosDeReconocimientoParcial >= oferta.getPuntosNecesarios();
   }
 }
 

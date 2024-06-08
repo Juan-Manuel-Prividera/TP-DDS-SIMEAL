@@ -17,6 +17,14 @@ public class AdherirHeladera implements ColaboracionPuntuable {
   private final double factorDeReconocimiento = 5;
   private final Heladera heladera;
 
+  public static AdherirHeladera create(Colaborador colaborador, LocalDate fecha) {
+    return AdherirHeladera.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fecha)
+        .build();
+  }
+
+
   @Override
   public double calcularReconocimientoParcial() {
     Period periodoEnFuncionamiento = Period.between(this.fechaDeRealizacion, LocalDate.now());

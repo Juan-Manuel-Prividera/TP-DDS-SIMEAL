@@ -21,6 +21,19 @@ public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
   private double factorDeReconocimiento = 2;
   private final Tarjeta tarjeta;
 
+  public static DarDeAltaPersonaVulnerable create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable = DarDeAltaPersonaVulnerable.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .build();
+    darDeAltaPersonaVulnerable.getColaborador()
+        .sumarPuntosReconocimiento(darDeAltaPersonaVulnerable.factorDeReconocimiento);
+
+    return darDeAltaPersonaVulnerable;
+  }
+
+
+
   public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable,
                                     Tarjeta tarjeta) {
     this.colaborador = colaborador;

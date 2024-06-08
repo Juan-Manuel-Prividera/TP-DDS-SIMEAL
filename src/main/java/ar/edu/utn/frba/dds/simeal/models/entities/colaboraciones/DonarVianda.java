@@ -18,7 +18,15 @@ public class DonarVianda implements ColaboracionPuntuable {
   @Builder.Default
   private final double factorDeReconocimiento = 1.5;
 
-
+  public static DonarVianda create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    DonarVianda donarVianda = DonarVianda.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .build();
+    donarVianda.getColaborador()
+        .sumarPuntosReconocimiento(donarVianda.factorDeReconocimiento);
+    return donarVianda;
+  }
   @Override
   public double calcularReconocimientoParcial() {
     return this.factorDeReconocimiento;

@@ -26,20 +26,25 @@ public class Oferta implements Colaboracion {
 
   private Producto[] productos;
 
-  public Oferta(Colaborador colaborador, double puntosNecesarios) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = LocalDate.now();
-    this.puntosNecesarios = puntosNecesarios;
+  public static Oferta create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+    return Oferta.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .build();
+  }
+
+  public static Oferta create(Colaborador colaborador, LocalDate fechaDeRealizacion,
+                              double puntosNecesarios) {
+    return Oferta.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .puntosNecesarios(puntosNecesarios)
+        .build();
   }
 
   // La validacion de si puede canjearla se haria antes de ejecutar este metodo
   public void canjear(Colaborador colaborador) {
     colaborador.gastarPuntos(this.puntosNecesarios);
-  }
-
-  public double getPuntosNecesarios()
-  {
-    return this.puntosNecesarios;
   }
 
 }

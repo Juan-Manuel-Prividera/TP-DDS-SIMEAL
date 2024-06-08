@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import java.time.LocalDate;
@@ -19,7 +20,16 @@ public class DonarDinero implements ColaboracionPuntuable {
   @Builder.Default
   private final double factorDeReconocimiento = 0.5;
 
-
+  public static DonarDinero create(Colaborador colaborador, int cantidadDinero, LocalDate fechaDeRealizacion) {
+    DonarDinero donarDinero = DonarDinero.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .cantidadDinero(cantidadDinero)
+        .build();
+    donarDinero.getColaborador()
+            .sumarPuntosReconocimiento(cantidadDinero * donarDinero.factorDeReconocimiento);
+    return donarDinero;
+  }
 
   @Override
   public double calcularReconocimientoParcial() {
