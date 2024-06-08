@@ -19,10 +19,12 @@ public class Canje {
     // Concretamente falta esto
     List<ColaboracionPuntuable> colaboraciones = null;
 
-    CalculadorDeReconocimientos calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);
 
-    if (beneficiario.puedeCanjear(this.oferta, calculadorDeReconocimientos.calcularReconocimientoTotal()))
+
+    if (beneficiario.puedeCanjear(this.oferta, CalculadorDeReconocimientos
+        .calcularReconocimientoTotal(beneficiario, null))) {
       beneficiario.gastarPuntos(oferta.getPuntosNecesarios());
+    }
   }
 
 }

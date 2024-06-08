@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.service;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
@@ -23,8 +24,8 @@ public class CalculadorDeReconocimientoTest {
     @BeforeEach
     public void init(){
         colaboraciones = new ArrayList<>();
-        colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez"
-        );
+        colaborador = new Colaborador(
+            new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez");
         colaboracionBuilder = new ColaboracionBuilder();
         colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DINERO, LocalDate.now(),colaborador,10)); // 10 * 0.5 = 5
         colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5
@@ -34,18 +35,18 @@ public class CalculadorDeReconocimientoTest {
 
     @Test
     public void calculoDeReconocimientoSinHeladera(){
-        calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);                                                 // Total = 12.5
-        double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal();
+        double reconocimiento = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador, null);
         Assertions.assertEquals(12.5, reconocimiento);
     }
 
     @Test
     public void calculoDeReconocimientoConHeladera() {
-        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
-        calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);                                                 // Total = 12.5
-        double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal();
+        //calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);                                                 // Total = 12.5
+        List<ColaboracionPuntuable> adherirHeladera = new ArrayList<>();
+        adherirHeladera.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
+        double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,adherirHeladera);
         // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5
-        Assertions.assertEquals(72.5,reconocimiento);
+        Assertions.assertEquals(77.5,reconocimiento);
     }
 
     @Test
