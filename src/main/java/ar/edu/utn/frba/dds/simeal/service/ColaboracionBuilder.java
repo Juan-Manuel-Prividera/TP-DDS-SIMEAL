@@ -20,7 +20,7 @@ public class ColaboracionBuilder {
 
       case DONACION_VIANDA -> DonarVianda.create(colaborador, fecha);
 
-      case REDISTRIBUCION_VIANDA -> DistribuirVianda.create(colaborador,cantidad, fecha);
+      case REDISTRIBUCION_VIANDA -> DistribuirVianda.create(colaborador, cantidad, fecha);
 
       case ENTREGA_TARJETA -> DarDeAltaPersonaVulnerable.create(colaborador, fecha);
 
@@ -32,6 +32,7 @@ public class ColaboracionBuilder {
 
   public static Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
                                                Colaborador colaborador, int cantidad) {
+    // Esta como switch por si tenemos otra colaboracion no puntuable
     return switch (tipoColaboracion) {
       case OFERTA -> Oferta.create(colaborador, fecha);
       default -> crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);

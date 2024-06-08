@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestad
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -48,9 +49,9 @@ public class Colaborador {
     this.puntosDeReconocimientoParcial += puntosDeReconocimiento;
   }
 
-  // Actualizar TODO
-  public boolean puedeCanjear(Oferta oferta, double puntosTotales) {
-    return puntosTotales - puntosDeReconocimientoParcial >= oferta.getPuntosNecesarios();
+  // Le tienen que llegar los puntos que le aporta las heladeras, cuando tengamos persistencia
+  public boolean puedeCanjear(Oferta oferta, double puntosPorHeladeras) {
+    return this.puntosDeReconocimientoParcial + puntosPorHeladeras >= oferta.getPuntosNecesarios();
   }
 }
 

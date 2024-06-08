@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
@@ -14,17 +15,13 @@ public class Canje {
   LocalDateTime fecha;
 
   // TODO: Falta el acceso a persistencia para conseguir las colaboraciones de un colaborador especifico
-  public void realizar()
-  {
+  public void realizar() {
     // Concretamente falta esto
-    List<ColaboracionPuntuable> colaboraciones = null;
-
-
+    List<AdherirHeladera> colaboracionesDeHeladera = null;
 
     if (beneficiario.puedeCanjear(this.oferta, CalculadorDeReconocimientos
-        .calcularReconocimientoTotal(beneficiario, null))) {
+        .calcularReconocimientoTotal(beneficiario, colaboracionesDeHeladera))) {
       beneficiario.gastarPuntos(oferta.getPuntosNecesarios());
     }
   }
-
 }

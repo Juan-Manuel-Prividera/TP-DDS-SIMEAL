@@ -16,21 +16,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CalculadorDeReconocimientoTest {
-    CalculadorDeReconocimientos calculadorDeReconocimientos;
     Colaborador colaborador;
-    List<ColaboracionPuntuable> colaboraciones;
-    ColaboracionBuilder colaboracionBuilder;
 
     @BeforeEach
     public void init(){
-        colaboraciones = new ArrayList<>();
         colaborador = new Colaborador(
             new Documento(TipoDocumento.DNI,"12345678"),"Juan","Sanchez");
-        colaboracionBuilder = new ColaboracionBuilder();
-        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DINERO, LocalDate.now(),colaborador,10)); // 10 * 0.5 = 5
-        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1)); // 1*1.5 = 1.5
-        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ENTREGA_TARJETA,LocalDate.now(),colaborador,1)); // 1 * 2 = 2
-        colaboraciones.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.REDISTRIBUCION_VIANDA,LocalDate.now(),colaborador,4)); // 4 * 1 = 4
+        ColaboracionPuntuable colaboracion1 = ColaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DINERO, LocalDate.now(),colaborador,10); // 10 * 0.5 = 5
+        ColaboracionPuntuable colaboracion2 = ColaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.DONACION_VIANDA,LocalDate.now(),colaborador,1); // 1*1.5 = 1.5
+        ColaboracionPuntuable colaboracion3 = ColaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ENTREGA_TARJETA,LocalDate.now(),colaborador,1); // 1 * 2 = 2
+        ColaboracionPuntuable colaboracion4 = ColaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.REDISTRIBUCION_VIANDA,LocalDate.now(),colaborador,4); // 4 * 1 = 4
     }
 
     @Test
@@ -41,20 +36,12 @@ public class CalculadorDeReconocimientoTest {
 
     @Test
     public void calculoDeReconocimientoConHeladera() {
-        //calculadorDeReconocimientos = CalculadorDeReconocimientos.getInstance(colaboraciones);                                                 // Total = 12.5
-        List<ColaboracionPuntuable> adherirHeladera = new ArrayList<>();
-        adherirHeladera.add(colaboracionBuilder.crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
-        double reconocimiento = calculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,adherirHeladera);
+        List<AdherirHeladera> adherirHeladera = new ArrayList<>();
+        adherirHeladera.add((AdherirHeladera) ColaboracionBuilder
+            .crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
+
+        double reconocimiento = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,adherirHeladera);
         // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5
-        Assertions.assertEquals(77.5,reconocimiento);
+        Assertions.assertEquals(72.5,reconocimiento);
     }
-
-    @Test
-    public void lePidoDosVecesLoMismoYDevuelveLaMismaInstancia() {
-        CalculadorDeReconocimientos calculadorA = CalculadorDeReconocimientos.getInstance(colaboraciones);
-        CalculadorDeReconocimientos calculadorB = CalculadorDeReconocimientos.getInstance(colaboraciones);
-
-        assert(calculadorA == calculadorB);
-    }
-
 }
