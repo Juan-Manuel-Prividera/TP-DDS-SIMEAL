@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.service.logger;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,8 +37,7 @@ public class Logger {
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
-    }
-    else {
+    } else {
       System.out.println(out);
     }
   }
@@ -49,7 +48,7 @@ public class Logger {
   private String typeString(LoggerType type) {
     String ret;
 
-    switch (type){
+    switch (type) {
       case WARNING -> { ret = "[W]"; }
       case DEBUG -> { ret = "[D]"; }
       case ERROR -> { ret = "   -> [E]"; }

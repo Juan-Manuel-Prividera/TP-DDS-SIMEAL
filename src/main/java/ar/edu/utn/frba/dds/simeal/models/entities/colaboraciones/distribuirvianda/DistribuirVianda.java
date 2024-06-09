@@ -5,14 +5,17 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class DistribuirVianda implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
@@ -26,19 +29,16 @@ public class DistribuirVianda implements ColaboracionPuntuable {
 
 
   public static DistribuirVianda create(Colaborador colaborador,
-                                        int cantidadViandasMover, LocalDate fechaDeRealizacion) {
+                                        LocalDate fechaDeRealizacion, int cantidadViandasMover) {
     DistribuirVianda distribuirVianda = DistribuirVianda.builder()
         .colaborador(colaborador)
-        .cantidadViandasMover(cantidadViandasMover)
         .fechaDeRealizacion(fechaDeRealizacion)
+        .cantidadViandasMover(cantidadViandasMover)
         .build();
-
-    distribuirVianda.getColaborador().sumarPuntosReconocimiento(
-        cantidadViandasMover * distribuirVianda.factorDeReconocimiento);
-
+    distribuirVianda.getColaborador()
+        .sumarPuntosReconocimiento(distribuirVianda.calcularReconocimientoParcial());
     return distribuirVianda;
   }
-
 
   @Override
   public double calcularReconocimientoParcial() {

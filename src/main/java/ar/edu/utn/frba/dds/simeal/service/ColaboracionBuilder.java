@@ -16,11 +16,11 @@ public class ColaboracionBuilder {
       LocalDate fecha, Colaborador colaborador, int cantidad) {
 
     return switch (tipoColaboracionPuntuable) {
-      case DINERO -> DonarDinero.create(colaborador, cantidad, fecha);
+      case DINERO -> DonarDinero.create(colaborador, fecha, cantidad);
 
       case DONACION_VIANDA -> DonarVianda.create(colaborador, fecha);
 
-      case REDISTRIBUCION_VIANDA -> DistribuirVianda.create(colaborador, cantidad, fecha);
+      case REDISTRIBUCION_VIANDA -> DistribuirVianda.create(colaborador, fecha, cantidad);
 
       case ENTREGA_TARJETA -> DarDeAltaPersonaVulnerable.create(colaborador, fecha);
 
@@ -32,10 +32,10 @@ public class ColaboracionBuilder {
 
   public static Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
                                                Colaborador colaborador, int cantidad) {
-    // Esta como switch por si tenemos otra colaboracion no puntuable
-    return switch (tipoColaboracion) {
-      case OFERTA -> Oferta.create(colaborador, fecha);
-      default -> crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);
-    };
+    if (TipoColaboracion.OFERTA.equals(tipoColaboracion)) {
+      return Oferta.create(colaborador, fecha, cantidad);
+    } else {
+      return crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);
+    }
   }
 }

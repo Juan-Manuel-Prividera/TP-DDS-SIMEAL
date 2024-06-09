@@ -43,7 +43,7 @@ public class LectorCSVTest {
     @Test @DisplayName("Se leyeron la cantidad de filas esperadas")
     public void leerColaboradoresTestCantidadDeFilas() throws IOException, CsvException {
         colaboraciones = lectorCSV.leerColaboradores();
-        Assertions.assertEquals(4, colaboraciones.size());
+        Assertions.assertEquals(5, colaboraciones.size());
     }
 
     @Test @DisplayName("Se crea correctamente la clase colaboracion")
@@ -54,13 +54,13 @@ public class LectorCSVTest {
         Assertions.assertEquals(colaboracion.getColaborador().getApellido(), colaboracionPrueba.getColaborador().getApellido());
     }
 
-    @Test @DisplayName("Se crean bien las colaboraciones")
-    public void seMuestranLasColaboracionesLeidas() throws IOException, CsvException {
+   @Test
+   public void validacionDePuntosDeReconocimiento() throws IOException, CsvException {
         colaboraciones = lectorCSV.leerColaboradores();
-        for (ColaboracionPuntuable colaboracionPuntuable : colaboraciones) {
-            System.out.println(colaboracionPuntuable.getColaborador().getNombre());
-        }
-    }
+        Colaborador colaborador = colaboraciones.get(4).getColaborador();
+
+        Assertions.assertEquals(7.5,colaborador.getPuntosDeReconocimientoParcial());
+   }
 
 
 }

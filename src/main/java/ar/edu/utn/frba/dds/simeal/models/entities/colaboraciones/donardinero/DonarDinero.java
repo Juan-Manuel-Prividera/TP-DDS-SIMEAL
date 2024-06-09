@@ -20,14 +20,15 @@ public class DonarDinero implements ColaboracionPuntuable {
   @Builder.Default
   private final double factorDeReconocimiento = 0.5;
 
-  public static DonarDinero create(Colaborador colaborador, int cantidadDinero, LocalDate fechaDeRealizacion) {
+  public static DonarDinero create(Colaborador colaborador,
+                                   LocalDate fechaDeRealizacion, int cantidadDinero) {
     DonarDinero donarDinero = DonarDinero.builder()
         .colaborador(colaborador)
         .fechaDeRealizacion(fechaDeRealizacion)
         .cantidadDinero(cantidadDinero)
         .build();
     donarDinero.getColaborador()
-            .sumarPuntosReconocimiento(cantidadDinero * donarDinero.factorDeReconocimiento);
+            .sumarPuntosReconocimiento(donarDinero.calcularReconocimientoParcial());
     return donarDinero;
   }
 

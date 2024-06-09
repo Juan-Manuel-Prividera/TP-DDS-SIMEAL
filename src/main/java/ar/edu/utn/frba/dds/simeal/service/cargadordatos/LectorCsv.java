@@ -59,12 +59,15 @@ public class LectorCsv {
       TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
 
+      Colaborador colaborador =
+          validarSiExisteElColaboradorEnLista(numeroDocumento, listadoColaboracionesPuntuable);
 
-      Documento documento = new Documento(tipoDocumento, numeroDocumento);
-      Email email = new Email(mail, null);
-      Colaborador colaborador = new Colaborador(documento, nombre, apellido);
-      colaborador.addMedioContacto(email);
-
+      if (colaborador == null) {
+        Documento documento = new Documento(tipoDocumento, numeroDocumento);
+        Email email = new Email(mail, null);
+        colaborador = new Colaborador(documento, nombre, apellido);
+        colaborador.addMedioContacto(email);
+      }
       ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
           .crearColaboracionPuntuable(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
@@ -73,5 +76,16 @@ public class LectorCsv {
 
     }
     return listadoColaboracionesPuntuable;
+  }
+
+  private Colaborador validarSiExisteElColaboradorEnLista(String numeroDocumento,
+                                               List<ColaboracionPuntuable> colaboraciones) {
+    for (ColaboracionPuntuable colaboracion : colaboraciones) {
+      String nro = colaboracion.getColaborador().getDocumento().getNroDocumento();
+      if (numeroDocumento.equals(nro)) {
+        return colaboracion.getColaborador();
+      }
+    }
+    return null;
   }
 }

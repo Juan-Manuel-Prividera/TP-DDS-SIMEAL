@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
 import java.time.LocalDate;
@@ -46,6 +45,4 @@ public class ColaboracionBuilderTest {
         .crearColaboracion(TipoColaboracion.ENTREGA_TARJETA, LocalDate.now(),colaborador,2);
     Assertions.assertEquals(2, colaborador.getPuntosDeReconocimientoParcial());
   }
-
-
 }

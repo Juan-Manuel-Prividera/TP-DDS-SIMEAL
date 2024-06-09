@@ -17,32 +17,21 @@ public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;
   private final PersonaVulnerable personaVulnerable;
+  private final Tarjeta tarjeta;
   @Builder.Default
   private double factorDeReconocimiento = 2;
-  private final Tarjeta tarjeta;
 
-  public static DarDeAltaPersonaVulnerable create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
+  public static DarDeAltaPersonaVulnerable create(Colaborador colaborador,
+                                                  LocalDate fechaDeRealizacion) {
     DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable = DarDeAltaPersonaVulnerable.builder()
         .colaborador(colaborador)
         .fechaDeRealizacion(fechaDeRealizacion)
         .build();
     darDeAltaPersonaVulnerable.getColaborador()
-        .sumarPuntosReconocimiento(darDeAltaPersonaVulnerable.factorDeReconocimiento);
+        .sumarPuntosReconocimiento(darDeAltaPersonaVulnerable.calcularReconocimientoParcial());
 
     return darDeAltaPersonaVulnerable;
   }
-
-
-
-  public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable,
-                                    Tarjeta tarjeta) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = LocalDate.now();
-    this.personaVulnerable = personaVulnerable;
-    this.tarjeta = tarjeta;
-
-  }
-
 
   @Override
   public double calcularReconocimientoParcial() {
