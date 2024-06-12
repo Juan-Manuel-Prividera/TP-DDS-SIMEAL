@@ -16,34 +16,47 @@ public class EnviadorDeWppTest {
   EnviadorDeWpp enviadorDeWpp;
   ConfigReader configReader;
   Mensaje mensajePrueba;
+  MessageCreator messageCreatorMock;
+  Message messageMock;
+  MyMessageCreator myMessageCreatorMock;
+
 
   @BeforeEach
   public void init() {
     enviadorDeWpp = EnviadorDeWpp.getInstance();
     configReader = new ConfigReader();
-    mensajePrueba = new Mensaje("hola", null);
+    mensajePrueba = new Mensaje("hola");
+
+    messageMock = mock(Message.class);
+    messageCreatorMock = mock(MessageCreator.class);
+    myMessageCreatorMock = mock(MyMessageCreator.class);
+
+    enviadorDeWpp.setMyMessageCreator(myMessageCreatorMock);
   }
 
   @Test
-  public void enviadorDeWppTest() {
-    Message messageMock = mock(Message.class);
-    MessageCreator messageCreatorMock = mock(MessageCreator.class);
-    MyMessageCreator myMessageCreatorMock = mock(MyMessageCreator.class);
-
+  public void enviaWppTest() {
     when(myMessageCreatorMock
         .getMessageCreator("5491169702930",configReader.getProperty("phone.number") , mensajePrueba))
         .thenReturn(messageCreatorMock);
-
     when(messageCreatorMock.create()).thenReturn(messageMock);
 
-    enviadorDeWpp.setMyMessageCreator(myMessageCreatorMock);
     enviadorDeWpp.enviar("5491169702930", mensajePrueba);
-
-    verify(myMessageCreatorMock, times(1))
-        .getMessageCreator("5491169702930",configReader.getProperty("phone.number"), mensajePrueba);
 
     // Que se llame al .create ya nos garantiza que se envie el Wpp
     verify(messageCreatorMock, times(1)).create();
   }
 
+  @Test
+  public void creacionMensajeTest() {
+    when(myMessageCreatorMock
+        .getMessageCreator("5491169702930",configReader.getProperty("phone.number") , mensajePrueba))
+        .thenReturn(messageCreatorMock);
+    when(messageCreatorMock.create()).thenReturn(messageMock);
+
+    enviadorDeWpp.enviar("5491169702930", mensajePrueba);
+
+    verify(myMessageCreatorMock, times(1))
+        .getMessageCreator("5491169702930",configReader.getProperty("phone.number"), mensajePrueba);
+  }
 }

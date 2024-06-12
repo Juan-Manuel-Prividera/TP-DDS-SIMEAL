@@ -14,5 +14,10 @@ public class Mensaje {
   public Mensaje(String mensaje, String asunto) {
     this.mensaje = mensaje;
     this.asunto = asunto;
+    this.fechaEnvio = LocalDateTime.now();
+  }
+  public Mensaje(String mensaje) {
+    this.mensaje = mensaje;
+    this.fechaEnvio = LocalDateTime.now();
   }
 }

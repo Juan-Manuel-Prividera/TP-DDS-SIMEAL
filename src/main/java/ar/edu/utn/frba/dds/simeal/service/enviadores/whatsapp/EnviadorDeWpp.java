@@ -41,8 +41,6 @@ public class EnviadorDeWpp {
 
       // Este metodo directamente envia el mensaje
       messageCreator.create();
-
-      System.out.println("Mensaje enviado exitosamente");
     } catch (Exception e) {
       System.err.println("Error al enviar el mensaje: " + e.getMessage());
     }
