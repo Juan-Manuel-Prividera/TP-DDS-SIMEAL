@@ -1,6 +1,7 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.service.enviadores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import jakarta.mail.Authenticator;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
@@ -47,14 +48,9 @@ public class EnviadorDeMails {
 
 
   public void enviar(String destinatario, Mensaje mensaje) {
-    Properties properties = new Properties();
-    properties.put("mail.smtp.user", useremail); // Nombre de usuario que envia el mail
-    properties.put("mail.smtp.host", host); // Host de gmail
-    properties.put("mail.smtp.port", port); // Puerto de Gmail
-    properties.put("mail.smtp.auth", String.valueOf(auth)); // Requiere autenticar para conectarse
-    properties.put("mail.smtp.starttls.enable", "true");
-
+    Properties properties = getProperties();
     Session session;
+
     try {
       // Creacion de la sesion
       session = Session.getInstance(properties, new Authenticator() {
@@ -84,13 +80,22 @@ public class EnviadorDeMails {
       throws MessagingException {
 
     MimeMessage message = new MimeMessage(session);
-    // Origen del correo
     message.setFrom(new InternetAddress(useremail));
-    // Destinatario del correo
     message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(destinatario));
     message.setSubject(mensaje.getAsunto());
     message.setText(mensaje.getMensaje());
 
     return message;
+  }
+
+  private Properties getProperties() {
+    Properties properties = new Properties();
+    properties.put("mail.smtp.user", useremail); // Nombre de usuario que envia el mail
+    properties.put("mail.smtp.host", host); // Host de gmail
+    properties.put("mail.smtp.port", port); // Puerto de Gmail
+    properties.put("mail.smtp.auth", String.valueOf(auth)); // Requiere autenticar para conectarse
+    properties.put("mail.smtp.starttls.enable", "true");
+
+    return properties;
   }
 }
