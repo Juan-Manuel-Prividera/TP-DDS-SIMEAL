@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.geotools.referencing.GeodeticCalculator;
 
 @Getter
 @Setter
@@ -25,4 +26,17 @@ public class Ubicacion {
     this.coordenada = new Coordenada(longitud, latitud);
   }
 
+  public double distanciaA(Ubicacion ubicacion) {
+    double lat1 = this.getCoordenada().getLatitud();
+    double lon1 = this.getCoordenada().getLongitud();
+    double lat2 = ubicacion.getCoordenada().getLatitud();
+    double lon2 = ubicacion.getCoordenada().getLongitud();
+
+    GeodeticCalculator calculator = new GeodeticCalculator();
+    calculator.setStartingGeographicPoint(lon1, lat1);
+    calculator.setDestinationGeographicPoint(lon2, lat2);
+
+    return calculator.getOrthodromicDistance(); // In meters
+
+  }
 }

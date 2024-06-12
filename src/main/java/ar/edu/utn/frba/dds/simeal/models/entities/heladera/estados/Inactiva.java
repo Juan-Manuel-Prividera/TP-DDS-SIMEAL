@@ -13,7 +13,7 @@ public class Inactiva implements EstadoHeladera {
   }
 
   @Override
-  public boolean validarEstado() {
+  public boolean disponible() {
     return false;
   }
 }

@@ -17,30 +17,24 @@ public class Heladera {
   private final LocalDate fechaColocacion;
   private EstadoHeladera estado;
   private final Modelo modelo;
-  private final List<Desperfecto> desperfectos;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.modelo = modelo;
-    desperfectos = new ArrayList<>();
   }
 
   public void cambiarDeEstado(EstadoHeladera nuevoEstado) {
     this.estado = nuevoEstado;
   }
 
-  public boolean validarEstado() {
-    return this.estado.validarEstado();
+  public boolean estaDisponible() {
+    return this.estado.disponible();
   }
 
-  public String enviarNotificacionPorDefecto(String mensaje) {
-    return this.estado.notificarEstado(mensaje);
-  }
 
-  public void agregarDesperfecto(Desperfecto desperfecto) {
-    desperfectos.add(desperfecto);
-  }
+
+
 
 }

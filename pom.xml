@@ -18,7 +18,21 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>osgeo</id>
+      <url>https://repo.osgeo.org/repository/release/</url>
+    </repository>
+  </repositories>
+
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.geotools/gt-main -->
+    <dependency>
+      <groupId>org.geotools</groupId>
+      <artifactId>gt-main</artifactId>
+      <version>29.5</version>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>

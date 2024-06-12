@@ -13,7 +13,7 @@ public class Activa implements EstadoHeladera {
   }
 
   @Override
-  public boolean validarEstado() {
+  public boolean disponible() {
     return true;
   }
 
