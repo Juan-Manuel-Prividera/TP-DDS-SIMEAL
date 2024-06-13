@@ -5,11 +5,11 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Alerta;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.FallaTecnica;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Incidente;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.TipoAlerta;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.TipoMedicion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
@@ -28,7 +28,7 @@ public class HeladeraTest {
   Activa estadoActivo = new Activa();
   Inactiva estadoInactivo = new Inactiva();
   EnReparacion estadoEnReparacion = new EnReparacion();
-  Medicion medicion = new Medicion(TipoMedicion.TEMPERATURA);
+  Medicion medicion = new Medicion(TipoMedicion.MEDICION_TEMPERATURA);
   Colaborador colaborador = new Colaborador(
       new Documento(TipoDocumento.DNI, "1234567"),
       "Karl", "Heun");
@@ -46,6 +46,24 @@ public class HeladeraTest {
   public void testEstado(){
     heladera.cambiarDeEstado(estadoActivo);
     Assertions.assertEquals(heladera.getEstado(), estadoActivo);
+  }
+
+  @Test
+  public void temperaturaMuyFria() {
+    double tempFria = -15;
+    Assertions.assertFalse(heladera.temperaturaAdecuada(tempFria));
+  }
+
+  @Test
+  public void temperaturaMuyCaliente() {
+    double tempCaliente = 50;
+    Assertions.assertFalse(heladera.temperaturaAdecuada(tempCaliente));
+  }
+
+  @Test
+  public void temperaturaAdecuada() {
+    double tempAdecuada = 10;
+    Assertions.assertTrue(heladera.temperaturaAdecuada(tempAdecuada));
   }
 
   @Test @DisplayName("Estado heladera == Activa => Validar estado == True")

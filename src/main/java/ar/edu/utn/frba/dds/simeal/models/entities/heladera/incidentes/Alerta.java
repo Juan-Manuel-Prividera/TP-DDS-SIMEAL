@@ -1,19 +1,16 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
+package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
-public class FallaTecnica implements Incidente{
+public class Alerta implements Incidente{
   Heladera heladera;
   String descripcion;
   LocalDateTime fechaHora;
-  Colaborador colaborador;
-  String imagen;
-
+  TipoAlerta tipoAlerta;
   @Override
   public String getNotificacion() {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -21,7 +18,16 @@ public class FallaTecnica implements Incidente{
 
     return "\t- Fecha: " + fechaHora.format(formatterDia)
         + "\n\t- Hora: " + fechaHora.format(formatterHora)
-        + "\n\t- Colaborador: " + colaborador.getNombre() + " " + colaborador.getApellido()
-        + "\n\t- Descripcion: " + descripcion;
+        + "\n\t- Alerta de tipo: " + tipoAlerta.name()
+        + "\n\t- Descripción: " + descripcion;
   }
 }
+
+
+  /*
+  Quizás podría tener la medición asociada ?:
+      La de temperatura que fue crítica,
+      la de movimiento que siempre se reporta como incidente
+      y la última medición que registró el sensor (si es alerta de conexión)
+   */
+

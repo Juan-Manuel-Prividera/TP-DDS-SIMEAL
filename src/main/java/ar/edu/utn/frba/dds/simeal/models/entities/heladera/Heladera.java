@@ -1,14 +1,12 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Incidente;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
@@ -39,9 +37,12 @@ public class Heladera {
     return this.estado.disponible();
   }
 
+  public boolean temperaturaAdecuada(double temp) {
+    return temp >= modelo.getTemperaturaMin() && temp <= modelo.getTemperaturaMax();
+  }
 
   public void reportarIncidente(Incidente incidente) {
-    this.estado = new EnReparacion();
+    this.estado = new Inactiva();
 
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
