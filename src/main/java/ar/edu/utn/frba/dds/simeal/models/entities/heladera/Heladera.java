@@ -1,10 +1,16 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
+import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -34,6 +40,30 @@ public class Heladera {
   }
 
 
+  public void reportarIncidente(Incidente incidente) {
+    this.estado = new EnReparacion();
+
+    DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    String msj = "Un incidente en la heladera \"" + this.nombre + "\" ha sido reportado:\n"
+        + incidente.getNotificacion();
+    String asunto = "Incidente reportado en " + this.ubicacion.getNombreCalle() + " " + this.ubicacion.getAltura() + ".";
+
+    Mensaje mensaje = new Mensaje(msj, asunto);
+
+    Logger logger = Logger.getInstance();
+
+    // La consigna dice 'reportar', yo lo loggeo pero se podría hacer lo que quisiesemos con esta data.
+    // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
+    logger.log(LoggerType.INFORMATION, msj);
+
+    // Quizás guardar el histórico? Levantar BD y guardar el incidente?
+
+    // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
+    // Suscripcion suscripcion;
+    // suscripcion.notificarAlPrimero(mensaje);
+  }
 
 
 

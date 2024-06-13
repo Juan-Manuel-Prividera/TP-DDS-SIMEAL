@@ -1,14 +1,11 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados;
 
+public class EnReparacion implements EstadoHeladera{
 
-public class Activa implements EstadoHeladera {
-
-  public Activa() {
+  public EnReparacion() {
   }
-
   @Override
   public boolean disponible() {
-    return true;
+    return false;
   }
-
 }
