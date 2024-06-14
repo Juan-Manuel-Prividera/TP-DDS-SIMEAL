@@ -1,11 +1,15 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
 public class VisitaTecnica {
-  Heladera heladera;
-  LocalDateTime fechaHora;
-  Boolean exitosa;
-  String descripcion;
-  String imagen;
+  private Heladera heladera;
+  private String descripcion;
+  private LocalDateTime fechaHora;
+  @Getter
+  private Boolean exitosa;
+  private String imagen;
 }

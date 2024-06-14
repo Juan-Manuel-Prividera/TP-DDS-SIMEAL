@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
@@ -64,6 +66,14 @@ public class Heladera {
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
     // Suscripcion suscripcion;
     // suscripcion.notificarAlPrimero(mensaje);
+  }
+
+  public void registrarVisita(VisitaTecnica visita) {
+    // TODO Persistir visita
+
+    if (visita.getExitosa()) this.estado = new Activa();
+    else this.estado = new EnReparacion();
+
   }
 
 

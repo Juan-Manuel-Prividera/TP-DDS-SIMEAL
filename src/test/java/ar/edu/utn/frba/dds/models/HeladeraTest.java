@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
@@ -42,6 +43,11 @@ public class HeladeraTest {
       LocalDateTime.now(),
       colaborador, null);
 
+  VisitaTecnica visitaExitosa = new VisitaTecnica(heladera,
+      "Arreglado del condensador de flujo de la heladera.",
+      LocalDateTime.now(),
+      true, null);
+
   @Test @DisplayName("Cambiar estado a Activa")
   public void testEstado(){
     heladera.cambiarDeEstado(estadoActivo);
@@ -66,21 +72,34 @@ public class HeladeraTest {
     Assertions.assertTrue(heladera.temperaturaAdecuada(tempAdecuada));
   }
 
-  @Test @DisplayName("Estado heladera == Activa => Validar estado == True")
+  @Test @DisplayName("Estado heladera == Activa => Heladera está disponible")
   public void testValidarEstadoActivo(){
     heladera.cambiarDeEstado(estadoActivo);
     Assertions.assertTrue(heladera.estaDisponible());
   }
 
-  @Test @DisplayName("Estado heladera == Inactivo => Validar estado == False")
+  @Test @DisplayName("Estado heladera == Inactivo => Heladera no está disponible")
   public void testValidarEstadoInactivo(){
     heladera.cambiarDeEstado(estadoInactivo);
     Assertions.assertFalse(heladera.estaDisponible());
   }
-  @Test @DisplayName("Estado heladera == En reparación => Validar estado == False")
+  @Test @DisplayName("Estado heladera == En reparación => Heladera no está disponible")
   public void testValidarEstadoEnReparacion(){
     heladera.cambiarDeEstado(estadoEnReparacion);
     Assertions.assertFalse(heladera.estaDisponible());
+  }
+
+  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
+  public void testReportarIncidenteHeladeraNoDisponible() {
+    heladera.reportarIncidente(alerta);
+    Assertions.assertFalse(heladera.estaDisponible());
+  }
+
+  @Test @DisplayName("Se registra una visita exitosa => la heladera pasa a estar disponible")
+  public void testRegistrarHeladeraPasaADisponible() {
+    heladera.reportarIncidente(alerta);
+    heladera.registrarVisita(visitaExitosa);
+    Assertions.assertTrue(heladera.estaDisponible());
   }
 
   // No es realmente un test, perdón :ashamed:
