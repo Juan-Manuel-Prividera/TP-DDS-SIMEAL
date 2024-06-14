@@ -5,6 +5,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
@@ -27,6 +29,7 @@ public class Colaborador {
   private FormularioContestado formularioContestado;
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
+  private TarjetaColaborador tarjetaColaborador;
 
   @Setter
   private double puntosDeReconocimientoParcial;

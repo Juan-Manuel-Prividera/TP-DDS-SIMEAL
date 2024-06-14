@@ -12,17 +12,20 @@ import java.time.format.DateTimeFormatter;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Heladera {
-  private final String nombre;
-  private final Ubicacion ubicacion;
-  private final LocalDate fechaColocacion;
+  @Setter
+  private String nombre;
+  private Ubicacion ubicacion;
+  private LocalDate fechaColocacion;
   private EstadoHeladera estado;
-  private final Modelo modelo;
+  private Modelo modelo;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
