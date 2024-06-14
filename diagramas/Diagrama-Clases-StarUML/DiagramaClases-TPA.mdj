@@ -11430,7 +11430,7 @@
 											"top": 846,
 											"width": 450.36962890625,
 											"height": 13,
-											"text": "+operaciones: OperacionSobreHeladera[*]",
+											"text": "-operaciones: OperacionSobreHeladera[*]",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11644,7 +11644,7 @@
 											"top": 966,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+tipoOperacion: TipoOperacion",
+											"text": "-tipoOperacion: TipoOperacion",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11661,7 +11661,7 @@
 											"top": 981,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+heladera: Heladera",
+											"text": "-heladera: Heladera",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11678,7 +11678,7 @@
 											"top": 996,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+cantViandas: integer",
+											"text": "-cantViandas: integer",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11695,7 +11695,7 @@
 											"top": 1011,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+horaInicio: LocalDateTime",
+											"text": "-horaInicio: LocalDateTime",
 											"horizontalAlignment": 0
 										},
 										{
@@ -11712,7 +11712,7 @@
 											"top": 1026,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+tiempoParaEjecucion: integer = 3",
+											"text": "-horasParaEjecucion: integer = 3",
 											"horizontalAlignment": 0
 										}
 									],
@@ -11763,7 +11763,7 @@
 											"top": 1064,
 											"width": 337.62890625,
 											"height": 13,
-											"text": "+puedeEjecutarse(): boolean",
+											"text": "+puedeEjecutarse(Heladera: heladera): boolean",
 											"horizontalAlignment": 0
 										}
 									],
@@ -35022,6 +35022,7 @@
 								"$ref": "AAAAAAGQCjx1/tFrnsM="
 							},
 							"name": "operaciones",
+							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAGQCkQtywTwJdQ="
 							},
@@ -35192,6 +35193,7 @@
 								"$ref": "AAAAAAGQCkWQBySCb28="
 							},
 							"name": "tipoOperacion",
+							"visibility": "private",
 							"type": {
 								"$ref": "AAAAAAGQCkkj+jPocfo="
 							}
@@ -35203,7 +35205,10 @@
 								"$ref": "AAAAAAGQCkWQBySCb28="
 							},
 							"name": "heladera",
-							"type": "Heladera"
+							"visibility": "private",
+							"type": {
+								"$ref": "AAAAAAGQClrMT92felU="
+							}
 						},
 						{
 							"_type": "UMLAttribute",
@@ -35212,6 +35217,7 @@
 								"$ref": "AAAAAAGQCkWQBySCb28="
 							},
 							"name": "cantViandas",
+							"visibility": "private",
 							"type": "integer"
 						},
 						{
@@ -35221,6 +35227,7 @@
 								"$ref": "AAAAAAGQCkWQBySCb28="
 							},
 							"name": "horaInicio",
+							"visibility": "private",
 							"type": "LocalDateTime"
 						},
 						{
@@ -35229,7 +35236,8 @@
 							"_parent": {
 								"$ref": "AAAAAAGQCkWQBySCb28="
 							},
-							"name": "tiempoParaEjecucion",
+							"name": "horasParaEjecucion",
+							"visibility": "private",
 							"type": "integer",
 							"defaultValue": "3"
 						}
@@ -35271,6 +35279,15 @@
 									},
 									"type": "boolean",
 									"direction": "return"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGQGK8r1yk4L4c=",
+									"_parent": {
+										"$ref": "AAAAAAGQCkziD1iEZDk="
+									},
+									"name": "Heladera",
+									"type": "heladera"
 								}
 							]
 						}
