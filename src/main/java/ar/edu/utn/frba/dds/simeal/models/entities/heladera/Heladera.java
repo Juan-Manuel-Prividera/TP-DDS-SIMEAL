@@ -9,6 +9,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
@@ -25,12 +27,14 @@ public class Heladera {
   private Ubicacion ubicacion;
   private LocalDate fechaColocacion;
   private EstadoHeladera estado;
+  private List<Incidente> incidentes;
   private Modelo modelo;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, List<Incidente> incidentes, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
+    this.incidentes = incidentes;
     this.modelo = modelo;
   }
 
@@ -65,6 +69,9 @@ public class Heladera {
     logger.log(LoggerType.INFORMATION, msj);
 
     // Quizás guardar el histórico? Levantar BD y guardar el incidente?
+
+    this.incidentes.add(incidente);
+
 
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
     // Suscripcion suscripcion;

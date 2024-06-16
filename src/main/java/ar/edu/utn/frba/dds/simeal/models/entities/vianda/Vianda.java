@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import lombok.Getter;
+
 import java.time.LocalDate;
 
 
@@ -9,6 +11,7 @@ public class Vianda {
   private final TipoDeComida tipoDeComida;
   private final LocalDate fechaCaducidad;
   private final LocalDate fechaDonacion;
+  @Getter
   private final Colaborador colaborador;
   private int calorias;
   private Heladera heladera;
