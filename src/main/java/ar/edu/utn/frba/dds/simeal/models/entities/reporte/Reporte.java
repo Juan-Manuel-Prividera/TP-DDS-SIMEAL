@@ -29,7 +29,7 @@ public class Reporte {
         Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
         String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
-        String imagePath = "E:\\UTN\\Imagenes\\Logo-UTNBA.png";
+        String imagePath = "E:\\UTN\\Imagenes\\logoSimeal.png";
         try{
 
             PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(pdfPath));
