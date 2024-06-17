@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
-public class Alerta implements Incidente{
+public class Alerta implements Incidente {
   Heladera heladera;
   String descripcion;
   LocalDateTime fechaHora;

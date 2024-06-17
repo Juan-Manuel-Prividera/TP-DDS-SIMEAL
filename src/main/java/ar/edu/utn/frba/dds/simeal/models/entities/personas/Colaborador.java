@@ -5,8 +5,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.service.CalculadorDeReconocimientos;
@@ -28,6 +26,7 @@ public class Colaborador {
   private TipoJuridico tipoJuridico;
   private FormularioContestado formularioContestado;
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
+  private MedioContacto medioDeContactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
   private TarjetaColaborador tarjetaColaborador;
 
@@ -38,6 +37,10 @@ public class Colaborador {
     this.documento = documento;
     this.nombre = nombre;
     this.apellido = apellido;
+  }
+
+  public Colaborador(int cantidadCritica) {
+    this.cantidadCritica = cantidadCritica;
   }
 
   public void addMedioContacto(MedioContacto medioContacto) {
@@ -55,6 +58,16 @@ public class Colaborador {
   // Le tienen que llegar los puntos que le aporta las heladeras, cuando tengamos persistencia
   public boolean puedeCanjear(Oferta oferta, double puntosPorHeladeras) {
     return this.puntosDeReconocimientoParcial + puntosPorHeladeras >= oferta.getPuntosNecesarios();
+  }
+
+  @Override
+  public void recibirNotificacion(Mensaje mensaje) {
+    medioDeContactoPreferido.notificar(mensaje);
+  }
+
+  @Override
+  public int getCantidadCritica() {
+    return this.cantidadCritica;
   }
 }
 

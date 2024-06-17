@@ -22,21 +22,22 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class Heladera {
-  @Setter
   private String nombre;
   private Ubicacion ubicacion;
   private LocalDate fechaColocacion;
   private EstadoHeladera estado;
-  private List<Incidente> incidentes;
   private Modelo modelo;
+  private List<Incidente> incidentes;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, List<Incidente> incidentes, Modelo modelo) {
+
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.incidentes = incidentes;
     this.modelo = modelo;
   }
+
 
   public void cambiarDeEstado(EstadoHeladera nuevoEstado) {
     this.estado = nuevoEstado;

@@ -26,6 +26,12 @@ public class Ubicacion {
     this.coordenada = new Coordenada(longitud, latitud);
   }
 
+  public boolean equals(Ubicacion ubicacion) {
+    return this.coordenada.getLongitud() == ubicacion.coordenada.getLongitud()
+        && this.getCoordenada().getLatitud() == ubicacion.getCoordenada().getLatitud();
+  }
+
+
   public double distanciaA(Ubicacion ubicacion) {
     double lat1 = this.getCoordenada().getLatitud();
     double lon1 = this.getCoordenada().getLongitud();
@@ -38,5 +44,9 @@ public class Ubicacion {
 
     return calculator.getOrthodromicDistance(); // In meters
 
+  }
+
+  public String getStringUbi() {
+    return this.nombreCalle + " " + this.altura;
   }
 }
