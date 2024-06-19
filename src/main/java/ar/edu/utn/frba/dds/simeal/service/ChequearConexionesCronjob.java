@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
+import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,8 +15,7 @@ import java.util.List;
 
 public class ChequearConexionesCronjob {
   public static void main(String[] argv) {
-    // TODO Levantar todos los sensores de la BD
-    List<Sensor> sensores = null;
+    List<Sensor> sensores = SensorRepository.getInstance().getAll();
 
     int maxMinutosSinRespuesta = Integer.parseInt(argv[1]);
     // Asumo que lo que tarda Java en ejecutar el archivo es despreciable en comparanción a los 5 mins.

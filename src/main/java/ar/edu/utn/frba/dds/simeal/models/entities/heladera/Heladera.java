@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
@@ -86,7 +88,7 @@ public class Heladera {
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
     logger.log(LoggerType.INFORMATION, msj);
 
-    // Quizás guardar el histórico? Levantar BD y guardar el incidente?
+    IncidenteRepository.getInstance().guardar(incidente);
 
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
     // Suscripcion suscripcion;
@@ -95,7 +97,7 @@ public class Heladera {
   }
 
   public void registrarVisita(VisitaTecnica visita) {
-    // TODO Persistir visita
+    VisitaTecnicaRepository.getInstance().guardar(visita);
 
     if (visita.getExitosa()) this.estado = new Activa();
     else this.estado = new EnReparacion();
