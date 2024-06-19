@@ -10,14 +10,12 @@ import java.util.List;
 // Crontab 5 minutos.
 // El comando recibe por parámetro un solo número, la cantidad máxima de minutos sin respuesta.
 // Eso, es el 5 que está al final del comando
-//  */5 * * * * java /path/a/Crobjob.java 5
-// El crontab no está testeado...
+//  */5 * * * * "java -jar /path/to/ChequearConexionesCronjob.jar 5"
 
 public class ChequearConexionesCronjob {
   public static void main(String[] argv) {
     // TODO Levantar todos los sensores de la BD
     List<Sensor> sensores = null;
-
 
     int maxMinutosSinRespuesta = Integer.parseInt(argv[1]);
     // Asumo que lo que tarda Java en ejecutar el archivo es despreciable en comparanción a los 5 mins.
@@ -34,11 +32,10 @@ public class ChequearConexionesCronjob {
             LocalDateTime.now(),
             TipoAlerta.ALERTA_FALLA_CONEXION
         );
+
         heladera.reportarIncidente(alerta);
+
       }
     }
-
-    return;
-
   }
 }

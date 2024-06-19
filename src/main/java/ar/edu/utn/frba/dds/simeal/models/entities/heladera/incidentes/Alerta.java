@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 public class Alerta implements Incidente {
-  Heladera heladera;
-  String descripcion;
-  LocalDateTime fechaHora;
-  TipoAlerta tipoAlerta;
+  private Heladera heladera;
+  private String descripcion;
+  private LocalDateTime fechaHora;
+  private TipoAlerta tipoAlerta;
   @Override
   public String getNotificacion() {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -67,6 +67,7 @@ public class Heladera {
 
   public void reportarIncidente(Incidente incidente) {
     this.estado = new Inactiva();
+
     // Esto esta medio dudoso pero de momento se queda :)
     changeSupport.firePropertyChange("incidente", this, null);
 
@@ -75,7 +76,7 @@ public class Heladera {
 
     String msj = "Un incidente en la heladera \"" + this.nombre + "\" ha sido reportado:\n"
         + incidente.getNotificacion();
-    String asunto = "Incidente reportado en " + this.ubicacion.getNombreCalle() + " " + this.ubicacion.getAltura() + ".";
+    String asunto = "Incidente reportado en " + this.ubicacion.getStringUbi() + ".";
 
     Mensaje mensaje = new Mensaje(msj, asunto);
 
@@ -87,12 +88,10 @@ public class Heladera {
 
     // Quizás guardar el histórico? Levantar BD y guardar el incidente?
 
-    //this.incidentes.add(incidente);
-
-
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
     // Suscripcion suscripcion;
     // suscripcion.notificarAlPrimero(mensaje);
+
   }
 
   public void registrarVisita(VisitaTecnica visita) {
@@ -100,7 +99,6 @@ public class Heladera {
 
     if (visita.getExitosa()) this.estado = new Activa();
     else this.estado = new EnReparacion();
-
   }
 
   public void agregarOyente(PropertyChangeListener listener) {
