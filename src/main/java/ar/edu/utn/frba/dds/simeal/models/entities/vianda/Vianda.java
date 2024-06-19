@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +36,7 @@ public class Vianda {
     // Esto avisa cuando se retira una vianda de una heladera
     changeSupport.firePropertyChange("retirar", this.heladera, null);
     this.heladera = null;
+    // TODO: Cambiar de lugar el entregada = true si se retira para mover no esta entregada :(
     entregada = true;
   }
 

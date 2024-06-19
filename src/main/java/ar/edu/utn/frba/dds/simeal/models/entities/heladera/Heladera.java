@@ -7,6 +7,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHelader
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,6 +24,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class Heladera {
+  @Setter
   private String nombre;
   private Ubicacion ubicacion;
   private LocalDate fechaColocacion;
@@ -29,13 +32,24 @@ public class Heladera {
   private Modelo modelo;
   private List<Incidente> incidentes;
 
+  private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo, List<Incidente> incidentes) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.incidentes = incidentes;
     this.modelo = modelo;
+  }
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+    this.ubicacion = ubicacion;
+    this.fechaColocacion = fechaColocacion;
+    this.nombre = nombre;
+    this.modelo = modelo;
+  }
+
+  public Heladera(Ubicacion ubicacion) {
+    this.ubicacion = ubicacion;
   }
 
 
@@ -53,6 +67,8 @@ public class Heladera {
 
   public void reportarIncidente(Incidente incidente) {
     this.estado = new Inactiva();
+    // Esto esta medio dudoso pero de momento se queda :)
+    changeSupport.firePropertyChange("incidente", this, null);
 
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -71,7 +87,7 @@ public class Heladera {
 
     // Quizás guardar el histórico? Levantar BD y guardar el incidente?
 
-    this.incidentes.add(incidente);
+    //this.incidentes.add(incidente);
 
 
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
@@ -87,6 +103,8 @@ public class Heladera {
 
   }
 
-
+  public void agregarOyente(PropertyChangeListener listener) {
+    changeSupport.addPropertyChangeListener(listener);
+  }
 
 }

@@ -10,6 +10,7 @@ public class Ubicacion {
   private String nombreCalle;
   private int altura;
   private Coordenada coordenada;
+  private double condicionDeCercania = 1000; // 1000 metros
 
   public Ubicacion(double longitud, double latitud) {
     this.coordenada = new Coordenada(longitud, latitud);
@@ -48,5 +49,9 @@ public class Ubicacion {
 
   public String getStringUbi() {
     return this.nombreCalle + " " + this.altura;
+  }
+
+  public boolean estaCercaDe(Ubicacion ubicacion) {
+    return this.distanciaA(ubicacion) <= this.condicionDeCercania;
   }
 }

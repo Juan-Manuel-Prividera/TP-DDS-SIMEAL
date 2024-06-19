@@ -1,29 +1,30 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.Suscripciones;
+package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import java.util.ArrayList;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 public class QuedanPocasViandas implements Suscripcion {
   private Heladera heladera;
+  @Setter
   private List<Suscriptor> suscriptores;
   private Mensaje mensaje;
 
   public QuedanPocasViandas(Heladera heladera) {
-    suscriptores = new ArrayList<>();
-    mensaje = new Mensaje("Quedan pocas viandas en la heladera ubicada en: "
-        + heladera.getUbicacion().getStringUbi());
+    mensaje = new Mensaje("Quedan pocas viandas en la heladera: "
+        + heladera.getNombre());
   }
 
   @Override
   public void suscribir(Suscriptor suscriptor) {
-    // TODO: Validacion de cercania a la heladera
-    suscriptores.add(suscriptor);
+    if (suscriptor.getUbicacion().estaCercaDe(heladera.getUbicacion())) {
+      suscriptores.add(suscriptor);
+    } else {
+      throw new RuntimeException("No esta lo suficientemente cerca para suscribirse a esta heladera");
+    }
   }
 
   @Override
@@ -33,9 +34,15 @@ public class QuedanPocasViandas implements Suscripcion {
 
   // Este metodo diferencia cada suscripcion
   @Override
-  public List<Suscriptor> obtenerInteresados(int cantidadViandas) {
+  public List<Suscriptor> obtenerInteresados(int cantidadCritica) {
     return suscriptores.stream()
-        .filter(s -> s.getCantidadCritica() < cantidadViandas)
+        .filter(s -> s.getCantidadCritica() <= cantidadCritica)
         .toList();
+  }
+
+  @Override
+  public boolean esEsteTipo(String tipo) {
+    return tipo.equals("retirar");
+
   }
 }
