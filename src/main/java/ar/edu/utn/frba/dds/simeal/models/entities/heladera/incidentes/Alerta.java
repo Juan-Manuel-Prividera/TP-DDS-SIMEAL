@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@AllArgsConstructor
 public class Alerta implements Incidente {
   private Heladera heladera;
   private String descripcion;
@@ -21,6 +20,15 @@ public class Alerta implements Incidente {
         + "\n\t- Alerta de tipo: " + tipoAlerta.name()
         + "\n\t- Descripción: " + descripcion;
   }
+
+  public Alerta(Heladera heladera, String descripcion, TipoAlerta tipoAlerta) {
+    this.heladera = heladera;
+    this.descripcion = descripcion;
+    this.fechaHora = LocalDateTime.now();
+    this.tipoAlerta = tipoAlerta;
+  }
+
+
 }
 
 

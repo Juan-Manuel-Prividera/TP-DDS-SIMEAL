@@ -29,12 +29,9 @@ public class ChequearConexionesCronjob {
             heladera,
             "No se ha recibido la temperatura de la heladera en los últimos "
                 + maxMinutosSinRespuesta + " minutos.",
-            LocalDateTime.now(),
             TipoAlerta.ALERTA_FALLA_CONEXION
         );
-
         heladera.reportarIncidente(alerta);
-
       }
     }
   }
