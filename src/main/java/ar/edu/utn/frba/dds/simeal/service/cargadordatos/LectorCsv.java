@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.cargadordatos;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
@@ -30,11 +31,10 @@ public class LectorCsv {
   }
 
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
-  public List<Colaboracion> leerColaboradores() throws IOException, CsvException {
-    List<Colaboracion> listadoColaboraciones = new ArrayList<>();
+  public List<ColaboracionPuntuable> leerColaboradores() throws IOException, CsvException {
+    List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
     String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    ColaboracionBuilder colaboracionBuilder = new ColaboracionBuilder();
 
     CSVReader lector = new CSVReaderBuilder(
         new InputStreamReader(new FileInputStream(csvFile), StandardCharsets.UTF_8))
@@ -59,19 +59,33 @@ public class LectorCsv {
       TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
 
+      Colaborador colaborador =
+          validarSiExisteElColaboradorEnLista(numeroDocumento, listadoColaboracionesPuntuable);
 
-      Documento documento = new Documento(tipoDocumento, numeroDocumento);
-      Email email = new Email(mail, null);
-      Colaborador colaborador = new Colaborador(documento, nombre, apellido);
-      colaborador.addMedioContacto(email);
+      if (colaborador == null) {
+        Documento documento = new Documento(tipoDocumento, numeroDocumento);
+        Email email = new Email(mail, null);
+        colaborador = new Colaborador(documento, nombre, apellido);
+        colaborador.addMedioContacto(email);
+      }
+      ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
+          .crearColaboracionPuntuable(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
-      Colaboracion colaboracion = colaboracionBuilder
-          .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
-
-      listadoColaboraciones.add(colaboracion);
+      listadoColaboracionesPuntuable.add(colaboracionPuntuable);
 
 
     }
-    return listadoColaboraciones;
+    return listadoColaboracionesPuntuable;
+  }
+
+  private Colaborador validarSiExisteElColaboradorEnLista(String numeroDocumento,
+                                               List<ColaboracionPuntuable> colaboraciones) {
+    for (ColaboracionPuntuable colaboracion : colaboraciones) {
+      String nro = colaboracion.getColaborador().getDocumento().getNroDocumento();
+      if (numeroDocumento.equals(nro)) {
+        return colaboracion.getColaborador();
+      }
+    }
+    return null;
   }
 }

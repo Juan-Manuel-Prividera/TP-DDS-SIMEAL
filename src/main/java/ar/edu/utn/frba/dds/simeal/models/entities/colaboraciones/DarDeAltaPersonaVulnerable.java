@@ -12,24 +12,26 @@ import lombok.Getter;
 
 @Builder
 @AllArgsConstructor
-public class DarDeAltaPersonaVulnerable implements Colaboracion {
+public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;
   private final PersonaVulnerable personaVulnerable;
+  private final Tarjeta tarjeta;
   @Builder.Default
   private double factorDeReconocimiento = 2;
-  private final Tarjeta tarjeta;
 
-  public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable,
-                                    Tarjeta tarjeta) {
-    this.colaborador = colaborador;
-    this.fechaDeRealizacion = LocalDate.now();
-    this.personaVulnerable = personaVulnerable;
-    this.tarjeta = tarjeta;
+  public static DarDeAltaPersonaVulnerable create(Colaborador colaborador,
+                                                  LocalDate fechaDeRealizacion) {
+    DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable = DarDeAltaPersonaVulnerable.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fechaDeRealizacion)
+        .build();
+    darDeAltaPersonaVulnerable.getColaborador()
+        .sumarPuntosReconocimiento(darDeAltaPersonaVulnerable.calcularReconocimientoParcial());
 
+    return darDeAltaPersonaVulnerable;
   }
-
 
   @Override
   public double calcularReconocimientoParcial() {

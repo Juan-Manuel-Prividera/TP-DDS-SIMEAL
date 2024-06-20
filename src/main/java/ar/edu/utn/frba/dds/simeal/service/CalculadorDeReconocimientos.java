@@ -1,25 +1,21 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class CalculadorDeReconocimientos {
+  public static double calcularReconocimientoTotal(Colaborador colaborador, List<AdherirHeladera> adherirHeladeras) {
+    double reconocimiento =  colaborador.getPuntosDeReconocimientoParcial();
 
-  private final List<Colaboracion> colaboraciones;
+    if (adherirHeladeras == null || adherirHeladeras.isEmpty()) {
+      return reconocimiento;
+    }
 
-  public CalculadorDeReconocimientos(List<Colaboracion> colaboraciones) {
-    this.colaboraciones = new ArrayList<>(colaboraciones);
-  }
-
-  public double calcularReconocimientoTotal(Colaborador colaborador) {
-    double reconocimiento = 0;
-    for (Colaboracion colaboracion : colaboraciones) {
-      if (colaboracion.getColaborador().equals(colaborador)) {
-        reconocimiento += colaboracion.calcularReconocimientoParcial();
-      }
+    for (AdherirHeladera adherirHeladera : adherirHeladeras) {
+      reconocimiento += adherirHeladera.calcularReconocimientoParcial();
     }
     return reconocimiento;
   }

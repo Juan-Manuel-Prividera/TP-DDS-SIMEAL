@@ -1,11 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
@@ -15,32 +11,31 @@ import java.time.LocalDate;
 
 public class ColaboracionBuilder {
 
-  public Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
-                                        Colaborador colaborador, int cantidad) {
-    return switch (tipoColaboracion) {
-      case DINERO -> DonarDinero.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha).cantidadDinero(cantidad)
-          .build();
+  public static ColaboracionPuntuable crearColaboracionPuntuable(
+      TipoColaboracion tipoColaboracionPuntuable,
+      LocalDate fecha, Colaborador colaborador, int cantidad) {
 
-      case DONACION_VIANDA -> DonarVianda.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha)
-          .build();
+    return switch (tipoColaboracionPuntuable) {
+      case DINERO -> DonarDinero.create(colaborador, fecha, cantidad);
 
-      case REDISTRIBUCION_VIANDA -> DistribuirVianda.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha).cantidadViandasMover(cantidad)
-          .build();
+      case DONACION_VIANDA -> DonarVianda.create(colaborador, fecha);
 
-      case ENTREGA_TARJETA -> DarDeAltaPersonaVulnerable.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha)
-          .build();
+      case REDISTRIBUCION_VIANDA -> DistribuirVianda.create(colaborador, fecha, cantidad);
 
-      case OFERTA -> Oferta.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha)
-          .build();
+      case ENTREGA_TARJETA -> DarDeAltaPersonaVulnerable.create(colaborador, fecha);
 
-      case ADHERIR_HELADERA -> AdherirHeladera.builder()
-          .colaborador(colaborador).fechaDeRealizacion(fecha)
-          .build();
+      case ADHERIR_HELADERA -> AdherirHeladera.create(colaborador, fecha);
+
+      default -> throw new IllegalStateException("Unexpected value: " + tipoColaboracionPuntuable);
     };
+  }
+
+  public static Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
+                                               Colaborador colaborador, int cantidad) {
+    if (TipoColaboracion.OFERTA.equals(tipoColaboracion)) {
+      return Oferta.create(colaborador, fecha, cantidad);
+    } else {
+      return crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);
+    }
   }
 }

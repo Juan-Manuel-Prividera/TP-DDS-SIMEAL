@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,14 +15,15 @@ public class ColaboradorTest {
 
   @BeforeEach
   public void init(){
-    colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"01234567"),"Juan","Perez"
+    colaborador = new Colaborador(
+        new Documento(TipoDocumento.DNI,"01234567"),"Juan","Perez"
     );
-    oferta = new Oferta(null, 1000);
+    oferta = Oferta.create(null, LocalDate.now() , 1000);
   }
 
   @Test
   public void puedeCanjearTest(){
-    colaborador.setPuntosDeReconocimientoGastados(100);
+    colaborador.setPuntosDeReconocimientoParcial(100);
     Assertions.assertTrue(colaborador.puedeCanjear(oferta,2000)); // Le quedan 900 puntos al colab
   }
 }

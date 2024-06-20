@@ -9,13 +9,21 @@ import lombok.Getter;
 
 
 @Builder
-public class AdherirHeladera implements Colaboracion {
+public class AdherirHeladera implements ColaboracionPuntuable {
   @Getter
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;
+  private final Heladera heladera;
   @Builder.Default
   private final double factorDeReconocimiento = 5;
-  private final Heladera heladera;
+
+  public static AdherirHeladera create(Colaborador colaborador, LocalDate fecha) {
+    return AdherirHeladera.builder()
+        .colaborador(colaborador)
+        .fechaDeRealizacion(fecha)
+        .build();
+  }
+
 
   @Override
   public double calcularReconocimientoParcial() {
