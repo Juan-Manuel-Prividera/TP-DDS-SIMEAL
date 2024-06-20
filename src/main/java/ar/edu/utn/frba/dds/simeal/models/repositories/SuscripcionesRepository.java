@@ -1,26 +1,26 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SuscripcionesRepository {
   private List<Suscripcion> suscripciones = new ArrayList<>();
 
-  public List<Suscripcion> buscarPor(Heladera heladera, String tipoSuscripcion) {
+  public Suscripcion buscarPor(Heladera heladera, TipoEvento tipoEvento) {
     return suscripciones.stream()
-        .filter(s -> s.getHeladera().getUbicacion().equals(heladera.getUbicacion()) && s.esEsteTipo(tipoSuscripcion))
-        .toList();
+        .filter(s -> s.getHeladera().getUbicacion().equals(heladera.getUbicacion()) && s.interesaEsteEvento(tipoEvento))
+        .toList()
+        .get(0);
   }
 
   public void guardar(Suscripcion suscripcion) {
-    // TODO
+    suscripciones.add(suscripcion);
   }
   public void eliminar(Suscripcion suscripcion) {
-    //TODO
-  }
-  public void actualizar(Suscripcion suscripcion) {
-    //TODO
+    suscripciones.remove(suscripcion);
   }
 }

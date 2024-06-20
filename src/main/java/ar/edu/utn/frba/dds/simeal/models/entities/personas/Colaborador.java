@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscriptor;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
@@ -10,11 +9,12 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -43,8 +43,9 @@ public class Colaborador implements Suscriptor {
     this.apellido = apellido;
   }
 
-  public Colaborador(int cantidadCritica) {
+  public Colaborador(int cantidadCritica, Ubicacion ubicacion) {
     this.cantidadCritica = cantidadCritica;
+    this.ubicacion = ubicacion;
   }
 
   public void addMedioContacto(MedioContacto medioContacto) {

@@ -2,15 +2,15 @@ package ar.edu.utn.frba.dds.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Coordenada;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
-import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.CalculadorPuntosRecomendados;
 import ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi.AdapterCalculadorUbicaciones;
 import ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi.AdapterUbicacionesApi;
-import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 public class UbicacionesApiTest {
   AdapterUbicacionesApi adapterCalculadorUbicaciones;

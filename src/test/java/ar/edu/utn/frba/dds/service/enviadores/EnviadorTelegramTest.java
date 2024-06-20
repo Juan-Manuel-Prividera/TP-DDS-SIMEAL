@@ -1,11 +1,8 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
-import static org.mockito.Mockito.*;
-
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.EnviadorTelegram;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.TelegramMessage;
-import org.glassfish.jersey.server.BackgroundScheduler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +10,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import static org.mockito.Mockito.*;
 
 public class EnviadorTelegramTest {
   Mensaje mensajePrueba = new Mensaje("¡Bienvenido a Simeal!");

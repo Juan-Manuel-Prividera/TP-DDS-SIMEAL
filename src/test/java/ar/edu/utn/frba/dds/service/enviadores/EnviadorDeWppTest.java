@@ -1,7 +1,5 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
-import static org.mockito.Mockito.*;
-
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.EnviadorDeWpp;
@@ -10,6 +8,8 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.*;
 
 
 public class EnviadorDeWppTest {

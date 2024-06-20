@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 @AllArgsConstructor

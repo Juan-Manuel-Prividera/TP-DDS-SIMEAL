@@ -1,16 +1,15 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda;
 
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 
 @Builder

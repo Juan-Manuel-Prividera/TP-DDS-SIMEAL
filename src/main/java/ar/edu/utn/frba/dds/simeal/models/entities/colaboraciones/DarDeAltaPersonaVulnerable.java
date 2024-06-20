@@ -3,10 +3,11 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 
 

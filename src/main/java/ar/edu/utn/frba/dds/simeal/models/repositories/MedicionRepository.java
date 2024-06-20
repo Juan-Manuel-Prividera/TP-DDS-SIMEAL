@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
 import lombok.Getter;
+
 import java.util.List;
 
 public class MedicionRepository {

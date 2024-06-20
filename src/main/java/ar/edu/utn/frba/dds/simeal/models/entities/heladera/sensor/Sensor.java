@@ -1,11 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.MedicionRepository;
 import lombok.Getter;
-import java.time.LocalDateTime;
 @Getter
 public class Sensor {
   Heladera heladera;

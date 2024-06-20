@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

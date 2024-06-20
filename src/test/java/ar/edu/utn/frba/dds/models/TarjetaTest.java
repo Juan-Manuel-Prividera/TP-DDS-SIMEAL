@@ -1,20 +1,19 @@
 package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Retiro;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TarjetaTest {
   List<Retiro> retiros = new ArrayList<>();

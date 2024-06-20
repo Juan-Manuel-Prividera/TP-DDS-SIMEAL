@@ -2,10 +2,11 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import java.time.LocalDate;
-import java.time.Period;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
+import java.time.Period;
 
 
 @Builder

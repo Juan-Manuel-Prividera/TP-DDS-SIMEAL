@@ -2,14 +2,15 @@ package ar.edu.utn.frba.dds.simeal.service.enviadores.telegram;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import lombok.Setter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class EnviadorTelegram extends TelegramLongPollingBot {
   @Setter

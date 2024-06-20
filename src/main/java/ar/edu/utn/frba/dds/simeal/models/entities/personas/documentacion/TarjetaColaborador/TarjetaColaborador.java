@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjet
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TarjetaColaborador {

@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
 import ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi.AdapterUbicacionesApi;
+
 import java.io.IOException;
 
 public class CalculadorPuntosRecomendados {

@@ -2,12 +2,14 @@ package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.time.LocalDate;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -21,32 +23,32 @@ public class Vianda {
   private Heladera heladera;
   private boolean entregada;
 
-  private final PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+  private AdministradorDeEventos administradorDeEventos;
 
-  public Vianda(Heladera heladera) {
+  public Vianda(Heladera heladera, AdministradorDeEventos administradorDeEventos) {
     this.heladera = heladera;
+    this.administradorDeEventos = administradorDeEventos;
   }
 
+
+
   public void moverA(Heladera heladera) {
-    retirar();
+    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO));
     ingresarA(heladera);
   }
 
   public void retirar() {
     // Esto avisa cuando se retira una vianda de una heladera
-    changeSupport.firePropertyChange("retirar", this.heladera, null);
+    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO));
     this.heladera = null;
-    // TODO: Cambiar de lugar el entregada = true si se retira para mover no esta entregada :(
     entregada = true;
   }
 
   private void ingresarA(Heladera heladera) {
     // Esto avisa cuando se ingresa una vianda a una heladera
-    changeSupport.firePropertyChange("ingresarA", heladera, null);
+    administradorDeEventos.huboUnEvento(new Evento(heladera, TipoEvento.INGRESO));
     this.heladera = heladera;
   }
 
-  public void agregarOyente(PropertyChangeListener listener) {
-    changeSupport.addPropertyChangeListener(listener);
-  }
+
 }

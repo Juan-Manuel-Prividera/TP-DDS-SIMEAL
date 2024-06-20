@@ -9,18 +9,19 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.TipoMedicion;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class HeladeraTest {
   Ubicacion ubicacion= new Ubicacion(555,444);
@@ -29,13 +30,12 @@ public class HeladeraTest {
   Activa estadoActivo = new Activa();
   Inactiva estadoInactivo = new Inactiva();
   EnReparacion estadoEnReparacion = new EnReparacion();
-  Medicion medicion = new Medicion(TipoMedicion.MEDICION_TEMPERATURA);
+  Medicion medicion = new MedicionTemperatura();
   Colaborador colaborador = new Colaborador(
       new Documento(TipoDocumento.DNI, "1234567"),
       "Karl", "Heun");
   Incidente alerta = new Alerta(heladera,
       "Esto es una alerta de movimiento.",
-      LocalDateTime.now(),
       TipoAlerta.ALERTA_FRAUDE);
 
   Incidente fallaTecnica = new FallaTecnica(heladera,

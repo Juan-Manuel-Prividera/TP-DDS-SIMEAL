@@ -6,21 +6,21 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Getter
@@ -34,7 +34,7 @@ public class Heladera {
   private Modelo modelo;
   private List<Incidente> incidentes;
 
-  private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+  private AdministradorDeEventos administradorDeEventos;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo, List<Incidente> incidentes) {
     this.ubicacion = ubicacion;
@@ -50,8 +50,9 @@ public class Heladera {
     this.modelo = modelo;
   }
 
-  public Heladera(Ubicacion ubicacion) {
+  public Heladera(Ubicacion ubicacion, AdministradorDeEventos administradorDeEventos) {
     this.ubicacion = ubicacion;
+    this.administradorDeEventos = administradorDeEventos;
   }
 
 
@@ -68,10 +69,12 @@ public class Heladera {
   }
 
   public void reportarIncidente(Incidente incidente) {
+    // Avisa al admnistrador de eventos que hubo un incidente en esta heladera
+    administradorDeEventos.huboUnEvento(new Evento(this, TipoEvento.INCIDENTE));
+
     this.estado = new Inactiva();
 
-    // Esto esta medio dudoso pero de momento se queda :)
-    changeSupport.firePropertyChange("incidente", this, null);
+
 
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -102,9 +105,4 @@ public class Heladera {
     if (visita.getExitosa()) this.estado = new Activa();
     else this.estado = new EnReparacion();
   }
-
-  public void agregarOyente(PropertyChangeListener listener) {
-    changeSupport.addPropertyChangeListener(listener);
-  }
-
 }

@@ -2,11 +2,12 @@ package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
 
 
 public class AdapterCalculadorUbicaciones implements AdapterUbicacionesApi {

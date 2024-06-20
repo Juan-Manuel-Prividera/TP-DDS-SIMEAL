@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
+
 import java.io.IOException;
 
 public interface AdapterUbicacionesApi {
