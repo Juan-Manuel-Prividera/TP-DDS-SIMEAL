@@ -179,10 +179,10 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
     public void onEndPage(PdfWriter writer, Document document) {
         // Pie de página
         ColumnText.showTextAligned(writer.getDirectContent(),
-                Element.ALIGN_CENTER,
-                new Phrase(String.format("Página %d", writer.getPageNumber()), footerFont),
-                (document.right() - document.left()) / 2 + document.leftMargin(),
-                document.bottom() - 10, 0);
+            Element.ALIGN_CENTER,
+            new Phrase(String.format("Página %d", writer.getPageNumber()), footerFont),
+            (document.right() - document.left()) / 2 + document.leftMargin(),
+            document.bottom() - 10, 0);
     }
 
     @Override
@@ -215,4 +215,3 @@ class HeaderFooterPageEvent extends PdfPageEventHelper {
         }
     }
 }
-
