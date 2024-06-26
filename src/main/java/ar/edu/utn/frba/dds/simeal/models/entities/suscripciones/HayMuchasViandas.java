@@ -41,7 +41,7 @@ public class HayMuchasViandas implements Suscripcion {
   @Override
   public List<Colaborador> obtenerInteresados(int cantidadCritica) {
     return suscriptores.stream()
-        .filter(s -> s.getCantidadCritica() <= cantidadCritica)
+        .filter(s -> s.getCantidadDeViandasAceptable() <= cantidadCritica)
         .toList();
   }
 

@@ -20,7 +20,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class Colaborador implements Suscriptor {
+public class Colaborador implements ReceptorDeNotificaciones {
   private String nombre;
   private String apellido;
   private Documento documento;
@@ -33,7 +33,7 @@ public class Colaborador implements Suscriptor {
   private MedioContacto medioDeContactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
   private TarjetaColaborador tarjetaColaborador;
-  private int cantidadCritica;
+  private int cantidadDeViandasAceptable;
   @Setter
   private double puntosDeReconocimientoParcial;
 
@@ -43,8 +43,8 @@ public class Colaborador implements Suscriptor {
     this.apellido = apellido;
   }
 
-  public Colaborador(int cantidadCritica, Ubicacion ubicacion) {
-    this.cantidadCritica = cantidadCritica;
+  public Colaborador(int cantidadDeViandasAceptable, Ubicacion ubicacion) {
+    this.cantidadDeViandasAceptable = cantidadDeViandasAceptable;
     this.ubicacion = ubicacion;
   }
 
@@ -70,9 +70,8 @@ public class Colaborador implements Suscriptor {
     medioDeContactoPreferido.notificar(mensaje);
   }
 
-  @Override
-  public int getCantidadCritica() {
-    return this.cantidadCritica;
+  public int getCantidadDeViandasAceptable() {
+    return this.cantidadDeViandasAceptable;
   }
 
 

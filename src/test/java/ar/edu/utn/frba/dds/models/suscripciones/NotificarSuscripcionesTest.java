@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
@@ -34,14 +35,14 @@ public class NotificarSuscripcionesTest {
   Vianda vianda4;
   Heladera heladera;
 
-  List<Suscriptor> suscriptores;
-  Suscriptor suscriptor1;
-  Suscriptor suscriptor2;
-  Suscriptor suscriptor3;
+  List<Colaborador> suscriptores;
+  Colaborador suscriptor1;
+  Colaborador suscriptor2;
+  Colaborador suscriptor3;
 
-  List<Suscriptor> interesadosEnPocasViandas;
-  List<Suscriptor> interesadosEnMuchasViandas;
-  List<Suscriptor> interesadosEnDesperfectos;
+  List<ReceptorDeNotificaciones> interesadosEnPocasViandas;
+  List<ReceptorDeNotificaciones> interesadosEnMuchasViandas;
+  List<ReceptorDeNotificaciones> interesadosEnDesperfectos;
 
   SuscripcionesRepository suscripcionesRepositoryMock;
   ViandaRepository viandaRepositoryMock;
