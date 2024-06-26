@@ -27,7 +27,7 @@ public class PuedeSuscribirseTest {
 
   @Test
   public void siEstaSuficientementeCerca() {
-    Suscriptor suscriptor = new Colaborador(5, ubicacionCercana);
+    Colaborador suscriptor = new Colaborador(5, ubicacionCercana);
     suscripcion.suscribir(suscriptor);
 
     Assertions.assertTrue(suscripcion.getSuscriptores().contains(suscriptor));
@@ -35,7 +35,7 @@ public class PuedeSuscribirseTest {
 
   @Test
   public void siEstaLejosNoPuedeSuscribirse() {
-    Suscriptor suscriptor = new Colaborador(4, ubicacionLegaja);
+    Colaborador suscriptor = new Colaborador(4, ubicacionLegaja);
     suscripcion.suscribir(suscriptor);
 
     Assertions.assertFalse(suscripcion.getSuscriptores().contains(suscriptor));

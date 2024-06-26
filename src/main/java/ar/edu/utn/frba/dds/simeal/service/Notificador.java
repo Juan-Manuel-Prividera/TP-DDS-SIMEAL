@@ -8,8 +8,11 @@ import java.util.List;
 
 public class Notificador {
 
-  public void notificar(List<ReceptorDeNotificaciones> receptores, Mensaje mensaje) {
-    receptores.parallelStream().forEach(s -> s.recibirNotificacion(mensaje));
-  }
 
+  public void notificar(List<? extends ReceptorDeNotificaciones> receptores, Mensaje mensaje) {
+    receptores.forEach(r -> notificar(r,mensaje));
+  }
+  public void notificar(ReceptorDeNotificaciones receptor, Mensaje mensaje) {
+    receptor.recibirNotificacion(mensaje);
+  }
 }

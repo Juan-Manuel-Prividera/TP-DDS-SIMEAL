@@ -70,10 +70,6 @@ public class Colaborador implements ReceptorDeNotificaciones {
     medioDeContactoPreferido.notificar(mensaje);
   }
 
-  public int getCantidadDeViandasAceptable() {
-    return this.cantidadDeViandasAceptable;
-  }
-
 
 }
 

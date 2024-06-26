@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.eventos;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
@@ -31,7 +32,9 @@ public class AdministradorDeEventos {
 
   private void notificarUnaSuscripcion(Suscripcion suscripcion, List<Colaborador> suscriptores) {
     if (!suscriptores.isEmpty()) {
-        notificador.notificar(suscriptores, suscripcion.getMensaje());
+      // TODO: Por que no anda esto???? :|
+     //   notificador.notificar(suscriptores, suscripcion.getMensaje());
+      suscriptores.forEach(s -> s.recibirNotificacion(suscripcion.getMensaje()));
     }
   }
 }
