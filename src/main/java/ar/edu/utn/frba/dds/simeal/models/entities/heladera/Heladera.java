@@ -11,7 +11,9 @@ import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
+import ar.edu.utn.frba.dds.simeal.service.Notificador;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
@@ -73,30 +75,15 @@ public class Heladera {
     administradorDeEventos.huboUnEvento(new Evento(this, TipoEvento.INCIDENTE));
 
     this.estado = new Inactiva();
-
-
-
-    DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-    String msj = "Un incidente en la heladera \"" + this.nombre + "\" ha sido reportado:\n"
-        + incidente.getNotificacion();
-    String asunto = "Incidente reportado en " + this.ubicacion.getStringUbi() + ".";
-
-    Mensaje mensaje = new Mensaje(msj, asunto);
-
-    Logger logger = Logger.getInstance();
+    Mensaje mensaje = generarMensaje(incidente);
 
     // La consigna dice 'reportar', yo lo loggeo pero se podría hacer lo que quisiesemos con esta data.
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
-    logger.log(LoggerType.INFORMATION, msj);
-
-    this.incidentes.add(incidente);
+    Logger.getInstance().log(LoggerType.INFORMATION, mensaje.getMensaje());
     IncidenteRepository.getInstance().guardar(incidente);
-
-    // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
-    // Suscripcion suscripcion;
-    // suscripcion.notificarAlPrimero(mensaje);
+    this.incidentes.add(incidente);
+    // Nose que tan bien o mal esta que el repositorio busque por cercania
+    Notificador.notificar(TecnicoRepository.getInstance().buscarMasCercanoA(ubicacion), mensaje);
 
   }
 
@@ -105,5 +92,16 @@ public class Heladera {
 
     if (visita.getExitosa()) this.estado = new Activa();
     else this.estado = new EnReparacion();
+  }
+
+  private Mensaje generarMensaje(Incidente incidente) {
+    DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formatterHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    String msj = "Un incidente en la heladera \"" + this.nombre + "\" ha sido reportado:\n"
+        + incidente.getNotificacion();
+    String asunto = "Incidente reportado en " + this.ubicacion.getStringUbi() + ".";
+
+    return new Mensaje(msj, asunto);
   }
 }

@@ -8,10 +8,13 @@ import lombok.Setter;
 
 
 public class EnviadorDeWpp {
-  private final String accountSid;
-  private final String authToken;
-  private final String numeroWpp;
+  private final String accountSid; // Clave de Twilio
+  private final String authToken; // Token de api de Twilio
+  private final String numeroWpp; // El numero desde el que se envian los wpp
+
   private static EnviadorDeWpp instancia;
+
+  // Este setter NUNCA se deberia llamar fuera de un TEST es solo para test
   @Setter
   private MyMessageCreator myMessageCreator;
 

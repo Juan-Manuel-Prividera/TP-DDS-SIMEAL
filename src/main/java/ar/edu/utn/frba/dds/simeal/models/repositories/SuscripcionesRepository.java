@@ -8,7 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuscripcionesRepository {
-  private List<Suscripcion> suscripciones = new ArrayList<>();
+  private List<Suscripcion> suscripciones;
+  private static SuscripcionesRepository instance;
+
+  public static SuscripcionesRepository getInstance() {
+    if(instance == null)
+      return new SuscripcionesRepository();
+    return instance;
+  }
+
+  private SuscripcionesRepository() {
+    suscripciones = new ArrayList<>();
+  }
 
   public Suscripcion buscarPor(Heladera heladera, TipoEvento tipoEvento) {
     return suscripciones.stream()

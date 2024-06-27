@@ -7,10 +7,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class BotTelegram {
   public static void main(String[] args) throws TelegramApiException {
-    EnviadorTelegram enviadorTelegram = new EnviadorTelegram();
     TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
-    api.registerBot(enviadorTelegram);
-
-
+    api.registerBot(EnviadorTelegram.getInstance());
   }
 }

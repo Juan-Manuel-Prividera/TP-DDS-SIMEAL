@@ -5,17 +5,19 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 public class HeladeraRepository {
-  @Getter
-  private List<Heladera> heladeras = new ArrayList<>();
+  private List<Heladera> heladeras;
   private static HeladeraRepository instancia;
 
   public static HeladeraRepository getInstance() {
     if(instancia == null)
       return new HeladeraRepository();
     return instancia;
+  }
+
+  private HeladeraRepository() {
+    heladeras = new ArrayList<>();
   }
 
   public void guardar(Heladera heladera) {

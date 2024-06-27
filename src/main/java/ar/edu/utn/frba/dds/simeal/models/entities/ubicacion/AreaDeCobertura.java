@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,4 +9,8 @@ import lombok.Getter;
 public class AreaDeCobertura {
   private Ubicacion ubicacion;
   private double radioDeCobertura;
+
+  public boolean cubreEstaUbicacion(Ubicacion ubicacion) {
+    return this.ubicacion.distanciaA(ubicacion) <= radioDeCobertura;
+  }
 }

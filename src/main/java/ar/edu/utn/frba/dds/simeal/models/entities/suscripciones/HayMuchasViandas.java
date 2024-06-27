@@ -16,12 +16,16 @@ public class HayMuchasViandas implements Suscripcion {
   private List<Colaborador> suscriptores;
   private Heladera heladera;
   private Mensaje mensaje;
-  private int cercaniaNecesaria = 1000;
+  private final int cercaniaNecesaria = 1000;
+  private List<TipoEvento> eventosDeInteres;
   public HayMuchasViandas(Heladera heladera) {
     suscriptores = new ArrayList<>();
     mensaje = new Mensaje("Hay muchas viandas en la heladera: "
         + heladera.getNombre());
     this.heladera = heladera;
+
+    eventosDeInteres = new ArrayList<>();
+    eventosDeInteres.add(TipoEvento.INGRESO);
   }
 
   @Override
@@ -47,7 +51,7 @@ public class HayMuchasViandas implements Suscripcion {
 
   @Override
   public boolean interesaEsteEvento(TipoEvento tipoEvento) {
-    return tipoEvento.equals(TipoEvento.INGRESO);
+    return eventosDeInteres.contains(tipoEvento);
   }
 
 

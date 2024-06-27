@@ -17,13 +17,17 @@ public class QuedanPocasViandas implements Suscripcion {
   @Setter
   private Mensaje mensaje;
   private Heladera heladera;
-  private int cercaniaNecesaria = 1000;
+  private final int cercaniaNecesaria = 1000;
+  private List<TipoEvento> eventosDeInteres;
   public QuedanPocasViandas(Heladera heladera) {
+    suscriptores = new ArrayList<>();
     mensaje = new Mensaje("Quedan pocas viandas en la heladera: "
         + heladera.getNombre());
 
     this.heladera = heladera;
-    suscriptores = new ArrayList<>();
+
+    eventosDeInteres = new ArrayList<>();
+    eventosDeInteres.add(TipoEvento.RETIRO);
   }
 
   @Override
@@ -51,6 +55,6 @@ public class QuedanPocasViandas implements Suscripcion {
 
   @Override
   public boolean interesaEsteEvento(TipoEvento tipoEvento) {
-    return tipoEvento.equals(TipoEvento.RETIRO);
+    return eventosDeInteres.contains(tipoEvento);
   }
 }

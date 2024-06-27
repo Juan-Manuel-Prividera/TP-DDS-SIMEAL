@@ -14,13 +14,12 @@ import java.util.List;
 
 @Setter
 public class AdministradorDeEventos {
-  private ViandaRepository viandaRepository;
-  private SuscripcionesRepository suscripcionesRepository;
-  private Notificador notificador = new Notificador();
+  private ViandaRepository viandaRepository = ViandaRepository.getInstance();
+  private SuscripcionesRepository suscripcionesRepository = SuscripcionesRepository.getInstance();
 
   // Cuando se ejecute un retirar o moverA o reportarIncidente se ejecuta este metodo
   public void huboUnEvento(Evento evento) {
-    Heladera heladeraEvento = (Heladera) evento.getHeladeraAfectada();
+    Heladera heladeraEvento = evento.getHeladeraAfectada();
     Suscripcion suscripcion = suscripcionesRepository.buscarPor(heladeraEvento, evento.getTipoEvento());
     notificarUnaSuscripcion(suscripcion, suscripcion.obtenerInteresados(cantidadViandasHeladera(heladeraEvento)));
   }
@@ -32,9 +31,7 @@ public class AdministradorDeEventos {
 
   private void notificarUnaSuscripcion(Suscripcion suscripcion, List<Colaborador> suscriptores) {
     if (!suscriptores.isEmpty()) {
-      // TODO: Por que no anda esto???? :|
-     //   notificador.notificar(suscriptores, suscripcion.getMensaje());
-      suscriptores.forEach(s -> s.recibirNotificacion(suscripcion.getMensaje()));
+      Notificador.notificar(suscriptores, suscripcion.getMensaje());
     }
   }
 }

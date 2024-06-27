@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,8 @@ public class Colaborador implements ReceptorDeNotificaciones {
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
   private TarjetaColaborador tarjetaColaborador;
   private int cantidadDeViandasAceptable;
+  @Setter
+  private Usuario usuario;
   @Setter
   private double puntosDeReconocimientoParcial;
 

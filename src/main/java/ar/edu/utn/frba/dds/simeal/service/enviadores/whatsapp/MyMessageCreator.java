@@ -6,6 +6,7 @@ import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
 import lombok.Setter;
 
+// Esta clase nos permite tener por separado el mensaje de Wpp, asi lo podemos mockear :)
 @Setter
 public class MyMessageCreator {
   MessageCreator messageCreator;

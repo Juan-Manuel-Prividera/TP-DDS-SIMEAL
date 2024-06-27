@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncidenteRepository {
-  private List<Incidente> incidentes = new ArrayList<>();
+  private List<Incidente> incidentes;
   static private IncidenteRepository instance;
 
   public static IncidenteRepository getInstance() {
@@ -15,6 +15,10 @@ public class IncidenteRepository {
       return new IncidenteRepository();
 
     return instance;
+  }
+
+  private IncidenteRepository(){
+    incidentes = new ArrayList<>();
   }
 
   public void guardar(Incidente incidente) {

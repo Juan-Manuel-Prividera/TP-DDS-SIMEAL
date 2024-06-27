@@ -13,18 +13,28 @@ import java.util.List;
 import java.util.Objects;
 
 public class EnviadorTelegram extends TelegramLongPollingBot {
+
+  // Este setter es para poder testear, NUNCA se deberia llamar desde otro lugar que no sea test
   @Setter
-  TelegramMessage telegramMessage;
-  ConfigReader configReader;
-  List<Long> chatIds;
+  private TelegramMessage telegramMessage;
+  private ConfigReader configReader;
+  private List<Long> chatIds;
 
+  private static EnviadorTelegram instance;
+  public static EnviadorTelegram getInstance() {
+    if(instance == null)
+      return new EnviadorTelegram();
+    else
+      return instance;
+  }
 
-  public EnviadorTelegram() {
+  private EnviadorTelegram() {
     telegramMessage = new TelegramMessage();
     chatIds = new ArrayList<>();
     configReader = new ConfigReader();
   }
 
+  // Recibe un nuevo mensaje "update" para iniciar el chat, toma el id del chat y lo guarda
   @Override
   public void onUpdateReceived(Update update) {
     Message message = update.getMessage();
@@ -34,10 +44,12 @@ public class EnviadorTelegram extends TelegramLongPollingBot {
     }
   }
 
+  // Envia un mensaje a todos los chats que tenga registrados
   public void enviar(Mensaje mensaje) {
     chatIds.forEach(id -> {
       try {
-        execute(telegramMessage.getSendMessage(id, mensaje.getMensaje()));
+        // Ejecutar el mensaje es directamente enviarlo
+        execute(telegramMessage.getSendMessage(id, mensaje));
       } catch (TelegramApiException e) {
         System.out.println("Error al enviar el mensaje: " + e.getMessage());
         throw new RuntimeException(e);
@@ -45,6 +57,8 @@ public class EnviadorTelegram extends TelegramLongPollingBot {
     });
   }
 
+
+  // Estos dos metodos los pide Telegram asi que se los damos :)
   @Override
   public String getBotUsername() {
     return configReader.getProperty("bot.username");

@@ -16,8 +16,10 @@ public class HuboUnDesperfecto implements Suscripcion {
   private List<Colaborador> suscriptores;
   private Heladera heladera;
   private Mensaje mensaje;
-  private int cercaniaNecesaria = 1000;
+  private final int cercaniaNecesaria = 1000;
+  private List<TipoEvento> eventosDeInteres;
   private SugerenciaHeladeras sugerenciaHeladeras;
+
 
 
   public HuboUnDesperfecto(Heladera heladera) {
@@ -26,6 +28,9 @@ public class HuboUnDesperfecto implements Suscripcion {
     this.heladera = heladera;
     this.mensaje = new Mensaje("Hubo un desperfecto en la heladera: "
         + heladera.getNombre() + "\n" + sugerenciaHeladeras.getSugerencia(cercaniaNecesaria));
+
+    eventosDeInteres = new ArrayList<>();
+    eventosDeInteres.add(TipoEvento.INCIDENTE);
   }
 
   @Override
@@ -50,6 +55,6 @@ public class HuboUnDesperfecto implements Suscripcion {
 
   @Override
   public boolean interesaEsteEvento(TipoEvento tipoEvento) {
-    return tipoEvento.equals(TipoEvento.INCIDENTE);
+    return eventosDeInteres.contains(tipoEvento);
   }
 }

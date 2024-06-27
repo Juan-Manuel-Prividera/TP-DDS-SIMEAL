@@ -13,9 +13,12 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +49,7 @@ public class NotificarSuscripcionesTest {
 
   SuscripcionesRepository suscripcionesRepositoryMock;
   ViandaRepository viandaRepositoryMock;
-  Notificador notificadorMock;
+  MockedStatic<Notificador> notificadorMock;
 
   AdministradorDeEventos administradorDeEventos;
 
@@ -92,7 +95,7 @@ public class NotificarSuscripcionesTest {
     suscripciones.add(hayMuchasViandas);
     suscripciones.add(huboDesperfecto);
 
-    notificadorMock = mock(Notificador.class);
+    notificadorMock = mockStatic(Notificador.class);
     viandaRepositoryMock = mock(ViandaRepository.class);
     suscripcionesRepositoryMock = mock(SuscripcionesRepository.class);
 
@@ -103,6 +106,12 @@ public class NotificarSuscripcionesTest {
     interesadosEnMuchasViandas.add(suscriptor1);
     interesadosEnMuchasViandas.add(suscriptor2);
 
+
+  }
+
+  @AfterEach
+  public void after(){
+    notificadorMock.close();
   }
 
   @Test @DisplayName("Quedan 3 viandas en la heladera => Se notifica a los suscriptores con cantidad critica 3")
@@ -110,18 +119,18 @@ public class NotificarSuscripcionesTest {
     viandas.remove(vianda1);
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
     when(suscripcionesRepositoryMock.buscarPor(heladera, TipoEvento.RETIRO)).thenReturn(quedanPocasViandas);
-    doNothing().when(notificadorMock).notificar(interesadosEnPocasViandas, quedanPocasViandas.getMensaje());
+
+    notificadorMock.when(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
 
     administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
     administradorDeEventos.setViandaRepository(viandaRepositoryMock);
-    administradorDeEventos.setNotificador(notificadorMock);
 
 
     vianda1.retirar();
 
-    verify(notificadorMock).notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje());
-    verify(notificadorMock, never()).notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje());
-    verify(notificadorMock, never()).notificar(suscriptores,huboDesperfecto.getMensaje());
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()));
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()), times(0));
+    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()),times(0));
   }
 
   @Test @DisplayName("Cuando se hace un moverA se ejecuta tambien el retirar")
@@ -130,20 +139,22 @@ public class NotificarSuscripcionesTest {
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
     when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.RETIRO)).thenReturn(quedanPocasViandas);
     when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.INGRESO)).thenReturn(hayMuchasViandas);
-    doNothing().when(notificadorMock).notificar(interesadosEnPocasViandas, quedanPocasViandas.getMensaje());
+
+    notificadorMock.when(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
+    notificadorMock.when(() -> Notificador.notificar(interesadosEnMuchasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
+
 
     administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
     administradorDeEventos.setViandaRepository(viandaRepositoryMock);
-    administradorDeEventos.setNotificador(notificadorMock);
 
 
     vianda1.moverA(heladera);
 
     // Como para mover una vianda hay que retirar de una e ingresar de otra se ejecutan los dos eventos
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()));
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()));
+    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()),times(0));
 
-    verify(notificadorMock).notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje());
-    verify(notificadorMock).notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje());
-    verify(notificadorMock, never()).notificar(suscriptores,huboDesperfecto.getMensaje());
   }
 
   @Test @DisplayName("Cuando se reporta incidente se notifica a todos los suscriptores")
@@ -152,16 +163,15 @@ public class NotificarSuscripcionesTest {
 
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
     when(suscripcionesRepositoryMock.buscarPor(heladera, TipoEvento.INCIDENTE)).thenReturn(huboDesperfecto);
-    doNothing().when(notificadorMock).notificar(suscriptores, huboDesperfecto.getMensaje());
+    notificadorMock.when(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje())).thenAnswer(invocationOnMock -> null);
 
     administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
     administradorDeEventos.setViandaRepository(viandaRepositoryMock);
-    administradorDeEventos.setNotificador(notificadorMock);
 
     heladera.reportarIncidente(alerta);
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()),times(0));
+    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()),times(0));
+    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()));
 
-    verify(notificadorMock, never()).notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje());
-    verify(notificadorMock, never()).notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje());
-    verify(notificadorMock).notificar(suscriptores,huboDesperfecto.getMensaje());
   }
 }

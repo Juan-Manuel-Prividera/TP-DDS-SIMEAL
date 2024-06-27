@@ -10,7 +10,17 @@ import lombok.Getter;
 public class ViandaRepository {
   @Getter
   private List<Vianda> viandas;
+  private static ViandaRepository instance;
 
+  public static ViandaRepository getInstance() {
+    if(instance == null)
+      return new ViandaRepository();
+    return instance;
+  }
+
+  private ViandaRepository() {
+    viandas = new ArrayList<>();
+  }
   public List<Vianda> buscarPorHeladera(Heladera heladera) {
     List<Vianda> viandasFiltradas = new ArrayList<>();
     for (Vianda vianda : viandas) {
@@ -21,10 +31,10 @@ public class ViandaRepository {
     return viandasFiltradas;
   }
   public void guardar(Vianda vianda) {
-    // TODO
+    viandas.add(vianda);
   }
   public void eliminar(Vianda vianda) {
-    //TODO
+    viandas.remove(vianda);
   }
   public void actualizar(Vianda vianda) {
     //TODO

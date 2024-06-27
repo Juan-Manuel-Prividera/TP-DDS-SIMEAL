@@ -1,16 +1,20 @@
 package ar.edu.utn.frba.dds.simeal.service.cargadordatos;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
+import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
+import ar.edu.utn.frba.dds.simeal.service.Notificador;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
+import org.opengis.filter.Not;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -75,6 +79,7 @@ public class LectorCsv {
 
 
     }
+    enviarCredencialesDeAcceso(listadoColaboracionesPuntuable.stream().map(ColaboracionPuntuable::getColaborador).toList());
     return listadoColaboracionesPuntuable;
   }
 
@@ -87,5 +92,12 @@ public class LectorCsv {
       }
     }
     return null;
+  }
+
+  private void enviarCredencialesDeAcceso(List<Colaborador> colaboradores) {
+    for (Colaborador colaborador : colaboradores) {
+      colaborador.setUsuario(new Usuario(colaborador.getNombre(),"1234",null));
+      Notificador.notificar(colaborador,new Mensaje(("Tus credenciales de acceso son: tu nombre y la contraseña 1234")));
+    }
   }
 }
