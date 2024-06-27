@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.reporte;
+
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeTabla;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
@@ -25,13 +27,15 @@ public class Reporte {
     this.viandas = viandaRepository.getViandas();
   }
 
+
+  // Clase generadora de reporte
   public void generarReporte() {
 
     Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
     String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/logoSimeal.png?raw=true";
-        try {
+    try {
 
       PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(pdfPath));
 
@@ -79,25 +83,16 @@ public class Reporte {
       documento.add(subtitulo1);
 
       // Tabla de incidentes generados por heladera
+      String[] cabeceraIncidentxHelad = {"Heladera", "Cantidad de incidentes"};
 
-      PdfPTable tabla1 = new PdfPTable(2);
-      tabla1.setWidthPercentage(100);
-      tabla1.setSpacingBefore(10);
-
-      PdfPCell cell1 = new PdfPCell(new Paragraph("Heladera"));
-      cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-      tabla1.addCell(cell1);
-
-      PdfPCell cell2 = new PdfPCell(new Phrase("Cantidad de incidentes"));
-      cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-      tabla1.addCell(cell2);
+      PdfPTable tablaIncidentesxheladera = CreadorDeTabla.crearNuevaTabla(cabeceraIncidentxHelad);
 
       for (Heladera h : heladeras) {
-        tabla1.addCell(h.getNombre());
-        tabla1.addCell(String.valueOf(h.getIncidentes().size()));
+        tablaIncidentesxheladera.addCell(h.getNombre());
+        tablaIncidentesxheladera.addCell(String.valueOf(h.getIncidentes().size()));
       }
 
-      documento.add(tabla1);
+      documento.add(tablaIncidentesxheladera);
 
       // Página 3
       documento.newPage();
@@ -120,9 +115,9 @@ public class Reporte {
       documento.add(subtitulo3);
 
       // Tabla de viandas por colaborador
-      PdfPTable tabla2 = new PdfPTable(2);
-      tabla2.setWidthPercentage(100);
-      tabla2.setSpacingBefore(10);
+      String[] cabeceraViandasxColab = {"Colaborador", "Cantidad de viandas"};
+      PdfPTable tablaViandasxcolaborador = CreadorDeTabla.crearNuevaTabla(cabeceraViandasxColab);
+
 
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();
 
@@ -136,12 +131,11 @@ public class Reporte {
       }
 
       for (Map.Entry<Colaborador, Integer> entry : viandasPorColaborador.entrySet()) {
-        tabla2.addCell(entry.getKey().getNombre());
-        tabla2.addCell(String.valueOf(entry.getValue()));
+        tablaViandasxcolaborador.addCell(entry.getKey().getNombre());
+        tablaViandasxcolaborador.addCell(String.valueOf(entry.getValue()));
       }
 
-      documento.add(tabla2);
-
+      documento.add(tablaViandasxcolaborador);
       documento.close();
 
 

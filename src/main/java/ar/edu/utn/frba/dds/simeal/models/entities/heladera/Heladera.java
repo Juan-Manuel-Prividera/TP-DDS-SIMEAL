@@ -91,6 +91,7 @@ public class Heladera {
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
     logger.log(LoggerType.INFORMATION, msj);
 
+    this.incidentes.add(incidente);
     IncidenteRepository.getInstance().guardar(incidente);
 
     // Levantar la BD y buscar la suscripción de tecnicos asociada a esta heladera.
