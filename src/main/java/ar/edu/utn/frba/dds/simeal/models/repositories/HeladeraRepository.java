@@ -5,8 +5,10 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class HeladeraRepository {
+  @Getter
   private List<Heladera> heladeras;
   private static HeladeraRepository instancia;
 
