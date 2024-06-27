@@ -5,8 +5,10 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
 public class ViandaRepository {
+  @Getter
   private List<Vianda> viandas;
 
   public List<Vianda> buscarPorHeladera(Heladera heladera) {
