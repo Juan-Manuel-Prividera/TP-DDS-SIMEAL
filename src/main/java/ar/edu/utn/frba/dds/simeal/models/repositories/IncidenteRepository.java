@@ -17,7 +17,7 @@ public class IncidenteRepository {
     return instance;
   }
 
-  private IncidenteRepository(){
+  private IncidenteRepository() {
     incidentes = new ArrayList<>();
   }
 

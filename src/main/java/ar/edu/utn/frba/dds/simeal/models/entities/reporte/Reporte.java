@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.reporte;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeTabla;
@@ -20,6 +21,7 @@ public class Reporte {
 
   private List<Heladera> heladeras;
   private List<Vianda> viandas;
+  private List<DistribuirVianda> distribuciones;
 
 
   public Reporte(HeladeraRepository heladeraRepository, ViandaRepository viandaRepository) {
@@ -68,12 +70,10 @@ public class Reporte {
       documento.add(titulo);
 
       // Tabla integrantes del grupo
-      PdfPTable table = new PdfPTable(2);
-      table.setSpacingBefore(20);
-      table.setSpacingAfter(20);
-      addTableHeader(table);
-      addRows(table);
-      documento.add(table);
+      String[] cabeceraIntegrantes = {"Nombre", "Apellido"};
+      PdfPTable tabla = CreadorDeTabla.crearNuevaTabla(cabeceraIntegrantes);
+      agregarIntegrantes(tabla);
+      documento.add(tabla);
 
 
       // Página 2
@@ -102,9 +102,9 @@ public class Reporte {
       documento.add(subtitulo2);
 
       // Tabla de cantidad de viandas retiradas/colocadas por heladera
-
       //TODO
-
+      String[] cabeceraViandasRetiradasColocadas = {"Heladera", "Viandas retiradas", "Viandas colocadas"};
+      PdfPTable TablaViandasRetiradasColocadas = CreadorDeTabla.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
 
       // Página 4
@@ -144,17 +144,8 @@ public class Reporte {
       e.printStackTrace();
     }
   }
-  private static void addTableHeader(PdfPTable table) {
-    Stream.of("Nombre", "Apellido").forEach(columnTitle -> {
-      PdfPCell header = new PdfPCell();
-      header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-      header.setBorderWidth(2);
-      header.setPhrase(new Phrase(columnTitle));
-      table.addCell(header);
-    });
-  }
 
-  private static void addRows(PdfPTable table) {
+  private static void agregarIntegrantes(PdfPTable table) {
     table.addCell("Tomás");
     table.addCell("Pauza Sager");
     table.addCell("Juan Manuel");
@@ -165,5 +156,5 @@ public class Reporte {
     table.addCell("Russo");
     table.addCell("Francisco");
     table.addCell("Mosquera Alfaro");
-    }
-}
+  }
+  }
