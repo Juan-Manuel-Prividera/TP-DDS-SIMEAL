@@ -18,7 +18,7 @@ public class HeladeraRepository {
     return instancia;
   }
 
-  private HeladeraRepository() {
+  public HeladeraRepository() {
     heladeras = new ArrayList<>();
   }
 

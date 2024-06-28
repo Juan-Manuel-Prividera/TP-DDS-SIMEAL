@@ -18,7 +18,7 @@ public class DistribucionDeViandasRepository {
     return instance;
   }
 
-  private DistribucionDeViandasRepository() {
+  public DistribucionDeViandasRepository() {
     distribuciones = new ArrayList<>();
   }
 

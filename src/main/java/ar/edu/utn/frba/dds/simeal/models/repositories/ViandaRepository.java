@@ -18,7 +18,7 @@ public class ViandaRepository {
     return instance;
   }
 
-  private ViandaRepository() {
+  public ViandaRepository() {
     viandas = new ArrayList<>();
   }
   public List<Vianda> buscarPorHeladera(Heladera heladera) {
