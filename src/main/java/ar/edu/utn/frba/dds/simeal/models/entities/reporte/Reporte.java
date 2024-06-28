@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeTabla;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.EncabezadoPieDePagina;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import com.itextpdf.text.*;
@@ -24,9 +25,10 @@ public class Reporte {
   private List<DistribuirVianda> distribuciones;
 
 
-  public Reporte(HeladeraRepository heladeraRepository, ViandaRepository viandaRepository) {
+  public Reporte(HeladeraRepository heladeraRepository, ViandaRepository viandaRepository, DistribucionDeViandasRepository distribucionDeViandasRepository) {
     this.heladeras = heladeraRepository.getHeladeras();
     this.viandas = viandaRepository.getViandas();
+    this.distribuciones = distribucionDeViandasRepository.getDistribuciones();
   }
 
 
@@ -87,6 +89,7 @@ public class Reporte {
 
       PdfPTable tablaIncidentesxheladera = CreadorDeTabla.crearNuevaTabla(cabeceraIncidentxHelad);
 
+      // Agrego los datos a la tabla
       for (Heladera h : heladeras) {
         tablaIncidentesxheladera.addCell(h.getNombre());
         tablaIncidentesxheladera.addCell(String.valueOf(h.getIncidentes().size()));
@@ -102,10 +105,32 @@ public class Reporte {
       documento.add(subtitulo2);
 
       // Tabla de cantidad de viandas retiradas/colocadas por heladera
-      //TODO
       String[] cabeceraViandasRetiradasColocadas = {"Heladera", "Viandas retiradas", "Viandas colocadas"};
-      PdfPTable TablaViandasRetiradasColocadas = CreadorDeTabla.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
+      PdfPTable tablaViandasRetiradasColocadas = CreadorDeTabla.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
+      HashMap<String, Integer> viandasRetiradasPorHeladera = new HashMap<>();
+      HashMap<String, Integer> viandasColocadasPorHeladera = new HashMap<>();
+
+      // Obtengo las heladeras de origen, destino y la cantidad de viandas movidas
+      for (DistribuirVianda distribucion : distribuciones) {
+        String origen = distribucion.getOrigen().getNombre();
+        String destino = distribucion.getDestino().getNombre();
+        int cantidad = distribucion.getCantidadViandasMover();
+
+        // las agrego al hashmap
+        viandasRetiradasPorHeladera.put(origen, viandasRetiradasPorHeladera.getOrDefault(origen, 0) + cantidad);
+        viandasColocadasPorHeladera.put(destino, viandasColocadasPorHeladera.getOrDefault(destino, 0) + cantidad);
+      }
+
+      // Agrego los datos a la tabla
+      for (Heladera h : heladeras) {
+        String nombreHeladera = h.getNombre();
+        int retiradas = viandasRetiradasPorHeladera.getOrDefault(nombreHeladera, 0);
+        int colocadas = viandasColocadasPorHeladera.getOrDefault(nombreHeladera, 0);
+        tablaViandasRetiradasColocadas.addCell(nombreHeladera);
+        tablaViandasRetiradasColocadas.addCell(String.valueOf(retiradas));
+        tablaViandasRetiradasColocadas.addCell(String.valueOf(colocadas));
+      }
 
       // Página 4
       documento.newPage();
@@ -118,11 +143,11 @@ public class Reporte {
       String[] cabeceraViandasxColab = {"Colaborador", "Cantidad de viandas"};
       PdfPTable tablaViandasxcolaborador = CreadorDeTabla.crearNuevaTabla(cabeceraViandasxColab);
 
-
+      // Creo un HashMap con key colaborador
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();
 
-      for (Vianda v : viandas) {
-        Colaborador colaborador = v.getColaborador();
+      for (Vianda vianda : viandas) {
+        Colaborador colaborador = vianda.getColaborador();
         if (viandasPorColaborador.containsKey(colaborador)) {
           viandasPorColaborador.put(colaborador, viandasPorColaborador.get(colaborador)+1);
         } else {
@@ -130,6 +155,7 @@ public class Reporte {
         }
       }
 
+      // Agrego los datos a la tabla
       for (Map.Entry<Colaborador, Integer> entry : viandasPorColaborador.entrySet()) {
         tablaViandasxcolaborador.addCell(entry.getKey().getNombre());
         tablaViandasxcolaborador.addCell(String.valueOf(entry.getValue()));

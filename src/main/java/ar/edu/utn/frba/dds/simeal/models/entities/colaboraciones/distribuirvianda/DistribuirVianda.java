@@ -16,8 +16,9 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
+@Getter
 public class DistribuirVianda implements ColaboracionPuntuable {
-  @Getter
+
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;
   private Heladera origen;
