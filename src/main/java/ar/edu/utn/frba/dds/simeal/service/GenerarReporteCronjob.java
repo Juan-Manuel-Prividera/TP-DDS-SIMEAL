@@ -8,11 +8,8 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 public class GenerarReporteCronjob {
 
   public static void main(String[] args) {
-    HeladeraRepository heladeraRepository = new HeladeraRepository();
-    ViandaRepository viandaRepository = new ViandaRepository();
-    DistribucionDeViandasRepository distribucionDeViandasRepository = new DistribucionDeViandasRepository();
-    // agregar get instance a los repositorios x ser singletons
-    Reporte reporte = new Reporte(heladeraRepository, viandaRepository, distribucionDeViandasRepository);
+
+    Reporte reporte = new Reporte(HeladeraRepository.getInstance(), ViandaRepository.getInstance(), DistribucionDeViandasRepository.getInstance());
     reporte.generarReporte();
 
     System.out.println("Reporte generado exitosamente");
