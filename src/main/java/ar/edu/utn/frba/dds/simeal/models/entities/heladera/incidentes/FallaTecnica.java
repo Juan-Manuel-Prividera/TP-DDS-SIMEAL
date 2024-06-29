@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -22,6 +23,7 @@ public class FallaTecnica implements Incidente{
     return "\t- Fecha: " + fechaHora.format(formatterDia)
         + "\n\t- Hora: " + fechaHora.format(formatterHora)
         + "\n\t- Colaborador: " + colaborador.getNombre() + " " + colaborador.getApellido()
-        + "\n\t- Descripcion: " + descripcion;
+        + "\n\t- Descripcion: " + descripcion
+        + "\n\t- ImagePath: " + imagen;
   }
 }

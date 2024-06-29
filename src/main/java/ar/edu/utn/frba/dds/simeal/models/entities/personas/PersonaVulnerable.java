@@ -2,10 +2,11 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter

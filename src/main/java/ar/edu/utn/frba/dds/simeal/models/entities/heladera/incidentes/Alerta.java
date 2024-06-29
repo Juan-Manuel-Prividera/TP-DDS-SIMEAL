@@ -1,16 +1,15 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@AllArgsConstructor
-public class Alerta implements Incidente{
-  Heladera heladera;
-  String descripcion;
-  LocalDateTime fechaHora;
-  TipoAlerta tipoAlerta;
+public class Alerta implements Incidente {
+  private Heladera heladera;
+  private String descripcion;
+  private LocalDateTime fechaHora;
+  private TipoAlerta tipoAlerta;
   @Override
   public String getNotificacion() {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -21,6 +20,15 @@ public class Alerta implements Incidente{
         + "\n\t- Alerta de tipo: " + tipoAlerta.name()
         + "\n\t- Descripción: " + descripcion;
   }
+
+  public Alerta(Heladera heladera, String descripcion, TipoAlerta tipoAlerta) {
+    this.heladera = heladera;
+    this.descripcion = descripcion;
+    this.fechaHora = LocalDateTime.now();
+    this.tipoAlerta = tipoAlerta;
+  }
+
+
 }
 
 

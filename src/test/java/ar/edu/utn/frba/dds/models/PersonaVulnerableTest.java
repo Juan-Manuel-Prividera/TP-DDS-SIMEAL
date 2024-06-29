@@ -1,13 +1,14 @@
 package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonaVulnerableTest {
   PersonaVulnerable personaVulnerable;

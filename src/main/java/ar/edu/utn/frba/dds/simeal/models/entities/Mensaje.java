@@ -1,8 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.models.entities;
 
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter

@@ -2,15 +2,12 @@ package ar.edu.utn.frba.dds.simeal.service.enviadores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import jakarta.mail.Authenticator;
-import jakarta.mail.MessagingException;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
+import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.util.Properties;
 import lombok.Getter;
+
+import java.util.Properties;
 
 
 

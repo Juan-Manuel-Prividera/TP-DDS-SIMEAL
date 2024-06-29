@@ -2,9 +2,10 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Retiro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.util.List;
-import lombok.Getter;
 
 
 

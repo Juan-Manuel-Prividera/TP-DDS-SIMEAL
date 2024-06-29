@@ -1,11 +1,9 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
-import static org.mockito.Mockito.*;
-
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.EnviadorTelegram;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.TelegramMessage;
-import org.glassfish.jersey.server.BackgroundScheduler;
+import org.junit.After;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,6 +11,8 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import static org.mockito.Mockito.*;
 
 public class EnviadorTelegramTest {
   Mensaje mensajePrueba = new Mensaje("¡Bienvenido a Simeal!");
@@ -24,7 +24,8 @@ public class EnviadorTelegramTest {
 
   @BeforeEach
   public void init() throws TelegramApiException {
-    enviadorTelegram = spy(EnviadorTelegram.class);
+    enviadorTelegram = EnviadorTelegram.getInstance();
+
     telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
     telegramBotsApi.registerBot(enviadorTelegram);
 
@@ -35,6 +36,7 @@ public class EnviadorTelegramTest {
     enviadorTelegram.setTelegramMessage(telegramMessageMock);
 
   }
+
 /*
   @Test
   public void envioMensajePosta() throws TelegramApiException {
@@ -51,7 +53,7 @@ public class EnviadorTelegramTest {
 
   @Test @DisplayName("Se ejecuta correctamente el envio el mensaje")
   public void envioMensajeTest() throws TelegramApiException {
-    when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba.getMensaje()))
+    when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba))
         .thenReturn(messageMock);
 
     enviadorTelegram.enviar(mensajePrueba);
@@ -60,11 +62,11 @@ public class EnviadorTelegramTest {
 
   @Test @DisplayName("Test creacion mensaje de clase TelegramMessage")
   void creacionMessage() throws TelegramApiException {
-    when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba.getMensaje()))
+    when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba))
         .thenReturn(messageMock);
 
     enviadorTelegram.enviar(mensajePrueba);
     verify(telegramMessageMock, times(1))
-        .getSendMessage(chatIdPrueba,mensajePrueba.getMensaje());
+        .getSendMessage(chatIdPrueba,mensajePrueba);
   }
 }

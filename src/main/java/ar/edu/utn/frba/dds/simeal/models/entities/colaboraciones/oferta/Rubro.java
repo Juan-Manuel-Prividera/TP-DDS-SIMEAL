@@ -1,7 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
-import java.util.List;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class Rubro {

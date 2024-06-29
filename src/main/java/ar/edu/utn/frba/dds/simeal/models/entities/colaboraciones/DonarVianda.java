@@ -2,11 +2,11 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 
 @Builder

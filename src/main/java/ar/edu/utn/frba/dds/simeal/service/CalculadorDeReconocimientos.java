@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+
 import java.util.List;
 
 

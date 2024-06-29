@@ -1,23 +1,24 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda;
 
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import java.time.LocalDate;
+import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
+@Getter
 public class DistribuirVianda implements ColaboracionPuntuable {
-  @Getter
+
   private final Colaborador colaborador;
   private final LocalDate fechaDeRealizacion;
   private Heladera origen;
@@ -37,7 +38,11 @@ public class DistribuirVianda implements ColaboracionPuntuable {
         .build();
     distribuirVianda.getColaborador()
         .sumarPuntosReconocimiento(distribuirVianda.calcularReconocimientoParcial());
+
+
+    DistribucionDeViandasRepository.getInstance().guardar(distribuirVianda);
     return distribuirVianda;
+
   }
 
   @Override
