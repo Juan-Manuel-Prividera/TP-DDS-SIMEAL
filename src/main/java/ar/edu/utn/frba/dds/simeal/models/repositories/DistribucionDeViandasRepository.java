@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
+// Ver de generar un repositorio de colaboraciones en general y
+// busque a partir de un método  las específicas requeridas
+
 @Getter
 public class DistribucionDeViandasRepository {
   private List<DistribuirVianda> distribuciones;

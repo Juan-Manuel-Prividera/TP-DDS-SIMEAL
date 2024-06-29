@@ -8,7 +8,7 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class CreadorDeTabla {
+public class CreadorDeHerramientasPDF {
 
   public static PdfPTable crearNuevaTabla(String[] columnNames) throws DocumentException {
     PdfPTable table = new PdfPTable(columnNames.length);

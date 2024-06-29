@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.reporte;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeTabla;
+import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeHerramientasPDF;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.EncabezadoPieDePagina;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class Reporte {
 
@@ -37,7 +36,7 @@ public class Reporte {
 
     Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
-    // CAMBIAR EL PATH PARA EL PDF
+    // Revisar el tema de los path
     String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/logoSimeal.png?raw=true";
     try {
@@ -74,7 +73,7 @@ public class Reporte {
 
       // Tabla integrantes del grupo
       String[] cabeceraIntegrantes = {"Nombre", "Apellido"};
-      PdfPTable tabla = CreadorDeTabla.crearNuevaTabla(cabeceraIntegrantes);
+      PdfPTable tabla = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraIntegrantes);
       agregarIntegrantes(tabla);
       documento.add(tabla);
 
@@ -88,7 +87,7 @@ public class Reporte {
       // Tabla de incidentes generados por heladera
       String[] cabeceraIncidentxHelad = {"Heladera", "Cantidad de incidentes"};
 
-      PdfPTable tablaIncidentesxheladera = CreadorDeTabla.crearNuevaTabla(cabeceraIncidentxHelad);
+      PdfPTable tablaIncidentesxheladera = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraIncidentxHelad);
 
       // TODO
       //CORREGIR LA LÓGICA
@@ -109,7 +108,7 @@ public class Reporte {
 
       // Tabla de cantidad de viandas retiradas/colocadas por heladera
       String[] cabeceraViandasRetiradasColocadas = {"Heladera", "Viandas retiradas", "Viandas colocadas"};
-      PdfPTable tablaViandasRetiradasColocadas = CreadorDeTabla.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
+      PdfPTable tablaViandasRetiradasColocadas = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
       // Creo los hashmap con key nombre de heladera
       HashMap<String, Integer> viandasRetiradasPorHeladera = new HashMap<>();
@@ -145,7 +144,7 @@ public class Reporte {
 
       // Tabla de viandas por colaborador
       String[] cabeceraViandasxColab = {"Colaborador", "Cantidad de viandas"};
-      PdfPTable tablaViandasxcolaborador = CreadorDeTabla.crearNuevaTabla(cabeceraViandasxColab);
+      PdfPTable tablaViandasxcolaborador = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraViandasxColab);
 
       // Creo un HashMap con key colaborador
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();

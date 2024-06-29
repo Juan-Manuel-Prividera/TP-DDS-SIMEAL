@@ -34,6 +34,7 @@ public class EncabezadoPieDePagina extends PdfPageEventHelper {
   @Override
   public void onStartPage(PdfWriter writer, Document document) {
     // Encabezado
+    // Revisar el tema de los path
     String leftImagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA-encabezado.jpg?raw=true";
     String rightImagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/logoSimeal.png?raw=true";
 
