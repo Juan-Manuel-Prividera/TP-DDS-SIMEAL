@@ -11,7 +11,7 @@ public class GenerarReporteCronjob {
     HeladeraRepository heladeraRepository = new HeladeraRepository();
     ViandaRepository viandaRepository = new ViandaRepository();
     DistribucionDeViandasRepository distribucionDeViandasRepository = new DistribucionDeViandasRepository();
-
+    // agregar get instance a los repositorios x ser singletons
     Reporte reporte = new Reporte(heladeraRepository, viandaRepository, distribucionDeViandasRepository);
     reporte.generarReporte();
 

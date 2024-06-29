@@ -37,6 +37,7 @@ public class Reporte {
 
     Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
+    // CAMBIAR EL PATH PARA EL PDF
     String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/logoSimeal.png?raw=true";
     try {
@@ -89,6 +90,8 @@ public class Reporte {
 
       PdfPTable tablaIncidentesxheladera = CreadorDeTabla.crearNuevaTabla(cabeceraIncidentxHelad);
 
+      // TODO
+      //CORREGIR LA LÓGICA
       // Agrego los datos a la tabla
       for (Heladera h : heladeras) {
         tablaIncidentesxheladera.addCell(h.getNombre());
@@ -108,6 +111,7 @@ public class Reporte {
       String[] cabeceraViandasRetiradasColocadas = {"Heladera", "Viandas retiradas", "Viandas colocadas"};
       PdfPTable tablaViandasRetiradasColocadas = CreadorDeTabla.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
+      // Creo los hashmap con key nombre de heladera
       HashMap<String, Integer> viandasRetiradasPorHeladera = new HashMap<>();
       HashMap<String, Integer> viandasColocadasPorHeladera = new HashMap<>();
 
@@ -117,7 +121,7 @@ public class Reporte {
         String destino = distribucion.getDestino().getNombre();
         int cantidad = distribucion.getCantidadViandasMover();
 
-        // las agrego al hashmap
+        // las agrego al hashmap los retiros y las colocaciones
         viandasRetiradasPorHeladera.put(origen, viandasRetiradasPorHeladera.getOrDefault(origen, 0) + cantidad);
         viandasColocadasPorHeladera.put(destino, viandasColocadasPorHeladera.getOrDefault(destino, 0) + cantidad);
       }
@@ -146,6 +150,7 @@ public class Reporte {
       // Creo un HashMap con key colaborador
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();
 
+      // Buscar hacer un método para bajar la lógica
       for (Vianda vianda : viandas) {
         Colaborador colaborador = vianda.getColaborador();
         if (viandasPorColaborador.containsKey(colaborador)) {
