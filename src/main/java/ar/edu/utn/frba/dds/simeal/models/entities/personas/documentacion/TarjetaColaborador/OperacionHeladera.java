@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 

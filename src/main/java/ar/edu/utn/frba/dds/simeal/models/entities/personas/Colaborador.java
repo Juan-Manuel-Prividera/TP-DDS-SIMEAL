@@ -33,7 +33,6 @@ public class Colaborador implements ReceptorDeNotificaciones {
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
   private MedioContacto medioDeContactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
-  private TarjetaColaborador tarjetaColaborador;
   private int cantidadDeViandasAceptable;
   @Setter
   private Usuario usuario;
