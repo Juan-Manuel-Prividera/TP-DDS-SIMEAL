@@ -29,7 +29,6 @@ public class Colaborador {
   private FormularioContestado formularioContestado;
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
-  private TarjetaColaborador tarjetaColaborador;
 
   @Setter
   private double puntosDeReconocimientoParcial;
