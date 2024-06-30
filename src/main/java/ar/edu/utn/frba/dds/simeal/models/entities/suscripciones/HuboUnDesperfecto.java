@@ -3,58 +3,27 @@ package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
 import lombok.Getter;
-import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class HuboUnDesperfecto implements Suscripcion {
-  @Setter
-  private List<Colaborador> suscriptores;
-  private Heladera heladera;
+public class HuboUnDesperfecto implements Notificacion {
   private Mensaje mensaje;
-  private final int cercaniaNecesaria = 1000;
-  private List<TipoEvento> eventosDeInteres;
   private SugerenciaHeladeras sugerenciaHeladeras;
-
+  private int cercaniaSugerencia = 1000;
 
 
   public HuboUnDesperfecto(Heladera heladera) {
     sugerenciaHeladeras = new SugerenciaHeladeras(heladera.getUbicacion());
-    suscriptores = new ArrayList<>();
-    this.heladera = heladera;
     this.mensaje = new Mensaje("Hubo un desperfecto en la heladera: "
-        + heladera.getNombre() + "\n" + sugerenciaHeladeras.getSugerencia(cercaniaNecesaria));
-
-    eventosDeInteres = new ArrayList<>();
-    eventosDeInteres.add(TipoEvento.INCIDENTE);
+        + heladera.getNombre() + "\n" + sugerenciaHeladeras.getSugerencia(cercaniaSugerencia));
   }
 
   @Override
-  public void suscribir(Colaborador suscriptor) {
-    if (suscriptor.getUbicacion().estaCercaDe(heladera.getUbicacion(),cercaniaNecesaria)) {
-      suscriptores.add(suscriptor);
-    } else {
-      System.out.println("No esta lo suficientemente cerca para suscribirse a esta heladera");
-
-    }
+  public List<Colaborador> obtenerInteresados(List<Suscripcion> suscripciones, int cantidadViandas) {
+    return suscripciones.stream().map(Suscripcion::getSuscriptor).toList();
   }
 
-  @Override
-  public void desuscribir(Colaborador suscriptor) {
-    suscriptores.remove(suscriptor);
-  }
 
-  @Override
-  public List<Colaborador> obtenerInteresados(int cantidadCritica) {
-    return suscriptores;
-  }
-
-  @Override
-  public boolean interesaEsteEvento(TipoEvento tipoEvento) {
-    return eventosDeInteres.contains(tipoEvento);
-  }
 }

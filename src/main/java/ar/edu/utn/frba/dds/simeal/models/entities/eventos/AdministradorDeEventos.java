@@ -20,8 +20,9 @@ public class AdministradorDeEventos {
   // Cuando se ejecute un retirar o moverA o reportarIncidente se ejecuta este metodo
   public void huboUnEvento(Evento evento) {
     Heladera heladeraEvento = evento.getHeladeraAfectada();
-    Suscripcion suscripcion = suscripcionesRepository.buscarPor(heladeraEvento, evento.getTipoEvento());
-    notificarUnaSuscripcion(suscripcion, suscripcion.obtenerInteresados(cantidadViandasHeladera(heladeraEvento)));
+    List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(heladeraEvento, evento.getTipoEvento());
+    List<Colaborador> interesados = evento.getNotificacion().obtenerInteresados(suscripciones,cantidadViandasHeladera(heladeraEvento));
+    notificarInteresados(interesados,evento.getNotificacion().getMensaje());
   }
 
   private int cantidadViandasHeladera(Heladera heladera) {
@@ -29,9 +30,7 @@ public class AdministradorDeEventos {
     return viandas.size();
   }
 
-  private void notificarUnaSuscripcion(Suscripcion suscripcion, List<Colaborador> suscriptores) {
-    if (!suscriptores.isEmpty()) {
-      Notificador.notificar(suscriptores, suscripcion.getMensaje());
-    }
+  private void notificarInteresados(List<Colaborador> interesados, Mensaje mensaje) {
+    Notificador.notificar(interesados, mensaje);
   }
 }

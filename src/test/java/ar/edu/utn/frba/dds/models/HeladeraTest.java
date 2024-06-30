@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.models;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
@@ -13,20 +15,32 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
+import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import org.junit.jupiter.api.*;
+import org.mockito.MockedStatic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mockStatic;
 
 public class HeladeraTest {
   Ubicacion ubicacion= new Ubicacion(555,444);
   Modelo modelo= new Modelo(20,-10,50);
-  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
+  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo, new AdministradorDeEventos());
   Activa estadoActivo = new Activa();
   Inactiva estadoInactivo = new Inactiva();
   EnReparacion estadoEnReparacion = new EnReparacion();
@@ -47,6 +61,17 @@ public class HeladeraTest {
       "Arreglado del condensador de flujo de la heladera.",
       LocalDateTime.now(),
       true, null);
+
+  MockedStatic<Notificador> notificadorMock;
+  @BeforeEach
+  public void init() {
+    notificadorMock = mockStatic(Notificador.class);
+    notificadorMock.when(() -> Notificador.notificar((List<? extends ReceptorDeNotificaciones>) any(),any())).thenAnswer(invocationOnMock -> null);
+  }
+  @AfterEach
+  public void after() {
+    notificadorMock.close();
+  }
 
   @Test @DisplayName("Cambiar estado a Activa")
   public void testEstado(){

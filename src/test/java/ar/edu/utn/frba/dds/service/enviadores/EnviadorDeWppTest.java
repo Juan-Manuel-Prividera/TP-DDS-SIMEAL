@@ -22,13 +22,14 @@ public class EnviadorDeWppTest {
 
   Mensaje mensajePrueba;
   String DESTINATARIO = "5491169702930";
-  String phoneNumber = configReader.getProperty("phone.number");
+  String phoneNumber;
 
   @BeforeEach
   public void init() {
     enviadorDeWpp = EnviadorDeWpp.getInstance();
     configReader = new ConfigReader();
     mensajePrueba = new Mensaje("hola");
+    phoneNumber = configReader.getProperty("phone.number");
 
     messageMock = mock(Message.class);
     messageCreatorMock = mock(MessageCreator.class);

@@ -21,6 +21,11 @@ public class Tecnico implements ReceptorDeNotificaciones {
   private MedioContacto medioContactoPreferido;
   private AreaDeCobertura areaDeCobertura;
 
+
+  public Tecnico(MedioContacto medioContacto, AreaDeCobertura areaDeCobertura) {
+    this.medioContactoPreferido = medioContacto;
+    this.areaDeCobertura = areaDeCobertura;
+  }
   public void recibirNotificacion(Mensaje mensaje) {
     medioContactoPreferido.notificar(mensaje);
   }

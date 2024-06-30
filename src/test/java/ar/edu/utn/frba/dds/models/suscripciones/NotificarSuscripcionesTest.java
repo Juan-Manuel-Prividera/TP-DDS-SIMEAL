@@ -4,7 +4,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
@@ -13,7 +12,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.service.Notificador;
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,91 +20,44 @@ import org.mockito.MockedStatic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
 public class NotificarSuscripcionesTest {
-  List<Suscripcion> suscripciones;
-  Suscripcion quedanPocasViandas;
-  Suscripcion hayMuchasViandas;
-  Suscripcion huboDesperfecto;
-
-  List<Vianda> viandas;
-  Vianda vianda1;
-  Vianda vianda2;
-  Vianda vianda3;
-  Vianda vianda4;
-  Heladera heladera;
-
-  List<Colaborador> suscriptores;
-  Colaborador suscriptor1;
-  Colaborador suscriptor2;
-  Colaborador suscriptor3;
-
-  List<ReceptorDeNotificaciones> interesadosEnPocasViandas;
-  List<ReceptorDeNotificaciones> interesadosEnMuchasViandas;
-  List<ReceptorDeNotificaciones> interesadosEnDesperfectos;
+  MockedStatic<Notificador> notificadorMock;
+  AdministradorDeEventos administradorDeEventos;
 
   SuscripcionesRepository suscripcionesRepositoryMock;
   ViandaRepository viandaRepositoryMock;
-  MockedStatic<Notificador> notificadorMock;
 
-  AdministradorDeEventos administradorDeEventos;
+  Heladera heladera;
+  Colaborador suscriptor;
+  Colaborador suscriptor1;
+  List<Vianda> viandas = new ArrayList<>();
+  Vianda vianda1 = new Vianda();
+  Vianda vianda2 = new Vianda();
+  Vianda vianda3 = new Vianda();
+  Vianda vianda4 = new Vianda();
+
+  Vianda vianda;
 
   @BeforeEach
   public void setUp() {
+    notificadorMock = mockStatic(Notificador.class);
     administradorDeEventos = new AdministradorDeEventos();
 
-    heladera = new Heladera(new Ubicacion(20,-30), administradorDeEventos);
+    suscripcionesRepositoryMock = mock(SuscripcionesRepository.class);
+    viandaRepositoryMock = mock(ViandaRepository.class);
+    administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
+    administradorDeEventos.setViandaRepository(viandaRepositoryMock);
 
-    vianda1 = new Vianda(heladera,administradorDeEventos);
-    vianda2 = new Vianda(heladera,administradorDeEventos);
-    vianda3 = new Vianda(heladera,administradorDeEventos);
-    vianda4 = new Vianda(heladera,administradorDeEventos);
-
-    viandas = new ArrayList<>();
+    heladera = new Heladera(new Ubicacion(2,3), administradorDeEventos);
     viandas.add(vianda1);
     viandas.add(vianda2);
     viandas.add(vianda3);
     viandas.add(vianda4);
-
-    interesadosEnPocasViandas = new ArrayList<>();
-    interesadosEnMuchasViandas = new ArrayList<>();
-    interesadosEnDesperfectos = new ArrayList<>();
-
-    suscriptor1 = new Colaborador(1,null);
-    suscriptor2 = new Colaborador(2, null);
-    suscriptor3 = new Colaborador(4, null);
-
-    suscriptores = new ArrayList<>();
-    suscriptores.add(suscriptor1);
-    suscriptores.add(suscriptor2);
-    suscriptores.add(suscriptor3);
-
-    quedanPocasViandas = new QuedanPocasViandas(heladera);
-    quedanPocasViandas.setSuscriptores(suscriptores);
-    hayMuchasViandas = new HayMuchasViandas(heladera);
-    hayMuchasViandas.setSuscriptores(suscriptores);
-    huboDesperfecto = new HuboUnDesperfecto(heladera);
-    huboDesperfecto.setSuscriptores(suscriptores);
-
-    suscripciones = new ArrayList<>();
-    suscripciones.add(quedanPocasViandas);
-    suscripciones.add(hayMuchasViandas);
-    suscripciones.add(huboDesperfecto);
-
-    notificadorMock = mockStatic(Notificador.class);
-    viandaRepositoryMock = mock(ViandaRepository.class);
-    suscripcionesRepositoryMock = mock(SuscripcionesRepository.class);
-
-
-    interesadosEnPocasViandas.add(suscriptor1);
-    interesadosEnPocasViandas.add(suscriptor2);
-
-    interesadosEnMuchasViandas.add(suscriptor1);
-    interesadosEnMuchasViandas.add(suscriptor2);
-
-
+    vianda = new Vianda(heladera,administradorDeEventos);
   }
 
   @AfterEach
@@ -114,64 +65,82 @@ public class NotificarSuscripcionesTest {
     notificadorMock.close();
   }
 
-  @Test @DisplayName("Quedan 3 viandas en la heladera => Se notifica a los suscriptores con cantidad critica 3")
+  @Test @DisplayName("Quedan 4 viandas en la heladera => Se notifica a las suscripciones con cantidad minima 4")
   public void seEnviaLaNotificacionPorPocasViandas() {
-    viandas.remove(vianda1);
+    suscriptor = new Colaborador();
+    List<Colaborador> suscriptores = new ArrayList<>();
+    suscriptores.add(suscriptor);
+
+    Suscripcion suscripcion = new Suscripcion(heladera, suscriptor, 4,15);
+
+    List<Suscripcion> suscripciones = new ArrayList<>();
+    suscripciones.add(suscripcion);
+
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
-    when(suscripcionesRepositoryMock.buscarPor(heladera, TipoEvento.RETIRO)).thenReturn(quedanPocasViandas);
+    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.RETIRO)).thenReturn(suscripciones);
 
-    notificadorMock.when(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
+    notificadorMock.when(() -> Notificador.notificar(eq(suscriptores),any())).thenAnswer(invocationOnMock -> null);
 
-    administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
-    administradorDeEventos.setViandaRepository(viandaRepositoryMock);
+    vianda.retirar();
 
-
-    vianda1.retirar();
-
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()));
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()), times(0));
-    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()),times(0));
+    notificadorMock.verify(() -> Notificador.notificar(eq(suscriptores),any()),times(1));
   }
 
-  @Test @DisplayName("Cuando se hace un moverA se ejecuta tambien el retirar")
+  @Test @DisplayName("Cuando un moverA (retiro e ingreso) se disparan dos eventos => Se notifica a dos suscripciones")
   public void seEnviaNotificacionPorMuchasViandas() {
-    viandas.remove(vianda1);
+    Vianda vianda = new Vianda(heladera,administradorDeEventos);
+
+    suscriptor = new Colaborador();
+    List<Colaborador> suscriptores = new ArrayList<>();
+    suscriptores.add(suscriptor);
+    Suscripcion suscripcion = new Suscripcion(heladera, suscriptor, 4,15);
+    List<Suscripcion> suscripciones = new ArrayList<>();
+    suscripciones.add(suscripcion);
+
+    suscriptor1 = new Colaborador();
+    Suscripcion suscripcion1 = new Suscripcion(heladera, suscriptor1, 0, 2);
+    List<Colaborador> suscriptores1 = new ArrayList<>();
+    suscriptores1.add(suscriptor1);
+    List<Suscripcion> suscripciones1 = new ArrayList<>();
+    suscripciones1.add(suscripcion1);
+
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
-    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.RETIRO)).thenReturn(quedanPocasViandas);
-    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.INGRESO)).thenReturn(hayMuchasViandas);
+    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.RETIRO)).thenReturn(suscripciones);
+    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.INGRESO)).thenReturn(suscripciones1);
 
-    notificadorMock.when(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
-    notificadorMock.when(() -> Notificador.notificar(interesadosEnMuchasViandas,quedanPocasViandas.getMensaje())).thenAnswer(invocationOnMock -> null);
-
-
-    administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
-    administradorDeEventos.setViandaRepository(viandaRepositoryMock);
+    notificadorMock.when(() -> Notificador.notificar(eq(suscriptores),any())).thenAnswer(invocationOnMock -> null);
+    vianda.retirar();
+    notificadorMock.verify(() -> Notificador.notificar(eq(suscriptores),any()),times(1));
 
 
-    vianda1.moverA(heladera);
-
-    // Como para mover una vianda hay que retirar de una e ingresar de otra se ejecutan los dos eventos
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()));
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()));
-    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()),times(0));
+    notificadorMock.when(() -> Notificador.notificar(eq(suscriptores1),any())).thenAnswer(invocationOnMock -> null);
+    vianda.ingresarA(heladera);
+    notificadorMock.verify(() -> Notificador.notificar(eq(suscriptores1),any()),times(1));
 
   }
 
-  @Test @DisplayName("Cuando se reporta incidente se notifica a todos los suscriptores")
+  @Test @DisplayName("Cuando se reporta incidente se notifica a todos los suscriptores de incidentes")
   public void seEnviaNotificacionPorDesperfecto() {
     Alerta alerta = new Alerta(heladera,"descripcion de alerta", TipoAlerta.ALERTA_FRAUDE);
+    Vianda vianda = new Vianda(heladera,administradorDeEventos);
+    suscriptor = new Colaborador();
+    List<Colaborador> suscriptores = new ArrayList<>();
+    suscriptores.add(suscriptor);
+
+    Suscripcion suscripcion = new Suscripcion(heladera, suscriptor, 4,15);
+    List<Suscripcion> suscripciones = new ArrayList<>();
+    suscripciones.add(suscripcion);
 
     when(viandaRepositoryMock.buscarPorHeladera(heladera)).thenReturn(viandas);
-    when(suscripcionesRepositoryMock.buscarPor(heladera, TipoEvento.INCIDENTE)).thenReturn(huboDesperfecto);
-    notificadorMock.when(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje())).thenAnswer(invocationOnMock -> null);
+    when(suscripcionesRepositoryMock.buscarPor(heladera,TipoEvento.INCIDENTE)).thenReturn(suscripciones);
+    notificadorMock.when(() -> Notificador.notificar(eq(suscriptores),any())).thenAnswer(invocationOnMock -> null);
 
     administradorDeEventos.setSuscripcionesRepository(suscripcionesRepositoryMock);
     administradorDeEventos.setViandaRepository(viandaRepositoryMock);
 
-    heladera.reportarIncidente(alerta);
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnPocasViandas,quedanPocasViandas.getMensaje()),times(0));
-    notificadorMock.verify(() -> Notificador.notificar(interesadosEnMuchasViandas,hayMuchasViandas.getMensaje()),times(0));
-    notificadorMock.verify(() -> Notificador.notificar(suscriptores,huboDesperfecto.getMensaje()));
+    heladera.reportarIncidente(new Alerta(heladera,"descripcion de alerta", TipoAlerta.ALERTA_FRAUDE));
+
+    notificadorMock.verify(() -> Notificador.notificar(eq(suscriptores),any()));
 
   }
 }

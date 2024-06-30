@@ -21,11 +21,10 @@ public class SuscripcionesRepository {
     suscripciones = new ArrayList<>();
   }
 
-  public Suscripcion buscarPor(Heladera heladera, TipoEvento tipoEvento) {
+  public List<Suscripcion> buscarPor(Heladera heladera, TipoEvento tipoEvento) {
     return suscripciones.stream()
         .filter(s -> s.getHeladera().getUbicacion().equals(heladera.getUbicacion()) && s.interesaEsteEvento(tipoEvento))
-        .toList()
-        .get(0);
+        .toList();
   }
 
   public void guardar(Suscripcion suscripcion) {

@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
@@ -34,24 +35,17 @@ public class Heladera {
   private LocalDate fechaColocacion;
   private EstadoHeladera estado;
   private Modelo modelo;
-  private List<Incidente> incidentes;
 
   private AdministradorDeEventos administradorDeEventos;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo, List<Incidente> incidentes) {
-    this.ubicacion = ubicacion;
-    this.fechaColocacion = fechaColocacion;
-    this.nombre = nombre;
-    this.incidentes = incidentes;
-    this.modelo = modelo;
-  }
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo,
+                  AdministradorDeEventos administradorDeEventos) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.modelo = modelo;
+    this.administradorDeEventos = administradorDeEventos;
   }
-
   public Heladera(Ubicacion ubicacion, AdministradorDeEventos administradorDeEventos) {
     this.ubicacion = ubicacion;
     this.administradorDeEventos = administradorDeEventos;
@@ -72,7 +66,8 @@ public class Heladera {
 
   public void reportarIncidente(Incidente incidente) {
     // Avisa al admnistrador de eventos que hubo un incidente en esta heladera
-    administradorDeEventos.huboUnEvento(new Evento(this, TipoEvento.INCIDENTE));
+    administradorDeEventos
+        .huboUnEvento(new Evento(this, TipoEvento.INCIDENTE, new HuboUnDesperfecto(this)));
 
     this.estado = new Inactiva();
     Mensaje mensaje = generarMensaje(incidente);
@@ -81,8 +76,7 @@ public class Heladera {
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
     Logger.getInstance().log(LoggerType.INFORMATION, mensaje.getMensaje());
     IncidenteRepository.getInstance().guardar(incidente);
-    this.incidentes.add(incidente);
-    // Nose que tan bien o mal esta que el repositorio busque por cercania
+
     Notificador.notificar(TecnicoRepository.getInstance().buscarMasCercanoA(ubicacion), mensaje);
 
   }

@@ -3,21 +3,25 @@ package ar.edu.utn.frba.dds.service.cargadatos;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
+import ar.edu.utn.frba.dds.simeal.service.Notificador;
 import ar.edu.utn.frba.dds.simeal.service.cargadordatos.LectorCsv;
 import com.opencsv.exceptions.CsvException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.mockito.Mock;
+import org.mockito.MockedStatic;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 
 public class LectorCSVTest {
     String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/service/cargadordatos/datos.csv";
@@ -26,14 +30,19 @@ public class LectorCSVTest {
     ColaboracionPuntuable colaboracionPrueba;
     ColaboracionBuilder colaboracionBuilder;
     Colaborador colaboradorPrueba;
+    MockedStatic<Notificador> notificadorMock;
 
-
+    @AfterEach
+    public void after() {
+        notificadorMock.close();
+    }
     @BeforeEach
     public void init() throws FileNotFoundException {
         lectorCSV = new LectorCsv(csvFile);
         colaboraciones = new ArrayList<>();
         colaboracionBuilder = new ColaboracionBuilder();
-
+        notificadorMock = mockStatic(Notificador.class);
+        notificadorMock.when(() -> Notificador.notificar((List<? extends ReceptorDeNotificaciones>) any(),any())).thenAnswer(invocationOnMock -> null);
         colaboradorPrueba = new Colaborador(
             new Documento(TipoDocumento.DNI,"01234567"),"JuanManuel","Prividera");
         colaboracionPrueba = ColaboracionBuilder.

@@ -33,7 +33,6 @@ public class Colaborador implements ReceptorDeNotificaciones {
   private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
   private MedioContacto medioDeContactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
-  private int cantidadDeViandasAceptable;
   @Setter
   private Usuario usuario;
   @Setter
@@ -45,8 +44,7 @@ public class Colaborador implements ReceptorDeNotificaciones {
     this.apellido = apellido;
   }
 
-  public Colaborador(int cantidadDeViandasAceptable, Ubicacion ubicacion) {
-    this.cantidadDeViandasAceptable = cantidadDeViandasAceptable;
+  public Colaborador(Ubicacion ubicacion) {
     this.ubicacion = ubicacion;
   }
 

@@ -39,7 +39,7 @@ public class CalculadorDeReconocimientoTest {
     public void calculoDeReconocimientoConHeladera() {
         List<AdherirHeladera> adherirHeladera = new ArrayList<>();
         adherirHeladera.add((AdherirHeladera) ColaboracionBuilder
-            .crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,5,23),colaborador,10));
+            .crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,6,23),colaborador,10));
 
         double reconocimiento = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,adherirHeladera);
         // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5

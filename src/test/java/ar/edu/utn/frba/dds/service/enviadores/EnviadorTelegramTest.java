@@ -24,7 +24,7 @@ public class EnviadorTelegramTest {
 
   @BeforeEach
   public void init() throws TelegramApiException {
-    enviadorTelegram = EnviadorTelegram.getInstance();
+    enviadorTelegram = spy(EnviadorTelegram.class);
 
     telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
     telegramBotsApi.registerBot(enviadorTelegram);

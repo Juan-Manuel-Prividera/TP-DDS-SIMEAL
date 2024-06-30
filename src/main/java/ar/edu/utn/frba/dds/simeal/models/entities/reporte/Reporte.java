@@ -94,7 +94,7 @@ public class Reporte {
       // Agrego los datos a la tabla
       for (Heladera h : heladeras) {
         tablaIncidentesxheladera.addCell(h.getNombre());
-        tablaIncidentesxheladera.addCell(String.valueOf(h.getIncidentes().size()));
+       // tablaIncidentesxheladera.addCell(String.valueOf(h.getIncidentes().size()));
       }
 
       documento.add(tablaIncidentesxheladera);

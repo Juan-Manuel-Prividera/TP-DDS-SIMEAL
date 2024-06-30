@@ -5,6 +5,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
 import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.HayMuchasViandas;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.QuedanPocasViandas;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,23 +32,22 @@ public class Vianda {
     this.administradorDeEventos = administradorDeEventos;
   }
 
-
-
   public void moverA(Heladera heladera) {
-    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO));
+    // Cuando se hace una distribución primero se crea el evento del retiro y luego el evento del ingreso
+    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO, new QuedanPocasViandas(this.heladera)));
     ingresarA(heladera);
   }
 
   public void retirar() {
     // Esto avisa cuando se retira una vianda de una heladera
-    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO));
+    administradorDeEventos.huboUnEvento(new Evento(this.heladera, TipoEvento.RETIRO, new QuedanPocasViandas(this.heladera)));
     this.heladera = null;
     entregada = true;
   }
 
-  private void ingresarA(Heladera heladera) {
+  public void ingresarA(Heladera heladera) {
     // Esto avisa cuando se ingresa una vianda a una heladera
-    administradorDeEventos.huboUnEvento(new Evento(heladera, TipoEvento.INGRESO));
+    administradorDeEventos.huboUnEvento(new Evento(heladera, TipoEvento.INGRESO, new HayMuchasViandas(heladera)));
     this.heladera = heladera;
   }
 
