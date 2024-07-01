@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import lombok.Getter;
 
 @AllArgsConstructor
 public class FallaTecnica implements Incidente{
+  @Getter
   Heladera heladera;
   String descripcion;
   LocalDateTime fechaHora;

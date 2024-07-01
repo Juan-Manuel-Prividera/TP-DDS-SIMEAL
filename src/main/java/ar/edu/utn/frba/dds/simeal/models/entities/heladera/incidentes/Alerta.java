@@ -4,8 +4,10 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import lombok.Getter;
 
 public class Alerta implements Incidente {
+  @Getter
   private Heladera heladera;
   private String descripcion;
   private LocalDateTime fechaHora;

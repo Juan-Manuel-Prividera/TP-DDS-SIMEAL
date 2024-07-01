@@ -2,17 +2,20 @@ package ar.edu.utn.frba.dds.simeal.models.entities.reporte;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeHerramientasPDF;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.EncabezadoPieDePagina;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +23,16 @@ import java.util.Map;
 public class Reporte {
 
   private List<Heladera> heladeras;
+  private List<Incidente> incidentes;
   private List<Vianda> viandas;
   private List<DistribuirVianda> distribuciones;
 
 
-  public Reporte(HeladeraRepository heladeraRepository, ViandaRepository viandaRepository, DistribucionDeViandasRepository distribucionDeViandasRepository) {
+  public Reporte(HeladeraRepository heladeraRepository, IncidenteRepository incidenteRepository, ViandaRepository viandaRepository, DistribucionDeViandasRepository distribucionDeViandasRepository) {
     this.heladeras = heladeraRepository.getHeladeras();
     this.viandas = viandaRepository.getViandas();
     this.distribuciones = distribucionDeViandasRepository.getDistribuciones();
+    this.incidentes = incidenteRepository.getIncidentes();
   }
 
 
@@ -38,7 +43,7 @@ public class Reporte {
 
     // Revisar el tema de los path
     String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
-    String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/logoSimeal.png?raw=true";
+    String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
       PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(pdfPath));
@@ -89,14 +94,26 @@ public class Reporte {
 
       PdfPTable tablaIncidentesxheladera = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraIncidentxHelad);
 
-      // TODO
-      //CORREGIR LA LÓGICA
-      // Agrego los datos a la tabla
-      for (Heladera h : heladeras) {
-        tablaIncidentesxheladera.addCell(h.getNombre());
-       // tablaIncidentesxheladera.addCell(String.valueOf(h.getIncidentes().size()));
+      //Creo hashmap con key heladera
+      HashMap<Heladera, Integer> incidentesPorHeladera = new HashMap<>();
+
+      //Agrego al hashmap los incidentes por cada heladera
+      for (Incidente incidente : incidentes) {
+        Heladera heladera = incidente.getHeladera();
+        if (incidentesPorHeladera.containsKey(heladera)) {
+          incidentesPorHeladera.put(heladera, incidentesPorHeladera.get(heladera) + 1);
+        } else {
+          incidentesPorHeladera.put(heladera, 1);
+        }
       }
 
+      //Agrego los datos a la tabla
+      for (Incidente incidente : incidentes) {
+        Heladera heladera = incidente.getHeladera();
+        int incidentes = incidentesPorHeladera.getOrDefault(heladera, 0);
+        tablaIncidentesxheladera.addCell(String.valueOf(heladera));
+        tablaIncidentesxheladera.addCell(String.valueOf(incidentes));
+      }
       documento.add(tablaIncidentesxheladera);
 
       // Página 3
@@ -111,13 +128,13 @@ public class Reporte {
       PdfPTable tablaViandasRetiradasColocadas = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
       // Creo los hashmap con key nombre de heladera
-      HashMap<String, Integer> viandasRetiradasPorHeladera = new HashMap<>();
-      HashMap<String, Integer> viandasColocadasPorHeladera = new HashMap<>();
+      HashMap<Heladera, Integer> viandasRetiradasPorHeladera = new HashMap<>();
+      HashMap<Heladera, Integer> viandasColocadasPorHeladera = new HashMap<>();
 
       // Obtengo las heladeras de origen, destino y la cantidad de viandas movidas
       for (DistribuirVianda distribucion : distribuciones) {
-        String origen = distribucion.getOrigen().getNombre();
-        String destino = distribucion.getDestino().getNombre();
+        Heladera origen = distribucion.getOrigen();
+        Heladera destino = distribucion.getDestino();
         int cantidad = distribucion.getCantidadViandasMover();
 
         // las agrego al hashmap los retiros y las colocaciones
@@ -126,10 +143,10 @@ public class Reporte {
       }
 
       // Agrego los datos a la tabla
-      for (Heladera h : heladeras) {
-        String nombreHeladera = h.getNombre();
-        int retiradas = viandasRetiradasPorHeladera.getOrDefault(nombreHeladera, 0);
-        int colocadas = viandasColocadasPorHeladera.getOrDefault(nombreHeladera, 0);
+      for (Heladera heladera : heladeras) {
+        String nombreHeladera = heladera.getNombre();
+        int retiradas = viandasRetiradasPorHeladera.getOrDefault(heladera, 0);
+        int colocadas = viandasColocadasPorHeladera.getOrDefault(heladera, 0);
         tablaViandasRetiradasColocadas.addCell(nombreHeladera);
         tablaViandasRetiradasColocadas.addCell(String.valueOf(retiradas));
         tablaViandasRetiradasColocadas.addCell(String.valueOf(colocadas));
@@ -160,11 +177,10 @@ public class Reporte {
       }
 
       // Agrego los datos a la tabla
-      for (Map.Entry<Colaborador, Integer> entry : viandasPorColaborador.entrySet()) {
-        tablaViandasxcolaborador.addCell(entry.getKey().getNombre());
-        tablaViandasxcolaborador.addCell(String.valueOf(entry.getValue()));
+      for (Colaborador colaborador : viandasPorColaborador.keySet()) {
+        tablaViandasxcolaborador.addCell(colaborador.getNombre());
+        tablaViandasxcolaborador.addCell(String.valueOf(viandasPorColaborador.get(colaborador)));
       }
-
       documento.add(tablaViandasxcolaborador);
       documento.close();
 
@@ -187,4 +203,4 @@ public class Reporte {
     table.addCell("Francisco");
     table.addCell("Mosquera Alfaro");
   }
-  }
+}

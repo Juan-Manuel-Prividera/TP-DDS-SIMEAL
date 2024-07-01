@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncidenteRepository {
+  @Getter
   private List<Incidente> incidentes;
   static private IncidenteRepository instance;
 
