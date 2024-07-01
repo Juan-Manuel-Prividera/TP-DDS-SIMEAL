@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
+import java.util.Optional;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -32,6 +33,12 @@ public class SensorRepository {
     sensores.remove(sensor);
   }
 
-
+  public Sensor buscarSegun(String nombreHeladera){
+    return this.sensores
+        .stream()
+        .filter(s -> s.getHeladera().getNombre().equals(nombreHeladera))
+        .findFirst()
+        .orElse(null);
+  }
 
 }
