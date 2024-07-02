@@ -2,10 +2,15 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjet
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Builder
 public class SolicitudOperacionHeladera {
   private TipoOperacion tipoOperacion;

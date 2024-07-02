@@ -1,8 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.SolicitudOperacionHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -31,8 +33,8 @@ public class MqttPublisher {
 
       //llega solicitud por parametro
       //parsear solicitudOperacion a json
-      Gson gson = new Gson();
-      String content = gson.toJson(solicitudOperacion);
+      ObjectMapper objectMapper = new ObjectMapper();
+      String content = objectMapper.writeValueAsString(solicitudOperacion);
 
       //se crea el mensaje y se publica
       int qos = 2;
@@ -52,6 +54,8 @@ public class MqttPublisher {
       System.out.println("cause " + me.getCause());
       System.out.println("excep " + me);
       me.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

@@ -9,7 +9,6 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber {
 
-  SensorRepository sensorRepository = SensorRepository.getInstance();
   ConfigReader configReader = new ConfigReader();
 
   public void conectar(String topic) {
@@ -18,6 +17,7 @@ public class MqttSubscriber {
     String broker = configReader.getProperty("broker.host");
     String clientId = "JavaSubscriber";
     MemoryPersistence persistence = new MemoryPersistence();
+    SensorRepository sensorRepository = SensorRepository.getInstance();
 
     try {
       //conexion con el broker
@@ -29,7 +29,7 @@ public class MqttSubscriber {
       System.out.println("Connected");
 
       //Creo el receptor
-      CustomMessageReceptor receptor = new CustomMessageReceptor(this.sensorRepository);
+      CustomMessageReceptor receptor = new CustomMessageReceptor(sensorRepository);
 
       //subscribo a el topico con el receptor
       sampleClient.subscribe(topic, receptor);

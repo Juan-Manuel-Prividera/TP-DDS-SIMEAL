@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjet
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 
+
 public class TarjetaColaborador {
   private String codigo;
   private Colaborador colaborador;

@@ -33,7 +33,7 @@ public class SensorRepository {
     sensores.remove(sensor);
   }
 
-  public Sensor buscarSegun(String nombreHeladera){
+  public Sensor buscarSegun(String nombreHeladera) {
     return this.sensores
         .stream()
         .filter(s -> s.getHeladera().getNombre().equals(nombreHeladera))
