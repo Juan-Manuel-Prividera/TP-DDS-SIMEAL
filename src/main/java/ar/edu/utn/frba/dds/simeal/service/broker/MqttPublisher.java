@@ -1,8 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.SolicitudOperacionHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -14,6 +12,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 public class MqttPublisher {
 
   ConfigReader configReader = new ConfigReader();
+
 
   public void conectar(SolicitudOperacionHeladera solicitudOperacion, String topic) {
 
