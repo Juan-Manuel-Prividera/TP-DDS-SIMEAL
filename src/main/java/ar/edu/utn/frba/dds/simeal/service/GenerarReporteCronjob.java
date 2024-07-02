@@ -6,6 +6,10 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 
+// Crontab para ejecutar una vez por semana, todos los lunes a medianoche.
+// Este cronjob genera un reporte basado en datos de diferentes repositorios.
+// 0 0 * * 1 "java -jar /path/to/GenerarReporteCronjob.jar"
+
 public class GenerarReporteCronjob {
 
   public static void main(String[] args) {
