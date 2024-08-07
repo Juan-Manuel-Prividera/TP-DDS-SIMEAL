@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador;
+package ar.edu.utn.frba.dds.simeal.models.entities.operacionHeladera;
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;

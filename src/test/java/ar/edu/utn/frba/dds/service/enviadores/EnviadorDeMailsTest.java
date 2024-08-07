@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.EnviadorDeMails;
@@ -67,9 +68,9 @@ public class EnviadorDeMailsTest {
   public void envioNotificacionAColab() throws MessagingException, IOException {
     Colaborador colaborador =
         new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez");
-    colaborador.addMedioContacto(new Email("jperez@gmail.com",enviadorDeMails));
+    colaborador.addContacto(new Contacto("jperez@gmail.com", new Email(enviadorDeMails)));
     Mensaje mensaje = new Mensaje("Hola juan", "Notificacion");
-    colaborador.getMediosDeContacto().get(0).notificar(mensaje);
+    colaborador.getContactos().get(0).notificar(mensaje);
 
     greenMail.waitForIncomingEmail(5000,1);
     Message[] messages = greenMail.getReceivedMessages();

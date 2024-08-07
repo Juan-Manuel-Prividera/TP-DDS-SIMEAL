@@ -1,12 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 public class QuedanPocasViandas implements Notificacion {
@@ -18,12 +15,7 @@ public class QuedanPocasViandas implements Notificacion {
   }
 
   @Override
-  public List<Colaborador> obtenerInteresados(List<Suscripcion> suscripciones, int cantidadViandas) {
-    List<Colaborador> interesados = new ArrayList<>();
-    for (Suscripcion suscripcion : suscripciones) {
-      if(suscripcion.getCantidadViandasMinimas() >= cantidadViandas)
-        interesados.add(suscripcion.getSuscriptor());
-    }
-    return interesados;
+  public Boolean interesaEsteEvento(TipoEvento tipoEvento, Suscripcion suscripcion, int cantidadViandas) {
+    return tipoEvento.equals(TipoEvento.RETIRO) && suscripcion.getCantidadViandasCriticas() < cantidadViandas;
   }
 }

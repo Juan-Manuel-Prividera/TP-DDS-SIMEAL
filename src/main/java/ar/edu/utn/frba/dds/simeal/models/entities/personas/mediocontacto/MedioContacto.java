@@ -4,6 +4,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 
 public interface MedioContacto {
 
-  public void notificar(Mensaje mensaje);
+  public void notificar(String destinatario, Mensaje mensaje);
 }
 

@@ -19,10 +19,10 @@ public class PuedeSuscribirseTest {
   @BeforeEach
   public void init() {
     ubicacionHeladera = new Ubicacion(-34.59863378269025, -58.420124757795726);
-    heladera = new Heladera(ubicacionHeladera, null);
+    heladera = new Heladera(ubicacionHeladera);
     ubicacionCercana = new Ubicacion(-34.595248855276196, -58.41984904689641);
     ubicacionLegaja = new Ubicacion(-34.56812363242786, -58.42614710949405);
-    suscripcion = new Suscripcion(heladera, null,1,1);
+    suscripcion = new Suscripcion(heladera, null,1,null);
   }
 
 

@@ -56,7 +56,7 @@ public class EnviadorTelegramTest {
     when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba))
         .thenReturn(messageMock);
 
-    enviadorTelegram.enviar(mensajePrueba);
+    enviadorTelegram.notificar(String.valueOf(chatIdPrueba),mensajePrueba);
     verify(enviadorTelegram, times(1)).execute(messageMock);
   }
 
@@ -65,7 +65,7 @@ public class EnviadorTelegramTest {
     when(telegramMessageMock.getSendMessage(chatIdPrueba,mensajePrueba))
         .thenReturn(messageMock);
 
-    enviadorTelegram.enviar(mensajePrueba);
+    enviadorTelegram.notificar(String.valueOf(chatIdPrueba),mensajePrueba);
     verify(telegramMessageMock, times(1))
         .getSendMessage(chatIdPrueba,mensajePrueba);
   }

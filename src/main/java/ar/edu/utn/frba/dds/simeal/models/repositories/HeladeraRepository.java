@@ -38,4 +38,10 @@ public class HeladeraRepository {
 
     return heladerasCercanas;
   }
+
+    public List<Heladera> getHeladerasCercanasA(Ubicacion ubicacion) {
+      return heladeras.stream()
+              .filter(h -> h.getUbicacion().estaCercaDe(ubicacion, 1000))
+              .toList();
+    }
 }

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.service.creacionales;
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.*;

@@ -6,7 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.CreadorDeHerramientasPDF;
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.utils.ImagenesCaratula.EncabezadoPieDePagina;
-import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
@@ -15,10 +15,8 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Reporte {
 

@@ -4,15 +4,14 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.EnviadorDeWpp;
 
 public class WhataApp implements MedioContacto {
-  private String numero;
   private EnviadorDeWpp enviador;
-  public WhataApp(String numero, EnviadorDeWpp enviador) {
-    this.numero = numero;
+
+  public WhataApp(EnviadorDeWpp enviador) {
     this.enviador = enviador;
   }
 
   @Override
-  public void notificar(Mensaje mensaje) {
-    enviador.enviar(numero,mensaje);
+  public void notificar(String destinatario, Mensaje mensaje) {
+    enviador.enviar(destinatario,mensaje);
   }
 }

@@ -8,29 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SugerenciaHeladeras {
-  private HeladeraRepository heladeraRepository;
   private boolean aceptada;
   private Ubicacion ubicacionDeInteres;
   private List<Heladera> heladerasSugeridas;
   private String sugerencia;
 
-  public SugerenciaHeladeras(Ubicacion ubicacion) {
+  public SugerenciaHeladeras(Ubicacion ubicacion, List<Heladera> heladeras) {
     this.ubicacionDeInteres = ubicacion;
     this.aceptada = false;
+    heladerasSugeridas = new ArrayList<>(heladeras);
   }
 
   public String getSugerencia(int cercania) {
     sugerencia = "Las heladeras cercanas son: \n";
-    heladerasSugeridas = obtenerHeladerasCercanas(cercania);
     for (Heladera heladera : heladerasSugeridas) {
       sugerencia += "\t La heladera ubicada en: " + heladera.getUbicacion().getStringUbi() + "\n";
     }
     return sugerencia;
+  }
 
-  }
-  private List<Heladera> obtenerHeladerasCercanas(int cercania) {
-    heladeraRepository = HeladeraRepository.getInstance();
-    return new ArrayList<>(heladeraRepository.buscarPorCercania(ubicacionDeInteres,cercania));
-  }
 
 }

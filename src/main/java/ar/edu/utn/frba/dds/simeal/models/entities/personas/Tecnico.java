@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
@@ -17,17 +18,17 @@ public class Tecnico implements ReceptorDeNotificaciones {
   private String apellido;
   private Documento documento;
   private String cuil;
-  private List<MedioContacto> mediosDeContacto;
-  private MedioContacto medioContactoPreferido;
+  private List<Contacto> contactos;
+  private Contacto contactoPreferido;
   private AreaDeCobertura areaDeCobertura;
 
 
-  public Tecnico(MedioContacto medioContacto, AreaDeCobertura areaDeCobertura) {
-    this.medioContactoPreferido = medioContacto;
+  public Tecnico(Contacto contacto, AreaDeCobertura areaDeCobertura) {
+    this.contactoPreferido = contacto;
     this.areaDeCobertura = areaDeCobertura;
   }
   public void recibirNotificacion(Mensaje mensaje) {
-    medioContactoPreferido.notificar(mensaje);
+    contactoPreferido.notificar(mensaje);
   }
 
 

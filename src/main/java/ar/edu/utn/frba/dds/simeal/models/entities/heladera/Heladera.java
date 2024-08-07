@@ -6,15 +6,16 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
-import ar.edu.utn.frba.dds.simeal.models.entities.eventos.AdministradorDeEventos;
-import ar.edu.utn.frba.dds.simeal.models.entities.eventos.Evento;
-import ar.edu.utn.frba.dds.simeal.models.entities.eventos.TipoEvento;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.AdministradorDeEventos;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.Evento;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import ar.edu.utn.frba.dds.simeal.service.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
 import lombok.Getter;
@@ -23,7 +24,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 
 @Getter
@@ -36,19 +36,15 @@ public class Heladera {
   private EstadoHeladera estado;
   private Modelo modelo;
 
-  private AdministradorDeEventos administradorDeEventos;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo,
-                  AdministradorDeEventos administradorDeEventos) {
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.modelo = modelo;
-    this.administradorDeEventos = administradorDeEventos;
   }
-  public Heladera(Ubicacion ubicacion, AdministradorDeEventos administradorDeEventos) {
+  public Heladera(Ubicacion ubicacion) {
     this.ubicacion = ubicacion;
-    this.administradorDeEventos = administradorDeEventos;
   }
 
 
@@ -65,9 +61,7 @@ public class Heladera {
   }
 
   public void reportarIncidente(Incidente incidente) {
-    // Avisa al admnistrador de eventos que hubo un incidente en esta heladera
-    administradorDeEventos
-        .huboUnEvento(new Evento(this, TipoEvento.INCIDENTE, new HuboUnDesperfecto(this)));
+    EventoFactory.crearEvento(this, TipoEvento.INCIDENTE);
 
     this.estado = new Inactiva();
     Mensaje mensaje = generarMensaje(incidente);

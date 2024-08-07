@@ -4,10 +4,9 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
-import ar.edu.utn.frba.dds.simeal.models.entities.formulario.FormularioContestado;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.formulario.FormularioContestado;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.TarjetaColaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
 import lombok.Getter;
@@ -30,8 +29,8 @@ public class Colaborador implements ReceptorDeNotificaciones {
   private Rubro rubro;
   private TipoJuridico tipoJuridico;
   private FormularioContestado formularioContestado;
-  private final List<MedioContacto> mediosDeContacto = new ArrayList<>();
-  private MedioContacto medioDeContactoPreferido;
+  private final List<Contacto> contactos = new ArrayList<>();
+  private Contacto contactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
   @Setter
   private Usuario usuario;
@@ -48,8 +47,8 @@ public class Colaborador implements ReceptorDeNotificaciones {
     this.ubicacion = ubicacion;
   }
 
-  public void addMedioContacto(MedioContacto medioContacto) {
-    mediosDeContacto.add(medioContacto);
+  public void addContacto(Contacto contacto) {
+    contactos.add(contacto);
   }
 
   public void gastarPuntos(double puntos) {
@@ -67,7 +66,7 @@ public class Colaborador implements ReceptorDeNotificaciones {
 
   @Override
   public void recibirNotificacion(Mensaje mensaje) {
-    medioDeContactoPreferido.notificar(mensaje);
+    contactoPreferido.notificar(mensaje);
   }
 
 

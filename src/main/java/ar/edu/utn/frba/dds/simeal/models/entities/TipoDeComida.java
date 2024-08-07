@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
+package ar.edu.utn.frba.dds.simeal.models.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

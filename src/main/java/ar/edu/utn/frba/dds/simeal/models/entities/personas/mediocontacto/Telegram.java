@@ -5,15 +5,13 @@ import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.EnviadorTelegram;
 import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.EnviadorDeWpp;
 
 public class Telegram {
-  private String chatid;
   private EnviadorTelegram enviador;
 
-  public Telegram(String chatid, EnviadorTelegram enviadorTelegram){
-    this.chatid = chatid;
+  public Telegram(EnviadorTelegram enviadorTelegram){
     this.enviador = enviadorTelegram;
   }
 
-  public void enviar(Mensaje mensaje) {
-    enviador.enviar(mensaje);
+  public void enviar(String destinatario, Mensaje mensaje) {
+    enviador.notificar(destinatario, mensaje);
   }
 }

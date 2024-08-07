@@ -6,15 +6,16 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracio
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
-import ar.edu.utn.frba.dds.simeal.service.ColaboracionBuilder;
+import ar.edu.utn.frba.dds.simeal.service.creacionales.ColaboracionBuilder;
 import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import ar.edu.utn.frba.dds.simeal.service.enviadores.EnviadorDeMails;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-import org.opengis.filter.Not;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -68,9 +69,9 @@ public class LectorCsv {
 
       if (colaborador == null) {
         Documento documento = new Documento(tipoDocumento, numeroDocumento);
-        Email email = new Email(mail, null);
+        Email email = new Email(null);
         colaborador = new Colaborador(documento, nombre, apellido);
-        colaborador.addMedioContacto(email);
+        colaborador.addContacto(new Contacto(mail, email));
       }
       ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
           .crearColaboracionPuntuable(tipoColaboracion, fechaColaboracion, colaborador, cantidad);

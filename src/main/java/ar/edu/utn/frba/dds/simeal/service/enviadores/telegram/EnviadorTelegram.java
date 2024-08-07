@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.service.enviadores.telegram;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
 import lombok.Setter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EnviadorTelegram extends TelegramLongPollingBot {
+public class EnviadorTelegram extends TelegramLongPollingBot implements MedioContacto{
 
   // Este setter es para poder testear, NUNCA se deberia llamar desde otro lugar que no sea test
   @Setter
@@ -40,21 +42,21 @@ public class EnviadorTelegram extends TelegramLongPollingBot {
     Message message = update.getMessage();
     if (Objects.equals(message.getText(), "/start") && !chatIds.contains(message.getChatId())) {
       chatIds.add(message.getChatId());
-      enviar(new Mensaje("¡Bienvenido a Simeal!"));
+      // Aca faltaria ver como poner este contacto en un colaborador
+      Contacto contacto = new Contacto(String.valueOf(message.getChatId()), this);
+      notificar(String.valueOf(message.getChatId()),new Mensaje("¡Bienvenido a Simeal!"));
     }
   }
 
   // Envia un mensaje a todos los chats que tenga registrados
-  public void enviar(Mensaje mensaje) {
-    chatIds.forEach(id -> {
-      try {
-        // Ejecutar el mensaje es directamente enviarlo
-        execute(telegramMessage.getSendMessage(id, mensaje));
-      } catch (TelegramApiException e) {
-        System.out.println("Error al enviar el mensaje: " + e.getMessage());
-        throw new RuntimeException(e);
-      }
-    });
+  public void notificar(String chatid, Mensaje mensaje) {
+    try {
+      // Ejecutar el mensaje es directamente enviarlo
+      execute(telegramMessage.getSendMessage(Long.valueOf(chatid), mensaje));
+    } catch (TelegramApiException e) {
+      System.out.println("Error al enviar el mensaje: " + e.getMessage());
+      throw new RuntimeException(e);
+    }
   }
 
 

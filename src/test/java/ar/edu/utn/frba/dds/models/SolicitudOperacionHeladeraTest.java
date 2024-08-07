@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TarjetaColaborador.SolicitudOperacionHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.operacionHeladera.SolicitudOperacionHeladera;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.models;
 import ar.edu.utn.frba.dds.simeal.models.entities.Retiro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Tarjeta;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +19,7 @@ public class TarjetaTest {
   List<Retiro> retiros = new ArrayList<>();
   List<PersonaVulnerable> hijos = new ArrayList<>();
   PersonaVulnerable personaVulnerable;
-  Tarjeta tarjeta;
+  TarjetaPersonaVulnerable tarjeta;
 
   @BeforeEach
   public void init(){
@@ -43,7 +43,7 @@ public class TarjetaTest {
         new Documento(TipoDocumento.DNI, "26231329")
     );
 
-    tarjeta = new Tarjeta("123456789", personaVulnerable);
+    tarjeta = new TarjetaPersonaVulnerable("123456789", personaVulnerable);
 
     Retiro retiro = new Retiro(null, tarjeta);
 
@@ -59,12 +59,12 @@ public class TarjetaTest {
     retiros.add(retiro);
     retiros.add(retiro);
 
-    Assertions.assertFalse(tarjeta.puedeRetirar(retiros));
+    Assertions.assertFalse(tarjeta.puedeRetirar());
   }
 
   @Test @DisplayName("Se intenta retirar vianda con tarjeta con retiros todavia disponibles")
   public void NoAlcanzoElLimitePuedeRetirar (){
-    Assertions.assertTrue(tarjeta.puedeRetirar(retiros));
+    Assertions.assertTrue(tarjeta.puedeRetirar());
   }
 
   @Test @DisplayName("Se verifica el limite de usos para una persona con un hijo")
