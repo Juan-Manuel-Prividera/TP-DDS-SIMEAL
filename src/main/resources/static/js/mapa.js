@@ -13,7 +13,7 @@ function cargarMapa(){
 	}
 
   	var heladeraIcon = L.icon({
-  	  iconUrl: 'heladeraMapa.png',
+  	  iconUrl: '/img/heladera.png',
       iconSize: [20,40]
  	});
 
