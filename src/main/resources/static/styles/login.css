@@ -1,0 +1,248 @@
+* {
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    height: 100%;
+}
+
+h1 {
+    font-size: 40%;
+}
+
+h2 {
+    text-align: center;
+}
+
+#welcome {
+    background-color:#05a185;
+    float:left;
+    width:50%;
+    height:100%;
+}
+
+#welcome-header {
+    color:white;
+    margin: 1em 0 0 0;
+    text-shadow: 1px 1px 3px #00000080;
+    text-align: center;
+    font-size: 6.5vh;
+}
+
+#welcome h2 {
+    color: white;
+    font-weight: normal;
+    font-size: 2vmax;
+    text-align: center;
+    margin: 0;
+}
+
+#heladera-img {
+    height: 70%;
+    text-align:center;
+    display:block;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#login {
+    background-color:white;
+    float:right;
+    width:50%;
+    height:100%;
+}
+
+#login-header {
+    color:black;
+    margin: 1em 0 0em 0;
+    text-shadow: 1px 1px 3px #00000080;
+    text-align: center;
+    font-size: 7vh;
+}
+
+.my-button {
+    font-size: 2vh !important;
+    width: 20vh;
+    align-self: center;
+}
+
+label {
+    font-size: 2vh;
+    display: block;
+    text-align: left;
+    line-height: 150%;
+}
+
+.form-label {
+    margin-bottom: 0;
+
+}
+
+
+.check {
+    width: 7%;
+    float:left;
+    margin: 2%;
+}
+
+.my-container {
+    display: flex;
+    align-items: center;
+    height: 2em;
+    justify-content:space-between;
+    margin-bottom: 2vh;
+    padding: 0 0 0 0;
+}
+
+#recordarme-label {
+    width: 50%;
+    margin-bottom: 0;
+    vertical-align:middle;
+    display:table-cell;
+}
+
+#renovar-contraseña {
+    font-size: 1.8vh;
+    width: 60%;
+    text-align: right;
+}
+
+.my-input {
+    font-size: 2vh;
+    height: 4vh;
+    width: 100%;
+    padding: 0.8em;
+
+    border-radius: 1vh;
+    border: 1px;
+    background: transparent;
+    border-color: lightgrey;
+    border-style: solid;
+    
+    display: block;
+    margin: auto auto 3vh auto;
+}
+
+#password {
+    margin-bottom: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 5%;
+    margin: auto;
+    margin-bottom: 10vh;
+
+}
+
+.user-box {
+  position: relative;
+}
+
+i.fas.fa-eye-slash {
+    margin-bottom:0px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 4vh;
+  right: 10px;
+  cursor: pointer;
+}
+
+.password-toggle-icon i {
+  font-size: 1.8vh;
+  line-height: 1;
+  color: #333;
+  transition: color 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.password-toggle-icon i:hover {
+  color: #000;
+}
+
+#no-tenes-cuenta
+{
+    display: flex;
+    flex-direction: column;
+    margin:auto;
+}
+
+#registrarse
+{
+    text-align: center;
+}
+
+#no-tenes-cuenta-header {
+    font-size: 4vh;
+    color: grey;
+    text-align: center;
+}
+
+.my-footer
+{
+    background-color:#3d3d3d;
+    color: white;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+footer h2
+{
+    margin: 3vh;
+}
+
+ul
+{
+    text-align: center;
+}
+
+
+#foot-left li
+{
+    font-size: 3vmax;
+}
+
+#foot-left
+{
+    flex-grow: 0.2;
+    margin-left: -8%;
+}
+
+li
+{
+    list-style-type: none;
+    font-size: 1.2vmax;
+    color:lightgrey;
+    font-weight: normal;
+}
+
+#foot-right a
+{
+    color: lightgrey;
+    font-style: italic;
+}
+
+#foot-left a
+{
+    color: lightgrey;
+    font-style: italic;
+    text-decoration: none;
+}
+
+#foot-left ul
+{
+    display: flex;
+    justify-content: space-around;
+}
+
