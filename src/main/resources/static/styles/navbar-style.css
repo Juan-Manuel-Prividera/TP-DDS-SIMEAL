@@ -1,8 +1,8 @@
 /*
---------------------- Titulo y Loco ---------------------
+--------------------- Titulo y Logo ---------------------
  */
 .container-fluid{
-    background-color: #ffffff;
+    background-color: #a1d5a1;
     width: 100%;
 }
 
@@ -17,14 +17,19 @@
 }
 
 .titulo{
-
+    color: #000000;
+    font-size: 3rem;
 }
 .icon-text{
-    font-size: 24px;
+    /*font-size: 24px;*/
+    font-size: 1.5rem;
     align-content: center;
+    color: black;
 }
 .icon-text i{
-   font-size: 50px;
+   /*font-size: 50px;*/
+    font-size: 4rem;
+    color: black;
 }
 
 /*
@@ -35,36 +40,42 @@
 }
 .navbar-collapse{
     display: flex;
-    background-color: white;
+    background-color: #a1d5a1;
     width: 100%;
     margin: 0;
 }
 .navbar-nav{
-    background-color: #ffffff;
+    background-color: #a1d5a1;
 }
 .navbar-expand-lg{
-    background-color: #ffffff;
+    background-color: #a1d5a1;
 }
 .navbar-nav{
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: white;
+    background-color: #a1d5a1;
 }
 
 .nav-item{
     width: 100%;
     text-align: center;
-    background-color: white;
-    font-size: 20px;
+    background-color: #a1d5a1;
+    /*font-size: 20px;*/
+   font-size: 1.5rem;
 }
 
 .nav-link {
-    color: #131313;
-    background-color: #ffffff;
+    color: #000000;
+    background-color: #a1d5a1;
     display: flex;
 }
 .nav-link:hover{
-    color: #e0dbdb;
-    background-color: #131313;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+
+.btn-dark{
+    width: 60%;
 }

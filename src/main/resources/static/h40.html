@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
     <link rel="stylesheet" href="styles/navbar-style.css">
+    <link rel="stylesheet" href="styles/mapa.css">
+    <link rel="stylesheet" href="styles/containers.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
 </head>
 <body>
     <header>
         <div class="container-fluid">
             <div class="header-container">
                 <img src = "../img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
-                <h1 class="titulo">Sistema de Mejora Alimentaria</h1>
+                <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
 
                 <div class="icon-text ml-auto">
                     <span class="m-3">Nombre de usuario</span>
@@ -38,17 +44,43 @@
                             <a class="nav-link" href="#">Heladeras</a>
                         </li>
                         <li class="nav-item mr-auto ml-auto">
-                            <a class = "button">Volver al inicio</a>
+                            <a class = "btn btn-outline-dark rounded">Volver al inicio</a>
                         </li>
                     </ul>
                 </div>
          </nav>
         </div>
     </header>
+    <div class="linear-container">
+        <div class="mapa-container">
+            <div class="m-3 mt-5" id="mapid"></div>
+        </div>
+        <div class="formulario">
+            <div class="form-group">
+                <h3 class="mb-5 mt-5">Complete con la información de la heladera</h3>
+                <label for="nombreHeladera">Nombre de la heladera</label>
+                <input type="text" class="form-control mb-4" id="nombreHeladera" placeholder="Nombre">
+                <label for="ubicacionHeladera">Ubicación</label>
+                <input type="text" class="form-control mb-5" id="ubicacionHeladera" placeholder="Ubicación">
+
+                <a class="btn btn-dark btnSeleccionar rounded m-auto" id="inputHeladera">Seleccionar</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <p>Lo que querramos poner</p>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script type="module" src="js/recibirInputHeladera.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="js/mapa.js"></script>
 </body>
 </html>

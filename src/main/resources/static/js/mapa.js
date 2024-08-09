@@ -1,12 +1,13 @@
 // Cuando el html termina de cargar ejecuta cargarMapa()
+let map;
 $(document).ready(function() {
+
     cargarMapa();
 });
 
 
-// La L es un objeto de leaflet 
+// La L es un objeto de leaflet
 function cargarMapa(){
-	var map;
     const puntoCentral ={
 		lat : -34.656032172926906, 
 		lng : -58.426227983358935,
@@ -23,7 +24,7 @@ function cargarMapa(){
     
     // Cargar mapa
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Grupo 11 de Diseño'
+        attribution: 'Grupo 11 Diseño de Sistemas'
     }).addTo(map);
 
     map.doubleClickZoom.disable();
@@ -47,6 +48,18 @@ function cargarMapa(){
 function agregarHeladera(latitud,longitud,nombreHeladera,map, heladeraIcon){
     var marker = L.marker([latitud, longitud], {icon: heladeraIcon}).addTo(map);
     marker.bindPopup("<b>"+nombreHeladera+"</b>").openPopup();
-    
+}
+
+export function buscarDireccion(direccion){
+    const geocoder = new L.Control.Geocoder.Nominatim();
+
+    geocoder.geocode(direccion,function(result){
+        if(result && result.length > 0){
+            const latlng = result[0].center;
+
+            map.setView(latlng,13)
+        } else
+            alert("Direccion no encontrada");
+    });
 }
 
