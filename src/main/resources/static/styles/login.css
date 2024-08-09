@@ -112,8 +112,8 @@ label {
 }
 
 .my-input {
-    font-size: 2vh;
-    height: 4vh;
+    font-size: 2vh !important;
+    height: 4vh !important;
     width: 100%;
     padding: 0.8em;
 
@@ -152,7 +152,7 @@ i.fas.fa-eye-slash {
 .password-toggle-icon {
   position: absolute;
   top: 4vh;
-  right: 10px;
+  right: 0.8vw;
   cursor: pointer;
 }
 
