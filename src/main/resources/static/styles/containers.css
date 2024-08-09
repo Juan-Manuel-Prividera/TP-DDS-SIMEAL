@@ -35,19 +35,25 @@
     width: 50%;
 
 }
+html{
+    height: 1vh;
+    padding: 0;
+    margin: 0;
+}
+main{
+    padding: 0;
+    margin: 0;
+    height: 115vh;
+
+}
 
 body{
     display: flex;
     flex-direction: column;
-    height: 50vmax;
+    height: 115vh;
     bottom: 0;
     margin: 0;
     padding: 0;
-
-    /*background-image: url("../../img/fondo1.png");*/
-    /*!*background-color: #05a185;*!*/
-    /*background-position: center;*/
-    /*background-size: cover;*/
 
 }
 
@@ -57,4 +63,7 @@ footer{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
+
+
 }
