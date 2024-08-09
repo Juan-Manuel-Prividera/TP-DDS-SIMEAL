@@ -20,7 +20,6 @@
             <div class="header-container">
                 <img src = "../img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
                 <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
-
                 <div class="icon-text ml-auto">
                     <span class="m-3">Nombre de usuario</span>
                     <i class="bi bi-person mr-3"></i>
@@ -48,43 +47,53 @@
                         </li>
                     </ul>
                 </div>
-         </nav>
+            </nav>
         </div>
     </header>
+
     <div class="linear-container">
         <div class="mapa-container">
-             <div class="m-3 mt-5 redondeado sombreado" id="mapid"></div>
+            <div class="m-3 mt-5 redondeado sombreado" id="mapid"></div>
         </div>
-        <div class="formulario">
-            <div class="form-group">
-                <h3 class="mb-5 mt-5">Complete con la información de la heladera</h3>
-                <label for="nombreHeladera">Nombre de la heladera</label>
-                <input type="text" class="form-control mb-4" id="nombreHeladera" placeholder="Nombre">
-                <label for="ubicacionHeladera">Ubicación</label>
-                <input type="text" class="form-control mb-5" id="ubicacionHeladera" placeholder="Ubicación">
 
-                <a class="btn btn-dark btn-seleccionar rounded m-auto" id="inputHeladera">Seleccionar</a>
+        <div class="status-container">
+            <div class="info-heladera">
+                <img src="../img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
+                <div>
+                    <p>Nombre de heladera</p>
+                    <p>Ubicacion: </p>
+                </div>
             </div>
+            <div class="status-heladera">
+                <p class="mt-3 ml-3">Estado: Activa</p>
+                <p class="mb-3 ml-3">Ultima temperatura registrada: 18°C</p>
+            </div>
+            <div class="status-buttons">
+                <button class="btn btn-reportar btn-dark  mb-3">Reportar fallo</button>
+                <button class="btn btn-custom btn-dark mb-3">Suscribirse a heladera</button>
+                <button class="btn btn-custom btn-dark mb-3">Alertas recientes</button>
+            </div>
+
         </div>
+
     </div>
 
     <footer class="bg-dark text-white text-center py-3 mt-auto">
         <p>Lo que querramos poner</p>
     </footer>
 
+
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script type="module" src="js/recibirInputHeladera.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script type="module" src="js/mapa.js"></script>
 
-    <script src="js/btnSeleccionado.js">
-        mantenerbtn("heladera-btn")
-    </script>
+
 </body>
 </html>

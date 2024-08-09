@@ -3,7 +3,7 @@
 */
 
 :root {
-    --verde: #72c49c;
+    --verde: rgb(114, 196, 156);
 }
 /*
 --------------------- Titulo y Logo ---------------------
@@ -96,13 +96,18 @@
     background-color: #336c56;
 }
 
-
+#return-home-btn{
+    align-items: center;
+    justify-content: center;
+    width: 60% !important;
+    font-size: 100% !important;
+}
 
 .btn-dark{
     width: 60%;
 }
 .navbar{
-   padding-bottom: 0 !important;
+   padding: 0 0 0 0 !important;
 }
 
 

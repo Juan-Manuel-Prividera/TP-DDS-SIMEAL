@@ -1,7 +1,7 @@
 .linear-container{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
@@ -27,12 +27,18 @@
     align-items: flex-start;
 }
 
-.btnSeleccionar{
+.btn-seleccionar{
     display: flex;
     align-items: center;
     width: 50%;
-
+    font-size: 120% !important;
 }
+
+#return-home-btn{
+    width: 100%;
+}
+
+
 html{
     height: 1vh;
     padding: 0;
@@ -71,4 +77,70 @@ footer{
 .sombreado{
     background-color: #000000;
     box-shadow: 0.8vh 0.8vh 1vh rgba(0, 0, 0, 0.5);
+}
+
+.logo-peque {
+    width: 10%;
+    height: auto;
+}
+
+.status-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+
+}
+
+
+.info-heladera{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 40%;
+
+    height: 30vh;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0 ;
+}
+
+.status-heladera{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+    background-color: rgba(114, 196, 156, 0.52);
+    width: 50%;
+    height: 15vh;
+}
+
+.status-buttons{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    justify-content: left;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.btn-reportar{
+    color: white;
+    width: 50%;
+    background-color: #a2102e !important;
+    border-color: #a2102e !important;
+    font-size: 110% !important;
+}
+
+.btn-custom{
+    color: white;
+    width: 50%;
+    font-size: 110% !important;
+}
+
+.custom-file-imput::file-selector-button{
+    color: black;
 }
