@@ -19,27 +19,29 @@
 }
 
 .logo{
-    width: 50px;
+    width: 2.5%;
     height: auto;
 }
 
 .titulo{
     color: #000000;
-    font-size: 2.3rem;
+    font-size: 4vh;
 }
 
 .icon-text{
     /*font-size: 24px;*/
-    font-size: 1.5rem;
+    font-size: 2.5vh;
     align-content: center;
     color: black;
 }
 
-.icon-text i{
-   /*font-size: 50px;*/
+.icon-text i {
+    /*font-size: 50px;*/
     font-size: 4rem;
     color: black;
 }
+
+
 
 /*
 --------------------- NAV BAR ---------------------
@@ -53,9 +55,7 @@
     width: 100%;
     margin: 0;
 }
-.navbar-nav{
-    background-color: var(--verde);
-}
+
 .navbar-expand-lg{
     background-color: var(--verde);
 }
@@ -73,19 +73,35 @@
     /*font-size: 20px;*/
    font-size: 1.5rem;
 }
+.nav-item .seleccionado{
+    background-color: white;
+    font-style: italic;
+}
 
 .nav-link {
     color: #000000;
     background-color: var(--verde);
     display: flex;
+
+}
+.nav-link .seleccionado{
+    background-color: white;
+    font-style: italic;
 }
 
 .nav-link:hover{
-    color: #000000;
-    background-color: #ffffff;
+
+    color: #ffffff;
+    background-color: #336c56;
 }
+
 
 
 .btn-dark{
     width: 60%;
 }
+.navbar{
+   padding-bottom: 0 !important;
+}
+
+

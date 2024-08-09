@@ -14,8 +14,6 @@
     width: 80%;
     margin-top: 0;
     height: 115%;
-
-
 }
 
 .form-control{
@@ -64,6 +62,13 @@ footer{
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
+}
 
+.redondeado{
+    border-radius: 1rem;
+}
 
+.sombreado{
+    background-color: #000000;
+    box-shadow: 0.8vh 0.8vh 1vh rgba(0, 0, 0, 0.5);
 }
