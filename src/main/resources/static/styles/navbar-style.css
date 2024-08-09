@@ -1,8 +1,15 @@
 /*
+-------------------- Colores ----------------------------
+*/
+
+:root {
+    --verde: #72c49c;
+}
+/*
 --------------------- Titulo y Logo ---------------------
  */
 .container-fluid{
-    background-color: #a1d5a1;
+    background-color: var(--verde);
     width: 100%;
 }
 
@@ -40,34 +47,34 @@
 }
 .navbar-collapse{
     display: flex;
-    background-color: #a1d5a1;
+    background-color: var(--verde);
     width: 100%;
     margin: 0;
 }
 .navbar-nav{
-    background-color: #a1d5a1;
+    background-color: var(--verde);
 }
 .navbar-expand-lg{
-    background-color: #a1d5a1;
+    background-color: var(--verde);
 }
 .navbar-nav{
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: #a1d5a1;
+    background-color: var(--verde);
 }
 
 .nav-item{
     width: 100%;
     text-align: center;
-    background-color: #a1d5a1;
+    background-color: var(--verde);
     /*font-size: 20px;*/
    font-size: 1.5rem;
 }
 
 .nav-link {
     color: #000000;
-    background-color: #a1d5a1;
+    background-color: var(--verde);
     display: flex;
 }
 .nav-link:hover{
