@@ -1,0 +1,102 @@
+.container-supremo {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.colaboracion-personal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding-bottom: 20px; /* Para dar un poco de espacio en la parte inferior */
+}
+
+.container-frase-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    padding-bottom: 20px; /* Para dar un poco de espacio en la parte inferior */
+}
+
+.tarjeta-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.tarjeta-btns a {
+    width: 75%;
+    align-content: center;
+    align-items: center;
+    justify-content: center;}
+
+.tarjeta-btns .btn {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    text-align: center; /* Asegura que el texto esté centrado */
+    padding: 10px 0; /* Ajusta el padding para el espacio interno */
+}
+.colab-btns-inf-izq{
+   align-self: auto;
+   border: none;
+   padding: 10px 20px;
+   border-radius: 20px; /* Bordes redondeados */
+   font-weight: bold;
+   cursor: pointer;
+   width: 400px;
+}
+.colab-btns-inf-izq .btn {
+    background-color: var(--verde);
+    color: black; /* Texto oscuro */
+    font-size: 150%;
+    width: 130%;
+    margin-top: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+.colab-btns-inf-der{
+    align-self: auto;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px; /* Bordes redondeados */
+    font-weight: bold;
+    cursor: pointer;
+    width: 400px;
+}
+.colab-btns-inf-der .btn {
+    background-color: var(--verde);
+    color: black; /* Texto oscuro */
+    font-size: 150%;
+    width: 130%;
+    margin-top: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centrado vertical */
+    align-items: center; /* Centrado horizontal */
+    text-align: center; /* Asegura que el texto esté centrado */
+}
+
+
+.texto-motivacional {
+    color: black;
+    margin-top: 10%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 4vw;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra */
+    }
+
