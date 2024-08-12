@@ -67,26 +67,38 @@
 }
 
 .documento-container select {
+    text-align: center;
     width: 20%;
     margin-right: 2%;
 }
 
 .user-box {
     position: relative;
+    margin-bottom: 3vh;
+    width: 100%;
 }
 
 i.fas.fa-eye-slash {
     margin-bottom:0px;
 }
 
+form label {
+    font-size: 2.5vh;
+}
+
+form input {
+    font-size: 2.5vh!important;
+}
+
 .password-toggle-icon {
     position: absolute;
+    top: 6vh;
     right: 0.8vw;
     cursor: pointer;
 }
 
 .password-toggle-icon i {
-    font-size: 1.8vh;
+    font-size: 2vh;
     line-height: 1;
     color: #333;
     transition: color 0.3s ease-in-out;
@@ -99,4 +111,48 @@ i.fas.fa-eye-slash {
 .terminos-condiciones {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+
+.terminos-condiciones a {
+    color: black;
+    font-size: 2vh!important;
+}
+
+u {
+    margin-left: 0.8vh;
+}
+
+form button {
+    font-size: 3vh !important;
+    margin-top: 3vh;
+    align-self: center;
+}
+
+/*------registro.html-----------*/
+.body-registro {
+    height: 100%;
+    background: linear-gradient(to bottom, #05A185, rgb(114, 196, 156) );
+}
+
+.titulo-registro {
+    text-align: center;
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+    font-size: 8vh;
+    color: white;
+}
+.opciones-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.opciones-container button {
+    padding-inline: 10vh 10vh;
+    font-size: 5vh;
+}
+
+

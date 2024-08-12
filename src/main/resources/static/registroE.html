@@ -24,22 +24,17 @@
 <div class="container-supremo">
     <h1>Registro</h1>
     <form action="/signup" method="post" class="form-group" onsubmit="return validateFields()">
-        <label for="nombre">*Nombre/s</label>
+        <label for="nombre">*Nombre de la organización</label>
         <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
-        <label for="apellido">*Apellido/s</label>
+        <label for="apellido">*Razon social</label>
         <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido" required>
-        <label for="email">*Email</label>
-        <input type="text" class="form-control mb-4" name="email" id="email" placeholder="Email" required>
-        <label for="documentoNro">*Documento</label>
-        <div class="documento-container">
-            <select class="form-control" name="documentoTipo">
-                <option value="" disabled selected hidden>...</option>
-                <option value="dni">DNI</option>
-                <option value="pasaporte">Pasaporte</option>
-                <option value="libreta">Libreta</option>
-            </select>
-            <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
-        </div>
+        <label for="rubro">*Rubro</label>
+        <select class="form-control mb-4" name="rubro" id="rubro">
+            <option value="" disabled selected hidden>...</option>
+            <option value="dni">Gastronomía</option>
+            <option value="pasaporte">Ingeniería</option>
+            <option value="libreta">Arte</option>
+        </select>
         <label for="telefono">*Telefono</label>
         <input type="tel" class="form-control mb-4" name="telefono" id="telefono" placeholder="Telefono" required>
         <label for="direccion">Dirección</label>

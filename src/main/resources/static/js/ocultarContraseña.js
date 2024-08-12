@@ -1,6 +1,5 @@
-function togglePw(inputId, inlineClass) {
+function togglePw(inputId, togglePassword) {
     const passwordInput = document.getElementById(inputId);
-    const togglePassword = document.querySelector(inlineClass);
 
     if (passwordInput.type === 'text') {
         passwordInput.type = 'password';
