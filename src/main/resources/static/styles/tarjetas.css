@@ -1,4 +1,5 @@
 .container-supremo {
+    font-size: 2vh;
     margin-top: 2%;
     display: flex;
     flex-direction: row;
@@ -16,6 +17,7 @@
     width: 50%;
     height: 100vh;
 }
+
 
 .tarjeta-btns{
     display: flex;
@@ -89,6 +91,7 @@
 }
 
 .tarjeta-persona-vulnerable {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     background-color: var(--verde);
@@ -97,7 +100,7 @@
     margin-top: 5%;
     color: black;
     align-items: center;
-    align-content: space-around;
+    align-content: space-evenly;
     justify-content: center;
 }
 
