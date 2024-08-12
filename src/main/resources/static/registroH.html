@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="styles/registro.css">
+    <link rel="stylesheet" href="styles/containers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="header-container">
+            <img src = "../img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
+            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
+
+        </div>
+    </div>
+</header>
+<div class="container-supremo">
+    <h1>Registro</h1>
+    <form action="/signup" class="form-group">
+        <label for="nombre">Nombre/s</label>
+        <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre">
+        <label for="apellido">Apellido/s</label>
+        <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido">
+        <label for="email">Email</label>
+        <input type="text" class="form-control mb-4" name="email" id="email" placeholder="Email">
+        <label for="documentoNro">Documento</label>
+        <div class="documento-container">
+            <select class="form-control" name="documentoTipo">
+                <option value="" disabled selected hidden>...</option>
+                <option value="dni">DNI</option>
+                <option value="pasaporte">Pasaporte</option>
+                <option value="libreta">Libreta</option>
+            </select>
+            <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
+        </div>
+        <label for="telefono">Telefono</label>
+        <input type="text" class="form-control mb-4" name="telefono" id="telefono" placeholder="Telefono">
+        <label for="direccion">Dirección</label>
+        <input type="text" class="form-control mb-4" name="direccion" id="direccion" placeholder="Dirección">
+        <label for="cp">Código Postal</label>
+        <input type="text" class="form-control mb-4" name="cp" id="cp" placeholder="Código Postal">
+
+        <div class="user-box">
+            <label for="password" class="form-label">Contraseña:</label>
+            <input type="password" placeholder="Contraseña" id="password" class="my-input form-control" required="">
+            <span class="password-toggle-icon">
+                <i class="fas fa-eye-slash" onclick="togglePw('password', '.password-toggle-icon i')"></i>
+            </span>
+        </div>
+
+        <div class="user-box">
+            <label for="passwordRepeat" class="form-label">Repetir contraseña</label>
+            <input type="password" placeholder="Repetir contraseña" id="passwordRepeat" class="my-input form-control" required="">
+            <span class="password-toggle-icon">
+                <i class="fas fa-eye-slash" onclick="togglePw('passwordRepeat', '.password-toggle-icon i')"></i>
+            </span>
+        </div>
+
+        <div class="terminos-condiciones">
+            <input type="checkbox" id="terminos-checkbox">
+            <label for="terminos-checkbox">Acepto </label>
+            <a href="google.com">terminos y condiciones</a>
+        </div>
+
+        <button class="btn btn-dark" type="submit">Registrarse</button>
+
+    </form>
+
+</div>
+
+<script src="js/ocultarContraseña.js"></script>
+</body>
+</html>
