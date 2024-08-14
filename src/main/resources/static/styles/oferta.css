@@ -1,3 +1,4 @@
+
 .container-superior {
     margin-top: 2%;
     display: flex;
@@ -162,6 +163,7 @@ input[type="number"] {
     align-items: center;
 }
 
+
 .offer-image-short {
     background-color: grey;
     width: 80%;
@@ -189,3 +191,70 @@ input[type="number"] {
     font-size: 12px;
     color: #ffffff;
 }
+
+.offer-card-2 {
+    background-color: #444;
+    border-radius: 10px;
+    width: 30%; /* 4 tarjetas por fila, con margen */
+    max-width: 50%;
+    max-height: 50%;
+    margin: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.container-inferior-izquierdo {
+    flex: 2; /* Ocupa 2/3 del espacio disponible */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #444; /* Color para diferenciar */
+}
+
+.container-inferior-derecho {
+    flex: 1; /* Ocupa 1/3 del espacio disponible */
+    padding: 20px;
+    background-color: #f1f1f1; /* Fondo claro para los detalles */
+    color: #333;
+    border-radius: 8px;
+    margin-left: 20px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-inferior-derecho h2 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.container-inferior-derecho img {
+    width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+    height: auto; /* Mantiene la proporción de la imagen */
+    max-width: 400px;
+    max-height: 300px;
+    object-fit: cover; /* Asegura que la imagen se ajuste al contenedor sin distorsionarse */
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+
+.texto-izquierda {
+    align-self: flex-start; /* Alinea el contenedor de texto a la izquierda */
+    text-align: left; /* Alinea el texto dentro del contenedor a la izquierda */
+    margin-bottom: 20px;
+}
+
+.container-inferior-derecho button {
+    position: absolute; /* Permite posicionar el botón de manera absoluta dentro del contenedor */
+    bottom: 1px; /* Ajusta el espacio desde el borde inferior */
+    width: 15%;
+    height: 60px;
+    border-radius: 20px;
+}
+
