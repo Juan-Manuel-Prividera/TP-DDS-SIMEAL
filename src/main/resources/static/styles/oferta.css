@@ -1,13 +1,3 @@
-
-.container-superior {
-    margin-top: 2%;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 100vh;
-}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -31,6 +21,49 @@ body {
     flex-direction: column;
     align-items: flex-start;
     color: black;
+}
+
+#rubro {
+    appearance: none; /* Quita el estilo por defecto del navegador */
+    background-color: #ffffff; /* Fondo blanco */
+    color: #000; /* Texto negro */
+    width: 250px;
+    padding: 10px 15px; /* Espaciado interno */
+    border: 2px solid #009688; /* Borde con color */
+    border-radius: 20px; /* Bordes redondeados */
+    font-size: 20px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambia el cursor a pointer */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    position: relative;
+    text-align: right;
+}
+
+#puntos-min,
+#puntos-max {
+    width: 100px; /* Ajusta el ancho según sea necesario */
+    padding: 5px;
+    font-size: 16px; /* Tamaño de fuente más pequeño */
+    border: 1px solid #009688; /* Bordes con color para mantener consistencia */
+    border-radius: 10px; /* Bordes redondeados */
+}
+.points-min, .points-max {
+    color: black;
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: flex-start; /* Alinea los elementos al inicio */
+    margin: 0 10px; /* Ajusta el margen horizontal si es necesario */
+}
+
+.points-min label, .points-max label {
+    margin-bottom: 5px; /* Espacio entre el label y el input */
+}
+
+.points-min input[type="number"], .points-max input[type="number"] {
+    width: 200%; /* Ajusta el ancho según sea necesario */
+    padding: 5px;
+    font-size: 16px; /* Tamaño de fuente */
+    border: 1px solid #009688; /* Bordes con color */
+    border-radius: 10px; /* Bordes redondeados */
 }
 
 .points{
@@ -71,77 +104,6 @@ input[type="number"] {
 }
 
 /* Contenedor Inferior */
-.container-inferior {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 20px;
-}
-
-.offer-card {
-    background-color: #444;
-    border-radius: 10px;
-    width: 150px;
-    padding: 10px;
-    margin: 10px;
-    text-align: center;
-}
-
-.offer-image-short {
-    background-color: #ccc;
-    width: 100%;
-    height: 100px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.offer-info p {
-    margin: 5px 0;
-    font-size: 14px;
-}
-
-/* Estilo personalizado para el selector de rubro */
-#rubro {
-    appearance: none; /* Quita el estilo por defecto del navegador */
-    background-color: #ffffff; /* Fondo blanco */
-    color: #000; /* Texto negro */
-    width: 250px;
-    padding: 10px 15px; /* Espaciado interno */
-    border: 2px solid #009688; /* Borde con color */
-    border-radius: 20px; /* Bordes redondeados */
-    font-size: 20px; /* Tamaño de fuente */
-    cursor: pointer; /* Cambia el cursor a pointer */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
-    position: relative;
-    text-align: right;
-}
-#puntos-min,
-#puntos-max {
-    width: 100px; /* Ajusta el ancho según sea necesario */
-    padding: 5px;
-    font-size: 16px; /* Tamaño de fuente más pequeño */
-    border: 1px solid #009688; /* Bordes con color para mantener consistencia */
-    border-radius: 10px; /* Bordes redondeados */
-}
-.points-min, .points-max {
-    color: black;
-    display: flex;
-    flex-direction: column; /* Organiza los elementos en columna */
-    align-items: flex-start; /* Alinea los elementos al inicio */
-    margin: 0 10px; /* Ajusta el margen horizontal si es necesario */
-}
-
-.points-min label, .points-max label {
-    margin-bottom: 5px; /* Espacio entre el label y el input */
-}
-
-.points-min input[type="number"], .points-max input[type="number"] {
-    width: 200%; /* Ajusta el ancho según sea necesario */
-    padding: 5px;
-    font-size: 16px; /* Tamaño de fuente */
-    border: 1px solid #009688; /* Bordes con color */
-    border-radius: 10px; /* Bordes redondeados */
-}
 
 .container-inferior {
     display: flex;
@@ -206,6 +168,8 @@ input[type="number"] {
     text-align: center;
 }
 
+/* Contenedor Inferior izquierdo*/
+
 .container-inferior-izquierdo {
     flex: 2; /* Ocupa 2/3 del espacio disponible */
     display: flex;
@@ -214,6 +178,8 @@ input[type="number"] {
     padding: 10px;
     background-color: #444; /* Color para diferenciar */
 }
+
+/* Contenedor Inferior derecho */
 
 .container-inferior-derecho {
     flex: 1; /* Ocupa 1/3 del espacio disponible */
@@ -263,7 +229,7 @@ input[type="number"] {
     color: black; /* Texto negro */
     padding: 3%;
     border-radius: 20px; /* Bordes redondeados */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
     text-align: center;
     width: 60%;
     height: 30%;
@@ -276,27 +242,26 @@ input[type="number"] {
 }
 
 .confirmation-text {
-    font-size: 24px; /* Ajusta el tamaño del texto */
+    font-size: 24px;
     margin-bottom: 20px; /* Espacio debajo del texto */
 }
 
 .confirmation-buttons {
     display: flex;
-    justify-content: space-between; /* Coloca los botones en los extremos */
-    align-items: center; /* Alinea verticalmente los botones */
+    justify-content: space-between;
+    align-items: center;
 }
 
 .confirm-btn {
     flex-grow: 1;
-    margin-right: 5%; /* Espaciado a la derecha del botón "Sí" */
-    width: auto;
+    margin-right: 5%;
     width: 30% !important;
     margin-bottom: 10%
 }
 
 .cancel-btn {
     flex-grow: 1;
-    margin-left: 60%; /* Espaciado a la izquierda del botón "No" */
+    margin-left: 60%;
     width: 30% !important;
     margin-bottom: 10%
 }
