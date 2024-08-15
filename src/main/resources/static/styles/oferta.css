@@ -225,6 +225,7 @@ input[type="number"] {
     align-items: center;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .container-inferior-derecho h2 {
@@ -257,4 +258,44 @@ input[type="number"] {
     height: 60px;
     border-radius: 20px;
 }
+.confirmation-box {
+    background-color: white; /* Fondo blanco */
+    color: black; /* Texto negro */
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    text-align: center;
+    width: 60%;
+    height: 30%;
+    position: absolute;
+    flex-direction:row;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* Asegura que el recuadro esté sobre los demás elementos */
+}
 
+.confirmation-text {
+    font-size: 24px; /* Ajusta el tamaño del texto */
+    margin-bottom: 20px; /* Espacio debajo del texto */
+}
+
+.confirmation-buttons {
+    display: flex;
+    justify-content: space-between; /* Coloca los botones en los extremos */
+    align-items: center; /* Alinea verticalmente los botones */
+}
+
+.confirm-btn {
+    flex-grow: 1;
+    margin-right: 10px; /* Espaciado a la derecha del botón "Sí" */
+    width: auto;
+    width: 30% !important;
+}
+
+.cancel-btn {
+    flex-grow: 1;
+    margin-left: 220px; /* Espaciado a la izquierda del botón "No" */
+    width: 30% !important;
+
+}
