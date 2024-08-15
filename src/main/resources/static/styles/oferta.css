@@ -261,8 +261,8 @@ input[type="number"] {
 .confirmation-box {
     background-color: white; /* Fondo blanco */
     color: black; /* Texto negro */
-    padding: 20px;
-    border-radius: 10px; /* Bordes redondeados */
+    padding: 3%;
+    border-radius: 20px; /* Bordes redondeados */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
     text-align: center;
     width: 60%;
@@ -288,14 +288,15 @@ input[type="number"] {
 
 .confirm-btn {
     flex-grow: 1;
-    margin-right: 10px; /* Espaciado a la derecha del botón "Sí" */
+    margin-right: 5%; /* Espaciado a la derecha del botón "Sí" */
     width: auto;
     width: 30% !important;
+    margin-bottom: 10%
 }
 
 .cancel-btn {
     flex-grow: 1;
-    margin-left: 220px; /* Espaciado a la izquierda del botón "No" */
+    margin-left: 60%; /* Espaciado a la izquierda del botón "No" */
     width: 30% !important;
-
+    margin-bottom: 10%
 }
