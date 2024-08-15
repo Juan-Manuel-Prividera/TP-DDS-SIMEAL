@@ -1,0 +1,28 @@
+.container-supremo {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.container-frase-btn {
+    text-align: center;
+    margin-left: 1%;
+}
+
+.form-control {
+    margin-left: 25%;
+    width: 50%;
+}
+
+.form-group {
+    gap: 10px;
+    align-items: center;
+}
+
+.form-group a{
+    display: block;
+}
+
