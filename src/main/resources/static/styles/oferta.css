@@ -11,7 +11,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: #009688; /* Fondo verde */
+    background-color: var(--verde); /* Fondo verde */
     padding: 20px;
     margin-top: 20px;
     max-height: 15%;
@@ -29,7 +29,7 @@ body {
     color: #000; /* Texto negro */
     width: 250px;
     padding: 10px 15px; /* Espaciado interno */
-    border: 2px solid #009688; /* Borde con color */
+    border: 2px solid var(--verde); /* Borde con color */
     border-radius: 20px; /* Bordes redondeados */
     font-size: 20px; /* Tamaño de fuente */
     cursor: pointer; /* Cambia el cursor a pointer */
@@ -43,7 +43,7 @@ body {
     width: 100px; /* Ajusta el ancho según sea necesario */
     padding: 5px;
     font-size: 16px; /* Tamaño de fuente más pequeño */
-    border: 1px solid #009688; /* Bordes con color para mantener consistencia */
+    border: 1px solid var(--verde); /* Bordes con color para mantener consistencia */
     border-radius: 10px; /* Bordes redondeados */
 }
 .points-min, .points-max {
@@ -62,7 +62,7 @@ body {
     width: 200%; /* Ajusta el ancho según sea necesario */
     padding: 5px;
     font-size: 16px; /* Tamaño de fuente */
-    border: 1px solid #009688; /* Bordes con color */
+    border: 1px solid var(--verde); /* Bordes con color */
     border-radius: 10px; /* Bordes redondeados */
 }
 
@@ -276,7 +276,7 @@ input[type="number"] {
     margin-bottom: 15%;
 }
 
-.btn-modify{
+.dark-btn{
     background-color: #333333;
     color: #ffffff;
     border: none;
