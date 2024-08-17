@@ -91,7 +91,50 @@
                 </table>
             </div>
 
+            <form class="agregar-tarjeta">
+                <div class="form-container">
+                    <div class="left">
+                        <h1>Información personal</h1>
+                        <label for="nombre">*Nombre/s</label>
+                        <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
+                        <label for="apellido">*Apellido/s</label>
+                        <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido" required>
+                        <label for="documentoNro">Documento</label>
+                        <div class="documento-container">
+                            <select class="form-control" name="documentoTipo">
+                                <option value="" disabled selected hidden>...</option>
+                                <option value="dni">DNI</option>
+                                <option value="pasaporte">Pasaporte</option>
+                                <option value="libreta">Libreta</option>
+                            </select>
+                            <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
+                        </div>
+                        <label for="apellido">Fecha de nacimiento</label>
+                        <input type="date" class="form-control mb-4" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
+                    </div>
+                    <div class="right">
+                        <h1>Información hijos</h1>
+                        <label for="nombre">*Nombre/s Hijo/a</label>
+                        <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre" required>
+                        <label for="apellido">*Apellido/s Hijo/a</label>
+                        <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido" required>
+                        <label for="documentoNro">Documento</label>
+                        <div class="documento-container">
+                            <select class="form-control" name="documentoTipoHijo">
+                                <option value="" disabled selected hidden>...</option>
+                                <option value="dni">DNI</option>
+                                <option value="pasaporte">Pasaporte</option>
+                                <option value="libreta">Libreta</option>
+                            </select>
+                            <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
+                        </div>
 
+                    </div>
+                </div>
+                <button class="btn btn-dark mb-3" type="submit">Registrar</button>
+            </form>
+
+        </div>
     </div>
 
     <footer class="bg-dark text-white text-center py-3 mt-auto">

@@ -20,7 +20,45 @@
     height: 100vh;
 }
 
+.agregar-tarjeta {
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    margin: 2vh;
+    background-color: #5effb7;
+}
 
+.agregar-tarjeta button {
+    width: 30%;
+    align-self: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-container .left {
+    padding: 2vh;
+    width: 100%;
+}
+
+.form-container .right {
+    padding: 2vh;
+    width: 100%;
+}
+
+.documento-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.documento-container select {
+    text-align: center;
+    width: 20%;
+    margin-right: 2%;
+}
 
 .tarjeta-btns{
     display: flex;
