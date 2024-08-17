@@ -120,6 +120,10 @@ form input {
     font-size: 2vh!important;
 }
 
+.terminos-condiciones:hover a {
+    color: white;
+}
+
 u {
     margin-left: 0.8vh;
 }
