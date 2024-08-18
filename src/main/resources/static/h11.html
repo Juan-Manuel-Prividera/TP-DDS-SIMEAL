@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Heladera</title>
     <link rel="stylesheet" href="styles/navbar-style.css">
-    <link rel="stylesheet" href="styles/mapa.css">
     <link rel="stylesheet" href="styles/containers.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
@@ -94,7 +93,7 @@
             <form class="agregar-tarjeta">
                 <div class="form-container">
                     <div class="left">
-                        <h1>Información personal</h1>
+                        <h2>Datos personales</h2>
                         <label for="nombre">*Nombre/s</label>
                         <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
                         <label for="apellido">*Apellido/s</label>
@@ -113,20 +112,26 @@
                         <input type="date" class="form-control mb-4" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
                     </div>
                     <div class="right">
-                        <h1>Información hijos</h1>
-                        <label for="nombre">*Nombre/s Hijo/a</label>
-                        <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre" required>
-                        <label for="apellido">*Apellido/s Hijo/a</label>
-                        <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido" required>
-                        <label for="documentoNro">Documento</label>
-                        <div class="documento-container">
-                            <select class="form-control" name="documentoTipoHijo">
-                                <option value="" disabled selected hidden>...</option>
-                                <option value="dni">DNI</option>
-                                <option value="pasaporte">Pasaporte</option>
-                                <option value="libreta">Libreta</option>
-                            </select>
-                            <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
+                        <h2>Menores a cargo</h2>
+                        <div class="hijo-container">
+                            <label for="nombre">Nombre/s Hijo/a</label>
+                            <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre">
+                            <label for="apellido">Apellido/s Hijo/a</label>
+                            <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido">
+                            <label for="documentoNro">Documento</label>
+                            <div class="documento-container">
+                                <select class="form-control" name="documentoTipoHijo">
+                                    <option value="" disabled selected hidden>...</option>
+                                    <option value="dni">DNI</option>
+                                    <option value="pasaporte">Pasaporte</option>
+                                    <option value="libreta">Libreta</option>
+                                </select>
+                                <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
+                            </div>
+                            <hr style="border-width:0.5vh;background-color:#135c52;">
+                        </div>
+                        <div class="agregar-hijo" id="agregar-hijo-btn">
+                            <img alt="Agregar hijo" class="plus-img" src="../img/plus-icon.png">
                         </div>
 
                     </div>
@@ -137,10 +142,16 @@
         </div>
     </div>
 
-    <footer class="bg-dark text-white text-center py-3 mt-auto">
-        <p>Lo que querramos poner</p>
-    </footer>
-
+    <script>
+        document.getElementById('agregar-hijo-btn').addEventListener('click', function() {
+            // Find the container to duplicate
+            const hijoContainer = document.querySelector('.hijo-container');
+            // Clone the container
+            const newHijoContainer = hijoContainer.cloneNode(true);
+            // Insert the clone after the last hijo-container
+            hijoContainer.parentNode.insertBefore(newHijoContainer, hijoContainer.nextSibling);
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
