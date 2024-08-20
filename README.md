@@ -1,3 +1,7 @@
+# Simeal
+_Sistema de Mejora Alimentaria_
+[Logo simeal](src/main/resources/img/heladera.png)
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
