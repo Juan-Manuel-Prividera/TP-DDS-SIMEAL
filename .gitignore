@@ -32,4 +32,4 @@ target/**
 # Properties
 application.properties
 
-
+persistence.xml
