@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class TarjetaPersonaVulnerable {
-  private String codigo;
+  private final String codigo;
   private final PersonaVulnerable personaVulnerable;
   private final int limiteDeUsoDiario = 4;
   private final int retirosAdicionalesPorMenores = 1;
@@ -22,6 +22,10 @@ public class TarjetaPersonaVulnerable {
 
   public int calcularLimiteDeUso() {
     return limiteDeUsoDiario + this.personaVulnerable.cantHijosMenores();
+  }
+
+  public void resetearUsos() {
+    usosHechos = 0;
   }
 
 }

@@ -6,9 +6,9 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class IncidenteRepository {
-  @Getter
-  private List<Incidente> incidentes;
+  private final List<Incidente> incidentes;
   static private IncidenteRepository instance;
 
   public static IncidenteRepository getInstance() {
