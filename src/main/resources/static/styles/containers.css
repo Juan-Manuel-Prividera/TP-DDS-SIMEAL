@@ -178,10 +178,10 @@ footer{
     margin-top: 2%;
 }
 
-.lista-historial li{
-    list-style: none;
-    margin-bottom: 10px;
-    background-color: #DCDCDC;
-    margin-right: 50px;
+.historial-container{
+    justify-content: center;
+    background: red;
 }
+
+
 

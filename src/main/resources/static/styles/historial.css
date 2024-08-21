@@ -1,0 +1,33 @@
+.alerta {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 10px;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.alerta-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detalle-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.detalle-btn:hover {
+    background-color: #333;
+}
+
+.detalle-info {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: square;
+}

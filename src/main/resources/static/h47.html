@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Historial alertar</title>
   <link rel="stylesheet" href="styles/navbar-style.css">
-  <link rel="stylesheet" href="styles/mapa.css">
   <link rel="stylesheet" href="styles/containers.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/historial.css">
 
 </head>
 <body>
@@ -59,10 +56,31 @@
   <div class="centered-full-container">
     <h1>Alertas</h1>
   </div>
-  <ul class="lista-historial">
-    <li>Falla de conexión | 10/04/2022 22:10hs</li>
-    <li>Exceso de temperatura | 12/05/2022 14:23hs| 30°C </li>
-  </ul>
+
+  <div class="alerta">
+    <div class="alerta-header">
+      Falla de conexión el 10/04/2022
+      <button class="detalle-btn" onclick="toggleDetalle('detalle1')">detalle</button>
+    </div>
+    <ul id="detalle1" class="detalle-info" style="display: none;">
+      <li>Error: No se pudo conectar al servidor.</li>
+      <li>Fecha: 10/04/2022</li>
+      <li>Hora: 14:30</li>
+    </ul>
+  </div>
+
+  <div class="alerta">
+    <div class="alerta-header">
+      Exceso de temperatura el 12/05/2022
+      <button class="detalle-btn" onclick="toggleDetalle('detalle2')">detalle</button>
+    </div>
+    <ul id="detalle2" class="detalle-info" style="display: none;">
+      <li>Temperatura: 10°C por encima del umbral.</li>
+      <li>Fecha: 12/05/2022</li>
+      <li>Hora: 15:00</li>
+    </ul>
+  </div>
 </div>
+  <script src="js/historialDisplay.js"></script>
 </body>
 </html>
