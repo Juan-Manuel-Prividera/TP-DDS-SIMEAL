@@ -1,8 +1,7 @@
 package ar.edu.utn.frba.dds.models.suscripciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.HayMuchasViandas;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import org.junit.jupiter.api.Assertions;

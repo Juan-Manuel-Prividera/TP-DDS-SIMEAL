@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

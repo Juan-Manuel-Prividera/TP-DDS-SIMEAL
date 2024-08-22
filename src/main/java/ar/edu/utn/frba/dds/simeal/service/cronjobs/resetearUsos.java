@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.TarjetaPersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaPersonaVulnerableRepository;
 
 import java.util.List;

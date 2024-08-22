@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 
 import java.util.ArrayList;
 import java.util.List;

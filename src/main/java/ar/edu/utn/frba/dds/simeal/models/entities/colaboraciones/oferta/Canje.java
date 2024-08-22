@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.CalculadorDeReconocimientos;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;

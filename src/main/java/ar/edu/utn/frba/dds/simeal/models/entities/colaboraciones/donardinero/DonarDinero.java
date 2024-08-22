@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

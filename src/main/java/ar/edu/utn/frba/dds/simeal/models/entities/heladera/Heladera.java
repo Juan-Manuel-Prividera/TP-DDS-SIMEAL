@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
@@ -11,7 +11,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
-import ar.edu.utn.frba.dds.simeal.utils.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;

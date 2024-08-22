@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.reporte.Reporte;
+import ar.edu.utn.frba.dds.simeal.utils.reporte.Reporte;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;

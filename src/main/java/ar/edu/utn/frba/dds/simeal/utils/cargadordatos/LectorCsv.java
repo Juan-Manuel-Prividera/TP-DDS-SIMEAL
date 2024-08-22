@@ -1,16 +1,16 @@
 package ar.edu.utn.frba.dds.simeal.utils.cargadordatos;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
-import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.service.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
-import ar.edu.utn.frba.dds.simeal.utils.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;

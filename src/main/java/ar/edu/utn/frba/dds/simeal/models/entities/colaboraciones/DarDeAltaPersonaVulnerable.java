@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.TarjetaPersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

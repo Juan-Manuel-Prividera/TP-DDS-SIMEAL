@@ -12,12 +12,12 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.utils.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 

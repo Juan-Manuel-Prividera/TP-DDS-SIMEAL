@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 
 import java.util.ArrayList;
 import java.util.List;

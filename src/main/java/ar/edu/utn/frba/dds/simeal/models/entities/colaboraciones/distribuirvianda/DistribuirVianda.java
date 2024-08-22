@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvian
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

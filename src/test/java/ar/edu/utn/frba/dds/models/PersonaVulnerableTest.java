@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.models;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Notificacion;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.operacionHeladera.SolicitudOperacionHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttClient;
