@@ -1,7 +1,6 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.utils;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificaciones;
 
 import java.util.List;

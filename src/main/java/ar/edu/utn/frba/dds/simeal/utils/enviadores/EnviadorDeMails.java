@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.simeal.service.enviadores;
+package ar.edu.utn.frba.dds.simeal.utils.enviadores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;

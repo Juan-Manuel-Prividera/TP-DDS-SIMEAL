@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
-import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.EnviadorTelegram;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.telegram.EnviadorTelegram;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;

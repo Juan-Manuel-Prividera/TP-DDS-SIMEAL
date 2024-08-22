@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;

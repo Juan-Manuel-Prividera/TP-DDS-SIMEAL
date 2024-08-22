@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.reporte.Reporte;
 import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
@@ -10,7 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 // Este cronjob genera un reporte basado en datos de diferentes repositorios.
 // 0 0 * * 1 "java -jar /path/to/GenerarReporteCronjob.jar"
 
-public class GenerarReporteCronjob {
+public class GenerarReporte {
 
   public static void main(String[] args) {
 

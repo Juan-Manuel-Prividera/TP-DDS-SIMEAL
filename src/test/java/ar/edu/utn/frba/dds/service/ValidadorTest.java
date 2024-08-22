@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds.service;
 
 
-import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.Condicion;
-import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.LongitudTest;
-import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.NoEnBlackList;
-import ar.edu.utn.frba.dds.simeal.service.passwordvalidator.PasswordValidator;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.Condicion;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.LongitudTest;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

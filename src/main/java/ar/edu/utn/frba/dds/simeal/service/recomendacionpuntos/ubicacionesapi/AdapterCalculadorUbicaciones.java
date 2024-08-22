@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.recomendacionpuntos.ubicacionesapi;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.PuntosRecomendados;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;

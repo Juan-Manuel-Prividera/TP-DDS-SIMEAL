@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.models;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
@@ -18,7 +17,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.ReceptorDeNotificacio
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.Notificador;
 import org.junit.jupiter.api.*;
 import org.mockito.MockedStatic;
 

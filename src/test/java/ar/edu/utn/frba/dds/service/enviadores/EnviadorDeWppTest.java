@@ -1,9 +1,9 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.EnviadorDeWpp;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.MyMessageCreator;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.whatsapp.EnviadorDeWpp;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.whatsapp.MyMessageCreator;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import org.junit.jupiter.api.BeforeEach;

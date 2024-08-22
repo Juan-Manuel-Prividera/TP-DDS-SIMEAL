@@ -1,9 +1,8 @@
 package ar.edu.utn.frba.dds.service.enviadores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.EnviadorTelegram;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.telegram.TelegramMessage;
-import org.junit.After;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.telegram.EnviadorTelegram;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.telegram.TelegramMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.passwordvalidator;
+package ar.edu.utn.frba.dds.simeal.utils.passwordvalidator;
 
 public class LongitudTest implements Condicion {
   int minimunLenght;

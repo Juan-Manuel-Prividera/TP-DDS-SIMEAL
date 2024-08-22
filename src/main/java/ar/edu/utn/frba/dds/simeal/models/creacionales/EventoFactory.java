@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.creacionales;
+package ar.edu.utn.frba.dds.simeal.models.creacionales;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.Evento;

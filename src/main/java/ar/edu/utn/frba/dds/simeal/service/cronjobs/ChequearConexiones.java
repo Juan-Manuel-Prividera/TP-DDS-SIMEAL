@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
@@ -14,7 +14,7 @@ import java.util.List;
 // Eso, es el 5 que está al final del comando
 //  */5 * * * * "java -jar /path/to/ChequearConexionesCronjob.jar 5"
 
-public class ChequearConexionesCronjob {
+public class ChequearConexiones {
   public static void main(String[] argv) {
     List<Sensor> sensores = SensorRepository.getInstance().getAll();
 

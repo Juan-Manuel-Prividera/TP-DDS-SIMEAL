@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.service;
 
-import ar.edu.utn.frba.dds.simeal.service.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.service.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

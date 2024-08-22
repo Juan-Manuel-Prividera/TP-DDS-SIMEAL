@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.logger;
+package ar.edu.utn.frba.dds.simeal.utils.logger;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;

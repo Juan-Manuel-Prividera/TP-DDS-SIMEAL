@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp.EnviadorDeWpp;
+import ar.edu.utn.frba.dds.simeal.utils.enviadores.whatsapp.EnviadorDeWpp;
 
 public class WhataApp implements MedioContacto {
   private EnviadorDeWpp enviador;

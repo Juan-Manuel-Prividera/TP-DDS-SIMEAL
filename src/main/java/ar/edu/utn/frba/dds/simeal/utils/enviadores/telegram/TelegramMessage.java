@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.enviadores.telegram;
+package ar.edu.utn.frba.dds.simeal.utils.enviadores.telegram;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

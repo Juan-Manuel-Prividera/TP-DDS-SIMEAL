@@ -1,7 +1,7 @@
-package ar.edu.utn.frba.dds.simeal.service.enviadores.whatsapp;
+package ar.edu.utn.frba.dds.simeal.utils.enviadores.whatsapp;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
-import ar.edu.utn.frba.dds.simeal.service.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import lombok.Setter;

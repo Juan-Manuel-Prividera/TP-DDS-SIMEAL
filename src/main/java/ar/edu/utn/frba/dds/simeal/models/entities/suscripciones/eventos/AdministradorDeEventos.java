@@ -7,7 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
-import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.Notificador;
 import lombok.Setter;
 
 import java.util.List;

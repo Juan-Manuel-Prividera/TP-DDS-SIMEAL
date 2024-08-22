@@ -6,19 +6,17 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.AdministradorDeEventos;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
-import ar.edu.utn.frba.dds.simeal.service.Notificador;
+import ar.edu.utn.frba.dds.simeal.utils.Notificador;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
-import javax.swing.event.HyperlinkEvent;
 import java.util.ArrayList;
 import java.util.List;
 

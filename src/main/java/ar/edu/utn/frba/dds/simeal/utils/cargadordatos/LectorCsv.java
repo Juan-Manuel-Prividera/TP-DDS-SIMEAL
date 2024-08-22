@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service.cargadordatos;
+package ar.edu.utn.frba.dds.simeal.utils.cargadordatos;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
@@ -9,9 +9,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDoc
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.usuario.Usuario;
-import ar.edu.utn.frba.dds.simeal.service.creacionales.ColaboracionBuilder;
-import ar.edu.utn.frba.dds.simeal.service.Notificador;
-import ar.edu.utn.frba.dds.simeal.service.enviadores.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
+import ar.edu.utn.frba.dds.simeal.utils.Notificador;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;

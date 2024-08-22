@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.utils;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
