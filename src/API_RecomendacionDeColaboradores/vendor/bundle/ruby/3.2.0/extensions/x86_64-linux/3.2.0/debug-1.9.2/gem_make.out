@@ -1,0 +1,19 @@
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+/usr/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-250wwv sitelibdir\=./.gem.20240821-267148-250wwv clean
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-250wwv sitelibdir\=./.gem.20240821-267148-250wwv
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-250wwv sitelibdir\=./.gem.20240821-267148-250wwv install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20240821-267148-250wwv/debug
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/debug-1.9.2/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-250wwv sitelibdir\=./.gem.20240821-267148-250wwv clean

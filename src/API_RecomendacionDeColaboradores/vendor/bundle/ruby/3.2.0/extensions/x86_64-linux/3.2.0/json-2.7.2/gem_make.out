@@ -1,0 +1,16 @@
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/json-2.7.2/ext/json
+/usr/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/json-2.7.2/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-ppfsgf sitelibdir\=./.gem.20240821-267148-ppfsgf clean
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/json-2.7.2/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-ppfsgf sitelibdir\=./.gem.20240821-267148-ppfsgf
+make: No se hace nada para 'all'.
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/json-2.7.2/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-ppfsgf sitelibdir\=./.gem.20240821-267148-ppfsgf install
+
+current directory: /home/Juan_Manuel/facultad/Diseño_de_Sistemas/api/api/vendor/bundle/ruby/3.2.0/gems/json-2.7.2/ext/json
+make DESTDIR\= sitearchdir\=./.gem.20240821-267148-ppfsgf sitelibdir\=./.gem.20240821-267148-ppfsgf clean
