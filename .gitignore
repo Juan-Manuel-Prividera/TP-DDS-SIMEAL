@@ -33,3 +33,11 @@ target/**
 application.properties
 
 persistence.xml
+
+# API
+/API_RecomendacionDeColaboradores/.idea/
+/API_RecomendacionDeColaboradores/tmp/
+/API_RecomendacionDeColaboradores/vendor/
+/API_RecomendacionDeColaboradores/config/environments/
+/API_RecomendacionDeColaboradores/config/master.key
+/API_RecomendacionDeColaboradores/log/

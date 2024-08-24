@@ -9,7 +9,7 @@ import java.io.File;
 
 public class ConfigReader {
   private Configuration configuration;
-  String fileName = "src/main/application.properties";
+  String fileName = "src/main/resources/application.properties";
 
   public ConfigReader() {
     Configurations configs = new Configurations();
