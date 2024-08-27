@@ -5,13 +5,27 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public class Alerta implements Incidente {
-  @Getter
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor
+@Table(name = "alerta")
+@Entity
+public class Alerta extends Persistente implements Incidente {
+  @ManyToOne
+  @JoinColumn(name="heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+  @Column(name = "descripcion")
   private String descripcion;
+  @Column(name = "fecha_hora")
   private LocalDateTime fechaHora;
+  @Column(name = "tipo_alerta")
+  @Enumerated(EnumType.STRING)
   private TipoAlerta tipoAlerta;
+
+
   @Override
   public String getNotificacion() {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -29,7 +43,6 @@ public class Alerta implements Incidente {
     this.fechaHora = LocalDateTime.now();
     this.tipoAlerta = tipoAlerta;
   }
-
 
 }
 

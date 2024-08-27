@@ -1,14 +1,24 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.geotools.referencing.GeodeticCalculator;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+
 @Getter
 @Setter
+@Embeddable
+@NoArgsConstructor
 public class Ubicacion {
+  @Column(name = "nombre_calle")
   private String nombreCalle;
+  @Column(name = "altura")
   private int altura;
+  @Embedded
   private Coordenada coordenada;
 
   public Ubicacion(double longitud, double latitud) {

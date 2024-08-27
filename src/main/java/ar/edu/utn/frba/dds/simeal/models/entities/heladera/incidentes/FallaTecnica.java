@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import lombok.AllArgsConstructor;
@@ -7,15 +8,32 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @AllArgsConstructor
-public class FallaTecnica implements Incidente{
-  @Getter
-  Heladera heladera;
-  String descripcion;
-  LocalDateTime fechaHora;
-  Colaborador colaborador;
-  String imagen;
+@NoArgsConstructor
+@Getter
+@Entity
+@Table(name = "falla_tecnica")
+public class FallaTecnica extends Persistente implements Incidente{
+  @ManyToOne
+  @JoinColumn(referencedColumnName = "id", name = "heladera_id")
+  private Heladera heladera;
+
+  @Column(name="descripcion")
+  private String descripcion;
+
+  @Column(name="fecha_hora")
+  private LocalDateTime fechaHora;
+
+  @ManyToOne
+  @JoinColumn(referencedColumnName = "id", name = "colaborador_id")
+  private Colaborador colaborador;
+
+  @Column(name="imagen")
+  private String imagen;
 
   @Override
   public String getNotificacion() {

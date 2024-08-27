@@ -1,10 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Activa;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EnReparacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.Inactiva;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
@@ -15,24 +13,37 @@ import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
 @Getter
 @NoArgsConstructor
-public class Heladera {
+@Entity
+@Table(name="heladera")
+@AllArgsConstructor
+public class Heladera extends Persistente {
   @Setter
+  @Column(name="nombre")
   private String nombre;
+  @Embedded
   private Ubicacion ubicacion;
+  @Column(name="fecha_colocacion")
   private LocalDate fechaColocacion;
-  private EstadoHeladera estado;
-  private Modelo modelo;
 
+  @ManyToOne
+  @JoinColumn(name="colaborador_id", referencedColumnName = "id")
+  private Colaborador colaboradorACargo;
+
+  @ManyToOne
+  @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
+  private Modelo modelo;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
