@@ -1,4 +1,9 @@
 class Colaborador < ApplicationRecord
+  attr_accessor :puntos, :cantDonaciones
   self.table_name = :colaboradores
-  belongs_to :contacto_preferido, class_name: "Contacto", optional: true
+
+  def create_from_json(json)
+
+  end
+
 end

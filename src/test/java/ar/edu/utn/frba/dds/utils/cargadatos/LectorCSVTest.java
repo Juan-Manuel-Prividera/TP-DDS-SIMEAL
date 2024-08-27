@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mockStatic;
 
 public class LectorCSVTest {
-    String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/service/cargadordatos/datos.csv";
+    String csvFile = "src/main/java/ar/edu/utn/frba/dds/simeal/utils/cargadordatos/datos.csv";
     LectorCsv lectorCSV;
     List<ColaboracionPuntuable> colaboraciones;
     ColaboracionPuntuable colaboracionPrueba;

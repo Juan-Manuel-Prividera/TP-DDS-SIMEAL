@@ -7,7 +7,7 @@ class ColabRecomendacionControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "Solcitud invalidad" do
+  test "Si la solcitud es invalida se responde con un error y code 400" do
     get "/simeal/api/colabs/recomendacion", params: { puntos: nil, donaciones: nil, max: -5 }
     assert_response :bad_request
     json_response = JSON.parse(response.body)

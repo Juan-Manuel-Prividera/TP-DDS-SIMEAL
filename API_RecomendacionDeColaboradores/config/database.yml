@@ -8,11 +8,11 @@ default: &default
 
 development:
   <<: *default
-  database: simeal
+  database: api
 
 
 test:
   adapter: sqlite3
-  database: simeal_test
+  database: api_test
   pool: 5
   timeout: 5000

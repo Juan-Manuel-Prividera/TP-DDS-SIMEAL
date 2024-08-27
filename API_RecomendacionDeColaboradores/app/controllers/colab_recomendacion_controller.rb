@@ -8,21 +8,22 @@ class ColabRecomendacionController < ApplicationController
 
     unless validar_parametros(puntos, cant_donaciones, max)
       render json: {
-        error: "Parámetros inválidos. Asegúrate de que 'puntos', 'donaciones' y 'max' sean numéricos.",
-        code: 400 },
-             status: :bad_request
+        error: "Parámetros inválidos. Asegúrate de que 'puntos', 'donaciones' y 'max' sean numéricos."
+        },
+        status: :bad_request
       return
     end
 
     recomendador = RecomendadorColaboradores.new(puntos, cant_donaciones, max)
-    # Levanto todos los colabs y todas las donaciones de viandas
+    # Levanto todos los colabs
     colaboradores = Colaborador.all
-    donaciones = DonacionVianda.all
 
-    colabs_recomendados = recomendador.recomendar(colaboradores, donaciones)
+    colabs_recomendados = recomendador.recomendar(colaboradores)
 
     # Convierte en json y responde a la solicitud
-    render json: colabs_recomendados
+    render json: {
+      "colaboradores": colabs_recomendados
+    }
   end
 
 

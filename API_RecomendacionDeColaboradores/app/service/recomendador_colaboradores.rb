@@ -8,15 +8,13 @@ class RecomendadorColaboradores
     @cant_max_colaboradores = cant_max_colaboradores
   end
 
-  def recomendar(colaboradores, donaciones)
+  def recomendar(colaboradores)
     colabs_recomendados = []
-    colabs_ordenados = ordenar_colaboradores(colaboradores, donaciones)
+    colabs_ordenados = ordenar_colaboradores(colaboradores)
 
     colabs_ordenados.each do |colaborador|
-      cant_donaciones_colab = cant_donaciones(colaborador, donaciones)
-
       if colabs_recomendados.length < @cant_max_colaboradores
-        if es_recomendable(colaborador, cant_donaciones_colab)
+        if es_recomendable(colaborador)
           colabs_recomendados << colaborador
         end
       else
@@ -26,25 +24,20 @@ class RecomendadorColaboradores
     colabs_recomendados
   end
 
-  def es_recomendable(colaborador, cant_donaciones)
+  def es_recomendable(colaborador)
     colaborador.puntos >= @puntos_requeridos &&
-      cant_donaciones  >= @cant_donaciones_requeridas
+    colaborador.cantDonaciones  >= @cant_donaciones_requeridas
 
   end
 
-  def ordenar_colaboradores(colaboradores, donaciones)
+  def ordenar_colaboradores(colaboradores)
     colaboradores.sort do |colab1, colab2|
       comparacion_puntos = colab2.puntos <=> colab1.puntos
       if comparacion_puntos.zero?
-        cant_donaciones(colab2, donaciones) <=> cant_donaciones(colab1, donaciones)
+        colab2.cantDonaciones <=> colab1.cantDonaciones
       else
         comparacion_puntos
       end
     end
   end
-
-  def cant_donaciones(colaborador, donaciones)
-    donaciones.count { |donacion| donacion.colaborador_id == colaborador.id }
-  end
-
 end

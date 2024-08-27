@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Arreglar, cuando hicimos el cronjob esto dejo de andar :(
 public class TarjetaTest {
   List<Retiro> retiros = new ArrayList<>();
   List<PersonaVulnerable> hijos = new ArrayList<>();
