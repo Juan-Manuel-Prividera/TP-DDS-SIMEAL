@@ -21,7 +21,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class Colaborador implements ReceptorDeNotificaciones {
+public class Colaborador extends Persistente implements ReceptorDeNotificaciones {
   private String nombre;
   private String apellido;
   private Documento documento;

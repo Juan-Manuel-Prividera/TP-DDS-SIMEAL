@@ -11,7 +11,7 @@ class ActualizadorColaboradores
       return
     end
 
-    # Me llega la bd de colabs entera entonces borro la mia y pongo la que llega
+    # Borro mi bd de colaboradores
     Colaborador.delete_all
 
     colabs_json = JSON.parse(json.body.read)
