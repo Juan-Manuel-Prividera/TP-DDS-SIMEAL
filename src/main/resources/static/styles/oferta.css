@@ -300,3 +300,74 @@ input[type="number"] {
     border-radius: 5px;
     cursor: pointer;
 }
+
+
+/* Contenedor general del formulario */
+.container-general {
+    background: linear-gradient(to bottom, #00a884, #0f6177); /* Degradado de fondo */
+    padding: 20px;
+    margin: 40px auto; /* Centrar horizontalmente */
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
+    align-content: center;
+}
+
+/* Título del formulario */
+.container-general .titulo {
+    text-align: center;
+    font-size: 400%;
+    color: white;
+    margin-bottom: 2%;
+    }
+
+/* Estilo de las etiquetas */
+.container-general .form-group label {
+    align-self: center;
+    font-size: 100%;
+    padding-right: 10%;
+    color: white;
+    display: block;
+}
+
+/* Estilo de los campos de texto */
+.container-general .form-control {
+    align-self: center;
+    text-align: start;
+    width: 20%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 1%;
+}
+
+/* Estilo del input de carga de imagen */
+.container-general .form-control-file {
+    margin: 0 auto 20px auto;
+    display: block;
+}
+
+/* Centrar y espaciar los botones */
+.container-general .form-group.text-center {
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    }
+
+.container-general .btn-success,
+.container-general .btn-danger {
+    width: 5%; /* Ancho de los botones */
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    align-self: center;
+}
+
+/* Para mejorar el aspecto del botón de carga de imagen */
+#imagen {
+    display: block;
+    margin: 0 auto;
+    padding-left: 40%
+}
