@@ -13,6 +13,8 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.io.FileOutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,7 +40,10 @@ public class Reporte {
     Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
     // Revisar el tema de los path
-    String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados.pdf";
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    String fechaActual = LocalDate.now().format(formato); // Convertir la fecha a un String
+
+    String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados" + fechaActual +  ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
