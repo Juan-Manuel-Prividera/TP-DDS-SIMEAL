@@ -285,3 +285,18 @@ input[type="number"] {
     transition: background-color 0.3s ease;
     margin-bottom: 30%;
 }
+
+
+
+/*  CSS para agregar ofertas  */
+
+.btn-dark-return{
+    background-color: #333;
+    color: white;
+    width: 10%; /* Ajusta según el largo deseado */
+    height: auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
