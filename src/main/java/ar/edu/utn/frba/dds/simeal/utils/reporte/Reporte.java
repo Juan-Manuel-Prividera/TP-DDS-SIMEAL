@@ -43,7 +43,7 @@ public class Reporte {
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     String fechaActual = LocalDate.now().format(formato); // Convertir la fecha a un String
 
-    String pdfPath = "E:\\Tarea Fran\\Diseño de sistemas\\Pruebas\\Generador de pdf\\Pdfs Creados\\Reportes_generados" + fechaActual +  ".pdf";
+    String pdfPath = System.getProperty("java.io.tmpdir") + "Reporte_generado" + fechaActual +  ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
@@ -79,7 +79,7 @@ public class Reporte {
 
       // Tabla integrantes del grupo
       String[] cabeceraIntegrantes = {"Nombre", "Apellido"};
-      PdfPTable tabla = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraIntegrantes);
+      PdfPTable tabla = HerramientasPDF.crearNuevaTabla(cabeceraIntegrantes);
       agregarIntegrantes(tabla);
       documento.add(tabla);
 
@@ -93,7 +93,7 @@ public class Reporte {
       // Tabla de incidentes generados por heladera
       String[] cabeceraIncidentxHelad = {"Heladera", "Cantidad de incidentes"};
 
-      PdfPTable tablaIncidentesxheladera = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraIncidentxHelad);
+      PdfPTable tablaIncidentesxheladera = HerramientasPDF.crearNuevaTabla(cabeceraIncidentxHelad);
 
       //Creo hashmap con key heladera
       HashMap<Heladera, Integer> incidentesPorHeladera = new HashMap<>();
@@ -126,7 +126,7 @@ public class Reporte {
 
       // Tabla de cantidad de viandas retiradas/colocadas por heladera
       String[] cabeceraViandasRetiradasColocadas = {"Heladera", "Viandas retiradas", "Viandas colocadas"};
-      PdfPTable tablaViandasRetiradasColocadas = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
+      PdfPTable tablaViandasRetiradasColocadas = HerramientasPDF.crearNuevaTabla(cabeceraViandasRetiradasColocadas);
 
       // Creo los hashmap con key nombre de heladera
       HashMap<Heladera, Integer> viandasRetiradasPorHeladera = new HashMap<>();
@@ -162,7 +162,7 @@ public class Reporte {
 
       // Tabla de viandas por colaborador
       String[] cabeceraViandasxColab = {"Colaborador", "Cantidad de viandas"};
-      PdfPTable tablaViandasxcolaborador = CreadorDeHerramientasPDF.crearNuevaTabla(cabeceraViandasxColab);
+      PdfPTable tablaViandasxcolaborador = HerramientasPDF.crearNuevaTabla(cabeceraViandasxColab);
 
       // Creo un HashMap con key colaborador
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();
@@ -185,6 +185,7 @@ public class Reporte {
       documento.add(tablaViandasxcolaborador);
       documento.close();
 
+      HerramientasPDF.subirArchivoAGithub(pdfPath);
 
     } catch (Exception e) {
       System.err.println("Error al generar el PDF: " + e.getMessage());
