@@ -40,7 +40,6 @@ public class DistribuirVianda implements ColaboracionPuntuable {
         .sumarPuntosReconocimiento(distribuirVianda.calcularReconocimientoParcial());
 
 
-    DistribucionDeViandasRepository.getInstance().guardar(distribuirVianda);
     return distribuirVianda;
 
   }

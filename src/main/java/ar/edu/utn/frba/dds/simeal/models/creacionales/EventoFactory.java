@@ -9,11 +9,16 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Hub
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.SugerenciaHeladeras;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
+import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
+import lombok.Setter;
+
+import java.security.Provider;
 
 public class EventoFactory {
-    private static AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos();
 
     public static void crearEvento(Heladera heladera, TipoEvento tipoEvento) {
+        AdministradorDeEventos administradorDeEventos = crearAdministrador();
+        HeladeraRepository heladeraRepository = (HeladeraRepository) ServiceLocator.getRepository("heladera");
         if(heladera == null) return;
         administradorDeEventos.huboUnEvento(
         switch (tipoEvento) {
@@ -22,9 +27,11 @@ public class EventoFactory {
             case INCIDENTE -> new Evento(heladera, TipoEvento.INCIDENTE,
                     new HuboUnDesperfecto(heladera,
                             new SugerenciaHeladeras(heladera.getUbicacion(),
-                                    HeladeraRepository.getInstance().getHeladerasCercanasA(heladera.getUbicacion()))));
+                                    heladeraRepository.getHeladerasCercanasA(heladera.getUbicacion()))));
         });
     }
 
-
+    public static AdministradorDeEventos crearAdministrador() {
+        return new AdministradorDeEventos();
+    }
 }

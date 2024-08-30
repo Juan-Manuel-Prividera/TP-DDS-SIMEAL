@@ -48,6 +48,7 @@ public class Heladera extends Persistente {
   @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
   private Modelo modelo;
 
+
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
@@ -74,7 +75,7 @@ public class Heladera extends Persistente {
     return temp >= modelo.getTemperaturaMin() && temp <= modelo.getTemperaturaMax();
   }
 
-  public void reportarIncidente(Incidente incidente, Tecnico tecnico) {
+  public void reportarIncidente(Incidente incidente) {
     EventoFactory.crearEvento(this, TipoEvento.INCIDENTE);
 
     // Esto tambien sin el estado adentro de la heladera no podemos
@@ -88,7 +89,7 @@ public class Heladera extends Persistente {
     Logger.getInstance().log(LoggerType.INFORMATION, mensaje.getMensaje());
 
     // Esto quiza va en controller
-    Notificador.notificar(tecnico, mensaje);
+    // Notificador.notificar(tecnico, mensaje);
 
   }
 

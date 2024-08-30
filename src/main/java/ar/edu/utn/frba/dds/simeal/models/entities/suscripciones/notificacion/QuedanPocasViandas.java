@@ -17,6 +17,6 @@ public class QuedanPocasViandas implements Notificacion {
 
   @Override
   public Boolean interesaEsteEvento(TipoEvento tipoEvento, Suscripcion suscripcion, int cantidadViandas) {
-    return tipoEvento.equals(TipoEvento.RETIRO) && suscripcion.getCantidadViandasCriticas() < cantidadViandas;
+    return tipoEvento.equals(TipoEvento.RETIRO) && suscripcion.getCantidadViandasCriticas() > cantidadViandas;
   }
 }

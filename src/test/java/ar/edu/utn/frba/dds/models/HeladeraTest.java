@@ -27,13 +27,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mockStatic;
 
 public class HeladeraTest {
-/*
   Ubicacion ubicacion= new Ubicacion(555,444);
   Modelo modelo= new Modelo(20,-10,50);
   Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
-  Activa estadoActivo = new Activa();
-  Inactiva estadoInactivo = new Inactiva();
-  EnReparacion estadoEnReparacion = new EnReparacion();
+
   Medicion medicion = new MedicionTemperatura();
   Colaborador colaborador = new Colaborador(
       new Documento(TipoDocumento.DNI, "1234567"),
@@ -63,11 +60,11 @@ public class HeladeraTest {
     notificadorMock.close();
   }
 
-  @Test @DisplayName("Cambiar estado a Activa")
-  public void testEstado(){
-    heladera.cambiarDeEstado(estadoActivo);
-    Assertions.assertEquals(heladera.getEstado(), estadoActivo);
-  }
+//  @Test @DisplayName("Cambiar estado a Activa")
+//  public void testEstado(){
+//    heladera.cambiarDeEstado(estadoActivo);
+//    Assertions.assertEquals(heladera.getEstado(), estadoActivo);
+//  }
 
   @Test
   public void temperaturaMuyFria() {
@@ -87,35 +84,35 @@ public class HeladeraTest {
     Assertions.assertTrue(heladera.temperaturaAdecuada(tempAdecuada));
   }
 
-  @Test @DisplayName("Estado heladera == Activa => Heladera está disponible")
-  public void testValidarEstadoActivo(){
-    heladera.cambiarDeEstado(estadoActivo);
-    Assertions.assertTrue(heladera.estaDisponible());
-  }
+//  @Test @DisplayName("Estado heladera == Activa => Heladera está disponible")
+//  public void testValidarEstadoActivo(){
+//    heladera.cambiarDeEstado(estadoActivo);
+//    Assertions.assertTrue(heladera.estaDisponible());
+//  }
 
-  @Test @DisplayName("Estado heladera == Inactivo => Heladera no está disponible")
-  public void testValidarEstadoInactivo(){
-    heladera.cambiarDeEstado(estadoInactivo);
-    Assertions.assertFalse(heladera.estaDisponible());
-  }
-  @Test @DisplayName("Estado heladera == En reparación => Heladera no está disponible")
-  public void testValidarEstadoEnReparacion(){
-    heladera.cambiarDeEstado(estadoEnReparacion);
-    Assertions.assertFalse(heladera.estaDisponible());
-  }
+//  @Test @DisplayName("Estado heladera == Inactivo => Heladera no está disponible")
+//  public void testValidarEstadoInactivo(){
+//    heladera.cambiarDeEstado(estadoInactivo);
+//    Assertions.assertFalse(heladera.estaDisponible());
+//  }
+//  @Test @DisplayName("Estado heladera == En reparación => Heladera no está disponible")
+//  public void testValidarEstadoEnReparacion(){
+//    heladera.cambiarDeEstado(estadoEnReparacion);
+//    Assertions.assertFalse(heladera.estaDisponible());
+//  }
 
-  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
-  public void testReportarIncidenteHeladeraNoDisponible() {
-    heladera.reportarIncidente(alerta);
-    Assertions.assertFalse(heladera.estaDisponible());
-  }
-
-  @Test @DisplayName("Se registra una visita exitosa => la heladera pasa a estar disponible")
-  public void testRegistrarHeladeraPasaADisponible() {
-    heladera.reportarIncidente(alerta);
-    heladera.registrarVisita(visitaExitosa);
-    Assertions.assertTrue(heladera.estaDisponible());
-  }
+//  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
+//  public void testReportarIncidenteHeladeraNoDisponible() {
+//    heladera.reportarIncidente(alerta);
+//    Assertions.assertFalse(heladera.estaDisponible());
+//  }
+//
+//  @Test @DisplayName("Se registra una visita exitosa => la heladera pasa a estar disponible")
+//  public void testRegistrarHeladeraPasaADisponible() {
+//    heladera.reportarIncidente(alerta);
+//    heladera.registrarVisita(visitaExitosa);
+//    Assertions.assertTrue(heladera.estaDisponible());
+//  }
 
   // No es realmente un test, perdón :ashamed:
   @Test @DisplayName("Se reporta un incidente => se loggea (alerta)")
@@ -132,5 +129,4 @@ public class HeladeraTest {
     heladera.reportarIncidente(fallaTecnica);
     System.out.println("=====================================");
   }
-*/
 }

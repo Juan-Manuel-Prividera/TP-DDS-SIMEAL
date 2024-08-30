@@ -17,7 +17,7 @@ public class HayMuchasViandas implements Notificacion {
 
   @Override
   public Boolean interesaEsteEvento(TipoEvento tipoEvento, Suscripcion suscripcion, int cantidadViandas) {
-    return tipoEvento.equals(TipoEvento.INGRESO) && suscripcion.getCantidadViandasCriticas() > cantidadViandas;
+    return tipoEvento.equals(TipoEvento.INGRESO) && suscripcion.getCantidadViandasCriticas() < cantidadViandas;
   }
 
 }
