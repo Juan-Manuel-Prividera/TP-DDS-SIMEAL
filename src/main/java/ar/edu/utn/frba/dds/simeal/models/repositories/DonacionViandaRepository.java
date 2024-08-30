@@ -4,21 +4,27 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 
 import java.util.List;
 
-public class DonacionViandaRepository {
-    private static DonacionViandaRepository instance;
+public class DonacionViandaRepository implements Repository<DonarVianda>{
 
-    private DonacionViandaRepository() {
+
+    @Override
+    public void guardar(DonarVianda donarVianda) {
 
     }
 
-    public static DonacionViandaRepository getInstance() {
-        if (instance == null) {
-            instance = new DonacionViandaRepository();
-        }
-        return instance;
+    @Override
+    public void eliminar(Long id) {
+
     }
 
-    public List<DonarVianda> getAllDonaciones() {
-        return null;
+    @Override
+    public void actualizar(DonarVianda donarVianda) {
+
     }
+
+    @Override
+    public List<DonarVianda> obtenerTodos() {
+        return List.of();
+    }
+
 }

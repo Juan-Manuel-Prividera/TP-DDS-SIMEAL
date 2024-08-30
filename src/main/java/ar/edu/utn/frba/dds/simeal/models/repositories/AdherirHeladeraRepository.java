@@ -1,26 +1,35 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 
 import java.util.List;
 
-public class AdherirHeladeraRepository {
-  private static AdherirHeladeraRepository instance;
+public class AdherirHeladeraRepository implements Repository<AdherirHeladera>{
 
-  private AdherirHeladeraRepository() {
-
-  }
-
-  public static AdherirHeladeraRepository getInstance() {
-    if (instance == null) {
-      instance = new AdherirHeladeraRepository();
-    }
-    return instance;
-  }
   // Deberia recibir el id
-  public List<AdherirHeladeraRepository> getPorColaborador(Long id) {
+  public List<AdherirHeladera> getPorColaborador(Long id) {
     return null;
     // TODO
   }
-}
+
+
+  @Override
+  public void guardar(AdherirHeladera adherirHeladera) {
+
+  }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(AdherirHeladera adherirHeladera) {
+
+  }
+
+  @Override
+  public List<AdherirHeladera> obtenerTodos() {
+    return List.of();
+  }
 }

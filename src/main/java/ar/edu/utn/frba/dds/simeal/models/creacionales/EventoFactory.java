@@ -14,6 +14,7 @@ public class EventoFactory {
     private static AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos();
 
     public static void crearEvento(Heladera heladera, TipoEvento tipoEvento) {
+        if(heladera == null) return;
         administradorDeEventos.huboUnEvento(
         switch (tipoEvento) {
             case RETIRO ->  new Evento(heladera, TipoEvento.RETIRO, new QuedanPocasViandas(heladera));

@@ -7,17 +7,10 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MedicionRepository {
+public class MedicionRepository implements Repository<Medicion>{
   private List<Medicion> mediciones;
-  static private MedicionRepository instance;
 
-  public static MedicionRepository getInstance() {
-    if (instance == null)
-      return new MedicionRepository();
-    return instance;
-  }
-
-  private MedicionRepository(){
+  public MedicionRepository(){
     mediciones = new ArrayList<>();
   }
 
@@ -26,8 +19,24 @@ public class MedicionRepository {
     // TODO persistir de verdad
   }
 
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(Medicion medicion) {
+
+  }
+
+  @Override
+  public List<Medicion> obtenerTodos() {
+    return List.of();
+  }
+
   public void eliminar(Medicion medicion) {
     mediciones.remove(medicion);
   }
+
 
 }

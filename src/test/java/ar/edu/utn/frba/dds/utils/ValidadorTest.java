@@ -17,7 +17,7 @@ public class ValidadorTest {
     PasswordValidator validador;
     ArrayList<Condicion> condiciones;
 
-    NoEnBlackList siTieneBlackList = new NoEnBlackList("blacklist.txt");
+    NoEnBlackList siTieneBlackList = new NoEnBlackList("src/main/resources/blacklist.txt");
     NoEnBlackList noTieneBlackList = new NoEnBlackList(null);
     NoEnBlackList noExisteArchivo = new NoEnBlackList("noExisteEsteArchivo.txt");
     LongitudTest longitudTest = new LongitudTest(7);

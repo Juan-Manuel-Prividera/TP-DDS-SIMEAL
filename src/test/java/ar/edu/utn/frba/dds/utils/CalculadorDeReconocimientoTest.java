@@ -42,7 +42,7 @@ public class CalculadorDeReconocimientoTest {
             .crearColaboracionPuntuable(TipoColaboracion.ADHERIR_HELADERA,LocalDate.of(2023,6,23),colaborador,10));
 
         double reconocimiento = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,adherirHeladera);
-        // (12 meses * 5 ) + 12.5 = 60 + 12.5 = 72.5
-        Assertions.assertEquals(72.5,reconocimiento);
+        // (14 meses * 5 ) + 14.5 = 70 + 12.5 = 72.5
+        Assertions.assertEquals(82.5,reconocimiento);
     }
 }

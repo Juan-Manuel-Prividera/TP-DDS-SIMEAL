@@ -7,20 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
-public class ViandaRepository {
+public class ViandaRepository implements Repository<Vianda> {
   @Getter
   private List<Vianda> viandas;
-  private static ViandaRepository instance;
-
-  public static ViandaRepository getInstance() {
-    if(instance == null)
-      return new ViandaRepository();
-    return instance;
-  }
 
   public ViandaRepository() {
     viandas = new ArrayList<>();
   }
+
   public List<Vianda> buscarPorHeladera(Heladera heladera) {
     List<Vianda> viandasFiltradas = new ArrayList<>();
     for (Vianda vianda : viandas) {
@@ -33,10 +27,23 @@ public class ViandaRepository {
   public void guardar(Vianda vianda) {
     viandas.add(vianda);
   }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
   public void eliminar(Vianda vianda) {
     viandas.remove(vianda);
   }
   public void actualizar(Vianda vianda) {
     //TODO
   }
+
+  @Override
+  public List<Vianda> obtenerTodos() {
+    return List.of();
+  }
+
+
 }

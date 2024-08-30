@@ -10,23 +10,31 @@ import lombok.Getter;
 // busque a partir de un método  las específicas requeridas
 
 @Getter
-public class DistribucionDeViandasRepository {
+public class DistribucionDeViandasRepository implements Repository<DistribuirVianda> {
   private List<DistribuirVianda> distribuciones;
-  private static DistribucionDeViandasRepository instance;
-
-  public static DistribucionDeViandasRepository getInstance() {
-    if (instance == null) {
-      return new DistribucionDeViandasRepository();
-    }
-    return instance;
-  }
 
   public DistribucionDeViandasRepository() {
     distribuciones = new ArrayList<>();
   }
 
+  @Override
   public void guardar(DistribuirVianda distribucion) {
     distribuciones.add(distribucion);
+  }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(DistribuirVianda distribuirVianda) {
+
+  }
+
+  @Override
+  public List<DistribuirVianda> obtenerTodos() {
+    return List.of();
   }
 
 

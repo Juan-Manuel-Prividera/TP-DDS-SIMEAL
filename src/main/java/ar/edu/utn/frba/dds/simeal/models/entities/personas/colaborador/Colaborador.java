@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
@@ -16,7 +17,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 @Getter
@@ -70,6 +71,18 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
     contactoPreferido.notificar(mensaje);
   }
 
+  @Override
+  public boolean equals(Object colaborador) {
+    if (this == colaborador)
+      return true;
+
+    Colaborador colaborador2 = (Colaborador) colaborador;
+    if (Objects.equals(colaborador2.getDocumento().getNroDocumento(), this.documento.getNroDocumento()) &&
+      colaborador2.getDocumento().getTipoDocumento() == this.documento.getTipoDocumento())
+      return true;
+
+    return false;
+  }
 
 }
 

@@ -5,11 +5,10 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Tar
 import java.util.ArrayList;
 import java.util.List;
 
-public class TarjetaPersonaVulnerableRepository {
+public class TarjetaPersonaVulnerableRepository implements Repository<TarjetaPersonaVulnerable> {
     private static List<TarjetaPersonaVulnerable> tarjetas;
-    static private TarjetaPersonaVulnerableRepository instance;
 
-    private TarjetaPersonaVulnerableRepository() {
+    public TarjetaPersonaVulnerableRepository() {
         tarjetas = new ArrayList<TarjetaPersonaVulnerable>();
     }
 
@@ -18,4 +17,24 @@ public class TarjetaPersonaVulnerableRepository {
         return tarjetas;
     }
 
+
+    @Override
+    public void guardar(TarjetaPersonaVulnerable tarjetaPersonaVulnerable) {
+
+    }
+
+    @Override
+    public void eliminar(Long id) {
+
+    }
+
+    @Override
+    public void actualizar(TarjetaPersonaVulnerable tarjetaPersonaVulnerable) {
+
+    }
+
+    @Override
+    public List<TarjetaPersonaVulnerable> obtenerTodos() {
+        return List.of();
+    }
 }

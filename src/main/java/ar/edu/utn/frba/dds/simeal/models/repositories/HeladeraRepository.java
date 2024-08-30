@@ -7,16 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
-public class HeladeraRepository {
+public class HeladeraRepository implements Repository<Heladera> {
   @Getter
   private List<Heladera> heladeras;
-  private static HeladeraRepository instancia;
-
-  public static HeladeraRepository getInstance() {
-    if(instancia == null)
-      return new HeladeraRepository();
-    return instancia;
-  }
 
   public HeladeraRepository() {
     heladeras = new ArrayList<>();
@@ -25,6 +18,22 @@ public class HeladeraRepository {
   public void guardar(Heladera heladera) {
     heladeras.add(heladera);
   }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(Heladera heladera) {
+
+  }
+
+  @Override
+  public List<Heladera> obtenerTodos() {
+    return List.of();
+  }
+
   public void eliminar(Heladera heladera) {
     heladeras.remove(heladera);
   }
@@ -44,4 +53,6 @@ public class HeladeraRepository {
               .filter(h -> h.getUbicacion().estaCercaDe(ubicacion, 1000))
               .toList();
     }
+
+
 }

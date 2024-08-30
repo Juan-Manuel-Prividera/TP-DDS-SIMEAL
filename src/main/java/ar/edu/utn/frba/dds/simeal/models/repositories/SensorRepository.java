@@ -7,22 +7,30 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SensorRepository {
+public class SensorRepository implements Repository<Sensor> {
   private List<Sensor> sensores;
 
-  static private SensorRepository instance;
 
-  public static SensorRepository getInstance() {
-    if(instance == null)
-      return new SensorRepository();
-    return instance;
-  }
-
-  private SensorRepository() {
+  public SensorRepository() {
     sensores = new ArrayList<>();
   }
   public void guardar(Sensor sensor) {
     sensores.add(sensor);
+  }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(Sensor sensor) {
+
+  }
+
+  @Override
+  public List<Sensor> obtenerTodos() {
+    return List.of();
   }
 
   public List<Sensor> getAll() {
@@ -40,5 +48,6 @@ public class SensorRepository {
         .findFirst()
         .orElse(null);
   }
+
 
 }

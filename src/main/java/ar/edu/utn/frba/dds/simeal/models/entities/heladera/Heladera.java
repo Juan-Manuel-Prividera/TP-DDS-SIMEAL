@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
@@ -32,6 +34,7 @@ public class Heladera extends Persistente {
   @Setter
   @Column(name="nombre")
   private String nombre;
+  @Setter
   @Embedded
   private Ubicacion ubicacion;
   @Column(name="fecha_colocacion")
@@ -55,33 +58,41 @@ public class Heladera extends Persistente {
     this.ubicacion = ubicacion;
   }
 
-
+/* La heladera ya no tiene estado => Este metodo ya no va
+    Esto se manejara en controller creando un nuevo estado
   public void cambiarDeEstado(EstadoHeladera nuevoEstado) {
     this.estado = nuevoEstado;
   }
-
+*/
+/*
+  Lo mismo para esto tambien se validaria en un controller
   public boolean estaDisponible() {
     return this.estado.disponible();
   }
-
+*/
   public boolean temperaturaAdecuada(double temp) {
     return temp >= modelo.getTemperaturaMin() && temp <= modelo.getTemperaturaMax();
   }
 
-  public void reportarIncidente(Incidente incidente) {
+  public void reportarIncidente(Incidente incidente, Tecnico tecnico) {
     EventoFactory.crearEvento(this, TipoEvento.INCIDENTE);
 
-    this.estado = new Inactiva();
+    // Esto tambien sin el estado adentro de la heladera no podemos
+    // Ademas estamos instanciando en dominio aunque esto no es tannn grave
+    // this.estado = new Inactiva();
+
     Mensaje mensaje = generarMensaje(incidente);
 
     // La consigna dice 'reportar', yo lo loggeo pero se podría hacer lo que quisiesemos con esta data.
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
     Logger.getInstance().log(LoggerType.INFORMATION, mensaje.getMensaje());
-    IncidenteRepository.getInstance().guardar(incidente);
 
-    Notificador.notificar(TecnicoRepository.getInstance().buscarMasCercanoA(ubicacion), mensaje);
+    // Esto quiza va en controller
+    Notificador.notificar(tecnico, mensaje);
 
   }
+
+/* Este metodo re va en un VisitaController
 
   public void registrarVisita(VisitaTecnica visita) {
     VisitaTecnicaRepository.getInstance().guardar(visita);
@@ -89,6 +100,7 @@ public class Heladera extends Persistente {
     if (visita.getExitosa()) this.estado = new Activa();
     else this.estado = new EnReparacion();
   }
+*/
 
   private Mensaje generarMensaje(Incidente incidente) {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");

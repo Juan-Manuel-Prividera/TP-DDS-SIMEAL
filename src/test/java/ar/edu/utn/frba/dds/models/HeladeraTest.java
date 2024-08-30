@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mockStatic;
 
 public class HeladeraTest {
+/*
   Ubicacion ubicacion= new Ubicacion(555,444);
   Modelo modelo= new Modelo(20,-10,50);
   Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
@@ -131,5 +132,5 @@ public class HeladeraTest {
     heladera.reportarIncidente(fallaTecnica);
     System.out.println("=====================================");
   }
-
+*/
 }

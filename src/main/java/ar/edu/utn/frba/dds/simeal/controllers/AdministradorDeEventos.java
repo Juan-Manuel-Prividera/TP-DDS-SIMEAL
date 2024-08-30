@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.Evento;
+import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -10,26 +11,30 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import lombok.Setter;
+import org.hibernate.resource.beans.container.spi.ExtendedBeanManager;
 
 import java.util.List;
 
 @Setter
 public class AdministradorDeEventos {
-  private ViandaRepository viandaRepository = ViandaRepository.getInstance();
-  private SuscripcionesRepository suscripcionesRepository = SuscripcionesRepository.getInstance();
+  private ViandaRepository viandaRepository;
+  private SuscripcionesRepository suscripcionesRepository;
+
+  public AdministradorDeEventos(ViandaRepository viandaRepository, SuscripcionesRepository suscripcionesRepository) {
+    this.viandaRepository = viandaRepository;
+    this.suscripcionesRepository = suscripcionesRepository;
+  }
+  public AdministradorDeEventos() {
+    this.viandaRepository = (ViandaRepository) ServiceLocator.getRepository("viandas");
+    this.suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository("suscripciones");
+  }
 
   public void huboUnEvento(Evento evento) {
-    if(evento.getHeladeraAfectada() == null)
-      return;
-
     Heladera heladeraEvento = evento.getHeladeraAfectada();
     List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(heladeraEvento);
-    List<Colaborador> interesados = suscripciones.stream()
-            .filter(s -> s.interesaEsteEvento(evento.getTipoEvento(),cantidadViandasHeladera(heladeraEvento)))
-            .map(Suscripcion::getSuscriptor)
-            .toList();
-
-    notificarInteresados(interesados, evento.getNotificacion().getMensaje());
+    List<Colaborador> interesados = obtenerInteresados(suscripciones, evento);
+    if(!interesados.isEmpty())
+      notificarInteresados(interesados, suscripciones.get(0).getNotificacion().getMensaje());
   }
 
   private int cantidadViandasHeladera(Heladera heladera) {
@@ -39,5 +44,12 @@ public class AdministradorDeEventos {
 
   private void notificarInteresados(List<Colaborador> interesados, Mensaje mensaje) {
     Notificador.notificar(interesados, mensaje);
+  }
+
+  public List<Colaborador> obtenerInteresados(List<Suscripcion> suscripciones, Evento evento) {
+    return suscripciones.stream()
+      .filter(s -> s.interesaEsteEvento(evento.getTipoEvento(),cantidadViandasHeladera(evento.getHeladeraAfectada())))
+      .map(Suscripcion::getSuscriptor)
+      .toList();
   }
 }

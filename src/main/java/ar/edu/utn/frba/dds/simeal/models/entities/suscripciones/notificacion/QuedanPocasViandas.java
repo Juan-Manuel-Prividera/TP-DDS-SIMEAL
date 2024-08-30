@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Getter
 public class QuedanPocasViandas implements Notificacion {
-  private Mensaje mensaje;
+  private final Mensaje mensaje;
 
   public QuedanPocasViandas(Heladera heladera) {
     mensaje = new Mensaje("Quedan pocas viandas en la heladera: "

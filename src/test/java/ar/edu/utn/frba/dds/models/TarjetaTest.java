@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Arreglar, cuando hicimos el cronjob esto dejo de andar :(
 public class TarjetaTest {
   List<Retiro> retiros = new ArrayList<>();
   List<PersonaVulnerable> hijos = new ArrayList<>();
@@ -46,20 +45,13 @@ public class TarjetaTest {
 
     tarjeta = new TarjetaPersonaVulnerable("123456789", personaVulnerable);
 
-    Retiro retiro = new Retiro(null, tarjeta);
 
-    retiros.add(retiro);
-    retiros.add(retiro);
-    retiros.add(retiro);
+    tarjeta.setUsosHechos(3);
   }
 
   @Test @DisplayName("Se intenta retirar vianda con tarjeta con limite de retiros alcanzado")
   public void AlcanzoElLimiteNoPuedeRetirar (){
-    Retiro retiro = new Retiro(null, tarjeta);
-    retiros.add(retiro);
-    retiros.add(retiro);
-    retiros.add(retiro);
-
+    tarjeta.setUsosHechos(6);
     Assertions.assertFalse(tarjeta.puedeRetirar());
   }
 

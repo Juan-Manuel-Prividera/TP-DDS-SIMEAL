@@ -18,6 +18,10 @@ public class SugerenciaHeladeras {
     heladerasSugeridas = new ArrayList<>(heladeras);
   }
 
+  public SugerenciaHeladeras() {
+
+  }
+
   public String getSugerencia(int cercania) {
     sugerencia = "Las heladeras cercanas son: \n";
     for (Heladera heladera : heladerasSugeridas) {

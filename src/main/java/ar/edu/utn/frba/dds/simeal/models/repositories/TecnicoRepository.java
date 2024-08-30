@@ -7,21 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TecnicoRepository {
+public class TecnicoRepository implements Repository<Tecnico> {
   private List<Tecnico> tecnicos;
-  private static TecnicoRepository instance;
 
-  public static TecnicoRepository getInstance() {
-    if(instance == null)
-      return new TecnicoRepository();
-    return instance;
-  }
-  private TecnicoRepository(){
+  public TecnicoRepository(){
     tecnicos = new ArrayList<>();
   }
+
   public void guardar(Tecnico tecnico) {
     tecnicos.add(tecnico);
   }
+
+  @Override
+  public void eliminar(Long id) {
+
+  }
+
+  @Override
+  public void actualizar(Tecnico tecnico) {
+
+  }
+
+  @Override
+  public List<Tecnico> obtenerTodos() {
+    return List.of();
+  }
+
   public void eliminar(Tecnico tecnico) {
     tecnicos.add(tecnico);
   }
@@ -37,4 +48,6 @@ public class TecnicoRepository {
       return Double.compare(dist1,dist2);
     }).orElse(null);
   }
+
+
 }
