@@ -48,6 +48,8 @@ public class Heladera extends Persistente {
   @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
   private Modelo modelo;
 
+  @Column(name = "activa")
+  private Boolean activa;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
     this.ubicacion = ubicacion;
@@ -59,18 +61,17 @@ public class Heladera extends Persistente {
     this.ubicacion = ubicacion;
   }
 
-/* La heladera ya no tiene estado => Este metodo ya no va
-    Esto se manejara en controller creando un nuevo estado
-  public void cambiarDeEstado(EstadoHeladera nuevoEstado) {
-    this.estado = nuevoEstado;
+  public void activar() {
+    this.activa = true;
   }
-*/
-/*
-  Lo mismo para esto tambien se validaria en un controller
+  public void desactivar() {
+    this.activa = false;
+  }
+
   public boolean estaDisponible() {
-    return this.estado.disponible();
+    return activa;
   }
-*/
+
   public boolean temperaturaAdecuada(double temp) {
     return temp >= modelo.getTemperaturaMin() && temp <= modelo.getTemperaturaMax();
   }
@@ -78,9 +79,8 @@ public class Heladera extends Persistente {
   public void reportarIncidente(Incidente incidente) {
     EventoFactory.crearEvento(this, TipoEvento.INCIDENTE);
 
-    // Esto tambien sin el estado adentro de la heladera no podemos
-    // Ademas estamos instanciando en dominio aunque esto no es tannn grave
-    // this.estado = new Inactiva();
+    // Podria llamarse en el controller cuando crea un nuevo estado
+    this.desactivar();
 
     Mensaje mensaje = generarMensaje(incidente);
 

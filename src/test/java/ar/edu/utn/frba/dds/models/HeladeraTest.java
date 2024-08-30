@@ -27,44 +27,57 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mockStatic;
 
 public class HeladeraTest {
-  Ubicacion ubicacion= new Ubicacion(555,444);
-  Modelo modelo= new Modelo(20,-10,50);
-  Heladera heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
+  Ubicacion ubicacion;
+  Modelo modelo;
+  Heladera heladera;
 
-  Medicion medicion = new MedicionTemperatura();
-  Colaborador colaborador = new Colaborador(
+  Medicion medicion;
+  Colaborador colaborador;
+  Incidente alerta;
+
+  Incidente fallaTecnica;
+
+  VisitaTecnica visitaExitosa;
+
+  MockedStatic<Notificador> notificadorMock;
+
+  @BeforeEach
+  public void init() {
+    ubicacion= new Ubicacion(555,444);
+    modelo= new Modelo(20,-10,50);
+    heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
+    medicion = new MedicionTemperatura();
+    colaborador = new Colaborador(
       new Documento(TipoDocumento.DNI, "1234567"),
       "Karl", "Heun");
-  Incidente alerta = new Alerta(heladera,
+    alerta = new Alerta(heladera,
       "Esto es una alerta de movimiento.",
       TipoAlerta.ALERTA_FRAUDE);
 
-  Incidente fallaTecnica = new FallaTecnica(heladera,
+    fallaTecnica = new FallaTecnica(heladera,
       "Esto describe el problema que encontró el colaborador",
       LocalDateTime.now(),
       colaborador, null);
 
-  VisitaTecnica visitaExitosa = new VisitaTecnica(heladera,
+    visitaExitosa = new VisitaTecnica(heladera,
       "Arreglado del condensador de flujo de la heladera.",
       LocalDateTime.now(),
       true, null);
 
-  MockedStatic<Notificador> notificadorMock;
-  @BeforeEach
-  public void init() {
     notificadorMock = mockStatic(Notificador.class);
     notificadorMock.when(() -> Notificador.notificar((List<? extends ReceptorDeNotificaciones>) any(),any())).thenAnswer(invocationOnMock -> null);
+
   }
   @AfterEach
   public void after() {
     notificadorMock.close();
   }
 
-//  @Test @DisplayName("Cambiar estado a Activa")
-//  public void testEstado(){
-//    heladera.cambiarDeEstado(estadoActivo);
-//    Assertions.assertEquals(heladera.getEstado(), estadoActivo);
-//  }
+  @Test @DisplayName("Cambiar estado a Activa")
+  public void testEstado(){
+    heladera.activar();
+    Assertions.assertTrue(heladera.getActiva());
+  }
 
   @Test
   public void temperaturaMuyFria() {
@@ -84,35 +97,23 @@ public class HeladeraTest {
     Assertions.assertTrue(heladera.temperaturaAdecuada(tempAdecuada));
   }
 
-//  @Test @DisplayName("Estado heladera == Activa => Heladera está disponible")
-//  public void testValidarEstadoActivo(){
-//    heladera.cambiarDeEstado(estadoActivo);
-//    Assertions.assertTrue(heladera.estaDisponible());
-//  }
+  @Test @DisplayName("Estado heladera == Activa => Heladera está disponible")
+  public void testValidarEstadoActivo(){
+    heladera.activar();
+    Assertions.assertTrue(heladera.estaDisponible());
+  }
 
-//  @Test @DisplayName("Estado heladera == Inactivo => Heladera no está disponible")
-//  public void testValidarEstadoInactivo(){
-//    heladera.cambiarDeEstado(estadoInactivo);
-//    Assertions.assertFalse(heladera.estaDisponible());
-//  }
-//  @Test @DisplayName("Estado heladera == En reparación => Heladera no está disponible")
-//  public void testValidarEstadoEnReparacion(){
-//    heladera.cambiarDeEstado(estadoEnReparacion);
-//    Assertions.assertFalse(heladera.estaDisponible());
-//  }
+  @Test @DisplayName("Estado heladera == Inactivo o en Reparacion => Heladera no está disponible")
+  public void testValidarEstadoInactivo(){
+    heladera.desactivar();
+    Assertions.assertFalse(heladera.estaDisponible());
+  }
 
-//  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
-//  public void testReportarIncidenteHeladeraNoDisponible() {
-//    heladera.reportarIncidente(alerta);
-//    Assertions.assertFalse(heladera.estaDisponible());
-//  }
-//
-//  @Test @DisplayName("Se registra una visita exitosa => la heladera pasa a estar disponible")
-//  public void testRegistrarHeladeraPasaADisponible() {
-//    heladera.reportarIncidente(alerta);
-//    heladera.registrarVisita(visitaExitosa);
-//    Assertions.assertTrue(heladera.estaDisponible());
-//  }
+  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
+  public void testReportarIncidenteHeladeraNoDisponible() {
+    heladera.reportarIncidente(alerta);
+    Assertions.assertFalse(heladera.estaDisponible());
+  }
 
   // No es realmente un test, perdón :ashamed:
   @Test @DisplayName("Se reporta un incidente => se loggea (alerta)")
