@@ -14,7 +14,9 @@ import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,15 +24,27 @@ import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@Entity
+@Table(name = "colaborador")
 public class Colaborador extends Persistente implements ReceptorDeNotificaciones {
+  @Column
   private String nombre;
+  @Column
   private String apellido;
+  @Embedded
   private Documento documento;
+  @Embedded
   private Ubicacion ubicacion;
+  @Column
   private String razonSocial;
+  @Column
   private Rubro rubro;
+  @Enumerated(EnumType.STRING)
   private TipoJuridico tipoJuridico;
+  @OneToOne
+  @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
   private FormularioContestado formularioContestado;
+  //TODO
   private final List<Contacto> contactos = new ArrayList<>();
   private Contacto contactoPreferido;
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();

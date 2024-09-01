@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda;
 
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
@@ -17,14 +19,28 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Getter
+@Entity
+@Table(name = "distribuirVianda")
 public class DistribuirVianda implements ColaboracionPuntuable {
-
+  @Id
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  private Long id;
+  @ManyToOne
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
-  private final LocalDate fechaDeRealizacion;
+  @ManyToOne
+  @JoinColumn(name = "origen_id", referencedColumnName = "id")
   private Heladera origen;
+  @ManyToOne
+  @JoinColumn(name = "destino_id", referencedColumnName = "id")
   private Heladera destino;
+  @Column(name = "motivo")
   private Motivo motivo;
+  @Column(name = "cantViandas")
   private int cantidadViandasMover;
+
+  @Column()
+  private final LocalDate fechaDeRealizacion;
   @Builder.Default
   private final double factorDeReconocimiento = 1;
 

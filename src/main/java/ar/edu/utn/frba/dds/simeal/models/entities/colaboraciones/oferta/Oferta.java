@@ -1,30 +1,39 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @Builder
 @AllArgsConstructor
-public class Oferta implements Colaboracion {
+@NoArgsConstructor(force = true)
+@Entity
+@Table(name = "oferta")
+public class Oferta extends Persistente implements Colaboracion{
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
+  @Column
   private final LocalDate fechaDeRealizacion;
+  @Column
   private String nombre;
   @Getter
+  @Column
   private double puntosNecesarios;
   @Setter
+  @ManyToOne
+  @JoinColumn(name = "rubro_id", referencedColumnName = "id")
   private Rubro rubro;
   @Setter
+  @Column
   private String imagen;
 
-  private Producto[] productos;
 
   public static Oferta create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
     return Oferta.builder()

@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.vianda;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
@@ -8,18 +9,30 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vianda {
+@Entity
+@Table(name = "vianda")
+public class Vianda extends Persistente {
+  @Enumerated(EnumType.STRING)
   private TipoDeComida tipoDeComida;
+  @Column
   private LocalDate fechaCaducidad;
+  @Column
   private LocalDate fechaDonacion;
+  @ManyToOne
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
+  @Column
   private int calorias;
+  @ManyToOne
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+  @Column
   private boolean entregada;
 
 
