@@ -15,13 +15,13 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 @Entity
 @Table(name = "donarVianda")
+@Getter
 public class DonarVianda implements ColaboracionPuntuable {
   @Id
   @GeneratedValue(strategy = GenerationType.TABLE)
   private Long id;
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
-  @Getter
   private final Colaborador colaborador;
   @Column
   private final LocalDate fechaDeRealizacion;

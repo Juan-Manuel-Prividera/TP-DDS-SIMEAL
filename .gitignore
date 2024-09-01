@@ -42,3 +42,4 @@ persistence.xml
 /API_RecomendacionDeColaboradores/config/master.key
 /API_RecomendacionDeColaboradores/log/
 /API_RecomendacionDeColaboradores/bin/
+/API_RecomendacionDeColaboradores/config/api_config.yml
