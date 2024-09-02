@@ -13,7 +13,10 @@ import javax.persistence.Table;
 @Table(name="modelo_heladera")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Modelo extends Persistente {
+public class ModeloHeladera extends Persistente {
+  @Column(name="nombre")
+  private String nombre;
+
   @Column(name="temp_max")
   private double temperaturaMax;
 

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.Persistente;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,10 @@ public class Persistente {
 
     @Column(name="fecha_alta", nullable = false)
     private LocalDate fechaAlta;
+
+    @Setter
+    @Column(name="activo", nullable = false)
+    private Boolean activo;
 
     public Persistente() {
         fechaAlta = LocalDate.now();
