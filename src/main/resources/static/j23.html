@@ -53,10 +53,13 @@
 
 <!-- Contenedor Superior -->
 <div class="container-superior">
-    <div class="filters">
+     <div class="filters">
         <label for="rubro"><b>Rubro:</b></label>
         <select id="rubro">
-            <option value=""> ⛛ </option>
+            <option value="" disabled selected hidden>...</option>
+            <!--            <option value=""> ⛛ </option>-->
+            <option>Gastronomia</option>
+            <option>Tecnología</option>
             <!-- Opciones adicionales -->
         </select>
     </div>
@@ -64,23 +67,25 @@
     <div class="points">
         <div class="points-min">
             <label for="puntos-min"><b>Puntos Mínimos</b></label>
-            <input type="number" id="puntos-min" value="XXX" readonly>
+            <input type="number" id="puntos-min" value="XXX" min="0" step="10">
         </div>
 
         <div class="points-max">
             <label for="puntos-max"><b>Puntos Máximos</b></label>
-            <input type="number" id="puntos-max" value="XXX" readonly>
+            <input type="number" id="puntos-max" value="XXX" min="0" step="10">
         </div>
     </div>
 
-    <div class="available-points">
-        <p><b>Tus</b></p>
-        <p><b> Ofertas </b></p>
+<!--    <div class="available-points">-->
+<!--        <p><b>Agregar</b></p>-->
+<!--        <p><b> Oferta </b></p>-->
+<!--    </div>-->
+    <div class="agregar-oferta">
+        <a class="dark-btn" href="j25.html">Publicar Oferta</a>
     </div>
-
-    <div>
-        <img src="../img/flecha-inferior.png" alt="Aclarar que es"> <!--Consultar específicamente que haría la flecha -->
-    </div>
+<!--    <div>-->
+<!--        <img src="../img/signo-mas.png" alt="Agregar oferta">  &lt;!&ndash;Consultar específicamente que hace el signo + &ndash;&gt;-->
+<!--    </div>-->
 </div>
 
 <!-- Contenedor Inferior -->
@@ -129,10 +134,11 @@
             <p>Puntos necesarios: XXX</p>
             <p class="descripcion">Descripción del producto...</p>
         </div>
-
-        <button class="dark-btn">Modificar</button>
-        <button class="delete-btn">Eliminar</button>
-    </div>
+        <div class="btn-container">
+            <a class="dark-btn">Modificar</a>
+            <a class="delete-btn" href="j24.html">Eliminar</a>
+        </div>
+       </div>
 </div>
 
 </body>

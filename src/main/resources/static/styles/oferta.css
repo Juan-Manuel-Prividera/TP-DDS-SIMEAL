@@ -16,6 +16,38 @@ body {
     margin-top: 20px;
     max-height: 15%;
 }
+
+.agregar-oferta{
+    margin-top: 4%;
+    display: flex;
+    width: 20% !important;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.agregar-oferta a{
+    width: 100% !important;
+    height: 60%;
+
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    height: 40vh;
+}
+
+.btn-container a{
+    width: 100%;
+    height: 30%;
+    margin-bottom: 15%;
+    text-align: center;
+}
 .filters{
     display: flex;
     flex-direction: column;
@@ -30,7 +62,7 @@ body {
     width: 250px;
     padding: 10px 15px; /* Espaciado interno */
     border: 2px solid var(--verde); /* Borde con color */
-    border-radius: 20px; /* Bordes redondeados */
+    border-radius: 5px; /* Bordes redondeados */
     font-size: 20px; /* Tamaño de fuente */
     cursor: pointer; /* Cambia el cursor a pointer */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
@@ -243,37 +275,51 @@ input[type="number"] {
 
 .confirmation-text {
     font-size: 24px;
-    margin-bottom: 20px; /* Espacio debajo del texto */
+    margin-bottom: 20%; /* Espacio debajo del texto */
 }
 
 .confirmation-buttons {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100%;
 }
 
 .confirm-btn {
-    flex-grow: 1;
-    margin-right: 5%;
-    width: 30% !important;
-    margin-bottom: 10%
+    margin-top: 4%;
+    width: 40% !important;
+    height: 6vh !important;
+    text-align: center !important;
 }
 
 .cancel-btn {
-    flex-grow: 1;
-    margin-left: 60%;
-    width: 30% !important;
-    margin-bottom: 10%
+    margin-top: 4%;
+    width: 40% !important;
+    height: 6vh !important;
+    text-align: center !important;
 }
 
 .delete-btn {
     background-color: red;
     color: white;
+    border-radius: 5px;
     border: none;
     width: 30% !important;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 15%;
+    align-content: center;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+a:hover{
+    text-decoration: none !important;
+    color:white !important;
 }
 
 .dark-btn{
@@ -281,9 +327,18 @@ input[type="number"] {
     color: #ffffff;
     border: none;
     width: 30% !important;
+    height: 5vh;
+    border-radius: 5px;
+    text-align: center;
+    align-content: center;
+    text-decoration: none !important;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 30%;
+}
+.dark-btn :hover{
+    color: white !important;
+    text-decoration: none !important;
 }
 
 
@@ -314,6 +369,17 @@ input[type="number"] {
     align-content: center;
 }
 
+.container-general form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+}
+
+.btn {
+    width: 100% !important;
+}
 /* Título del formulario */
 .container-general .titulo {
     text-align: center;
@@ -323,17 +389,28 @@ input[type="number"] {
     }
 
 /* Estilo de las etiquetas */
-.container-general .form-group label {
-    align-self: center;
-    font-size: 100%;
-    padding-right: 10%;
-    color: white;
-    display: block;
+/*.container-general .form-group label {*/
+/*    align-self: center;*/
+/*    font-size: 100%;*/
+/*    padding-right: 15%;*/
+/*    color: white;*/
+/*    display: block;*/
+/*}*/
+.form-group {
+    border-radius: 5px !important;
+    width: 80% !important;
+    height: 30% !important;
+    justify-content: center;
+    align-items: center;
 }
-
+.form-group label{
+    justify-self: start;
+    align-self: start;
+    margin-left: 40%;
+}
 /* Estilo de los campos de texto */
 .container-general .form-control {
-    align-self: center;
+    /*align-self: center;*/
     text-align: start;
     width: 20%;
     padding: 10px;

@@ -1,21 +1,19 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;
 
 public class AdherirHeladeraRepository implements Repository<AdherirHeladera>{
-
   // Deberia recibir el id
   public List<AdherirHeladera> getPorColaborador(Long id) {
-    return null;
-    // TODO
+
   }
 
 
   @Override
   public void guardar(AdherirHeladera adherirHeladera) {
-
   }
 
   @Override
