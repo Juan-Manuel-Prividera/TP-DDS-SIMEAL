@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import lombok.*;
 
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 @Entity
 @Table(name = "oferta")
-public class Oferta extends Persistente implements Colaboracion{
+public class Oferta extends Persistente {
   @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")

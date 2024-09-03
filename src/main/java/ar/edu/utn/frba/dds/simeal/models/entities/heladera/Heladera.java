@@ -1,17 +1,11 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TecnicoRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
@@ -23,6 +17,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Getter
@@ -46,12 +41,16 @@ public class Heladera extends Persistente {
 
   @ManyToOne
   @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
-  private Modelo modelo;
+  private ModeloHeladera modelo;
 
   @Column(name = "activa")
   private Boolean activa;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+
+  @OneToMany
+  private List<Heladera> heladerasCercanas;
+
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
