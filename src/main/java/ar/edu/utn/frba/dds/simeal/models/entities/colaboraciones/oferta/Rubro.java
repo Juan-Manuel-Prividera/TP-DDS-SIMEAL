@@ -11,10 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "rubro")
 @NoArgsConstructor
-public class Rubro {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class Rubro extends Persistente {
   @Column
   private String nombre;
   @ManyToOne

@@ -19,19 +19,19 @@ public class Oferta extends Persistente implements Colaboracion{
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
-  @Column
+  @Column (name = "fechaDeRealizacion")
   private final LocalDate fechaDeRealizacion;
-  @Column
+  @Column (name = "nombre")
   private String nombre;
   @Getter
-  @Column
+  @Column (name = "puntosNecesario")
   private double puntosNecesarios;
   @Setter
   @ManyToOne
   @JoinColumn(name = "rubro_id", referencedColumnName = "id")
   private Rubro rubro;
   @Setter
-  @Column
+  @Column (name = "imagen")
   private String imagen;
 
 

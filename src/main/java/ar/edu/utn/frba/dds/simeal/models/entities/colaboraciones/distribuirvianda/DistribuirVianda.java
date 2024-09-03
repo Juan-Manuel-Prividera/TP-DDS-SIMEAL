@@ -21,10 +21,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name = "distribuirVianda")
-public class DistribuirVianda implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class DistribuirVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
@@ -34,14 +31,14 @@ public class DistribuirVianda implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "destino_id", referencedColumnName = "id")
   private Heladera destino;
-  @Column(name = "motivo")
+  @Enumerated(EnumType.STRING)
   private Motivo motivo;
   @Column(name = "cantViandas")
   private int cantidadViandasMover;
-
   @Column()
   private final LocalDate fechaDeRealizacion;
   @Builder.Default
+  @Transient
   private final double factorDeReconocimiento = 1;
 
 

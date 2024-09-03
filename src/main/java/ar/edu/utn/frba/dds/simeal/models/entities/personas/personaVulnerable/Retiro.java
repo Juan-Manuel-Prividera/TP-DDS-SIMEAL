@@ -8,11 +8,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 
-public class Retiro {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
-  @Column
+public class Retiro extends Persistente{
+  @Column (name = "fechaRealizacion")
   @Getter
   private LocalDate fecha;
 
@@ -20,7 +17,7 @@ public class Retiro {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
   @ManyToOne
-  @JoinColumn(name = "codigo_tarjeta", referencedColumnName = "codigo")
+  @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
   private TarjetaPersonaVulnerable tarjeta;
 
   public void Retiro(Heladera heladera, TarjetaPersonaVulnerable tarjeta) {

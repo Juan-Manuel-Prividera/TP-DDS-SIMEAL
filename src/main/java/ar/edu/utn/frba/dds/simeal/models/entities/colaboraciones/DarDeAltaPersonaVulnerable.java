@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Tar
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,10 +16,10 @@ import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
-public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+@NoArgsConstructor(force = true)
+@Entity
+@Table(name = "DarDeAltaPersonaVulnerable")
+public class DarDeAltaPersonaVulnerable extends Persistente implements ColaboracionPuntuable {
   @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
@@ -29,9 +30,10 @@ public class DarDeAltaPersonaVulnerable implements ColaboracionPuntuable {
   @JoinColumn(name = "persona_vulnerable_id", referencedColumnName = "id")
   private final PersonaVulnerable personaVulnerable;
   @OneToOne
-  @JoinColumn(name = "tarjeta_id", referencedColumnName = "id") //Esto capaz cambia
+  @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
   private final TarjetaPersonaVulnerable tarjeta;
   @Builder.Default
+  @Transient
   private double factorDeReconocimiento = 2;
 
   public static DarDeAltaPersonaVulnerable create(Colaborador colaborador,

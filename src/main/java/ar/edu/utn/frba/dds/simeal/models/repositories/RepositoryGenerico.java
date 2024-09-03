@@ -1,12 +1,13 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.List;
 
 public class RepositoryGenerico<T extends Persistente> implements Repository<T>, WithSimplePersistenceUnit {
+
     @Override
     public void guardar(T o) {
         entityManager().persist(o);
@@ -37,16 +38,14 @@ public class RepositoryGenerico<T extends Persistente> implements Repository<T>,
     }
 
     @Override
-    public List<T> obtenerTodos() {
-        return List.of();
+    public List<Object> obtenerTodos() {
+        entityManager()
+                .createQuery("from " + Object.class)
+                .getResultList();
     }
 
-    public T buscarPorId(Long id) {
-        return entityManager().find(getEntityClass(), id);
-    }
-
-    private Class<T> getEntityClass() {
-        return (Class<T>) EstadoHeladera.class;
+    public T buscarPorId(Long id, Class<T> t) {
+        return entityManager().find(t, id);
     }
 
 }

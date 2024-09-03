@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import javax.persistence.*;
 
 @AllArgsConstructor
-public class Producto {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class Producto extends Persistente {
   @Column
   private String nombre;
   @Column

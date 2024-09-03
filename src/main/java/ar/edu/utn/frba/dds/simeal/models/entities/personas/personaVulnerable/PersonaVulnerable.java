@@ -7,11 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,17 +18,21 @@ import java.util.List;
 @Entity
 @Table(name = "personaVulnerable")
 public class PersonaVulnerable extends Persistente {
-  @Column
+  @Column (name = "nombre")
   private String nombre;
-  @Column
+  @Column (name = "fechaNacimiento")
   private LocalDate fechaNacimiento;
-  @Column
+  @Column (name = "fechaRegistro")
   private LocalDate fechaRegistro;
   @Embedded
   private Ubicacion domilicio;
+  @OneToMany(mappedBy = "personaVulnerable")
   private final List<PersonaVulnerable> hijos;
   @Embedded
   private final Documento documento;
+  @ManyToOne
+  @JoinColumn(name = "padre_id", referencedColumnName = "id")
+  private PersonaVulnerable padre;
 
   public PersonaVulnerable() { }
 

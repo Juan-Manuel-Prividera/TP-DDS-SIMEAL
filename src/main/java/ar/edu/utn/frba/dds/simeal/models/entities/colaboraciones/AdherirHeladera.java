@@ -12,10 +12,7 @@ import java.time.Period;
 
 
 @Builder
-public class AdherirHeladera implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class AdherirHeladera extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   @Getter
@@ -24,9 +21,10 @@ public class AdherirHeladera implements ColaboracionPuntuable {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private final Heladera heladera;
 
-  @Column
+  @Column(name = "fechaRealizacion")
   private final LocalDate fechaDeRealizacion;
   @Builder.Default
+  @Transient
   private final double factorDeReconocimiento = 5;
 
   public static AdherirHeladera create(Colaborador colaborador, LocalDate fecha) {
@@ -35,7 +33,6 @@ public class AdherirHeladera implements ColaboracionPuntuable {
         .fechaDeRealizacion(fecha)
         .build();
   }
-
 
   @Override
   public double calcularReconocimientoParcial() {

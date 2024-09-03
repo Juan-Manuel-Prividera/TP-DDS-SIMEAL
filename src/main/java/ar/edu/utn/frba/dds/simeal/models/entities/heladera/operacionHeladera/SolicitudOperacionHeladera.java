@@ -4,29 +4,23 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
-import lombok.Builder;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Builder
 @Getter
 @Entity
-@Table (name = "solicitudOperacionHeladera")
-public class SolicitudOperacionHeladera {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
-
-  @Embedded
+@Table(name = "solicitudOperacionHeladera")
+@AllArgsConstructor
+public class SolicitudOperacionHeladera extends Persistente {
+  @Enumerated(EnumType.STRING)
   private TipoOperacion tipoOperacion;
 
   @ManyToOne
-  @JoinColumn(name = "codigo_tarjeta_colaborador", referencedColumnName = "codigo")
+  @JoinColumn(name = "codigo_tarjeta_colaborador", referencedColumnName = "id")
   private TarjetaColaborador tarjetaColaborador;
 
   @ManyToOne
@@ -36,6 +30,7 @@ public class SolicitudOperacionHeladera {
   @Column(name = "cantViandas")
   private Integer cantViandas;
   @Builder.Default
+  @Transient
   private int horasParaEjecutarse = 3;
   @Column(name = "horaInicio")
   private LocalDateTime horaInicio;

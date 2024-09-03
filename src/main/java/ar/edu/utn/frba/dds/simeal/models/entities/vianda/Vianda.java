@@ -18,22 +18,22 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "vianda")
 public class Vianda extends Persistente {
-  @Enumerated(EnumType.STRING)
+  @Embedded
   private TipoDeComida tipoDeComida;
-  @Column
+  @Column (name = "fechaCaducidad")
   private LocalDate fechaCaducidad;
-  @Column
+  @Column (name = "fechaDonacion")
   private LocalDate fechaDonacion;
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
-  @Column
-  private int calorias;
+  @Column (name = "calorias")
+  private Integer calorias;
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
-  @Column
-  private boolean entregada;
+  @Column (name = "entregadas")
+  private Boolean entregada;
 
 
   public Vianda(Heladera heladera) {
@@ -46,7 +46,7 @@ public class Vianda extends Persistente {
   }
 
   // Caso 1: La vianda no estaba en ninguna heladera y se ingresa a una
-  // Caso 2: La vianda se mueve de una helader a a otra
+  // Caso 2: La vianda se mueve de una helader a otra
   // Case 3: La vianda se retira de la heladera y se come
   public void setHeladera(Heladera heladera) {
     EventoFactory.crearEvento(this.heladera, TipoEvento.RETIRO);

@@ -1,23 +1,35 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
 @Builder
 @AllArgsConstructor
-public class DonarDinero implements ColaboracionPuntuable {
+@NoArgsConstructor(force = true)
+@Entity
+@Table(name = "donarDinero")
+public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Getter
+  @ManyToOne
+  @JoinColumn(name = "colaborador", referencedColumnName = "id")
   private final Colaborador colaborador;
+  @Enumerated(EnumType.STRING)
   private final Frecuencia frecuencia;
+  @Column(name = "fechaRealizacion")
   private final LocalDate fechaDeRealizacion;
+  @Column(name = "cantDinero")
   private double cantidadDinero;
   @Builder.Default
+  @Transient
   private final double factorDeReconocimiento = 0.5;
 
   public static DonarDinero create(Colaborador colaborador,

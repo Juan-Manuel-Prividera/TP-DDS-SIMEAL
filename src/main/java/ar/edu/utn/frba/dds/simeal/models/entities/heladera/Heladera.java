@@ -46,12 +46,12 @@ public class Heladera extends Persistente {
 
   @ManyToOne
   @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
-  private Modelo modelo;
+  private ModeloHeladera modelo;
 
   @Column(name = "activa")
   private Boolean activa;
 
-  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, Modelo modelo) {
+  public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;

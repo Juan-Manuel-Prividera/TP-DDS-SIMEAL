@@ -11,10 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "operacionHeladera")
-public class OperacionHeladera {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class OperacionHeladera extends Persistente {
   @OneToOne
   @JoinColumn(name = "solicitud_id", referencedColumnName = "id")
   private SolicitudOperacionHeladera solicitud;

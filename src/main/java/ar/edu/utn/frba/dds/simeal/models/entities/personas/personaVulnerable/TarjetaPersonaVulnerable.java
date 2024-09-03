@@ -19,11 +19,13 @@ public class TarjetaPersonaVulnerable extends Persistente {
   @OneToOne
   @JoinColumn(name = "persona_vulnerable_id", referencedColumnName = "id")
   private final PersonaVulnerable personaVulnerable;
+  @Transient
   private final int limiteDeUsoDiario = 4;
+  @Transient
   private final int retirosAdicionalesPorMenores = 1;
   // Cuando se crea un Retiro se debe sumar uno a este atributo, en Controller
   @Column(name = "usosHechos")
-  private int usosHechos;
+  private Integer usosHechos;
 
   public TarjetaPersonaVulnerable(String codigo, PersonaVulnerable personaVulnerable){
     this.codigo = codigo;

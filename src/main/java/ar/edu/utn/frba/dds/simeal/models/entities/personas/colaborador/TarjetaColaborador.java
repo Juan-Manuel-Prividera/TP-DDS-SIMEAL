@@ -8,19 +8,15 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "tarjetaColaborador")
-public class TarjetaColaborador {
-  @Id
-  @GeneratedValue
-  private Long codigo;
+public class TarjetaColaborador extends Persistente {
 
   @OneToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
-
   @Column(name = "fechaEntrega")
   private LocalDate fechaEntrega;
-  @Column(name = "activa")
+  @Column(name = "tarjetaActiva")
   private Boolean activa;
 
 }

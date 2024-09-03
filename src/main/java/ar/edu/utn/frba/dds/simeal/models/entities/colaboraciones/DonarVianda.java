@@ -4,7 +4,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import lombok.*;
-import net.bytebuddy.utility.nullability.MaybeNull;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,20 +15,18 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "donarVianda")
 @Getter
-public class DonarVianda implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
-  @Column
+  @Column(name = "fechaRealizacion")
   private final LocalDate fechaDeRealizacion;
 
   @ManyToOne
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
   private Vianda vianda;
   @Builder.Default
+  @Transient
   private final double factorDeReconocimiento = 1.5;
 
 

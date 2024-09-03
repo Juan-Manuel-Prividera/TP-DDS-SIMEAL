@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
@@ -28,7 +29,7 @@ import static org.mockito.Mockito.mockStatic;
 
 public class HeladeraTest {
   Ubicacion ubicacion;
-  Modelo modelo;
+  ModeloHeladera modelo;
   Heladera heladera;
 
   Medicion medicion;
