@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.utils.enviadores;
 
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
@@ -8,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contact
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import jakarta.mail.Message;

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda;
 
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -19,10 +20,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name = "distribuirVianda")
-public class DistribuirVianda implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class DistribuirVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;

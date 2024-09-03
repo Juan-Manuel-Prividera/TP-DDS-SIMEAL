@@ -1,26 +1,29 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class ServiceLocator {
-  private static final Map<TipoRepo , Repository<?>> repositories = new HashMap<>();
+  private static final Map<TipoRepo , Repositorio> repositories = new HashMap<>();
 
   static {
-
-    repositories.put(TipoRepo.HELADERA, new RepositoryGenerico<Heladera>(Heladera.class));
+    repositories.put(TipoRepo.COLABORACION, new ColaboracionRepository());
+    repositories.put(TipoRepo.SUSCRIPCION, new SuscripcionesRepository());
+    repositories.put(TipoRepo.MODELO_HELADERA, new ModeloHeladeraRepository());
+    repositories.put(TipoRepo.HELADERA, new Repositorio());
   }
 
-  public static void addRepository(TipoRepo tipoRepo, Repository repository) {
+  public static void addRepository(TipoRepo tipoRepo, Repositorio repository) {
     repositories.put(tipoRepo, repository);
   }
 
-  public static Repository getRepository(TipoRepo repositoryName) {
-    return repositories.get(repositoryName);
+  public static Repositorio getRepository(TipoRepo repositoryName) {
+    if (!repositories.containsKey(repositoryName)) {
+      return new Repositorio();
+    } else {
+      return repositories.get(repositoryName);
+    }
   }
 }

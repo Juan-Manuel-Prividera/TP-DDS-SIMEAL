@@ -1,9 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
 
 @Getter
 public class ColaboracionRepository extends Repositorio {

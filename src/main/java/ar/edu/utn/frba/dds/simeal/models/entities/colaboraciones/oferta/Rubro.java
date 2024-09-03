@@ -1,11 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity

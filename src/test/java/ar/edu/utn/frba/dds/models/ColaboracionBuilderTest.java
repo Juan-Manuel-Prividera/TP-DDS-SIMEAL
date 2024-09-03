@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds.models;
 
 
+import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.Colaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

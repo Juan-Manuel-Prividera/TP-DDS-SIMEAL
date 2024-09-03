@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.utils;
 
+import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
@@ -7,7 +8,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
-import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

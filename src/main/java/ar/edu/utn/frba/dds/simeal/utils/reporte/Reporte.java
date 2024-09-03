@@ -5,13 +5,11 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.repositories.DistribucionDeViandasRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
+
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,14 +24,12 @@ public class Reporte {
   private List<DistribuirVianda> distribuciones;
 
 
-  public Reporte(HeladeraRepository heladeraRepository, IncidenteRepository incidenteRepository, ViandaRepository viandaRepository, DistribucionDeViandasRepository distribucionDeViandasRepository) {
-    this.heladeras = heladeraRepository.getHeladeras();
-    this.viandas = viandaRepository.getViandas();
-    this.distribuciones = distribucionDeViandasRepository.getDistribuciones();
-    this.incidentes = incidenteRepository.getIncidentes();
+  public Reporte(List<Heladera> heladeras, List<Incidente> incidentes, List<Vianda> viandas, List<DistribuirVianda> distribuciones) {
+    this.heladeras = heladeras;
+    this.incidentes = incidentes;
+    this.viandas = viandas;
+    this.distribuciones = distribuciones;
   }
-
-
   // Clase generadora de reporte
   public void generarReporte() {
 

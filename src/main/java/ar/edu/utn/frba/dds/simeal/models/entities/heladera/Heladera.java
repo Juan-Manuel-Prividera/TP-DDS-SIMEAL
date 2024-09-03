@@ -1,14 +1,14 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
+import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

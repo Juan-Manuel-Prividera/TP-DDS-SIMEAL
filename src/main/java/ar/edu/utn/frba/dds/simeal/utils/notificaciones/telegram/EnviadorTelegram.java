@@ -1,9 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.utils.notificaciones.telegram;
 
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import lombok.Setter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Message;

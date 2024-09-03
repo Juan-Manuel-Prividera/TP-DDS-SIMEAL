@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.utils.enviadores;
 
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.EnviadorDeWpp;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.MyMessageCreator;
 import com.twilio.rest.api.v2010.account.Message;

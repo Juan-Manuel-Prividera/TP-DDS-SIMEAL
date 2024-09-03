@@ -6,16 +6,15 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 import java.time.Period;
 
 
 @Builder
-public class AdherirHeladera implements ColaboracionPuntuable {
-  @Id
-  @GeneratedValue(strategy = GenerationType.TABLE)
-  private Long id;
+public class AdherirHeladera extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   @Getter
