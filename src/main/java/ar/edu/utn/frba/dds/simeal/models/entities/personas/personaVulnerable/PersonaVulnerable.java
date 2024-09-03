@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "personaVulnerable")
+@NoArgsConstructor(force = true)
 public class PersonaVulnerable extends Persistente {
   @Column (name = "nombre")
   private String nombre;
@@ -26,14 +28,17 @@ public class PersonaVulnerable extends Persistente {
   @Embedded
   private Ubicacion domilicio;
   @OneToMany(mappedBy = "personaVulnerable")
-  private final List<PersonaVulnerable> hijos;
+  private List<PersonaVulnerable> hijos = new ArrayList<>();
   @Embedded
-  private final Documento documento;
+  private Documento documento;
   @ManyToOne
   @JoinColumn(name = "padre_id", referencedColumnName = "id")
   private PersonaVulnerable padre;
 
-  public PersonaVulnerable() { }
+  public PersonaVulnerable(LocalDate of) {
+    this.fechaNacimiento = of;
+  }
+
 
   public boolean esMenor() {
     return LocalDate.now().getYear() - this.fechaNacimiento.getYear() < 18;

@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.models;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Modelo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
@@ -44,7 +43,7 @@ public class HeladeraTest {
   @BeforeEach
   public void init() {
     ubicacion= new Ubicacion(555,444);
-    modelo= new Modelo(20,-10,50);
+    modelo= new ModeloHeladera("hola",20,-10,50);
     heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
     medicion = new MedicionTemperatura();
     colaborador = new Colaborador(

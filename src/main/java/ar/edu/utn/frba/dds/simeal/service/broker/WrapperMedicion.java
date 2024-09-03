@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WrapperMedicion {
-  private String nombreHeladera;
+  //private String nombreHeladera;
+  private Long heladera_id;
   private Medicion medicion;
 
 }

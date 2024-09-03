@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.Evento;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
@@ -24,8 +25,8 @@ public class AdministradorDeEventos {
     this.suscripcionesRepository = suscripcionesRepository;
   }
   public AdministradorDeEventos() {
-    this.viandaRepository = (ViandaRepository) ServiceLocator.getRepository("viandas");
-    this.suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository("suscripciones");
+    this.viandaRepository = (ViandaRepository) ServiceLocator.getRepository(TipoRepo.VIANDA);
+    this.suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository(TipoRepo.SUSCRIPCION);
   }
 
   public void huboUnEvento(Evento evento) {

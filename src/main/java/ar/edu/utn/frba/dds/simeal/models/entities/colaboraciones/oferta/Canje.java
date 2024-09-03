@@ -6,7 +6,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.utility.nullability.MaybeNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

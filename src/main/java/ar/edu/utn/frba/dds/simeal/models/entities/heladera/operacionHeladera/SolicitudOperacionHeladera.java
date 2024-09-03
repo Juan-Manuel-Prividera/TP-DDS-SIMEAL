@@ -4,11 +4,9 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.*;
-
-import java.time.LocalDateTime;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

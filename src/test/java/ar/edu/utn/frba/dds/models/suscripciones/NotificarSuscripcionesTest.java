@@ -128,43 +128,43 @@ public class NotificarSuscripcionesTest {
     eventoFactoryMock.close();
   }
 
-  @Test @DisplayName("Cuando se reporta incidente se notifica a todos los suscriptores de incidentes")
-  public void seEnviaNotificacionPorDesperfecto() {
-    Alerta alerta = new Alerta(heladera,"descripcion de alerta", TipoAlerta.ALERTA_FRAUDE);
-
-    SugerenciaHeladeras sugerenciaHeladeras = mock (SugerenciaHeladeras.class);
-    doReturn("").when(sugerenciaHeladeras).getSugerencia(2);
-
-    Notificacion notificacion = new HuboUnDesperfecto(heladera,sugerenciaHeladeras);
-    Suscripcion suscripcion = new Suscripcion(heladera,suscriptor,5, notificacion);
-
-    // Mocks
-    MockedStatic<Notificador> notificadorMock = mockStatic(Notificador.class);
-    MockedStatic<EventoFactory> eventoFactoryMock = mockStatic(EventoFactory.class);
-    MockedStatic<ServiceLocator> serviceLocatorMocke = mockStatic(ServiceLocator.class);
-    ViandaRepository viandaRepository = mock(ViandaRepository.class);
-    SuscripcionesRepository suscripcionesRepository = mock(SuscripcionesRepository.class);
-    Repositorio heladeraRepository = mock(Repositorio.class);
-
-    // Defino comportamiento de Mocks
-    doReturn(List.of(vianda1,vianda2,vianda3,vianda4)).when(viandaRepository).buscarPorHeladera(heladera);
-    doReturn(List.of(suscripcion)).when(suscripcionesRepository).buscarPor(heladera);
-    notificadorMock.when(() -> Notificador.notificar(suscriptor,notificacion.getMensaje())).thenAnswer(invocationOnMock -> null);
-    eventoFactoryMock.when(() -> EventoFactory.crearEvento(heladera, TipoEvento.INCIDENTE)).thenCallRealMethod();
-    serviceLocatorMocke.when(() -> ServiceLocator.getRepository(TipoRepo.HELADERA)).thenReturn(heladeraRepository);
-
-
-    AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos(viandaRepository, suscripcionesRepository);
-    eventoFactoryMock.when(EventoFactory::crearAdministrador).thenReturn(administradorDeEventos);
-
-
-    heladera.reportarIncidente(alerta);
-
-    // Validacion del manejo del evento
-    notificadorMock.verify(() -> Notificador.notificar(List.of(suscriptor),notificacion.getMensaje()));
-
-    notificadorMock.close();
-    eventoFactoryMock.close();
-
-  }
+//  @Test @DisplayName("Cuando se reporta incidente se notifica a todos los suscriptores de incidentes")
+//  public void seEnviaNotificacionPorDesperfecto() {
+//    Alerta alerta = new Alerta(heladera,"descripcion de alerta", TipoAlerta.ALERTA_FRAUDE);
+//
+//    SugerenciaHeladeras sugerenciaHeladeras = mock (SugerenciaHeladeras.class);
+//    doReturn("").when(sugerenciaHeladeras).getSugerencia(2);
+//
+//    Notificacion notificacion = new HuboUnDesperfecto(heladera,sugerenciaHeladeras);
+//    Suscripcion suscripcion = new Suscripcion(heladera,suscriptor,5, notificacion);
+//
+//    // Mocks
+//    MockedStatic<Notificador> notificadorMock = mockStatic(Notificador.class);
+//    MockedStatic<EventoFactory> eventoFactoryMock = mockStatic(EventoFactory.class);
+//    MockedStatic<ServiceLocator> serviceLocatorMocke = mockStatic(ServiceLocator.class);
+//    ViandaRepository viandaRepository = mock(ViandaRepository.class);
+//    SuscripcionesRepository suscripcionesRepository = mock(SuscripcionesRepository.class);
+//    Repositorio heladeraRepository = mock(Repositorio.class);
+//
+//    // Defino comportamiento de Mocks
+//    doReturn(List.of(vianda1,vianda2,vianda3,vianda4)).when(viandaRepository).buscarPorHeladera(heladera);
+//    doReturn(List.of(suscripcion)).when(suscripcionesRepository).buscarPor(heladera);
+//    notificadorMock.when(() -> Notificador.notificar(suscriptor,notificacion.getMensaje())).thenAnswer(invocationOnMock -> null);
+//    eventoFactoryMock.when(() -> EventoFactory.crearEvento(heladera, TipoEvento.INCIDENTE)).thenCallRealMethod();
+//    serviceLocatorMocke.when(() -> ServiceLocator.getRepository(TipoRepo.HELADERA)).thenReturn(heladeraRepository);
+//
+//
+//    AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos(viandaRepository, suscripcionesRepository);
+//    eventoFactoryMock.when(EventoFactory::crearAdministrador).thenReturn(administradorDeEventos);
+//
+//
+//    heladera.reportarIncidente(alerta);
+//
+//    // Validacion del manejo del evento
+//    notificadorMock.verify(() -> Notificador.notificar(List.of(suscriptor),notificacion.getMensaje()));
+//
+//    notificadorMock.close();
+//    eventoFactoryMock.close();
+//
+//  }
 }

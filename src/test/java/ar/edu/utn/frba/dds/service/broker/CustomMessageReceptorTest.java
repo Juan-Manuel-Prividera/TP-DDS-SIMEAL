@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.service.broker.CustomMessageReceptor;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -19,7 +20,7 @@ public class CustomMessageReceptorTest {
   @Test
   @DisplayName("Se recibe un mensaje del broker conteniendo la medicion y se llama al sensor para procesarla")
   public void mensajeRecibidoYProcesado() throws Exception {
-    messageReceptor = new CustomMessageReceptor((SensorRepository) ServiceLocator.getRepository("sensores"));
+    messageReceptor = new CustomMessageReceptor((SensorRepository) ServiceLocator.getRepository(TipoRepo.SENSOR));
     MqttMessage mqttMessage = mock(MqttMessage.class);
     when(mqttMessage.toString())
         .thenReturn("{\"nombreHeladera\":\"UTNMedrano\",\"medicion\":{\"tipoMedicion\":\"medicionMovimiento\",\"fechaHora\":\""+ LocalDateTime.now() + "\"}}");

@@ -1,13 +1,16 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 
-public class Retiro extends Persistente{
+public class Retiro extends Persistente {
   @Column (name = "fechaRealizacion")
   @Getter
   private LocalDate fecha;

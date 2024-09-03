@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador;
 
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 

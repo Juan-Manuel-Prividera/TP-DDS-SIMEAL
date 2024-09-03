@@ -9,6 +9,7 @@ import lombok.Getter;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import java.time.LocalDate;
 import java.time.Period;
 
