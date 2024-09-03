@@ -73,7 +73,7 @@ public class LectorCsv {
         colaborador.addContacto(new Contacto(mail, email));
       }
       ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
-          .crearColaboracionPuntuable(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
+          .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
       listadoColaboracionesPuntuable.add(colaboracionPuntuable);
 

@@ -95,21 +95,7 @@ public class Heladera extends Persistente {
     // La consigna dice 'reportar', yo lo loggeo pero se podría hacer lo que quisiesemos con esta data.
     // Se logea lo mismo que se le envía al técnico pero se podría mandar lo que quisieramos.
     Logger.getInstance().log(LoggerType.INFORMATION, mensaje.getMensaje());
-
-    // Esto quiza va en controller
-    // Notificador.notificar(tecnico, mensaje);
-
   }
-
-/* Este metodo re va en un VisitaController
-
-  public void registrarVisita(VisitaTecnica visita) {
-    VisitaTecnicaRepository.getInstance().guardar(visita);
-
-    if (visita.getExitosa()) this.estado = new Activa();
-    else this.estado = new EnReparacion();
-  }
-*/
 
   private Mensaje generarMensaje(Incidente incidente) {
     DateTimeFormatter formatterDia = DateTimeFormatter.ofPattern("dd/MM/yyyy");

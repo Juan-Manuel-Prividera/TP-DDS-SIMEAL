@@ -14,10 +14,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sensor extends Persistente {
-  @OneToOne
+
+  @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   Heladera heladera;
 
+  // No interesa persistir este dato ya que se obtiene en ejecucion y se
+  // actualiza constantemente
   @Transient
   MedicionTemperatura ultimaTemperaturaRegistrada = null;
 

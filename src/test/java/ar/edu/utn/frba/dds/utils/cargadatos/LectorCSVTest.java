@@ -45,7 +45,7 @@ public class LectorCSVTest {
         colaboradorPrueba = new Colaborador(
             new Documento(TipoDocumento.DNI,"01234567"),"JuanManuel","Prividera");
         colaboracionPrueba = ColaboracionBuilder.
-                crearColaboracionPuntuable(TipoColaboracion.DINERO, LocalDate.of(2024,5,21),colaboradorPrueba,2);
+          crearColaboracion(TipoColaboracion.DINERO, LocalDate.of(2024,5,21),colaboradorPrueba,2);
     }
 
     @Test @DisplayName("Se leyeron la cantidad de filas esperadas")

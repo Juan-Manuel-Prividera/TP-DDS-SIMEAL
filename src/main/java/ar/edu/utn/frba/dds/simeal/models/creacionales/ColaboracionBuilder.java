@@ -4,7 +4,6 @@ package ar.edu.utn.frba.dds.simeal.models.creacionales;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 
 public class ColaboracionBuilder {
 
-  public static ColaboracionPuntuable crearColaboracionPuntuable(
+  public static ColaboracionPuntuable crearColaboracion(
       TipoColaboracion tipoColaboracionPuntuable,
       LocalDate fecha, Colaborador colaborador, int cantidad) {
 
@@ -31,12 +30,12 @@ public class ColaboracionBuilder {
     };
   }
 
-  public static Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
-                                               Colaborador colaborador, int cantidad) {
-    if (TipoColaboracion.OFERTA.equals(tipoColaboracion)) {
-      return Oferta.create(colaborador, fecha, cantidad);
-    } else {
-      return crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);
-    }
-  }
+//  public static Colaboracion crearColaboracion(TipoColaboracion tipoColaboracion, LocalDate fecha,
+//                                               Colaborador colaborador, int cantidad) {
+//    if (TipoColaboracion.OFERTA.equals(tipoColaboracion)) {
+//      return Oferta.create(colaborador, fecha, cantidad);
+//    } else {
+//      return crearColaboracionPuntuable(tipoColaboracion, fecha, colaborador, cantidad);
+//    }
+//  }
 }

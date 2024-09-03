@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
-import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -18,7 +19,7 @@ public class MqttSubscriber {
     String broker = configReader.getProperty("broker.host");
     String clientId = "JavaSubscriber";
     MemoryPersistence persistence = new MemoryPersistence();
-    SensorRepository sensorRepository = (SensorRepository) ServiceLocator.getRepository("sensor");
+    Repositorio sensorRepository = ServiceLocator.getRepository(TipoRepo.SENSOR);
 
     try {
       //conexion con el broker

@@ -15,8 +15,9 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Not
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
@@ -143,14 +144,14 @@ public class NotificarSuscripcionesTest {
     MockedStatic<ServiceLocator> serviceLocatorMocke = mockStatic(ServiceLocator.class);
     ViandaRepository viandaRepository = mock(ViandaRepository.class);
     SuscripcionesRepository suscripcionesRepository = mock(SuscripcionesRepository.class);
-    HeladeraRepository heladeraRepository = mock(HeladeraRepository.class);
+    Repositorio heladeraRepository = mock(Repositorio.class);
 
     // Defino comportamiento de Mocks
     doReturn(List.of(vianda1,vianda2,vianda3,vianda4)).when(viandaRepository).buscarPorHeladera(heladera);
     doReturn(List.of(suscripcion)).when(suscripcionesRepository).buscarPor(heladera);
     notificadorMock.when(() -> Notificador.notificar(suscriptor,notificacion.getMensaje())).thenAnswer(invocationOnMock -> null);
     eventoFactoryMock.when(() -> EventoFactory.crearEvento(heladera, TipoEvento.INCIDENTE)).thenCallRealMethod();
-    serviceLocatorMocke.when(() -> ServiceLocator.getRepository("heladera")).thenReturn(heladeraRepository);
+    serviceLocatorMocke.when(() -> ServiceLocator.getRepository(TipoRepo.HELADERA)).thenReturn(heladeraRepository);
 
 
     AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos(viandaRepository, suscripcionesRepository);
