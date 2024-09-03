@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.Getter;
 

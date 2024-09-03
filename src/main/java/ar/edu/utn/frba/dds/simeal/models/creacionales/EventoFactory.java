@@ -1,18 +1,15 @@
 package ar.edu.utn.frba.dds.simeal.models.creacionales;
 
 import ar.edu.utn.frba.dds.simeal.controllers.AdministradorDeEventos;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.SugerenciaHeladeras;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.Evento;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.SugerenciaHeladeras;
 import ar.edu.utn.frba.dds.simeal.models.repositories.HeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
-import lombok.Setter;
-
-import java.security.Provider;
 
 public class EventoFactory {
 

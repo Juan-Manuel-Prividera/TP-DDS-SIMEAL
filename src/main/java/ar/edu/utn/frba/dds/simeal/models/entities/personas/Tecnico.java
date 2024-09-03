@@ -1,9 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas;
 
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

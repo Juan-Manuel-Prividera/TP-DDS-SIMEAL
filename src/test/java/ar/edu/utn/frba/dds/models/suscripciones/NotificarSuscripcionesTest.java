@@ -1,12 +1,13 @@
 package ar.edu.utn.frba.dds.models.suscripciones;
 
+import ar.edu.utn.frba.dds.simeal.controllers.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.*;
-import ar.edu.utn.frba.dds.simeal.controllers.AdministradorDeEventos;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.SugerenciaHeladeras;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;

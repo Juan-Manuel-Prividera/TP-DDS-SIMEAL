@@ -1,8 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

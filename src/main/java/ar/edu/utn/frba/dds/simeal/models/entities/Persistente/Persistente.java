@@ -3,9 +3,8 @@ package ar.edu.utn.frba.dds.simeal.models.entities.Persistente;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @MappedSuperclass

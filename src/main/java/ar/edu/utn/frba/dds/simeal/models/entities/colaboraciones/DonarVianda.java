@@ -19,7 +19,7 @@ public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
-  @Column(name = "fechaRealizacion")
+  @Column
   private final LocalDate fechaDeRealizacion;
 
   @ManyToOne

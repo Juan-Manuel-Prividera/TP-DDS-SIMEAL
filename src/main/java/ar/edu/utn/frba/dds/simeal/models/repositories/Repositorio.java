@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.estados.EstadoHeladera;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.util.ArrayList;

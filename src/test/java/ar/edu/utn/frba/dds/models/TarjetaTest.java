@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds.models;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Retiro;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Retiro;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

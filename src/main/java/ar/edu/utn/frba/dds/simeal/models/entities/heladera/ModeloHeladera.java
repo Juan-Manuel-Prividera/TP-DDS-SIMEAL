@@ -1,7 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

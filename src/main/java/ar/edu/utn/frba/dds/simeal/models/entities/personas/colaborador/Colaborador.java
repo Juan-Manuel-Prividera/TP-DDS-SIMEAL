@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
@@ -10,11 +9,11 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.service.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cache;
 
 import javax.persistence.*;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

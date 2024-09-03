@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
