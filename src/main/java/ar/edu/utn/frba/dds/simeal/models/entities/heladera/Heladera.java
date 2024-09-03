@@ -23,6 +23,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 @Getter
@@ -50,6 +51,10 @@ public class Heladera extends Persistente {
 
   @Column(name = "activa")
   private Boolean activa;
+
+
+  @OneToMany
+  private List<Heladera> heladerasCercanas;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {
     this.ubicacion = ubicacion;
