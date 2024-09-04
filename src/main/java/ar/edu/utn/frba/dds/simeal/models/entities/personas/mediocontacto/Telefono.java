@@ -8,6 +8,5 @@ public class Telefono implements MedioContacto {
 
   @Override
   public void notificar(String destinatario, Mensaje mensaje) {
-
   }
 }

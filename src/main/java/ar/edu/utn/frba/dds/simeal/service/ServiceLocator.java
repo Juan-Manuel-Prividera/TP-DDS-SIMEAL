@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service;
 
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,4 +27,5 @@ public class ServiceLocator {
       return repositories.get(repositoryName);
     }
   }
+
 }

@@ -1,17 +1,28 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
 @Getter
-public class Evento {
+@NoArgsConstructor(force = true)
+@Entity
+@Table(name = "evento")
+public class Evento extends Persistente {
+  @ManyToOne
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private final Heladera heladeraAfectada;
+  @Enumerated(EnumType.STRING)
   private final TipoEvento tipoEvento;
+  @Column(name = "fechaDeOcurrencia")
   private final LocalDateTime fechaDeOcurrencia;
+  @Transient
   private final Notificacion notificacion;
 
   public Evento(Heladera heladera, TipoEvento tipoEvento, Notificacion notificacion) {

@@ -1,19 +1,33 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
 @AllArgsConstructor
-public class Suscripcion {
+@NoArgsConstructor
+@Entity
+@Table(name = "suscripcion")
+public class Suscripcion extends Persistente {
+  @ManyToOne
+  @JoinColumn(name = "suscriptor_id", referencedColumnName = "id")
   private Colaborador suscriptor;
+  @ManyToOne
+  @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+  @Column(name = "cercaniaNecesaria")
   private int cercaniaNecesaria;
+  @Column(name = "cantViandasCritircas")
   private int cantidadViandasCriticas;
+  @Transient
   private Notificacion notificacion;
 
   public Suscripcion(Heladera heladera, Colaborador suscriptor, int cantidadViandas, Notificacion notificacion){
