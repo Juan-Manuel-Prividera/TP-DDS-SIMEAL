@@ -46,8 +46,9 @@ public class Heladera extends Persistente {
   @Column(name = "activa")
   private Boolean activa;
 
-
-  @OneToMany
+  // Esto genera una tabla intermedia con dos heladera_id nomas
+  // No creo que haya que ponerla en el der medio rari
+  @ManyToMany
   private List<Heladera> heladerasCercanas;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {
