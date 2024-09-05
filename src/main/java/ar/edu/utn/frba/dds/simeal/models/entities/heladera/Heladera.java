@@ -30,7 +30,8 @@ public class Heladera extends Persistente {
   @Column(name="nombre")
   private String nombre;
   @Setter
-  @Embedded
+  @OneToOne
+  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion ubicacion;
   @Column(name="fecha_colocacion")
   private LocalDate fechaColocacion;

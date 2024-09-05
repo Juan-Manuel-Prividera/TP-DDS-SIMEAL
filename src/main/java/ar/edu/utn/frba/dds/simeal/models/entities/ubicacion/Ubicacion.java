@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +14,10 @@ import javax.persistence.Embedded;
 
 @Getter
 @Setter
-@Embeddable
+@Entity
+@Table(name="ubicacion")
 @NoArgsConstructor
-public class Ubicacion {
+public class Ubicacion extends Persistente {
   @Column(name = "nombre_calle")
   private String nombreCalle;
   @Column(name = "altura")

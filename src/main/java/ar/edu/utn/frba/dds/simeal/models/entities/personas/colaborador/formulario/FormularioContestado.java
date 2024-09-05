@@ -2,6 +2,8 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formular
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class FormularioContestado extends Persistente {
-  @Column(name="respuestas")
+  @OneToMany
+  @JoinColumn(name="respuestas_id")
   private final List<Respuesta> respuestas;
   @Column(name="fecha_de_respuesta")
   private LocalDate fechaRespuesta;

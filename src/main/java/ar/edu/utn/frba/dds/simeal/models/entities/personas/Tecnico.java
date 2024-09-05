@@ -21,18 +21,24 @@ import java.util.List;
 public class Tecnico extends Persistente implements ReceptorDeNotificaciones {
   @Column(name = "nombre")
   private String nombre;
+
   @Column(name = "apellido")
   private String apellido;
+
   @Embedded
   private Documento documento;
+
   @Column(name = "cuil")
   private String cuil;
+
   @OneToMany
-  @JoinColumn(name = "persona_id")
+  @JoinColumn(name = "tecnico_id")
   private List<Contacto> contactos;
+
   @OneToOne
   @JoinColumn(name = "contactoPreferido", referencedColumnName = "id")
   private Contacto contactoPreferido;
+
   @Embedded
   private AreaDeCobertura areaDeCobertura;
 

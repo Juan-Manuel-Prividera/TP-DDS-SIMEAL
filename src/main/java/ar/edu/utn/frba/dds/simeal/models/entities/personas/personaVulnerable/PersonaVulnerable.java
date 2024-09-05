@@ -21,16 +21,23 @@ import java.util.List;
 public class PersonaVulnerable extends Persistente {
   @Column (name = "nombre")
   private String nombre;
+
   @Column (name = "fechaNacimiento")
   private LocalDate fechaNacimiento;
+
   @Column (name = "fechaRegistro")
   private LocalDate fechaRegistro;
-  @Embedded
+
+  @OneToOne
+  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion domilicio;
+
   @OneToMany(mappedBy = "personaVulnerable")
   private List<PersonaVulnerable> hijos = new ArrayList<>();
+
   @Embedded
   private Documento documento;
+
   @ManyToOne
   @JoinColumn(name = "padre_id", referencedColumnName = "id")
   private PersonaVulnerable padre;

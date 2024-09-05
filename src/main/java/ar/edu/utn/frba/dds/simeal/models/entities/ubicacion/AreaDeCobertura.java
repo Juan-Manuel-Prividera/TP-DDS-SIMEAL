@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,8 @@ import javax.persistence.Embedded;
 @NoArgsConstructor
 @Embeddable
 public class AreaDeCobertura {
-  @Embedded
+  @OneToOne
+  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion ubicacion;
   @Column(name = "radioCobertura")
   private Double radioDeCobertura;

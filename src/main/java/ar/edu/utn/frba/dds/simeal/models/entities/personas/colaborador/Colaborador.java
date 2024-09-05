@@ -28,28 +28,50 @@ import java.util.Objects;
 public class Colaborador extends Persistente implements ReceptorDeNotificaciones {
   @Column
   private String nombre;
+
   @Column
   private String apellido;
+
   @Embedded
   private Documento documento;
-  @Embedded
+
+  @OneToOne
+  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion ubicacion;
+
   @Column
   private String razonSocial;
-  @Column
+
+  @ManyToOne
+  @JoinColumn(name="rubro_id", referencedColumnName = "id")
   private Rubro rubro;
+
   @Enumerated(EnumType.STRING)
   private TipoJuridico tipoJuridico;
+
   @OneToOne
   @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
   private FormularioContestado formularioContestado;
-  //TODO
+
+  @OneToMany
+  @JoinColumn(referencedColumnName = "colaborador_id")
   private final List<Contacto> contactos = new ArrayList<>();
+
+  @OneToOne
+  @JoinColumn(name = "contacto_preferido_id", referencedColumnName = "id")
   private Contacto contactoPreferido;
+
+  @ElementCollection(targetClass = TipoColaboracion.class)
+  @CollectionTable(name = "colaborador_tipo_colaboracion", joinColumns = @JoinColumn(name = "colaborador_id"))
+  @Enumerated(EnumType.STRING)
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
+
   @Setter
+  @Transient
   private Usuario usuario;
+
   @Setter
+  @Transient
   private double puntosDeReconocimientoParcial;
 
   public Colaborador(Documento documento, String nombre, String apellido) {
