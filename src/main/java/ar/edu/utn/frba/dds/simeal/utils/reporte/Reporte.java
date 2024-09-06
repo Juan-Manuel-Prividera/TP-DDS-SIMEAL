@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +41,7 @@ public class Reporte {
 
 
     String directorioProyecto = System.getProperty("user.dir");
-    String pdfPath = directorioProyecto + "/Reportes_generados" + fechaActual + ".pdf";
+    String pdfPath = directorioProyecto + File.separator + "Reportes_generados" + File.separator + "reporte_generado_" + fechaActual + ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
