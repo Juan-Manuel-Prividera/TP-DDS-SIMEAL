@@ -40,7 +40,7 @@ public class Reporte {
 
 
     String directorioProyecto = System.getProperty("user.dir");
-    String pdfPath = directorioProyecto + "/Reporte_generado_" + fechaActual + ".pdf";
+    String pdfPath = directorioProyecto + "/Reportes_generados" + fechaActual + ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
