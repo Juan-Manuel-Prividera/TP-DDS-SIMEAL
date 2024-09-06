@@ -288,14 +288,15 @@ input[type="number"] {
 
 .confirm-btn {
     margin-top: 4%;
-    width: 40% !important;
+    width: 20% !important;
     height: 6vh !important;
     text-align: center !important;
+
 }
 
 .cancel-btn {
     margin-top: 4%;
-    width: 40% !important;
+    width: 20% !important;
     height: 6vh !important;
     text-align: center !important;
 }
