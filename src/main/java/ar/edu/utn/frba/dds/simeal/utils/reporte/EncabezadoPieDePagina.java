@@ -6,7 +6,7 @@ import com.itextpdf.text.pdf.*;
 import java.io.IOException;
 
 public class EncabezadoPieDePagina extends PdfPageEventHelper {
-  private Font footerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL);
+  private final Font footerFont = FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL);
 
   @Override
   public void onEndPage(PdfWriter writer, Document document) {

@@ -6,13 +6,14 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Setter
 @Getter
 @AllArgsConstructor
 @Entity
@@ -32,15 +33,15 @@ public class PersonaVulnerable extends Persistente {
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion domilicio;
 
-  @OneToMany(mappedBy = "personaVulnerable")
+  @OneToMany(mappedBy = "padre")
   private List<PersonaVulnerable> hijos = new ArrayList<>();
-
-  @Embedded
-  private Documento documento;
 
   @ManyToOne
   @JoinColumn(name = "padre_id", referencedColumnName = "id")
   private PersonaVulnerable padre;
+
+  @Embedded
+  private Documento documento;
 
   public PersonaVulnerable(LocalDate of) {
     this.fechaNacimiento = of;

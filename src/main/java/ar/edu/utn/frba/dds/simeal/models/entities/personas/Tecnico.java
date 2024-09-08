@@ -32,11 +32,11 @@ public class Tecnico extends Persistente implements ReceptorDeNotificaciones {
   private String cuil;
 
   @OneToMany
-  @JoinColumn(name = "tecnico_id")
+  @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
   private List<Contacto> contactos;
 
   @OneToOne
-  @JoinColumn(name = "contactoPreferido", referencedColumnName = "id")
+  @JoinColumn(name = "contacto_preferido_id", referencedColumnName = "id")
   private Contacto contactoPreferido;
 
   @Embedded

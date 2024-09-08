@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class LoggerTest {
 
     File logFile = new File(filename);
     try {
-      assertTrue(logFile.exists(), "Log file should be created");
+      assertTrue(Files.exists(Path.of("src/main/java/ar/edu/utn/frba/dds/simeal/log/" + filename)), "Log file should be created");
 
       List<String> lines = Files.readAllLines(Paths.get(filename));
       int expectedLines = 4;

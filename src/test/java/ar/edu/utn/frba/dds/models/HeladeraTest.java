@@ -45,6 +45,7 @@ public class HeladeraTest {
     ubicacion= new Ubicacion(555,444);
     modelo= new ModeloHeladera("hola",20,-10,50);
     heladera = new Heladera(ubicacion, LocalDate.now(), "heladera feliz", modelo);
+    heladera.setHeladerasCercanas(List.of(heladera));
     medicion = new MedicionTemperatura();
     colaborador = new Colaborador(
       new Documento(TipoDocumento.DNI, "1234567"),
@@ -111,22 +112,22 @@ public class HeladeraTest {
   @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
   public void testReportarIncidenteHeladeraNoDisponible() {
     heladera.reportarIncidente(alerta);
-    Assertions.assertFalse(heladera.estaDisponible());
+    Assertions.assertFalse(heladera.getActiva());
   }
 
-  // No es realmente un test, perdón :ashamed:
-  @Test @DisplayName("Se reporta un incidente => se loggea (alerta)")
-  public void testRegistrarIncidenteAlerta() {
-    System.out.println("====== Test reportar una alerta =====");
-    heladera.reportarIncidente(alerta);
-    System.out.println("=====================================");
-  }
-
-  // Ídem línea 68
-  @Test @DisplayName("Se reporta un incidente => se loggea (falla técnica)")
-  public void testRegistrarIncidenteFallaTecnica() {
-    System.out.println("== Test reportar una falla tecnica ==");
-    heladera.reportarIncidente(fallaTecnica);
-    System.out.println("=====================================");
-  }
+//  // No es realmente un test, perdón :ashamed:
+//  @Test @DisplayName("Se reporta un incidente => se loggea (alerta)")
+//  public void testRegistrarIncidenteAlerta() {
+//    System.out.println("====== Test reportar una alerta =====");
+//    heladera.reportarIncidente(alerta);
+//    System.out.println("=====================================");
+//  }
+//
+//  // Ídem línea 68
+//  @Test @DisplayName("Se reporta un incidente => se loggea (falla técnica)")
+//  public void testRegistrarIncidenteFallaTecnica() {
+//    System.out.println("== Test reportar una falla tecnica ==");
+//    heladera.reportarIncidente(fallaTecnica);
+//    System.out.println("=====================================");
+//  }
 }

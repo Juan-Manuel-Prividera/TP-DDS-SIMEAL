@@ -20,14 +20,18 @@ public class EventoFactory {
         if(heladera == null) return;
         administradorDeEventos.huboUnEvento(
         switch (tipoEvento) {
-            case RETIRO ->  new Evento(heladera, TipoEvento.RETIRO, new QuedanPocasViandas(heladera));
-            case INGRESO -> new Evento(heladera, TipoEvento.INGRESO, new HayMuchasViandas(heladera));
-            case INCIDENTE -> new Evento(heladera, TipoEvento.INCIDENTE,
-                    new HuboUnDesperfecto(heladera,
-                            new SugerenciaHeladeras(heladera.getUbicacion(), heladera.getHeladerasCercanas())));
+            case RETIRO ->  new Evento(heladera, TipoEvento.RETIRO, new QuedanPocasViandas());
+            case INGRESO -> new Evento(heladera, TipoEvento.INGRESO, new HayMuchasViandas());
+            case INCIDENTE -> new Evento(heladera, TipoEvento.INCIDENTE, crearHuboUnDesperfecto(heladera));
+
         });
     }
 
+    private static HuboUnDesperfecto crearHuboUnDesperfecto(Heladera heladera) {
+       HuboUnDesperfecto huboUnDesperfecto = new HuboUnDesperfecto();
+        huboUnDesperfecto.setSugerenciaHeladeras(new SugerenciaHeladeras(heladera.getUbicacion(), heladera.getHeladerasCercanas()));
+        return huboUnDesperfecto;
+    }
     public static AdministradorDeEventos crearAdministrador() {
         return new AdministradorDeEventos();
     }

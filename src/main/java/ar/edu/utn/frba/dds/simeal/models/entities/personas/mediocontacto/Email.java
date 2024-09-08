@@ -4,7 +4,7 @@ import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 
 public class Email implements MedioContacto {
-  private EnviadorDeMails enviador;
+  private final EnviadorDeMails enviador;
 
 
   public Email(EnviadorDeMails enviador) {

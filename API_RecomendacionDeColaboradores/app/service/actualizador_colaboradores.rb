@@ -7,19 +7,21 @@ require 'logger'
 class ActualizadorColaboradores
   def recibir_colaboradores
     token = autenticar
-    logger = Logger.new("log/recibir_colaboradores.log")
     # Se conecta y hace la solicitud, si hay un error termina
-    conn = Faraday.new(url: "http://localhost:8080/simeal", headers: { "Authorization" => "Bearer #{token}" })
-    response = conn.get("/colaboradores")
+    conn = Faraday.new(url: "http://localhost:8080")
+    response = conn.get("/simeal/colaboradores") do |request|
+      request.headers["Authorization"] = "Bearer #{token}"
+    end
+    Rails.logger.debug("Solicito colaboradores con el token: #{token}")
     if response.status != 200 || response.body.empty?
-      logger.error("Error al recibir los colaboradores: #{response.body}")
-      exit 1
+      Rails.logger.error("Error al recibir los colaboradores: #{response.body}")
+      exit 3
     end
 
     # Borro mi bd de colaboradores
     Colaborador.delete_all
 
-    colabs_json = JSON.parse(json.body.read)
+    colabs_json = JSON.parse(response.body)
     colabs_json.each do |colab|
       # Crea un obj colaborador y lo persiste
       Colaborador.create(nombre: colab["nombre"],
@@ -32,22 +34,29 @@ class ActualizadorColaboradores
   end
 
   def autenticar
-    config = YAML.load 'config/api_config.yml'
+    config = YAML.load_file(Rails.root.join('config', 'api_config.yml'))
+    if config == nil
+      Rails.logger.error("No se pudo cargar la configuracion")
+      exit 4
+    end
     apikey = config["api"]["key"]
-    clientId = config["api"]["clientId"]
+    client_id = config["api"]["clientId"]
 
-    conn = Faraday.new(url: "http://localhost:8080/simeal")
+    conn = Faraday.new(url: "http://localhost:8080")
     params = {
-      clientId: clientId,
       apikey: apikey,
+      client_id: client_id,
     }
-    response = conn.post('/auth', params)
+    response = conn.get("/simeal/auth", params)
 
+    Rails.logger.debug("Solicitud de autenticacion enviada con parametros: #{params}")
     if response.status == 200
+      Rails.logger.info("Autenticado exitosamente en el servidor")
       body = JSON.parse(response.body)
       body["token"] # Retorna el token
     else
-      logger.error("Error al autenticar en el servidor: #{response.body}")
+      Rails.logger.error("Error al autenticar en el servidor: #{response.body}")
+      exit 5
     end
   end
 

@@ -4,20 +4,20 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
-
+@Entity
+@Table(name = "Retiros")
+@Getter
 public class Retiro extends Persistente {
   @Column (name = "fechaRealizacion")
-  @Getter
   private LocalDate fecha;
 
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+
   @ManyToOne
   @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
   private TarjetaPersonaVulnerable tarjeta;

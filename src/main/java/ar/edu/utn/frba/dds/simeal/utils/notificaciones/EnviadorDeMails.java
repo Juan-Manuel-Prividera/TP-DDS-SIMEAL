@@ -13,11 +13,11 @@ import java.util.Properties;
 
 @Getter
 public class EnviadorDeMails {
-  private String useremail;
-  private String password;
-  private String host; // smtp.gmail.com
-  private String port; // 587
-  private boolean auth;
+  private final String useremail;
+  private final String password;
+  private final String host; // smtp.gmail.com
+  private final String port; // 587
+  private final boolean auth;
 
   private static EnviadorDeMails instancia = null;
 

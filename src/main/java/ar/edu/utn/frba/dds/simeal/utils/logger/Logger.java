@@ -10,7 +10,7 @@ public class Logger {
   static Logger instance;
 
   static public Logger getInstance(String filename) {
-    instance = new Logger(filename);
+    instance = new Logger("src/main/java/ar/edu/utn/frba/dds/simeal/log/" + filename);
     return instance;
   }
 

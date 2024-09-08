@@ -9,6 +9,7 @@ class RecomendadorColaboradores
   end
 
   def recomendar(colaboradores)
+    Rails.logger.info("Colaboradores a recomendar: #{colaboradores}")
     colabs_recomendados = []
     colabs_ordenados = ordenar_colaboradores(colaboradores)
 

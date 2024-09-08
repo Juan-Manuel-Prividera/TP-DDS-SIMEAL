@@ -16,7 +16,6 @@ public class TarjetaColaborador extends Persistente {
 
   @Column(name = "fechaEntrega")
   private LocalDate fechaEntrega;
-  @Column(name = "tarjetaActiva")
-  private Boolean activa;
+
 
 }

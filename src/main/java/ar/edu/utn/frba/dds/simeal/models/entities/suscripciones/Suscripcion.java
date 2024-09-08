@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.suscripciones;
 
+import ar.edu.utn.frba.dds.simeal.converters.NotificacionConverter;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -20,14 +21,19 @@ public class Suscripcion extends Persistente {
   @ManyToOne
   @JoinColumn(name = "suscriptor_id", referencedColumnName = "id")
   private Colaborador suscriptor;
+
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+
   @Column(name = "cercaniaNecesaria")
   private int cercaniaNecesaria;
+
   @Column(name = "cantViandasCritircas")
   private int cantidadViandasCriticas;
-  @Transient
+
+  @Convert(converter = NotificacionConverter.class)
+  @Column(name = "notificacion")
   private Notificacion notificacion;
 
   public Suscripcion(Heladera heladera, Colaborador suscriptor, int cantidadViandas, Notificacion notificacion){

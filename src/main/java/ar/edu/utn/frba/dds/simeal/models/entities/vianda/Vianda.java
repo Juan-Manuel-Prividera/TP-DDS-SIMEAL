@@ -20,19 +20,25 @@ import java.time.LocalDate;
 public class Vianda extends Persistente {
   @Embedded
   private TipoDeComida tipoDeComida;
+
   @Column (name = "fechaCaducidad")
   private LocalDate fechaCaducidad;
+
   @Column (name = "fechaDonacion")
   private LocalDate fechaDonacion;
+
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
+
   @Column (name = "calorias")
   private Integer calorias;
+
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
-  @Column (name = "entregadas")
+
+  @Column (name = "entregada")
   private Boolean entregada;
 
 

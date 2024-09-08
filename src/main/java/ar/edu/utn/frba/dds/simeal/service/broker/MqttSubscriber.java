@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;

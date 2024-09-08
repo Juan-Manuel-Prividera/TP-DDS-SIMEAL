@@ -3,10 +3,13 @@ package ar.edu.utn.frba.dds.simeal.service.enviarDatosColaboradores;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.Javalin;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -19,33 +22,49 @@ import java.util.*;
 public class EnviarDatosColabs {
     private static final ConfigReader configReader = new ConfigReader();
     private static final String miApiKey = configReader.getProperty("api.key");
+    private static final Logger logger = Logger.getInstance("envioDatos.log");
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(8080);
 
-        app.post("simeal/auth", ctx -> {
+        app.get("simeal/auth", ctx -> {
+            logger.log(LoggerType.DEBUG,"Solicitud de autenticacion recibida: " + ctx.userAgent());
             String apikey = ctx.queryParam("apikey");
             String clientID = ctx.queryParam("clientID");
-             if (apikey.equals(miApiKey)) {
+
+            if (apikey.equals(miApiKey)) {
                 String token = generateToken(clientID);
                 ctx.json(Map.of("token", token));
-             } else
+                logger.log(LoggerType.DEBUG, "Usuario autenticado, se envia el token: " + token);
+            } else {
+                logger.log(LoggerType.DEBUG, "Solicitud recibida de usuario no autorizado");
                 ctx.status(400).result("Usuario no autorizado");
-
+            }
         });
 
         app.get("simeal/colaboradores", ctx -> {
             String token = ctx.header("Authorization");
-            if (token != null && validateToken(token.replace("Bearer ", ""))) {
-                List<Colaborador> colaboradores = (List<Colaborador>) ServiceLocator
-                  .getRepository(TipoRepo.COLABORADOR).obtenerTodos(Colaborador.class);
-                List<DonarVianda> donacionesViandas = (List<DonarVianda>) ServiceLocator
-                  .getRepository(TipoRepo.COLABORACION).obtenerTodos(DonarVianda.class);
+            logger.log(LoggerType.DEBUG, "Solicitud de colaboradores recibida: " + ctx.headerMap() + " " + ctx.header("Authorization"));
 
-                ctx.json(prepararRespuesta(colaboradores,donacionesViandas));     
-            } else 
+            if (token != null && validateToken(token.replace("Bearer ", ""))) {
+                logger.log(LoggerType.DEBUG, "Usuario validado correctamente");
+
+                List<Colaborador> colaboradores = obtenerColaboradores();
+                List<DonarVianda> donacionesViandas = obtenerDonaciones();
+
+                if (colaboradores.isEmpty() || donacionesViandas.isEmpty()) {
+                    logger.log(LoggerType.ERROR, "No hay colaboradores ni donaciones dispoibles para enviar");
+                    throw new RuntimeException("No hay colaboradores ni donaciones dispoibles");
+                } else
+                    logger.log(LoggerType.DEBUG, "Se obtuvieron correctamente colaboradores y donaciones");
+
+                List<ColaboradorEnviado> response = prepararRespuesta(colaboradores, donacionesViandas);
+                ctx.json(response);
+                logger.log(LoggerType.DEBUG, "Respuesta enviada correctamente: " + response);
+            } else {
+                logger.log(LoggerType.DEBUG, "Usuario no autenticado se retorna un 400, token recibido: " + token);
                 ctx.status(400).result("Usuario no autorizado");
-           
+            }
         });
     }
 
@@ -81,14 +100,12 @@ public class EnviarDatosColabs {
             int cantDonaciones = 0;
             for (DonarVianda donacion : donacionesViandas) {
                 // Solo cuentan las donaciones del mes actual
-                if (colaborador.equals(donacion.getColaborador()) &&
-                  donacion.getFechaDeRealizacion().getMonth().equals(LocalDate.now().getMonth()))
-                    cantDonaciones ++;
+                if (colaborador.getId() == donacion.getColaborador().getId() &&
+                  donacion.getFechaDeRealizacion().getMonth() == LocalDate.now().getMonth())
+                    cantDonaciones++;
             }
-
-            List<AdherirHeladera> colabsExtra = (List<AdherirHeladera>) ServiceLocator
-              .getRepository(TipoRepo.COLABORACION).obtenerTodos(AdherirHeladera.class);
-
+            logger.log(LoggerType.DEBUG, "El colaborador: " + colaborador.getId() + " tiene: " + cantDonaciones +" donaciones de vianda");
+            List<AdherirHeladera> colabsExtra = obtenerColbasExtra(colaborador);
             double puntos = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,colabsExtra);
 
             ColaboradorEnviado colabEnviar = new ColaboradorEnviado(colaborador, cantDonaciones, puntos);
@@ -96,4 +113,20 @@ public class EnviarDatosColabs {
         }
         return colaboradoresEnviados;
     }
+
+    private static List<Colaborador> obtenerColaboradores() {
+       return (List<Colaborador>) ServiceLocator
+         .getRepository(TipoRepo.COLABORADOR).obtenerTodos(Colaborador.class);
+    }
+    private static List<DonarVianda> obtenerDonaciones() {
+        return  (List<DonarVianda>) ServiceLocator
+          .getRepository(TipoRepo.COLABORACION).obtenerTodos(DonarVianda.class);
+    }
+
+    private static List<AdherirHeladera> obtenerColbasExtra(Colaborador colaborador) {
+        ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator.getRepository(TipoRepo.COLABORACION);
+        return (List<AdherirHeladera>) colaboracionRepository
+          .getPorColaborador(colaborador.getId(), AdherirHeladera.class);
+    }
+
 }

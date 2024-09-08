@@ -19,8 +19,8 @@ public class EnviadorTelegram extends TelegramLongPollingBot implements MedioCon
   // Este setter es para poder testear, NUNCA se deberia llamar desde otro lugar que no sea test
   @Setter
   private TelegramMessage telegramMessage;
-  private ConfigReader configReader;
-  private List<Long> chatIds;
+  private final ConfigReader configReader;
+  private final List<Long> chatIds;
 
   private static EnviadorTelegram instance;
   public static EnviadorTelegram getInstance() {

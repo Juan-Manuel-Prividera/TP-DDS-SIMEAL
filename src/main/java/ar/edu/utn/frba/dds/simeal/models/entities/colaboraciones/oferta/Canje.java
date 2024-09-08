@@ -17,14 +17,17 @@ import java.util.List;
 @NoArgsConstructor(force = true)
 public class Canje extends Persistente {
   @ManyToOne
-  @JoinColumn(name = "oferta", referencedColumnName = "id")
+  @JoinColumn(name = "oferta_id", referencedColumnName = "id")
   Oferta oferta;
+
   @ManyToOne
   @JoinColumn(name = "beneficiario_id", referencedColumnName = "id")
   Colaborador beneficiario;
+
   @Column(name = "fecha")
   LocalDateTime fecha;
 
+  // Esto se va a pasar a controller proximanete :)
   // TODO: Falta el acceso a persistencia para conseguir las colaboraciones de un colaborador especifico
   public void realizar() {
     // Concretamente falta esto

@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Rubro extends Persistente {
   @Column
   private String nombre;
+
   @ManyToOne
   @JoinColumn(name = "rubro_padre_id", referencedColumnName = "id")
   private Rubro rubroPadre;

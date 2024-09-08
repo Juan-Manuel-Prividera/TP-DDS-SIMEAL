@@ -11,7 +11,8 @@ public class SuscripcionesRepository extends Repositorio {
  public List<Suscripcion> buscarPor(Heladera heladera) {
    List<Suscripcion> suscripciones = new ArrayList<>();
    beginTransaction();
-   suscripciones = entityManager().createQuery("FROM " + Suscripcion.class.getName() + " WHERE heladera_id = :id")
+   suscripciones = entityManager()
+     .createQuery("FROM " + Suscripcion.class.getName() + " WHERE heladera_id = :id")
      .setParameter("id", heladera.getId())
      .getResultList();
    commitTransaction();

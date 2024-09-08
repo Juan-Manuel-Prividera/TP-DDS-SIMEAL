@@ -23,19 +23,26 @@ import java.time.LocalDate;
 public class DistribuirVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
-  private final Colaborador colaborador;
+  private Colaborador colaborador;
+
   @ManyToOne
   @JoinColumn(name = "origen_id", referencedColumnName = "id")
   private Heladera origen;
+
   @ManyToOne
   @JoinColumn(name = "destino_id", referencedColumnName = "id")
   private Heladera destino;
+
+  @Column(name = "motivo")
   @Enumerated(EnumType.STRING)
   private Motivo motivo;
+
   @Column(name = "cantViandas")
   private int cantidadViandasMover;
-  @Column()
+
+  @Column(name = "fechaDeRealizacion")
   private final LocalDate fechaDeRealizacion;
+
   @Builder.Default
   @Transient
   private final double factorDeReconocimiento = 1;

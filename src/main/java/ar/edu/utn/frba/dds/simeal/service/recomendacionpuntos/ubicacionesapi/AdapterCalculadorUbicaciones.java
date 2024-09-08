@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class AdapterCalculadorUbicaciones implements AdapterUbicacionesApi {
   private UbicacionesApi ubicacionesApi;
-  private Retrofit retrofit;
+  private final Retrofit retrofit;
   String urlApi;
   ConfigReader configReader;
 

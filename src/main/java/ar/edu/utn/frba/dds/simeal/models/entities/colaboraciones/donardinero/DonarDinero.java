@@ -21,13 +21,18 @@ public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador", referencedColumnName = "id")
-  private final Colaborador colaborador;
+  private Colaborador colaborador;
+
+  @Column(name = "frecuencia")
   @Enumerated(EnumType.STRING)
-  private final Frecuencia frecuencia;
+  private Frecuencia frecuencia;
+
   @Column(name = "fechaRealizacion")
-  private final LocalDate fechaDeRealizacion;
+  private LocalDate fechaDeRealizacion;
+
   @Column(name = "cantDinero")
   private double cantidadDinero;
+
   @Builder.Default
   @Transient
   private final double factorDeReconocimiento = 0.5;

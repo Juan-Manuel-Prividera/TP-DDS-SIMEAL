@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,7 +8,7 @@ import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class CustomMessageReceptor implements IMqttMessageListener {
-  private SensorRepository sensorRepository;
+  private final SensorRepository sensorRepository;
   public CustomMessageReceptor(SensorRepository sensorRepository) {
     this.sensorRepository = sensorRepository;
   }

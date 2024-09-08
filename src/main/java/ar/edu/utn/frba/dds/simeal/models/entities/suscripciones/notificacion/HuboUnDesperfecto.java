@@ -7,15 +7,23 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEven
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class HuboUnDesperfecto implements Notificacion {
-  private Mensaje mensaje;
   private int cercaniaSugerencia = 1000;
+  private SugerenciaHeladeras sugerenciaHeladeras;
 
-  public HuboUnDesperfecto(Heladera heladera, SugerenciaHeladeras sugerenciaHeladeras) {
-    this.mensaje = new Mensaje("Hubo un desperfecto en la heladera: "
+//  public HuboUnDesperfecto(Heladera heladera, SugerenciaHeladeras sugerenciaHeladeras) {
+//    this.mensaje = new Mensaje("Hubo un desperfecto en la heladera: "
+//        + heladera.getNombre() + "\n" + sugerenciaHeladeras.getSugerencia(cercaniaSugerencia));
+//  }
+
+  @Override
+  public Mensaje getMensaje(Heladera heladera) {
+     return new Mensaje("Hubo un desperfecto en la heladera: "
         + heladera.getNombre() + "\n" + sugerenciaHeladeras.getSugerencia(cercaniaSugerencia));
   }
 

@@ -31,6 +31,7 @@ public class PersonaVulnerableTest {
   @Test @DisplayName("Cantidad de hijos menores de una persona vulnerable")
   public void cantidadHijosMenoresTest(){
     personaVulnerable = new PersonaVulnerable(LocalDate.of(1990,3,21));
+    personaVulnerable.setHijos(hijos);
     Assertions.assertEquals(2,personaVulnerable.cantHijosMenores());
   }
 }

@@ -8,7 +8,7 @@ import java.io.File;
 
 
 public class ConfigReader {
-  private Configuration configuration;
+  private final Configuration configuration;
   String fileName = "src/main/resources/application.properties";
 
   public ConfigReader() {

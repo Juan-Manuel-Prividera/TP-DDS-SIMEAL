@@ -18,10 +18,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class SolicitudOperacionHeladera extends Persistente {
   @Enumerated(EnumType.STRING)
+  @Column(name = "tipoOperacion")
   private TipoOperacion tipoOperacion;
 
   @ManyToOne
-  @JoinColumn(name = "codigo_tarjeta_colaborador", referencedColumnName = "id")
+  @JoinColumn(name = "tarjeta_colaborador_id", referencedColumnName = "id")
   private TarjetaColaborador tarjetaColaborador;
 
   @ManyToOne
@@ -30,9 +31,11 @@ public class SolicitudOperacionHeladera extends Persistente {
 
   @Column(name = "cantViandas")
   private Integer cantViandas;
+
   @Builder.Default
   @Transient
   private int horasParaEjecutarse = 3;
+
   @Column(name = "horaInicio")
   private LocalDateTime horaInicio;
 

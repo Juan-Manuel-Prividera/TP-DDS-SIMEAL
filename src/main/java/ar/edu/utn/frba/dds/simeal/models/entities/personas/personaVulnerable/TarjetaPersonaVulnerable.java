@@ -16,16 +16,18 @@ import javax.persistence.*;
 public class TarjetaPersonaVulnerable extends Persistente {
   @Column(name = "codigo")
   private final String codigo;
+
   @OneToOne
   @JoinColumn(name = "persona_vulnerable_id", referencedColumnName = "id")
   private final PersonaVulnerable personaVulnerable;
+
+  @Column(name = "usosHechos")
+  private Integer usosHechos; // Cuando se crea un Retiro se debe sumar uno a este atributo, en Controller
+
   @Transient
   private final int limiteDeUsoDiario = 4;
   @Transient
   private final int retirosAdicionalesPorMenores = 1;
-  // Cuando se crea un Retiro se debe sumar uno a este atributo, en Controller
-  @Column(name = "usosHechos")
-  private Integer usosHechos;
 
   public TarjetaPersonaVulnerable(String codigo, PersonaVulnerable personaVulnerable){
     this.codigo = codigo;

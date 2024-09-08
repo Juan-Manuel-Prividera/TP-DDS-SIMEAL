@@ -3,15 +3,12 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
@@ -19,18 +16,26 @@ import java.time.LocalDate;
 @Table(name = "donarVianda")
 @Getter
 public class DonarVianda extends Persistente implements ColaboracionPuntuable {
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
-  private final Colaborador colaborador;
-  @Column
-  private final LocalDate fechaDeRealizacion;
+  private Colaborador colaborador;
 
-  @ManyToOne
+  @Column(name = "fechaDeRealizacion")
+  private LocalDate fechaDeRealizacion;
+
+  @OneToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
   private Vianda vianda;
+
   @Builder.Default
   @Transient
-  private final double factorDeReconocimiento = 1.5;
+  private double factorDeReconocimiento = 1.5;
+
+  public DonarVianda(Colaborador colaborador, LocalDate fecha, Vianda vianda) {
+   this.colaborador = colaborador;
+   this.fechaDeRealizacion = fecha;
+   this.vianda = vianda;
+  }
 
 
   public static DonarVianda create(Colaborador colaborador, LocalDate fechaDeRealizacion) {

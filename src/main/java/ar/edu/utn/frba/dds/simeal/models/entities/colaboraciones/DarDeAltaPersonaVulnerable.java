@@ -23,15 +23,19 @@ public class DarDeAltaPersonaVulnerable extends Persistente implements Colaborac
   @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
-  private final Colaborador colaborador;
+  private Colaborador colaborador;
+
   @Column
-  private final LocalDate fechaDeRealizacion;
+  private LocalDate fechaDeRealizacion;
+
   @OneToOne
   @JoinColumn(name = "persona_vulnerable_id", referencedColumnName = "id")
-  private final PersonaVulnerable personaVulnerable;
+  private PersonaVulnerable personaVulnerable;
+
   @OneToOne
   @JoinColumn(name = "tarjeta_id", referencedColumnName = "id")
-  private final TarjetaPersonaVulnerable tarjeta;
+  private TarjetaPersonaVulnerable tarjeta;
+
   @Builder.Default
   @Transient
   private double factorDeReconocimiento = 2;

@@ -3,15 +3,19 @@ package ar.edu.utn.frba.dds.simeal.models.repositories;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Repositorio implements WithSimplePersistenceUnit {
 
     public void guardar(Persistente p) {
+      try{
         beginTransaction();
         entityManager().persist(p);
         commitTransaction();
+      } catch (Exception e) {
+        rollbackTransaction();
+        throw e;
+      }
     }
 
     public void eliminar(Long id, Class< ? extends Persistente> clase) {
@@ -27,7 +31,7 @@ public class Repositorio implements WithSimplePersistenceUnit {
        beginTransaction();
        p.setActivo(false);
        entityManager().merge(p);
-        commitTransaction();
+       commitTransaction();
     }
 
     public void actualizar(Persistente p) {
@@ -37,19 +41,28 @@ public class Repositorio implements WithSimplePersistenceUnit {
     }
 
     public List<? extends Persistente> obtenerTodos(Class<? extends Persistente> clase) {
-      beginTransaction();
-      List<Persistente> persistentes = new ArrayList<>(entityManager()
-        .createQuery("FROM " + clase.getName(), clase)
-        .getResultList());
+      try {
+        beginTransaction();
+        List<Persistente> persistentes = (List<Persistente>) entityManager()
+          .createQuery("FROM " + clase.getName())
+          .getResultList();
         commitTransaction();
-
         return persistentes;
+      } catch (Exception e) {
+        rollbackTransaction();
+        throw e;
+      }
     }
 
     public Persistente buscarPorId(Long id, Class<? extends Persistente> clase) {
+      try {
         beginTransaction();
         Persistente persistente = entityManager().find(clase, id);
         commitTransaction();
         return persistente;
+      } catch (Exception e) {
+        rollbackTransaction();
+        throw e;
+      }
     }
 }

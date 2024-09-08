@@ -4,7 +4,7 @@ import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.EnviadorDeWpp;
 
 public class WhatsApp implements MedioContacto {
-  private EnviadorDeWpp enviador;
+  private final EnviadorDeWpp enviador;
 
   public WhatsApp(EnviadorDeWpp enviador) {
     this.enviador = enviador;

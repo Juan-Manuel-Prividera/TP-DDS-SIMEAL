@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-
+@Setter
 @Getter
 @NoArgsConstructor
 @Entity
@@ -29,18 +29,20 @@ public class Heladera extends Persistente {
   @Setter
   @Column(name="nombre")
   private String nombre;
+
   @Setter
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion ubicacion;
+
   @Column(name="fecha_colocacion")
   private LocalDate fechaColocacion;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name="colaborador_id", referencedColumnName = "id")
   private Colaborador colaboradorACargo;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.MERGE)
   @JoinColumn(name="modelo_heladera_id", referencedColumnName = "id")
   private ModeloHeladera modelo;
 
@@ -48,8 +50,12 @@ public class Heladera extends Persistente {
   private Boolean activa;
 
   // Esto genera una tabla intermedia con dos heladera_id nomas
-  // No creo que haya que ponerla en el der medio rari
   @ManyToMany
+  @JoinTable(
+    name = "heladeras_cercanas",
+    joinColumns = @JoinColumn(name = "heladera_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "heladera_cercana_id", referencedColumnName = "id")
+  )
   private List<Heladera> heladerasCercanas;
 
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {

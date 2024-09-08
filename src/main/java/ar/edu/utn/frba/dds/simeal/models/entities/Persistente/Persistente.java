@@ -22,6 +22,7 @@ public class Persistente {
 
     public Persistente() {
         fechaAlta = LocalDate.now();
+        activo = true;
     }
 
 }

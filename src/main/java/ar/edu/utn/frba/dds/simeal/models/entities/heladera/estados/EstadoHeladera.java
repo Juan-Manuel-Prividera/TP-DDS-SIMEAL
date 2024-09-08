@@ -16,7 +16,7 @@ public class EstadoHeladera extends Persistente {
   @Column(name="fecha_inicio")
   private LocalDate fechaInicio;
 
-  @Column(name="fecha_inicio")
+  @Column(name="fecha_fin")
   private LocalDate fechaFin;
 
   @Enumerated(EnumType.STRING)

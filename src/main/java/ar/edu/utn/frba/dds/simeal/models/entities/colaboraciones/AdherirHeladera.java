@@ -3,29 +3,33 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
-
+@AllArgsConstructor
 @Builder
+@Entity
+@NoArgsConstructor(force = true)
+@Table(name = "adherir_heladera")
 public class AdherirHeladera extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   @Getter
-  private final Colaborador colaborador;
+  private Colaborador colaborador;
+
   @ManyToOne
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
-  private final Heladera heladera;
+  private Heladera heladera;
 
   @Column(name = "fechaRealizacion")
   private final LocalDate fechaDeRealizacion;
+
   @Builder.Default
   @Transient
   private final double factorDeReconocimiento = 5;

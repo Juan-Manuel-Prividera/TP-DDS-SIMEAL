@@ -30,8 +30,8 @@ public class TarjetaTest {
           LocalDate.of(2020, 7, 20),
           new Ubicacion("Calle",123),
           null,
-          new Documento(TipoDocumento.DNI, "47221334"),
-          null)
+          personaVulnerable,
+          new Documento(TipoDocumento.DNI, "47221334"))
         );
 
     personaVulnerable = new PersonaVulnerable(
@@ -40,9 +40,10 @@ public class TarjetaTest {
         LocalDate.of(2020, 7, 20),
         new Ubicacion("Calle",123),
         hijos,
-        new Documento(TipoDocumento.DNI, "26231329"),
-        null
+        null,
+        new Documento(TipoDocumento.DNI, "26231329")
     );
+
 
     tarjeta = new TarjetaPersonaVulnerable("123456789", personaVulnerable);
 

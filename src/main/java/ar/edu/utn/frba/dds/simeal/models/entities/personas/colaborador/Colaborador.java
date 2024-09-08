@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+@Setter
 @Getter
 @NoArgsConstructor
 @Entity
@@ -46,6 +46,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @JoinColumn(name="rubro_id", referencedColumnName = "id")
   private Rubro rubro;
 
+  @Column(name = "tipo_juridico")
   @Enumerated(EnumType.STRING)
   private TipoJuridico tipoJuridico;
 
@@ -53,11 +54,11 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
   private FormularioContestado formularioContestado;
 
-  @OneToMany
-  @JoinColumn(referencedColumnName = "colaborador_id")
+  @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinColumn(name="colaborador_id", referencedColumnName = "id")
   private final List<Contacto> contactos = new ArrayList<>();
 
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
   @JoinColumn(name = "contacto_preferido_id", referencedColumnName = "id")
   private Contacto contactoPreferido;
 
@@ -66,12 +67,10 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @Enumerated(EnumType.STRING)
   private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
-  @Setter
   @Transient
   private Usuario usuario;
 
-  @Setter
-  @Transient
+  @Column(name = "puntos_de_reconocimiento_parciales")
   private double puntosDeReconocimientoParcial;
 
   public Colaborador(Documento documento, String nombre, String apellido) {
@@ -80,6 +79,12 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
     this.apellido = apellido;
   }
 
+  public Colaborador(Documento documento, String nombre, String apellido, Contacto contacto) {
+    this.documento = documento;
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.contactoPreferido = contacto;
+  }
   public Colaborador(Ubicacion ubicacion) {
     this.ubicacion = ubicacion;
   }
@@ -112,11 +117,8 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
       return true;
 
     Colaborador colaborador2 = (Colaborador) colaborador;
-    if (Objects.equals(colaborador2.getDocumento().getNroDocumento(), this.documento.getNroDocumento()) &&
-      colaborador2.getDocumento().getTipoDocumento() == this.documento.getTipoDocumento())
-      return true;
-
-    return false;
+    return Objects.equals(colaborador2.getDocumento().getNroDocumento(), this.documento.getNroDocumento()) &&
+      colaborador2.getDocumento().getTipoDocumento() == this.documento.getTipoDocumento();
   }
 
 }

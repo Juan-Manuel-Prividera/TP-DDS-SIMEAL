@@ -34,7 +34,7 @@ public class AdministradorDeEventos {
     List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(heladeraEvento);
     List<Colaborador> interesados = obtenerInteresados(suscripciones, evento);
     if(!interesados.isEmpty())
-      notificarInteresados(interesados, suscripciones.get(0).getNotificacion().getMensaje());
+      notificarInteresados(interesados, suscripciones.get(0).getNotificacion().getMensaje(heladeraEvento));
   }
 
   private int cantidadViandasHeladera(Heladera heladera) {

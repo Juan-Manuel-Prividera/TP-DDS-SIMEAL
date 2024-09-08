@@ -32,8 +32,8 @@ target/**
 # Properties
 application.properties
 
-persistence.xml
-
+src/main/resources/META-INF/persistence.xml.lol
+src/main/resources/META-INF/persistence.xml
 # API
 /API_RecomendacionDeColaboradores/.idea/
 /API_RecomendacionDeColaboradores/tmp/
@@ -43,3 +43,9 @@ persistence.xml
 /API_RecomendacionDeColaboradores/log/
 /API_RecomendacionDeColaboradores/bin/
 /API_RecomendacionDeColaboradores/config/api_config.yml
+
+/src/main/java/ar/edu/utn/frba/dds/simeal/log/
+/API_RecomendacionDeColaboradores/.dockerignore
+/API_RecomendacionDeColaboradores/.github/
+/API_RecomendacionDeColaboradores/public/
+/API_RecomendacionDeColaboradores/vendor/

@@ -7,29 +7,31 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 @Table(name = "oferta")
 public class Oferta extends Persistente {
-  @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private final Colaborador colaborador;
+
   @Column (name = "fechaDeRealizacion")
   private final LocalDate fechaDeRealizacion;
+
   @Column (name = "nombre")
   private String nombre;
-  @Getter
+
   @Column (name = "puntosNecesario")
   private double puntosNecesarios;
-  @Setter
+
   @ManyToOne
   @JoinColumn(name = "rubro_id", referencedColumnName = "id")
   private Rubro rubro;
-  @Setter
+
   @Column (name = "imagen")
   private String imagen;
 
