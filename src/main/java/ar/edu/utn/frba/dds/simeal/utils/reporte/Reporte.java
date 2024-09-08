@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,10 +19,10 @@ import java.util.List;
 
 public class Reporte {
 
-  private final List<Heladera> heladeras;
-  private final List<Incidente> incidentes;
-  private final List<Vianda> viandas;
-  private final List<DistribuirVianda> distribuciones;
+  private List<Heladera> heladeras;
+  private List<Incidente> incidentes;
+  private List<Vianda> viandas;
+  private List<DistribuirVianda> distribuciones;
 
 
   public Reporte(List<Heladera> heladeras, List<Incidente> incidentes, List<Vianda> viandas, List<DistribuirVianda> distribuciones) {
@@ -35,11 +36,12 @@ public class Reporte {
 
     Document documento = new Document(PageSize.A4, 50, 50, 50, 50);
 
-    // Revisar el tema de los path
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    String fechaActual = LocalDate.now().format(formato); // Convertir la fecha a un String
+    String fechaActual = LocalDate.now().format(formato);
 
-    String pdfPath = System.getProperty("java.io.tmpdir") + "Reporte_generado" + fechaActual +  ".pdf";
+
+    String directorioProyecto = System.getProperty("user.dir");
+    String pdfPath = directorioProyecto + File.separator + "Reportes_generados" + File.separator + "reporte_generado_" + fechaActual + ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
@@ -76,7 +78,7 @@ public class Reporte {
       // Tabla integrantes del grupo
       String[] cabeceraIntegrantes = {"Nombre", "Apellido"};
       PdfPTable tabla = HerramientasPDF.crearNuevaTabla(cabeceraIntegrantes);
-      agregarIntegrantes(tabla);
+      HerramientasPDF.agregarIntegrantes(tabla);
       documento.add(tabla);
 
 
@@ -181,7 +183,6 @@ public class Reporte {
       documento.add(tablaViandasxcolaborador);
       documento.close();
 
-      HerramientasPDF.subirArchivoAGithub(pdfPath);
 
     } catch (Exception e) {
       System.err.println("Error al generar el PDF: " + e.getMessage());
@@ -189,16 +190,4 @@ public class Reporte {
     }
   }
 
-  private static void agregarIntegrantes(PdfPTable table) {
-    table.addCell("Tomás");
-    table.addCell("Pauza Sager");
-    table.addCell("Juan Manuel");
-    table.addCell("Prividera");
-    table.addCell("Elías Martín");
-    table.addCell("Mouesca");
-    table.addCell("Felipe");
-    table.addCell("Russo");
-    table.addCell("Francisco");
-    table.addCell("Mosquera Alfaro");
-  }
 }
