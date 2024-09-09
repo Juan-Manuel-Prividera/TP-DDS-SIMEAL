@@ -49,3 +49,5 @@ src/main/resources/META-INF/persistence.xml
 /API_RecomendacionDeColaboradores/.github/
 /API_RecomendacionDeColaboradores/public/
 /API_RecomendacionDeColaboradores/vendor/
+/API_RecomendacionDeColaboradores/api_test-shm
+/API_RecomendacionDeColaboradores/api_test-wal

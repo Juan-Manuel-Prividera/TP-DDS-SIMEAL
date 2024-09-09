@@ -14,7 +14,7 @@ class RecomendadorTest < ActiveSupport::TestCase
     @colaborador3 = Colaborador.new(id: 2, nombre: "Pablo", apellido: "Domingo", puntos: 100, cantDonaciones: 3)
     @colaboradores.push(@colaborador3)
 
-    @colaborador2 = Colaborador.new(id: 3, nombre: "Juan", apellido: "Domingo", puntos: 170, cantDonaciones: 1)
+    @colaborador2 = Colaborador.new(id: 3, nombre: "Hernan", apellido: "Domingo", puntos: 170, cantDonaciones: 1)
     @colaboradores.push(@colaborador2)
   end
 

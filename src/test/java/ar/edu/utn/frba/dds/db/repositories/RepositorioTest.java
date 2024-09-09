@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,12 +26,14 @@ public class RepositorioTest implements SimplePersistenceTest {
     repositorio = ServiceLocator.getRepository(TipoRepo.COLABORADOR);
   }
 
+
   @Test @DisplayName("Se persiste correctamente con el metodo guardar")
   public void guardarTest() {
     Colaborador colaborador = new Colaborador(new Documento(TipoDocumento.DNI,"12345667"), "Tomas", "Pauza");
     repositorio.guardar(colaborador);
 
     assertNotNull(colaborador.getId());
+    repositorio.eliminar(colaborador.getId(), Colaborador.class);
   }
 
   @Test @DisplayName("Se obtienen correctamente todos los objetos con obtenerTodos()")
@@ -42,9 +45,13 @@ public class RepositorioTest implements SimplePersistenceTest {
     repositorio.guardar(colaborador2);
 
     List<Colaborador> colaboradores = (List<Colaborador>) repositorio.obtenerTodos(Colaborador.class);
+    System.out.println(colaboradores.get(0).getNombre());
     assertEquals(2, colaboradores.size());
     assertEquals(colaboradores.get(0).getId(), colaborador1.getId());
     assertEquals(colaboradores.get(1).getId(), colaborador2.getId());
+
+    repositorio.eliminar(colaborador1.getId(), Colaborador.class);
+    repositorio.eliminar(colaborador2.getId(), Colaborador.class);
   }
 
 
@@ -55,6 +62,8 @@ public class RepositorioTest implements SimplePersistenceTest {
     repositorio.guardar(colaborador);
     repositorio.desactivar(colaborador);
     assertFalse(colaborador.getActivo());
+
+    repositorio.eliminar(colaborador.getId(), Colaborador.class);
   }
 
   @Test @DisplayName("Se actualizan correctamente los persistentes")
@@ -68,6 +77,8 @@ public class RepositorioTest implements SimplePersistenceTest {
 
     List<Colaborador> colaboradores = (List<Colaborador>) repositorio.obtenerTodos(Colaborador.class);
     assertEquals("Roman",colaboradores.get(0).getNombre());
+
+    repositorio.eliminar(colaborador.getId(), Colaborador.class);
   }
 
   @Test @DisplayName("Se encuentra Persistente por Id correctamente")
@@ -77,6 +88,8 @@ public class RepositorioTest implements SimplePersistenceTest {
 
     Colaborador colab = (Colaborador) repositorio.buscarPorId(colaborador.getId(), Colaborador.class);
     assertEquals(colab.getId(), colaborador.getId());
+
+    repositorio.eliminar(colaborador.getId(), Colaborador.class);
   }
 
 }
