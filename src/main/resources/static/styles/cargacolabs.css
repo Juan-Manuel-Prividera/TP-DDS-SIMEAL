@@ -1,0 +1,57 @@
+.cargacsv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.cargacsv label {
+    width: 50%;
+    margin-top: 5%;
+}
+.cargacsv input{
+    width: 50%;
+}
+.cargacsv a{
+    width: 30%;
+}
+
+.seleccion-container{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#seleccion_modo {
+    display: flex;
+    flex-direction: row;
+    padding: 0 0 0 0;
+    margin-top: 5%;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#seleccion_modo a{
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    height: 20%;
+    font-size: 200% !important;
+    text-decoration: none;
+}
+#seleccion_modo a button{
+
+    font-size: 100% !important;
+}
+
+/*.tiposusuario a{*/
+/*    font-size: 100%;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.tiposusuario a button{*/
+/*    width: 50%;*/
+/*}*/
