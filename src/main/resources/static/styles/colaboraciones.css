@@ -23,7 +23,7 @@
     justify-content: space-between;
     min-height: 100vh;
     padding-bottom: 20px; /* Para dar un poco de espacio en la parte inferior */
-    width: 40%;
+    width: 50%;
     align-items: center;
 }
 
@@ -49,27 +49,42 @@
     padding: 10px 0; /* Ajusta el padding para el espacio interno */
 }
 .colab-btns-inf-izq{
-   align-self: auto;
+   display: flex;
+   align-self: center;
+   align-items: center;
+   justify-content: center;
    border: none;
    padding: 10px 20px;
    border-radius: 20px; /* Bordes redondeados */
    font-weight: bold;
    cursor: pointer;
-   width: 400px;
+   width: 100% !important;
 }
+.colab-btns-inf-izq a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 .colab-btns-inf-izq .btn {
+    display: flex;
     background-color: var(--verde);
     color: black; /* Texto oscuro */
     font-size: 150%;
-    width: 130%;
+    width: 50%;
     margin-top: 500px;
-    display: flex;
-    flex-direction: row;
     justify-content: center; /* Centrado vertical */
     align-items: center; /* Centrado horizontal */
     text-align: center; /* Asegura que el texto esté centrado */
+    text-decoration: none;
 }
-
+.colab-btns-inf-der a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 .colab-btns-inf-der{
     align-self: auto;
     border: none;
@@ -77,13 +92,13 @@
     border-radius: 20px; /* Bordes redondeados */
     font-weight: bold;
     cursor: pointer;
-    width: 400px;
+    width: 100%;
 }
 .colab-btns-inf-der .btn {
     background-color: var(--verde);
     color: black; /* Texto oscuro */
     font-size: 150%;
-    width: 130%;
+    width: 50%;
     margin-top: 500px;
     display: flex;
     flex-direction: row;
@@ -140,7 +155,7 @@
     display: flex;
     flex:1;
     justify-content: left;
-    align-items: top;
+    align-items: center;
     height: 60vh;
 }
 
@@ -153,16 +168,21 @@
 .container-selector-mapa {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
     margin-top: 5%;
     margin-bottom: 10%;
     height: auto;
 }
 
 .titulo-donacion-vianda{
+    display: flex;
+    justify-self: center;
     align-self: center;
-    font-size: 30px;
+    font-size: 190%;
     font-weight: bold;
+
 }
 
 .datos-heladera{
@@ -171,7 +191,7 @@
 }
 
 .btns-confirmacion{
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -179,25 +199,26 @@
 
 .btn-success,
 .btn-danger {
-    width: 20%; /* Ancho de los botones */
+    width: 30%; /* Ancho de los botones */
     padding: 10px;
-    font-size: 16px;
+    font-size: 100%;
     border-radius: 5px;
     align-self: center;
 }
 
 .datos-distribucion{
-    width: 70%;
+    width: 80%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     align-self: center;
 }
 
 .datos-heladera-origen .datos-heladera-destino{
-    width 100%;
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .texto-forma-colaboracion {
@@ -226,9 +247,12 @@
 .btn-confirmar-colaboracion {
     display: flex;
     width: 70%;
-    height: 100%;
-    margin-top: 20px;
+    height: 9vh;
+    margin-top: 10%;
     justify-content: center;
+}
+.btn-confirmar-colaboracion button{
+    font-size: 130%;
 }
 
 .container-frase-colaboraciones {

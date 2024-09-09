@@ -9,12 +9,13 @@
 
 .container-frase-btn {
     text-align: center;
+    width: 50%;
     margin-left: 1%;
 }
 
 .form-control {
-    margin-left: 25%;
-    width: 50%;
+    margin-left: 0%;
+    width: 60%;
 }
 
 .form-group {
@@ -23,6 +24,29 @@
 }
 
 .form-group a{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+.tarjeta-btns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7%;
+}
+
+.tarjeta-btns a{
+    width: 60%;
+    height: 7vh;
+    font-size: 180% !important;
+    margin-bottom: 5%;
+}
+
+.tarjeta-btns a button{
+    margin-bottom: 5% !important;
+    font-size: 100%;
+}
