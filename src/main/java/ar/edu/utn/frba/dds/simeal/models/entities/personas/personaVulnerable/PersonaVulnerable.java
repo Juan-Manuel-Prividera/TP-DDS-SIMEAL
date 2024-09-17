@@ -33,12 +33,12 @@ public class PersonaVulnerable extends Persistente {
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion domilicio;
 
-  @OneToMany(mappedBy = "padre")
+  @OneToMany
+  @JoinColumn(name = "padre_id", referencedColumnName = "id")
   private List<PersonaVulnerable> hijos = new ArrayList<>();
 
-  @ManyToOne
-  @JoinColumn(name = "padre_id", referencedColumnName = "id")
-  private PersonaVulnerable padre;
+  @Column(name = "cant_hijos")
+  private int cantidadHijosMenores;
 
   @Embedded
   private Documento documento;
@@ -53,6 +53,7 @@ public class PersonaVulnerable extends Persistente {
   }
 
   public int cantHijosMenores() {
-    return this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
+    int cant = this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
+    return cant;
   }
 }

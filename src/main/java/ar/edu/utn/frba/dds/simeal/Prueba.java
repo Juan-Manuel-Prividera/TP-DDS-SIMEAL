@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDoc
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
@@ -99,5 +100,14 @@ public class Prueba implements WithSimplePersistenceUnit {
     for(Colaborador colaborador : listaColabs){
       System.out.println(colaborador.getNombre() + " " + colaborador.getApellido());
     }
+
+
+    PersonaVulnerable personaVulnerable = new PersonaVulnerable("TOmas", LocalDate.now(),LocalDate.now(),null,null,0,null);
+    PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", LocalDate.now(),LocalDate.now(),null,null,0,null);
+    PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro", LocalDate.now(),LocalDate.now(),null,List.of(personaVulnerable1,personaVulnerable),2,null);
+
+    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable);
+    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable1);
+    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable2);
   }
 }

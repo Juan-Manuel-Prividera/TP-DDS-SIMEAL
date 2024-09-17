@@ -4,12 +4,17 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Getter
-public class MedicionMovimiento implements Medicion {
-  LocalDateTime fechaHora;
+@Entity
+@DiscriminatorValue("movimiento")
+public class MedicionMovimiento extends Medicion {
+
   @Override
   public void procesar(Heladera heladera) {
     Alerta alerta = new Alerta(

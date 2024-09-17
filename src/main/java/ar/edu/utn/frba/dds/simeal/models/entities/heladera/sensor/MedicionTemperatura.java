@@ -4,13 +4,19 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
-public class MedicionTemperatura implements Medicion{
-  @Getter
-  LocalDateTime fechaHora;
-  Double temperaturaMedida;
+@Entity
+@DiscriminatorValue("temperatura")
+public class MedicionTemperatura extends Medicion{
+  @Column(name = "temperatura_medida")
+  private Double temperaturaMedida;
+
   @Override
   public void procesar(Heladera heladera) {
     if (!heladera.temperaturaAdecuada(temperaturaMedida)) {

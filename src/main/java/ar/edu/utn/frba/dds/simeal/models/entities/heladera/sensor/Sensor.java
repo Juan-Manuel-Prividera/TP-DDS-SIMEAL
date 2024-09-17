@@ -28,6 +28,7 @@ public class Sensor extends Persistente {
   public void recibir(Medicion medicion) {
     if (medicion.esDeTemperatura()) ultimaTemperaturaRegistrada = (MedicionTemperatura) medicion;
     medicion.procesar(heladera);
+    medicion.setSensor(this);
   }
 
 }

@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Table(name="respuestas")
 @NoArgsConstructor(force = true)
 public class Respuesta extends Persistente {
-  @Embedded
-  @Column(name = "pregunta")
+  @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
+  @ManyToOne
   private final Pregunta pregunta;
   @Lob
   @Column(name="respuesta")

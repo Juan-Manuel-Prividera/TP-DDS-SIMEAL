@@ -29,16 +29,17 @@ public class SolicitudOperacionHeladera extends Persistente {
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
-  @Column(name = "cantViandas")
+  @Column(name = "cant_viandas")
   private Integer cantViandas;
 
   @Builder.Default
   @Transient
   private int horasParaEjecutarse = 3;
 
-  @Column(name = "horaInicio")
+  @Column(name = "hora_inicio")
   private LocalDateTime horaInicio;
-
+  @Column(name = "hora_solicitud")
+  private LocalDateTime horaSolicitud;
   public SolicitudOperacionHeladera() { }
 
   //Por alguna razón, si ejecutas el metodo al mismo tiempo en el que creaste la solicitud, devuelve false

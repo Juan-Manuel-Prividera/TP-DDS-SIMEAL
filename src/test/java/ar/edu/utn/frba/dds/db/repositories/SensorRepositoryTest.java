@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-public class SensorRepositoryTest implements SimplePersistenceTest {
+public class SensorRepositoryTest  {
   SensorRepository sensorRepository = (SensorRepository) ServiceLocator.getRepository(TipoRepo.SENSOR);
   Repositorio repositorio = ServiceLocator.getRepository(TipoRepo.HELADERA);
 
