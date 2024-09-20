@@ -31,6 +31,9 @@
                 <li class="nav-item mr-auto" id="tarjeta-btn">
                     <a class="nav-link seleccionado" href="cargar_colaboraciones.html">Cargar CSV</a>
                 </li>
+                <li class="nav-item mr-auto" id="reportes-btn">
+                <a class="nav-link" href="reportes.html">Reportes</a>
+                </li>
                 <li class="nav-item mr-auto" id="colaboracion-btn">
                     <a class="nav-link" href="cambiodemodo.html">Cambiar Modo</a>
                 </li>
@@ -39,13 +42,34 @@
     </nav>
 </div>
 </header>
+
+<div class="exaple-container">
+
+    <h1>Ejemplo de Estructura CSV</h1>
+    <p>Se espera que el archivo CSV tenga el siguiente formato:</p>
+
+    <pre>
+        Tipo de documento,Nro de documento,Nombre,Apellido,Email,Fecha de la colaboracion,Tipo de colaboracion,Cantidad
+        DNI,12345678,Pepe,Rodriguez,pepito@gmail.com,01/03/2022,REDISTRIBUCION_VIANDA, 5
+        DNI,11111111,Pablo,Rodriguez, pablito@gmail.com,01/03/2022,DONACION_VIANDA,5
+        DNI,22222222,Jose,Rodriguez,josesito@gmail.com,01/03/2022,DINERO,5
+        DNI,22222222,Jose,Rodriguez,josesito@gmail.com,01/03/2022,DINERO,10
+    </pre>
+
+</div>
     <div class="form-group cargacsv">
+        <form id="uploadForm" class="cargacsv">
         <label>Archivo csv</label>
-        <input type="file" class="form-control custom-file-imput mb-5" id="img" placeholder="Inserte un archivo .csv">
+        <input id="fileInput" type="file" class="form-control custom-file-imput mb-5" placeholder="Inserte un archivo .csv">
+        </form>
+        <progress id="progressBar" value="0" max="100"></progress>
+        <p id="progressText">0% completado</p>
+
         <a>
             <button class="btn btn-dark btn-seleccionar rounded m-auto">Subir archivo</button>
         </a>
-    <div>
+    </div>
 
 </body>
+    <script src="js/cargarcsv.js"></script>
 </html>
