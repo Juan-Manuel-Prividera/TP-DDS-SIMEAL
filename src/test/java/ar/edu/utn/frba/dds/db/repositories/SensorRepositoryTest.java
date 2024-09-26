@@ -5,8 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
-import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

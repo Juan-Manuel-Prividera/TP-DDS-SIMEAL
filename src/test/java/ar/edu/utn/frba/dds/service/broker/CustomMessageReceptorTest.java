@@ -2,7 +2,7 @@ package ar.edu.utn.frba.dds.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.service.broker.CustomMessageReceptor;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.junit.jupiter.api.DisplayName;

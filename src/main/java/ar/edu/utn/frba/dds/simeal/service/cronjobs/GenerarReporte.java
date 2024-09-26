@@ -7,7 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecni
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.reporte.Reporte;
 
 import java.util.ArrayList;

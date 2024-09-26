@@ -3,7 +3,7 @@ package ar.edu.utn.frba.dds.db.repositories;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.service.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.Test;
 

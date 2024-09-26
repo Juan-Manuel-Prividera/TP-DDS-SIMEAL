@@ -181,7 +181,7 @@
     <dependency>
       <groupId>io.javalin</groupId>
       <artifactId>javalin</artifactId>
-      <version>5.2.0</version>
+      <version>6.3.0</version>
     </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.kohsuke/github-api -->
@@ -191,6 +191,17 @@
       <version>1.324</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.github.jknack</groupId>
+      <artifactId>handlebars</artifactId>
+      <version>4.4.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin-rendering</artifactId>
+      <version>6.3.0</version>
+    </dependency>
 
   </dependencies>
   <build>

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.service;
+package ar.edu.utn.frba.dds.simeal.config;
 
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ServiceLocator {
   private static final Map<TipoRepo , Repositorio> repositories = new HashMap<>();
-
+  // TODO: Ver de hacer como hizo el profe para no tener el bloque estatico
   static {
     repositories.put(TipoRepo.COLABORACION, new ColaboracionRepository());
     repositories.put(TipoRepo.SUSCRIPCION, new SuscripcionesRepository());
