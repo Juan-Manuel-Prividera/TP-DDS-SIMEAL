@@ -17,8 +17,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SuscripcionRepositoryTest implements SimplePersistenceTest {
-  SuscripcionesRepository suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository(TipoRepo.SUSCRIPCION);
-  Repositorio repositorio = ServiceLocator.getRepository(TipoRepo.HELADERA);
+  SuscripcionesRepository suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository(SuscripcionesRepository.class);
+  Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
 
   @Test @DisplayName("Se ecuentra una suscrpcion por la heladera que tenga asginada")
   public void buscarPorHeladeraTest() {

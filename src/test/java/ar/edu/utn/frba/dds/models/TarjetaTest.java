@@ -30,7 +30,7 @@ public class TarjetaTest {
           LocalDate.of(2020, 7, 20),
           new Ubicacion("Calle",123),
           null,
-          personaVulnerable,
+          0,
           new Documento(TipoDocumento.DNI, "47221334"))
         );
 
@@ -40,7 +40,7 @@ public class TarjetaTest {
         LocalDate.of(2020, 7, 20),
         new Ubicacion("Calle",123),
         hijos,
-        null,
+        0,
         new Documento(TipoDocumento.DNI, "26231329")
     );
 

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
@@ -14,6 +15,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Per
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
@@ -41,7 +44,7 @@ public class Prueba implements WithSimplePersistenceUnit {
     Contacto contactoSecundario = new Contacto("ereinosa@gmail.com", new Email(null));
     colaborador1.addContacto(contactoSecundario);
 
-    Repositorio repositorioColabs = ServiceLocator.getRepository(TipoRepo.COLABORADOR);
+    Repositorio repositorioColabs = ServiceLocator.getRepository(Repositorio.class);
     repositorioColabs.guardar(colaborador0);
     repositorioColabs.guardar(colaborador1);
     repositorioColabs.guardar(colaborador2);
@@ -52,12 +55,12 @@ public class Prueba implements WithSimplePersistenceUnit {
 
     Ubicacion ubicacion = new Ubicacion(1,2);
     ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo1",2,3,4);
-    Repositorio modeloRepo = ServiceLocator.getRepository(TipoRepo.MODELO_HELADERA);
+    Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
     modeloRepo.guardar(modeloHeladera);
 
     Heladera heladera = new Heladera("Heladera de prueba",ubicacion, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
 
-    Repositorio repositorioHeladera = ServiceLocator.getRepository(TipoRepo.HELADERA);
+    Repositorio repositorioHeladera = ServiceLocator.getRepository(Repositorio.class);
     repositorioHeladera.guardar(heladera);
 
     Vianda vianda0 = new Vianda(new TipoDeComida("Ensalada"), LocalDate.of(2024,12,20), LocalDate.now(),colaborador5,200,heladera,false);
@@ -79,7 +82,7 @@ public class Prueba implements WithSimplePersistenceUnit {
     DonarVianda donarVianda7 = new DonarVianda(colaborador3,LocalDate.now(),vianda7);
 
     // Persiste donaciones y viandas
-    Repositorio repoColabs = ServiceLocator.getRepository(TipoRepo.COLABORACION);
+    Repositorio repoColabs = ServiceLocator.getRepository(ColaboracionRepository.class);
     repoColabs.guardar(donarVianda0);
     repoColabs.guardar(donarVianda1);
     repoColabs.guardar(donarVianda2);
@@ -106,8 +109,8 @@ public class Prueba implements WithSimplePersistenceUnit {
     PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", LocalDate.now(),LocalDate.now(),null,null,0,null);
     PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro", LocalDate.now(),LocalDate.now(),null,List.of(personaVulnerable1,personaVulnerable),2,null);
 
-    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable);
-    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable1);
-    ServiceLocator.getRepository(TipoRepo.PERSONA_VULNERABLE).guardar(personaVulnerable2);
+    ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
+    ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable1);
+    ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable2);
   }
 }

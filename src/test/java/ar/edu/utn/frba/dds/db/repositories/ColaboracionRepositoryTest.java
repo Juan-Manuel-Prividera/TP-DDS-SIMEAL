@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.db.repositories;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
@@ -15,8 +16,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ColaboracionRepositoryTest implements SimplePersistenceTest {
-  ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator.getRepository(TipoRepo.COLABORACION);
-  Repositorio repositorio = ServiceLocator.getRepository(TipoRepo.COLABORADOR);
+  ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
+  Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
 
   @Test @DisplayName("Se encuentran colaboraciones por el colaborador que las hizo")
   public void buscarColaboracionPorIdTest() {

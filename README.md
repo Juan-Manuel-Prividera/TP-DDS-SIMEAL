@@ -1,6 +1,6 @@
 # Simeal
 _Sistema de Mejora Alimentaria_
-![Logo simeal](src/main/resources/img/heladera.png)
+![Logo simeal](src/main/resources/static/img/heladera.png)
 
 # java-base-project
 

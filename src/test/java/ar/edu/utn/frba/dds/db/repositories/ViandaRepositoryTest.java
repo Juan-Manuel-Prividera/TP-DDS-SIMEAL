@@ -15,8 +15,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ViandaRepositoryTest implements SimplePersistenceTest {
-    ViandaRepository viandaRepository = (ViandaRepository) ServiceLocator.getRepository(TipoRepo.VIANDA);
-    Repositorio repositorio = ServiceLocator.getRepository(TipoRepo.HELADERA);
+    ViandaRepository viandaRepository = (ViandaRepository) ServiceLocator.getRepository(ViandaRepository.class);
+    Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
 
     @Test @DisplayName("Se encuentra vianda por la heladera en la que este")
     public void buscarPorHeladera() {

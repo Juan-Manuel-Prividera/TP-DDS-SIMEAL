@@ -2,13 +2,13 @@ package ar.edu.utn.frba.dds.simeal.utils;
 
 import io.javalin.http.Context;
 import io.javalin.rendering.FileRenderer;
+import org.jetbrains.annotations.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
 public class JavalinRenderer implements FileRenderer {
-  private Map<String, FileRenderer> renderers = new HashMap<>();
+  private final Map<String, FileRenderer> renderers = new HashMap<>();
 
   public JavalinRenderer register(String extension, FileRenderer renderer) {
     renderers.put(extension, renderer);

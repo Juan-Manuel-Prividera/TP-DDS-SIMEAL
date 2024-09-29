@@ -1,13 +1,17 @@
 package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.reporte.Reporte;
 
 import java.util.ArrayList;
@@ -20,11 +24,11 @@ import java.util.List;
 public class GenerarReporte {
 
   public static void main(String[] args) {
-    List<Heladera> heladeras = (List<Heladera>) ServiceLocator.getRepository(TipoRepo.HELADERA).obtenerTodos(Heladera.class);
-    List<FallaTecnica> fallaTecnicas = (List<FallaTecnica>) ServiceLocator.getRepository(TipoRepo.FALLA_TECNICA).obtenerTodos(FallaTecnica.class);
-    List<Alerta> alertas = (List<Alerta>) ServiceLocator.getRepository(TipoRepo.ALERTA).obtenerTodos(Alerta.class);
-    List<Vianda> viandas = (List<Vianda>) ServiceLocator.getRepository(TipoRepo.VIANDA).obtenerTodos(Vianda.class);
-    List<DistribuirVianda> distribuciones = (List<DistribuirVianda>) ServiceLocator.getRepository(TipoRepo.COLABORACION).obtenerTodos(DistribuirVianda.class);
+    List<Heladera> heladeras = (List<Heladera>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Heladera.class);
+    List<FallaTecnica> fallaTecnicas = (List<FallaTecnica>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(FallaTecnica.class);
+    List<Alerta> alertas = (List<Alerta>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Alerta.class);
+    List<Vianda> viandas = (List<Vianda>) ServiceLocator.getRepository(ViandaRepository.class).obtenerTodos(Vianda.class);
+    List<DistribuirVianda> distribuciones = (List<DistribuirVianda>) ServiceLocator.getRepository(ColaboracionRepository.class).obtenerTodos(DistribuirVianda.class);
 
     List<Incidente> incidentes = new ArrayList<>();
     incidentes.addAll(alertas);

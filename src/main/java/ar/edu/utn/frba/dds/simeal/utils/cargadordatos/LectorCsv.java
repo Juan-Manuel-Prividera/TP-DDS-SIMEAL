@@ -1,13 +1,13 @@
 package ar.edu.utn.frba.dds.simeal.utils.cargadordatos;
 
 import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
+import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
@@ -27,15 +27,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class LectorCsv {
-  private final String csvFile;
-
-
-  public LectorCsv(String csvFile) {
-    this.csvFile = csvFile;
-  }
-
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
-  public List<ColaboracionPuntuable> leerColaboradores() throws IOException, CsvException {
+  public List<ColaboracionPuntuable> leerColaboradores(String csvFile) throws IOException, CsvException {
+
     List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
     String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -62,15 +56,15 @@ public class LectorCsv {
       LocalDate fechaColaboracion = LocalDate.parse(line[5], formatter);
       TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
-
+      System.out.println(nombre);
       Colaborador colaborador =
           validarSiExisteElColaboradorEnLista(numeroDocumento, listadoColaboracionesPuntuable);
 
       if (colaborador == null) {
         Documento documento = new Documento(tipoDocumento, numeroDocumento);
-        Email email = new Email(null);
+        Contacto contacto = new Contacto(mail, MedioDeContactoFactory.crearMedioDeContacto(mail));
         colaborador = new Colaborador(documento, nombre, apellido);
-        colaborador.addContacto(new Contacto(mail, email));
+        colaborador.setContactoPreferido(contacto);
       }
       ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
           .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);

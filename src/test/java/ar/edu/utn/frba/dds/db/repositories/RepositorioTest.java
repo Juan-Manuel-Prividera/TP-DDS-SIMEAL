@@ -22,7 +22,7 @@ public class RepositorioTest implements SimplePersistenceTest {
 
   @BeforeEach
   public void init() {
-    repositorio = ServiceLocator.getRepository(TipoRepo.COLABORADOR);
+    repositorio = ServiceLocator.getRepository(Repositorio.class);
   }
 
 

@@ -20,7 +20,7 @@ public class CustomMessageReceptorTest {
   @Test
   @DisplayName("Se recibe un mensaje del broker conteniendo la medicion y se llama al sensor para procesarla")
   public void mensajeRecibidoYProcesado() throws Exception {
-    messageReceptor = new CustomMessageReceptor((SensorRepository) ServiceLocator.getRepository(TipoRepo.SENSOR));
+    messageReceptor = new CustomMessageReceptor((SensorRepository) ServiceLocator.getRepository(SensorRepository.class));
     MqttMessage mqttMessage = mock(MqttMessage.class);
     when(mqttMessage.toString())
         .thenReturn("{\"nombreHeladera\":\"UTNMedrano\",\"medicion\":{\"tipoMedicion\":\"medicionMovimiento\",\"fechaHora\":\""+ LocalDateTime.now() + "\"}}");

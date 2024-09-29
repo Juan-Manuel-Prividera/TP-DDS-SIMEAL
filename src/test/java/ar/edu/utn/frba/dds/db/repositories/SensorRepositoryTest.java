@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class SensorRepositoryTest  {
-  SensorRepository sensorRepository = (SensorRepository) ServiceLocator.getRepository(TipoRepo.SENSOR);
-  Repositorio repositorio = ServiceLocator.getRepository(TipoRepo.HELADERA);
+  SensorRepository sensorRepository = (SensorRepository) ServiceLocator.getRepository(SensorRepository.class);
+  Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
 
   @Test @DisplayName("Se encuentra un sensor por la heladera en la que esta")
   public void buscarSensorPorHeladera() {

@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModeloHeladeraRepositoryTest implements SimplePersistenceTest {
-  ModeloHeladeraRepository modeloHeladeraRepository = (ModeloHeladeraRepository) ServiceLocator.getRepository(TipoRepo.MODELO_HELADERA);
+  ModeloHeladeraRepository modeloHeladeraRepository = (ModeloHeladeraRepository) ServiceLocator.getRepository(ModeloHeladeraRepository.class);
   @Test
   public void buscarModeloPorNombreTest() {
     ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo de Prueba",1,2,3);

@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEven
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
@@ -16,7 +17,7 @@ public class EventoFactory {
 
     public static void crearEvento(Heladera heladera, TipoEvento tipoEvento) {
         AdministradorDeEventos administradorDeEventos = crearAdministrador();
-        Repositorio heladeraRepository = ServiceLocator.getRepository(TipoRepo.HELADERA);
+        Repositorio heladeraRepository = ServiceLocator.getRepository(Repositorio.class);
         if(heladera == null) return;
         administradorDeEventos.huboUnEvento(
         switch (tipoEvento) {

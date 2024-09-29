@@ -10,8 +10,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     formData.append('file', file);
 
     const xhr = new XMLHttpRequest();
-    // TODO: Cambiar '/upload' un endpoint posta cuando este
-    xhr.open('POST', '/upload', true);
+    xhr.open('POST', '/simeal/migracion/upload', true);
 
     xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {

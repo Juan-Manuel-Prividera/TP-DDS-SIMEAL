@@ -153,7 +153,7 @@ public class NotificarSuscripcionesTest {
     doReturn(List.of(suscripcion)).when(suscripcionesRepository).buscarPor(heladera);
     notificadorMock.when(() -> Notificador.notificar(suscriptor,notificacion.getMensaje(heladera))).thenAnswer(invocationOnMock -> null);
     eventoFactoryMock.when(() -> EventoFactory.crearEvento(heladera, TipoEvento.INCIDENTE)).thenCallRealMethod();
-    serviceLocatorMocke.when(() -> ServiceLocator.getRepository(TipoRepo.HELADERA)).thenReturn(heladeraRepository);
+    serviceLocatorMocke.when(() -> ServiceLocator.getRepository(Repositorio.class)).thenReturn(heladeraRepository);
 
 
     AdministradorDeEventos administradorDeEventos = new AdministradorDeEventos(viandaRepository, suscripcionesRepository);

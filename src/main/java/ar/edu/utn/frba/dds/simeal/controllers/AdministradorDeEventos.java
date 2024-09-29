@@ -25,8 +25,8 @@ public class AdministradorDeEventos {
     this.suscripcionesRepository = suscripcionesRepository;
   }
   public AdministradorDeEventos() {
-    this.viandaRepository = (ViandaRepository) ServiceLocator.getRepository(TipoRepo.VIANDA);
-    this.suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository(TipoRepo.SUSCRIPCION);
+    this.viandaRepository = (ViandaRepository) ServiceLocator.getRepository(ViandaRepository.class);
+    this.suscripcionesRepository = (SuscripcionesRepository) ServiceLocator.getRepository(SuscripcionesRepository.class);
   }
 
   public void huboUnEvento(Evento evento) {

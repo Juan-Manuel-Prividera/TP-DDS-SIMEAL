@@ -1,9 +1,11 @@
 package ar.edu.utn.frba.dds.simeal.service.enviarDatosColaboradores;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
@@ -116,15 +118,15 @@ public class EnviarDatosColabs {
 
     private static List<Colaborador> obtenerColaboradores() {
        return (List<Colaborador>) ServiceLocator
-         .getRepository(TipoRepo.COLABORADOR).obtenerTodos(Colaborador.class);
+         .getRepository(Repositorio.class).obtenerTodos(Colaborador.class);
     }
     private static List<DonarVianda> obtenerDonaciones() {
         return  (List<DonarVianda>) ServiceLocator
-          .getRepository(TipoRepo.COLABORACION).obtenerTodos(DonarVianda.class);
+          .getRepository(ColaboracionRepository.class).obtenerTodos(DonarVianda.class);
     }
 
     private static List<AdherirHeladera> obtenerColbasExtra(Colaborador colaborador) {
-        ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator.getRepository(TipoRepo.COLABORACION);
+        ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
         return (List<AdherirHeladera>) colaboracionRepository
           .getPorColaborador(colaborador.getId(), AdherirHeladera.class);
     }

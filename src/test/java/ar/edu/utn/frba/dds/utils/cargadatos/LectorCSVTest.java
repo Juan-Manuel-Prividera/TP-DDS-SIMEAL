@@ -37,7 +37,7 @@ public class LectorCSVTest {
     }
     @BeforeEach
     public void init() throws FileNotFoundException {
-        lectorCSV = new LectorCsv(csvFile);
+        lectorCSV = new LectorCsv();
         colaboraciones = new ArrayList<>();
         colaboracionBuilder = new ColaboracionBuilder();
         notificadorMock = mockStatic(Notificador.class);
@@ -50,13 +50,13 @@ public class LectorCSVTest {
 
     @Test @DisplayName("Se leyeron la cantidad de filas esperadas")
     public void leerColaboradoresTestCantidadDeFilas() throws IOException, CsvException {
-        colaboraciones = lectorCSV.leerColaboradores();
+        colaboraciones = lectorCSV.leerColaboradores(csvFile);
         Assertions.assertEquals(5, colaboraciones.size());
     }
 
     @Test @DisplayName("Se crea correctamente la clase colaboracion")
     public void creacionDeColaboracionTest() throws IOException, CsvException {
-        colaboraciones = lectorCSV.leerColaboradores();
+        colaboraciones = lectorCSV.leerColaboradores(csvFile);
         ColaboracionPuntuable colaboracion = colaboraciones.get(0);
         Assertions.assertEquals(colaboracion.getColaborador().getDocumento().getNroDocumento(), colaboracionPrueba.getColaborador().getDocumento().getNroDocumento());
         Assertions.assertEquals(colaboracion.getColaborador().getApellido(), colaboracionPrueba.getColaborador().getApellido());
@@ -64,7 +64,7 @@ public class LectorCSVTest {
 
    @Test
    public void validacionDePuntosDeReconocimiento() throws IOException, CsvException {
-        colaboraciones = lectorCSV.leerColaboradores();
+        colaboraciones = lectorCSV.leerColaboradores(csvFile);
         Colaborador colaborador = colaboraciones.get(4).getColaborador();
 
         Assertions.assertEquals(7.5,colaborador.getPuntosDeReconocimientoParcial());
