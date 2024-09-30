@@ -1,0 +1,3 @@
+[submodule "API_RecomendacionColaboradores"]
+	path = API_RecomendacionColaboradores
+	url = https://github.com/JuanManuelPrividera/API_RecomendacionColaboradores.git
