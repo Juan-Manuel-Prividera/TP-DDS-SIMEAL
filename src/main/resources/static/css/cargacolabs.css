@@ -55,9 +55,12 @@ pre {
     padding: 10px;
     border: 1px solid #ccc;
     margin-top: 20px;
-    white-space: pre-wrap;
+    white-space: break-spaces;
     word-wrap: break-word;
-    width: 55%;
+    width: 75%;
+    font-size: 2.3vh;
+    text-align: start;
+    text-indent: 0;
 }
 .seleccion-container{
     background-color: white;

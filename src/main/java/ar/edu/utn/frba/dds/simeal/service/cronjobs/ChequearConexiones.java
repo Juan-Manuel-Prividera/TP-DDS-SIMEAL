@@ -1,12 +1,11 @@
 package ar.edu.utn.frba.dds.simeal.service.cronjobs;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 
 import java.time.LocalDateTime;
 import java.util.List;

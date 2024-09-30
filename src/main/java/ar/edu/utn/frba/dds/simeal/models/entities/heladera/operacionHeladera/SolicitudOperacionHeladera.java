@@ -40,6 +40,7 @@ public class SolicitudOperacionHeladera extends Persistente {
   private LocalDateTime horaInicio;
   @Column(name = "hora_solicitud")
   private LocalDateTime horaSolicitud;
+
   public SolicitudOperacionHeladera() { }
 
   //Por alguna razón, si ejecutas el metodo al mismo tiempo en el que creaste la solicitud, devuelve false

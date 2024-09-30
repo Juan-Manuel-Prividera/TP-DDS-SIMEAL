@@ -1,13 +1,12 @@
 package ar.edu.utn.frba.dds.db.repositories;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

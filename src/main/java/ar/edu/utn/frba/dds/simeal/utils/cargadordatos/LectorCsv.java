@@ -27,9 +27,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class LectorCsv {
+  private double cantTotalColaboraciones = 0;
+  private double cantLeidas = 0;
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
   public List<ColaboracionPuntuable> leerColaboradores(String csvFile) throws IOException, CsvException {
-
     List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
     String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -38,6 +39,9 @@ public class LectorCsv {
         new InputStreamReader(new FileInputStream(csvFile), StandardCharsets.UTF_8))
             .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
             .build();
+
+    List<String[]> filas = lector.readAll();
+    cantTotalColaboraciones = filas.size();
 
     while ((line = lector.readNext()) != null) {
       if (Objects.equals(line[0], "\n")) {
@@ -70,10 +74,11 @@ public class LectorCsv {
           .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
 
       listadoColaboracionesPuntuable.add(colaboracionPuntuable);
-
+      cantLeidas ++;
 
     }
-    enviarCredencialesDeAcceso(listadoColaboracionesPuntuable.stream().map(ColaboracionPuntuable::getColaborador).toList());
+    // Esta comentado para no mandar un mail cada vez que se ejecuta :)
+    //enviarCredencialesDeAcceso(listadoColaboracionesPuntuable.stream().map(ColaboracionPuntuable::getColaborador).toList());
     return listadoColaboracionesPuntuable;
   }
 
@@ -94,4 +99,7 @@ public class LectorCsv {
       Notificador.notificar(colaborador,new Mensaje(("Tus credenciales de acceso son: tu nombre y la contraseña 1234")));
     }
   }
+
+
+
 }

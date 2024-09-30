@@ -26,6 +26,9 @@ public class PersonaVulnerable extends Persistente {
   @Column (name = "fechaNacimiento")
   private LocalDate fechaNacimiento;
 
+  @Column(name = "edad")
+  private int edad;
+
   @Column (name = "fechaRegistro")
   private LocalDate fechaRegistro;
 
@@ -55,5 +58,9 @@ public class PersonaVulnerable extends Persistente {
   public int cantHijosMenores() {
     int cant = this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
     return cant;
+  }
+
+  public void calcularEdad() {
+    edad = LocalDate.now().getYear() - this.fechaNacimiento.getYear();
   }
 }

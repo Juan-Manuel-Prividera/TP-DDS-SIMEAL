@@ -1,12 +1,11 @@
 package ar.edu.utn.frba.dds.db.repositories;
 
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import io.github.flbulgarelli.jpa.extras.test.SimplePersistenceTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

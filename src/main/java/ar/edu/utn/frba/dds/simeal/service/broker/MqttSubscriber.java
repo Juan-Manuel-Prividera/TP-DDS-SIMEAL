@@ -1,9 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
-import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;

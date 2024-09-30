@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.creacionales;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.SugerenciaHeladeras;
@@ -8,10 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEven
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 
 public class EventoFactory {
 

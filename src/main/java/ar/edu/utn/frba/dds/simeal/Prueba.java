@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
@@ -18,8 +18,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.time.LocalDate;

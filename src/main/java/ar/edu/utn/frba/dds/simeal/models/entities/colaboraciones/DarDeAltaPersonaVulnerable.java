@@ -13,14 +13,13 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 
-
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
 @Table(name = "DarDeAltaPersonaVulnerable")
 public class DarDeAltaPersonaVulnerable extends Persistente implements ColaboracionPuntuable {
-  @Getter
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;

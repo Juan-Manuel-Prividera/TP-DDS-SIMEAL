@@ -1,16 +1,14 @@
 package ar.edu.utn.frba.dds.simeal.config;
 
-import ar.edu.utn.frba.dds.simeal.controllers.AdminController;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
-import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
+import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
+import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.cargadordatos.LectorCsv;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.EnviadorDeWpp;
 
 
 import javax.media.jai.operator.AbsoluteDescriptor;
@@ -31,6 +29,7 @@ public class ServiceLocator {
     repositories.put(ModeloHeladeraRepository.class.getName(), new ModeloHeladeraRepository());
     repositories.put(ViandaRepository.class.getName(), new ViandaRepository());
     repositories.put(SensorRepository.class.getName(), new SensorRepository());
+    repositories.put(TarjetaColaboradorRepository.class.getName(), new TarjetaColaboradorRepository());
   }
 
   public static void addRepository(String tipoRepo, Repositorio repository) {
@@ -44,9 +43,17 @@ public class ServiceLocator {
 
   public static <T> T getController(Class<T> controllerClass) {
     String controllerName = controllerClass.getName();
-    if (controllerName.equals(AdminController.class.getName())) {
+    if (controllerName.equals(MigracionController.class.getName())) {
       if (!controllers.containsKey(controllerName)) {
-        controllers.put(controllerName, new AdminController());
+        controllers.put(controllerName, new MigracionController());
+      }
+    } else if (controllerName.equals(ReportesController.class.getName())) {
+      if(!controllers.containsKey(controllerName)) {
+        controllers.put(controllerName, new ReportesController());
+      }
+    } else if (controllerName.equals(CambioModoController.class.getName())) {
+      if (!controllers.containsKey(controllerName)) {
+        controllers.put(controllerName, new CambioModoController());
       }
     }
     if (controllerName.equals(OfertasController.class.getName())){
@@ -66,6 +73,10 @@ public class ServiceLocator {
     } else if (serviceName.equals(EnviadorDeMails.class.getName())) {
       if (!services.containsKey(serviceName)) {
         services.put(serviceName, EnviadorDeMails.getInstancia(new ConfigReader()));
+      }
+    } else if (serviceName.equals(EnviadorDeWpp.class.getName())) {
+      if (!services.containsKey(serviceName)) {
+        services.put(serviceName, EnviadorDeWpp.getInstance());
       }
     }
     return (T) services.get(serviceName);

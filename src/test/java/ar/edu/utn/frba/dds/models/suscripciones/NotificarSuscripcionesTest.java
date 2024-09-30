@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.models.suscripciones;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.AdministradorDeEventos;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.EventoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
@@ -17,9 +18,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TipoRepo;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import org.junit.jupiter.api.AfterEach;
