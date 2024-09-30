@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.config;
 
 import ar.edu.utn.frba.dds.simeal.controllers.AdminController;
+import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
@@ -10,6 +11,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.cargadordatos.LectorCsv;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+
 
 import javax.media.jai.operator.AbsoluteDescriptor;
 import java.util.HashMap;
@@ -45,6 +47,11 @@ public class ServiceLocator {
     if (controllerName.equals(AdminController.class.getName())) {
       if (!controllers.containsKey(controllerName)) {
         controllers.put(controllerName, new AdminController());
+      }
+    }
+    if (controllerName.equals(OfertasController.class.getName())){
+      if (!controllers.containsKey(controllerName)) {
+        controllers.put(controllerName, new OfertasController());
       }
     }
     return (T) controllers.get(controllerName);

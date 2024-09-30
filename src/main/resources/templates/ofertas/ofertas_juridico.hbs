@@ -1,0 +1,14 @@
+{{#partial "contenido"}}
+</div>
+<div class="container-inferior">
+    {{#each ofertas}}
+    <a class="offer-card" href="/simeal/juridico/oferta/{{this.id}}">
+        <img src="${{this.imagen}}" alt="Descripción de la oferta" class="offer-image-short">
+        <p class="offer-title">{{this.nombre}}</p>
+        <p class="offer-update">Coste: {{this.puntosNecesario}} pts</p>
+        <p class="offer-update">Fecha de publicación: {{this.fechaAlta}}</p>
+    </a>
+    {{/each}}
+</div>
+{{/partial}}
+{{> templates/juridico_navbar}}
