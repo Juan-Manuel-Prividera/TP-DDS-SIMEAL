@@ -103,9 +103,9 @@ public class Prueba implements WithSimplePersistenceUnit {
     }
 
 
-    PersonaVulnerable personaVulnerable = new PersonaVulnerable("TOmas", LocalDate.now(),LocalDate.now(),null,null,0,null);
-    PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", LocalDate.now(),LocalDate.now(),null,null,0,null);
-    PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro", LocalDate.now(),LocalDate.now(),null,List.of(personaVulnerable1,personaVulnerable),2,null);
+    PersonaVulnerable personaVulnerable = new PersonaVulnerable("TOmas","",LocalDate.now(),10,LocalDate.now(),null,null,0,null);
+    PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", "",LocalDate.now(),100,LocalDate.now(),null,null,0,null);
+    PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro","" ,LocalDate.now(),10,LocalDate.now(),null,List.of(personaVulnerable1,personaVulnerable),2,null);
 
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable1);
