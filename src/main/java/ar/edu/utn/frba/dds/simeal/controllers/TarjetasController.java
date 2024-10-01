@@ -78,4 +78,21 @@ public class TarjetasController {
     model.put("tarjetasEntregadas", tarjetaPersonaVulnerableDTOS);
   }
 
+  public void indexNewTarjeta(Context app) {
+    HashMap<String, Object> model = new HashMap<>();
+    model.put("titulo", "Crear nueva tarjeta");
+    setNavBar(model);
+    setTarjetaPersonal(model);
+
+    app.render("tarjetas/agregar_tarjeta.hbs", model);
+  }
+  public void indexBorrarTarjeta(Context app) {
+
+  }
+  public void indexUpdateTarjeta(Context app) {
+
+  }
+
+
+
 }

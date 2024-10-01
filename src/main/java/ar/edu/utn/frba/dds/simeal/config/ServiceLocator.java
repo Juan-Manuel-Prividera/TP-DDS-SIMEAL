@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.config;
 
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
+import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
@@ -55,12 +56,16 @@ public class ServiceLocator {
       if (!controllers.containsKey(controllerName)) {
         controllers.put(controllerName, new CambioModoController());
       }
-    }
-    if (controllerName.equals(OfertasController.class.getName())){
+    } else if (controllerName.equals(OfertasController.class.getName())){
       if (!controllers.containsKey(controllerName)) {
         controllers.put(controllerName, new OfertasController());
       }
+    } else if (controllerName.equals(PersonaVulnerableController.class.getName())) {
+      if (!controllers.containsKey(controllerName)) {
+        controllers.put(controllerName, new PersonaVulnerableController());
+      }
     }
+
     return (T) controllers.get(controllerName);
   }
 

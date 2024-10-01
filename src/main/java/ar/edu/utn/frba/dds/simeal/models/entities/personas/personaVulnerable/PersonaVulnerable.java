@@ -3,16 +3,14 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Setter
 @Getter
 @AllArgsConstructor
@@ -22,6 +20,9 @@ import java.util.List;
 public class PersonaVulnerable extends Persistente {
   @Column (name = "nombre")
   private String nombre;
+
+  @Column(name = "apellido")
+  private String apellido;
 
   @Column (name = "fechaNacimiento")
   private LocalDate fechaNacimiento;

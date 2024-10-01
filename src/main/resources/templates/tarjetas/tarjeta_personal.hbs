@@ -1,0 +1,25 @@
+{{#partial "tarjeta-personal"}}
+<div class="tarjeta-personal">
+    <p class="nro-tarjeta mr-5 mt-auto mb-auto">{{numeroTarjetaPersonal}}</p>
+    <button class="btn btn-info btn-accesos ml-3 mt-auto mb-auto" id="btn-expand">Accesos disponibles</button>
+</div>
+<div id="expandible-p" class="hidden">
+    <table>
+        <thead>
+        <th>Nombre heladera</th>
+        <th>Ubicación</th>
+        <th>Hora fin</th>
+        </thead>
+        <tbody>
+        <tr>
+            {{#each solicitudes}}
+                <td>{{this.nombre}}</td>
+                <td>{{this.ubicacion}}</td>
+                <td>{{this.horaFin}}</td>
+            {{/each}}
+        </tr>
+        </tbody>
+    </table>
+</div>
+{{/partial}}
+{{> template/humano_navbar}}
