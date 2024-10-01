@@ -38,7 +38,7 @@ public class Server {
   private static Consumer<JavalinConfig> config() {
     return config -> {
       config.staticFiles.add(staticFiles -> {
-        staticFiles.hostedPath = "/simeal";
+        staticFiles.hostedPath = "/";
         staticFiles.directory = "/static";
       });
 

@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.config;
 
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
+import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
@@ -31,6 +32,7 @@ public class ServiceLocator {
     repositories.put(ViandaRepository.class.getName(), new ViandaRepository());
     repositories.put(SensorRepository.class.getName(), new SensorRepository());
     repositories.put(TarjetaColaboradorRepository.class.getName(), new TarjetaColaboradorRepository());
+    repositories.put(OfertaRepository.class.getName(), new OfertaRepository());
   }
 
   public static void addRepository(String tipoRepo, Repositorio repository) {
@@ -64,7 +66,11 @@ public class ServiceLocator {
       if (!controllers.containsKey(controllerName)) {
         controllers.put(controllerName, new PersonaVulnerableController());
       }
+    } else if (controllerName.equals(TarjetasController.class.getName())) {
+    if (!controllers.containsKey(controllerName)) {
+      controllers.put(controllerName, new TarjetasController());
     }
+  }
 
     return (T) controllers.get(controllerName);
   }
