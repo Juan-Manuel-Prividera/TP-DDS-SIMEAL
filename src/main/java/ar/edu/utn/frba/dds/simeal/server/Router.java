@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.handlers.LoginHandler;
+import ar.edu.utn.frba.dds.simeal.handlers.RegistroHandler;
 import io.javalin.Javalin;
 import io.javalin.apibuilder.ApiBuilder;
 
@@ -38,6 +39,7 @@ public class Router {
     app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     app.get("login", new LoginHandler()::handle);
+    app.get("registro/{tipoUsuario}", new RegistroHandler()::handle);
 
   }
 }

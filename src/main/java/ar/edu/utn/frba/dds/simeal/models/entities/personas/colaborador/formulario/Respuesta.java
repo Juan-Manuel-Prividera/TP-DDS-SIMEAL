@@ -20,7 +20,13 @@ public class Respuesta extends Persistente {
   @Column(name="respuesta")
   private String respuesta;
 
+  @ManyToOne
+  @JoinColumn(name="opcion", referencedColumnName = "id")
+  private Opcion opcion;
+
   public Respuesta(Pregunta pregunta) {
     this.pregunta = pregunta;
   }
+
+
 }

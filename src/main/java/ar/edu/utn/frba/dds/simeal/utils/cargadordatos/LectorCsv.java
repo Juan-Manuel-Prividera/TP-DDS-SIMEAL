@@ -95,7 +95,7 @@ public class LectorCsv {
 
   private void enviarCredencialesDeAcceso(List<Colaborador> colaboradores) {
     for (Colaborador colaborador : colaboradores) {
-      colaborador.setUsuario(new Usuario(colaborador.getNombre(),"1234",null));
+      colaborador.setUsuario(new Usuario(colaborador.getNombre(),"1234",null, null));
       Notificador.notificar(colaborador,new Mensaje(("Tus credenciales de acceso son: tu nombre y la contraseña 1234")));
     }
   }
