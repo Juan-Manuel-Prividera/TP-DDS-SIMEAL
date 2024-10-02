@@ -10,7 +10,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     formData.append('file', file);
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/simeal/migracion/upload', true);
+    xhr.open('POST', '/migracion/upload', true);
 
     xhr.upload.onprogress = function(event) {
         if (event.lengthComputable) {

@@ -1,10 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TarjetaColaboradorRepository extends Repositorio{
   public TarjetaColaborador getPorColaborador(Long id) {

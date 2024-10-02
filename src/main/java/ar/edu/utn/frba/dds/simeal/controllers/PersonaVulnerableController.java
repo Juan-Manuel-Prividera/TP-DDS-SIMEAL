@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.models.dtos.PersonaVulnerableDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
@@ -42,7 +41,7 @@ public class PersonaVulnerableController {
       );
     }
     personaVulnerable.setHijos(personasVulnerable);
-
+    ServiceLocator.getController(TarjetasController.class).create(personaVulnerable);
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
   }
 }

@@ -6,7 +6,10 @@ import ar.edu.utn.frba.dds.simeal.models.dtos.TarjetaPersonaVulnerableDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import io.javalin.http.Context;
@@ -37,10 +40,13 @@ public class TarjetasController {
   private void setTarjetaPersonal(HashMap<String, Object> model) {
     TarjetaColaboradorRepository repository = (TarjetaColaboradorRepository) ServiceLocator.getRepository(TarjetaColaboradorRepository.class);
     // TODO: Ver de donde sacar la data del usario que hace las request
-    TarjetaColaborador tarjetaColaborador = repository.getPorColaborador(1L);
+    //TarjetaColaborador tarjetaColaborador = repository.getPorColaborador(1L);
+    //if (tarjetaColaborador == null) {
+      TarjetaColaborador tarjetaColaborador = new TarjetaColaborador();
+    //}
     // TODO: Ver como hacer que se muestre el ID mas lindo onda xxx.xxx.xxx en vez de 4
-    model.put("numeroTarjetaPersonal", tarjetaColaborador.getId());
-
+    //model.put("numeroTarjetaPersonal", tarjetaColaborador.getId());
+    model.put("numeroTarjetaPersonal", 5L);
     SolicitudOperacionRepository solicitudOperacionRepository = (SolicitudOperacionRepository) ServiceLocator.getRepository(SolicitudOperacionRepository.class);
     List<SolicitudOperacionHeladera> solicitudes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaColaborador.getId());
     setSolicitudes(model,solicitudes);
@@ -62,7 +68,9 @@ public class TarjetasController {
 
   private void setTarjetasPersonasVulnerables(HashMap<String, Object> model) {
     ColaboracionRepository repository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
-    List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) repository.getPorColaborador(1L, DarDeAltaPersonaVulnerable.class);
+    List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) repository
+      .getPorColaborador(1L, DarDeAltaPersonaVulnerable.class);
+
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
 
     for (DarDeAltaPersonaVulnerable persona : personas) {
@@ -86,6 +94,18 @@ public class TarjetasController {
 
     app.render("tarjetas/agregar_tarjeta.hbs", model);
   }
+
+  public void create(PersonaVulnerable personaVulnerable) {
+    // TODO: Ver como se generaria el codigo
+    // TODO: Completar con el resto de atributos que necesite
+    TarjetaPersonaVulnerable tarjetaPersonaVulnerable = new TarjetaPersonaVulnerable(
+      "codigo",
+      personaVulnerable
+    );
+
+    ServiceLocator.getRepository(Repositorio.class).guardar(tarjetaPersonaVulnerable);
+  }
+
   public void indexBorrarTarjeta(Context app) {
 
   }

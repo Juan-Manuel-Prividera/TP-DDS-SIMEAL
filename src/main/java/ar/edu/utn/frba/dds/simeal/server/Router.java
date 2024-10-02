@@ -1,19 +1,15 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
-import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.handlers.LoginHandler;
 import ar.edu.utn.frba.dds.simeal.handlers.RegistroHandler;
 import io.javalin.Javalin;
-import io.javalin.apibuilder.ApiBuilder;
-
-import static io.javalin.apibuilder.ApiBuilder.get;
-import static io.javalin.apibuilder.ApiBuilder.path;
 
 public class Router {
   public static void init(Javalin app) {
