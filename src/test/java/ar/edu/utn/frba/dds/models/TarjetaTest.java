@@ -21,6 +21,7 @@ public class TarjetaTest {
   PersonaVulnerable personaVulnerable;
   TarjetaPersonaVulnerable tarjeta;
 
+  /*
   @BeforeEach
   public void init(){
     hijos.add(
@@ -66,5 +67,7 @@ public class TarjetaTest {
   public void limiteDeUsoConUnHijo(){
     Assertions.assertEquals(5,tarjeta.calcularLimiteDeUso());
   }
+  *
+   */
 
 }

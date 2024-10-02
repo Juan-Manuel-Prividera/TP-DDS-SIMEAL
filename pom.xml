@@ -27,6 +27,13 @@
   </repositories>
 
   <dependencies>
+    <!-- Cripto -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.geotools/gt-main -->
     <dependency>
       <groupId>org.geotools</groupId>

@@ -20,8 +20,6 @@ public class Usuario extends Persistente {
   private String username;
   @Column(name="hash", nullable = false)
   private String hash;
-  @Column(name="salt", nullable = false)
-  private String salt;
   @ManyToMany
   @JoinTable(
           name = "rol_usuario",
