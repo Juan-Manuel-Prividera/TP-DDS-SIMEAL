@@ -1,15 +1,15 @@
-{{#partial "conenido"}}
+{{#partial "contenido"}}
 <div class="container-supremo">
     <div class="tarjeta-personal-container">
         <h2 >Tarjeta Personal</h2>
         <div class="tarjeta-btns ml-auto mr-auto">
-            <a href="/simeal/tarjeta/new">
+            <a href="tarjeta/new">
                 <button class="btn btn-dark mt-5 mb-3 seleccionado">Agregar tarjeta</button>
             </a>
-            <a href="/simeal/tarjeta/delete">
+            <a href="tarjeta/delete">
                 <button class="btn btn-dark mb-3">Eliminar tarjeta</button>
             </a>
-            <a href="/simeal/tarjeta/update">
+            <a href="tarjeta/update">
                 <button class="btn btn-dark mb-3">Modificar tarjeta</button>
             </a>
         </div>
@@ -19,7 +19,7 @@
         {{#block "tarjeta-personal"}}
         {{/block}}
 
-        <form method="POST" action="/simeal/tarjeta/new" name="formNewTarjeta" class="agregar-tarjeta">
+        <form method="POST" action="/tarjeta/new" name="formNewTarjeta" class="agregar-tarjeta">
             <div class="form-container">
                 <div class="left">
                     <h2>Datos personales</h2>

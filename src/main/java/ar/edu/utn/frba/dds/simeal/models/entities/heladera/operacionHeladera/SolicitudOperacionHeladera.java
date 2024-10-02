@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaCo
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class SolicitudOperacionHeladera extends Persistente {
   @JoinColumn(name = "tarjeta_colaborador_id", referencedColumnName = "id")
   private TarjetaColaborador tarjetaColaborador;
 
-  @ManyToOne
+  @ManyToOne @Cascade(org.hibernate.annotations.CascadeType.MERGE)
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 

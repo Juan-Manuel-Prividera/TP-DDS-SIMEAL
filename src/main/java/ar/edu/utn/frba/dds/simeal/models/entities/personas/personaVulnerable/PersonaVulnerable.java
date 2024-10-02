@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -33,7 +34,7 @@ public class PersonaVulnerable extends Persistente {
   @Column (name = "fechaRegistro")
   private LocalDate fechaRegistro;
 
-  @OneToOne
+  @OneToOne @Cascade(org.hibernate.annotations.CascadeType.ALL)
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion domilicio;
 
@@ -44,7 +45,7 @@ public class PersonaVulnerable extends Persistente {
   @Column(name = "cant_hijos")
   private int cantidadHijosMenores;
 
-  @Embedded
+  @Embedded @Cascade(org.hibernate.annotations.CascadeType.ALL)
   private Documento documento;
 
   public PersonaVulnerable(LocalDate of) {
@@ -57,8 +58,10 @@ public class PersonaVulnerable extends Persistente {
   }
 
   public int cantHijosMenores() {
-    int cant = this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
-    return cant;
+    if (hijos == null) {
+      return 0;
+    }
+    return this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
   }
 
   public void calcularEdad() {

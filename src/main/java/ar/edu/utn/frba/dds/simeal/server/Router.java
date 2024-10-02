@@ -20,13 +20,19 @@ public class Router {
     app.get("cambiarmodo", ServiceLocator.getController(CambioModoController.class)::cambiarmodo);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
 
+    // ***************  HomePage   ***************
+    app.get("home/humano", context -> context.render("humano_home.hbs"));
+    app.get("home/juridico", context -> context.render("juridico_home.hbs"));
+
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);
     app.get("tarjeta/new", ServiceLocator.getController(TarjetasController.class)::indexNewTarjeta);
     app.post("tarjeta/new", ServiceLocator.getController(PersonaVulnerableController.class)::create);
 
     app.get("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
+    app.post("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
+    app.post("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
 
     // ***************  Heladeras   ***************
 

@@ -10,8 +10,7 @@ public class SolicitudOperacionRepository extends Repositorio {
     List<SolicitudOperacionHeladera> solicitudOperacionHeladera = new ArrayList<>();
     beginTransaction();
     solicitudOperacionHeladera = entityManager()
-      // TODO: CHEQUEAR QUE LO DE CURRENT DATE ANDE
-      .createQuery(" FROM " + SolicitudOperacionHeladera.class.getName() + " WHERE tarjeta_colaborador_id= :id AND hora_solicitud < CURRENT_DATE ", SolicitudOperacionHeladera.class)
+      .createQuery(" FROM " + SolicitudOperacionHeladera.class.getName() + " WHERE tarjeta_colaborador_id= :id AND hora_solicitud > CURRENT_DATE ", SolicitudOperacionHeladera.class)
       .setParameter("id", id).getResultList();
     commitTransaction();
     return solicitudOperacionHeladera;

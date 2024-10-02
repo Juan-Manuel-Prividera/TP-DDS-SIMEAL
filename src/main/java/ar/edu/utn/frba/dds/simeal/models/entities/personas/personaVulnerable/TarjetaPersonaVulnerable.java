@@ -32,6 +32,7 @@ public class TarjetaPersonaVulnerable extends Persistente {
   public TarjetaPersonaVulnerable(String codigo, PersonaVulnerable personaVulnerable){
     this.codigo = codigo;
     this.personaVulnerable = personaVulnerable;
+    this.usosHechos = 0;
   }
 
   public boolean puedeRetirar() {

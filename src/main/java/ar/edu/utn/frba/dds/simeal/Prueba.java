@@ -2,25 +2,29 @@ package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +55,7 @@ public class Prueba implements WithSimplePersistenceUnit {
     repositorioColabs.guardar(colaborador5);
 
 
-    Ubicacion ubicacion = new Ubicacion(1,2);
+    Ubicacion ubicacion = new Ubicacion("frias", 1234);
     ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo1",2,3,4);
     Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
     modeloRepo.guardar(modeloHeladera);
@@ -103,12 +107,53 @@ public class Prueba implements WithSimplePersistenceUnit {
     }
 
 
-    PersonaVulnerable personaVulnerable = new PersonaVulnerable("TOmas","",LocalDate.now(),10,LocalDate.now(),null,null,0,null);
-    PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", "",LocalDate.now(),100,LocalDate.now(),null,null,0,null);
-    PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro","" ,LocalDate.now(),10,LocalDate.now(),null,List.of(personaVulnerable1,personaVulnerable),2,null);
+
+    PersonaVulnerable personaVulnerable = new PersonaVulnerable("TOmas","",LocalDate.now(),10,LocalDate.now(),new Ubicacion("medrano", 1234),null,0,new Documento(TipoDocumento.DNI, "12345678"));
+    PersonaVulnerable personaVulnerable1 = new PersonaVulnerable("Enrique", "",LocalDate.now(),100,LocalDate.now(),new Ubicacion("cabildo", 3333),null,0, new Documento(TipoDocumento.DNI, "22333444"));
+    PersonaVulnerable personaVulnerable2 = new PersonaVulnerable("Pedro","" ,LocalDate.now(),10,LocalDate.now(),new Ubicacion("frias", 9213),List.of(personaVulnerable1,personaVulnerable),2,new Documento(TipoDocumento.DNI,"33322211"));
+
+
 
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable1);
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable2);
+
+    TarjetaPersonaVulnerable tarjeta = new TarjetaPersonaVulnerable("123456789", personaVulnerable);
+    TarjetaPersonaVulnerable tarjeta1 = new TarjetaPersonaVulnerable("123456789", personaVulnerable1);
+    TarjetaPersonaVulnerable tarjeta2 = new TarjetaPersonaVulnerable("123456789", personaVulnerable2);
+    ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta);
+    ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta1);
+    ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta2);
+
+    DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable = new DarDeAltaPersonaVulnerable(colaborador0,LocalDate.now(),personaVulnerable,tarjeta,2);
+    DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable1 = new DarDeAltaPersonaVulnerable(colaborador0,LocalDate.now(),personaVulnerable1,tarjeta1,2);
+    DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable2 = new DarDeAltaPersonaVulnerable(colaborador0,LocalDate.now(),personaVulnerable2,tarjeta2,2);
+
+    ServiceLocator.getRepository(ColaboracionRepository.class).guardar(darDeAltaPersonaVulnerable);
+    ServiceLocator.getRepository(ColaboracionRepository.class).guardar(darDeAltaPersonaVulnerable1);
+    ServiceLocator.getRepository(ColaboracionRepository.class).guardar(darDeAltaPersonaVulnerable2);
+
+
+
+    TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaborador0, LocalDate.now());
+    TarjetaColaborador tarjetaColaborador1 = new TarjetaColaborador(colaborador1, LocalDate.now());
+    TarjetaColaborador tarjetaColaborador2 = new TarjetaColaborador(colaborador2, LocalDate.now());
+    TarjetaColaborador tarjetaColaborador3 = new TarjetaColaborador(colaborador3, LocalDate.now());
+    TarjetaColaborador tarjetaColaborador4 = new TarjetaColaborador(colaborador4, LocalDate.now());
+    TarjetaColaborador tarjetaColaborador5 = new TarjetaColaborador(colaborador5, LocalDate.now());
+
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador1);
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador2);
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador3);
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador4);
+    ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador5);
+
+    SolicitudOperacionHeladera solicitudOperacionHeladera = new SolicitudOperacionHeladera(TipoOperacion.INGRESO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2024,10,10,18,30), LocalDateTime.now());
+    SolicitudOperacionHeladera solicitudOperacionHeladera1 = new SolicitudOperacionHeladera(TipoOperacion.RETIRO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2024,10,2,18,30), LocalDateTime.now());
+
+    ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera);
+    ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera1);
+
   }
 }

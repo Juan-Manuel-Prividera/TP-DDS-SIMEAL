@@ -12,17 +12,26 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
+import java.sql.Time;
+import java.text.Format;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 
 public class TarjetasController {
-
+  Logger logger = Logger.getInstance("tarjetas.log");;
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
+    logger.log(LoggerType.DEBUG, "Entrando a set navbar");
     setNavBar(model);
+    logger.log(LoggerType.DEBUG, "Entrando a set tarjeta personal");
     setTarjetaPersonal(model);
     setTarjetasPersonasVulnerables(model);
 
@@ -39,16 +48,18 @@ public class TarjetasController {
 
   private void setTarjetaPersonal(HashMap<String, Object> model) {
     TarjetaColaboradorRepository repository = (TarjetaColaboradorRepository) ServiceLocator.getRepository(TarjetaColaboradorRepository.class);
-    // TODO: Ver de donde sacar la data del usario que hace las request
-    //TarjetaColaborador tarjetaColaborador = repository.getPorColaborador(1L);
-    //if (tarjetaColaborador == null) {
-      TarjetaColaborador tarjetaColaborador = new TarjetaColaborador();
-    //}
+    // TODO: Poner los datos del usuario que haga la request
+    TarjetaColaborador tarjetaColaborador = repository.getPorColaborador(1L);
+    if (tarjetaColaborador == null) {
+      throw new RuntimeException("No habia tarjetas de colaborador con id = 1");
+    }
+    logger.log(LoggerType.DEBUG, "Se obtuvo la tarjeta de ID = " + tarjetaColaborador.getId());
     // TODO: Ver como hacer que se muestre el ID mas lindo onda xxx.xxx.xxx en vez de 4
-    //model.put("numeroTarjetaPersonal", tarjetaColaborador.getId());
-    model.put("numeroTarjetaPersonal", 5L);
+    model.put("numeroTarjetaPersonal", tarjetaColaborador.getId());
+
     SolicitudOperacionRepository solicitudOperacionRepository = (SolicitudOperacionRepository) ServiceLocator.getRepository(SolicitudOperacionRepository.class);
     List<SolicitudOperacionHeladera> solicitudes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaColaborador.getId());
+    logger.log(LoggerType.INFORMATION,"Hay al menos una solicitud en la lista de solicitudes: " + solicitudes.get(0).getId());
     setSolicitudes(model,solicitudes);
   }
 
@@ -59,10 +70,12 @@ public class TarjetasController {
         SolicitudOperacionDTO.builder()
           .nombre(solicitud.getHeladera().getNombre())
           .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
-          .horaFin(solicitud.getHoraSolicitud().toString())
+          // TODO: Ver si se puede hacer mas lindo esto
+          .horaFin(LocalTime.from(LocalTime.of(solicitud.getHoraSolicitud().getHour() + solicitud.getHorasParaEjecutarse(),solicitud.getHoraSolicitud().getMinute())).toString())
           .build()
       );
     }
+    logger.log(LoggerType.DEBUG, "Se creo la lista de solicitudes: " + solicitudesDTOs.size());
     model.put("solicitudes", solicitudesDTOs);
   }
 
@@ -87,6 +100,7 @@ public class TarjetasController {
   }
 
   public void indexNewTarjeta(Context app) {
+    // TODO: Aca no anda el btn de accesos disponibles :(, raro
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Crear nueva tarjeta");
     setNavBar(model);
