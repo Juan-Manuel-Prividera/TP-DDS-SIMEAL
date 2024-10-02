@@ -17,4 +17,11 @@ import javax.persistence.Table;
 public class Permiso extends Persistente {
   @Column(name="descripcion")
   private String descripcion;
+
+  @Column(name="endpoint")
+  private String endpoint;
+
+  @Column(name="verbo")
+  private String verbo;
+
 }

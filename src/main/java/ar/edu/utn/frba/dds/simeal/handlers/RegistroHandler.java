@@ -56,6 +56,6 @@ public class RegistroHandler {
             map.put("juridico", true);
         }
 
-        context.render("registro.hbs", map);
+        context.render("registroFormulario.hbs", map);
     }
 }

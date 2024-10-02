@@ -39,6 +39,7 @@ public class Router {
     app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     app.get("login", new LoginHandler()::handle);
+    app.get("registro", ctx->{ctx.render("registro.hbs");});
     app.get("registro/{tipoUsuario}", new RegistroHandler()::handle);
 
   }

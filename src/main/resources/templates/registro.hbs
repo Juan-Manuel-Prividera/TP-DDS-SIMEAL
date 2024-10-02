@@ -1,99 +1,29 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Registro</title>
-    <link rel="stylesheet" href="/css/registro.css">
-    <link rel="stylesheet" href="/css/containers.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="css/registro.css">
+  <link rel="stylesheet" href="css/containers.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/styles.css">
 
 </head>
 <body>
-<header>
-    <div class="container-fluid">
-        <div class="header-container">
-            <img src = "/img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
-            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
-
-        </div>
-    </div>
-</header>
-<script>
-    const Handlebars = require('handlebars');
-
-    Handlebars.registerHelper('eq', function(arg1, arg2, options) {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-    });
-</script>
-
-<div class="container-supremo">
-    <h1>Registro</h1>
-    <form action="/colaborador/create" method="post" class="form-group" onsubmit="return validateFields()">
-        <!-- dinamico -->
-        {{#each preguntas}}
-            <label for="{{this.param}}">{{this.campo}}</label>
-            <input type="{{this.type}}"
-                   class="form-control mb-4"
-                   name="{{this.param}}"
-                   id="{{this.param}}"
-                   placeholder="{{this.campo}}"
-                   required="{{this.required}}">
-        {{/each}}
-        {{#if persona}}
-            <label for="documentoNro">*Documento</label>
-            <div class="documento-container">
-                <select class="form-control" name="documentoTipo">
-                    <option value="" disabled selected hidden>...</option>
-                    <option value="dni">DNI</option>
-                    <option value="pasaporte">Pasaporte</option>
-                    <option value="libreta">Libreta</option>
-                </select>
-                <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
-            </div>
-        {{else juridico}}
-            <label for="rubro">*Rubro</label>
-            <select class="form-control mb-4" name="rubro" id="rubro">
-                <option value="" disabled selected hidden>...</option>
-                <option value="dni">Gastronomía</option>
-                <option value="pasaporte">Ingeniería</option>
-                <option value="libreta">Arte</option>
-            </select>
-        {{else}}
-            <!-- TODO: Qué pasó que que no entró en las otras ramas mmmm sus AMONGUS-->
-        {{/if}}
-
-
-        <div class="user-box">
-            <label for="password" class="form-label">*Contraseña</label>
-            <input type="password" placeholder="Contraseña" id="password" class="my-input form-control" required="">
-            <span class="password-toggle-icon" onclick="togglePw('password', this.querySelector('.password-toggle-icon i'))">
-                <i class="fas fa-eye-slash" ></i>
-            </span>
-        </div>
-
-        <div class="user-box">
-            <label for="passwordRepeat" class="form-label">*Repetir contraseña</label>
-            <input type="password" placeholder="Repetir contraseña" id="passwordRepeat" class="my-input form-control" required="">
-            <span class="password-toggle-icon" onclick="togglePw('passwordRepeat', this.querySelector('.password-toggle-icon i'))">
-                <i class="fas fa-eye-slash"></i>
-            </span>
-        </div>
-
-        <div class="terminos-condiciones">
-            <input type="checkbox" id="terminos-checkbox">
-            <a href="google.com">Acepto los <u> terminos y condiciones</u></a>
-        </div>
-
-        <button class="btn btn-dark" type="submit">Registrarse</button>
-
-    </form>
+<div class="body-registro">
+  <h1 class="titulo-registro">Seleccione la opción más adecuada</h1>
+  <div class="opciones-container">
+    <a href="/registro/persona">
+      <button class="btn btn-light">Individual</button>
+    </a>
+    <a href="/registro/juridico">
+      <button class="btn btn-light">Empresa</button>
+    </a>
+  </div>
 
 </div>
 
-<script src="js/ocultarContraseña.js"></script>
-<script src="js/validateFields.js"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
+import ar.edu.utn.frba.dds.simeal.middleware.AuthenticatedMiddleware;
+import ar.edu.utn.frba.dds.simeal.server.handlers.AppHandlers;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.Initializer;
 import ar.edu.utn.frba.dds.simeal.utils.JavalinRenderer;
@@ -27,6 +29,10 @@ public class Server {
       Integer port = Integer.parseInt(configReader.getProperty("server_port"));
       app = Javalin.create(config()).start(port);
 
+      AuthenticatedMiddleware.apply(app);
+
+      // Apply our custom interruption handlers
+      AppHandlers.applyHandlers(app);
       Router.init(app);
 
       if (Boolean.parseBoolean(configReader.getProperty("dev_mode"))) {
