@@ -149,8 +149,8 @@ public class Prueba implements WithSimplePersistenceUnit {
     ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador4);
     ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador5);
 
-    SolicitudOperacionHeladera solicitudOperacionHeladera = new SolicitudOperacionHeladera(TipoOperacion.INGRESO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2024,10,10,18,30), LocalDateTime.now());
-    SolicitudOperacionHeladera solicitudOperacionHeladera1 = new SolicitudOperacionHeladera(TipoOperacion.RETIRO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2024,10,2,18,30), LocalDateTime.now());
+    SolicitudOperacionHeladera solicitudOperacionHeladera = new SolicitudOperacionHeladera(TipoOperacion.INGRESO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,10,0,30), LocalDateTime.now());
+    SolicitudOperacionHeladera solicitudOperacionHeladera1 = new SolicitudOperacionHeladera(TipoOperacion.RETIRO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,2,0,30), LocalDateTime.now());
 
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera);
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera1);

@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones;
 
+import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
@@ -38,6 +39,13 @@ public class DarDeAltaPersonaVulnerable extends Persistente implements Colaborac
   @Builder.Default
   @Transient
   private double factorDeReconocimiento = 2;
+
+ public DarDeAltaPersonaVulnerable(Colaborador colaborador, PersonaVulnerable personaVulnerable, TarjetaPersonaVulnerable tarjeta) {
+   this.colaborador = colaborador;
+   this.personaVulnerable = personaVulnerable;
+   this.tarjeta = tarjeta;
+   this.fechaDeRealizacion = LocalDate.now();
+ }
 
   public static DarDeAltaPersonaVulnerable create(Colaborador colaborador,
                                                   LocalDate fechaDeRealizacion) {

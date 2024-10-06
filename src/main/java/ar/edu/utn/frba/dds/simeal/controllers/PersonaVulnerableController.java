@@ -47,4 +47,9 @@ public class PersonaVulnerableController {
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
     ServiceLocator.getController(TarjetasController.class).create(personaVulnerable);
   }
+
+  public void delete(PersonaVulnerable personaVulnerable) {
+    ServiceLocator.getRepository(Repositorio.class).desactivar(personaVulnerable);
+  }
+
 }

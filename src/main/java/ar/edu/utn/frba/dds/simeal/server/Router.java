@@ -31,7 +31,7 @@ public class Router {
     app.post("tarjeta/new", ServiceLocator.getController(PersonaVulnerableController.class)::create);
 
     app.get("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
-    app.post("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
+    app.post("tarjeta/delete/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::delete);
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
     app.post("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
 
