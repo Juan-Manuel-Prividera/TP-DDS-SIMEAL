@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.handlers.IndexHandler;
 import ar.edu.utn.frba.dds.simeal.handlers.LoginHandler;
+import ar.edu.utn.frba.dds.simeal.handlers.LogoutHandler;
 import ar.edu.utn.frba.dds.simeal.handlers.RegistroHandler;
 import io.javalin.Javalin;
 
@@ -41,7 +42,9 @@ public class Router {
     app.get("{usr_type}/ofertas", ServiceLocator.getController(OfertasController.class)::index);
     app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
+    // **************** Usuarios *****************
     app.post("login", new LoginHandler()::handle);
+    app.get("logout", new LogoutHandler()::handle);
     app.get("registro", ctx->{ctx.render("registro.hbs");});
     app.get("registro/{tipoUsuario}", new RegistroHandler()::handle);
     app.get("/", new IndexHandler()::handle);

@@ -1,10 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.middleware.AuthenticatedMiddleware;
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
-import ar.edu.utn.frba.dds.simeal.server.handlers.AppHandlers;
+import ar.edu.utn.frba.dds.simeal.server.exception_handlers.AppHandlers;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.Initializer;
 import ar.edu.utn.frba.dds.simeal.utils.JavalinRenderer;

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.server.handlers;
+package ar.edu.utn.frba.dds.simeal.server.exception_handlers;
 
 
 import io.javalin.Javalin;

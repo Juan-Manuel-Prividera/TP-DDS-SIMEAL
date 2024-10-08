@@ -21,7 +21,13 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
+import ar.edu.utn.frba.dds.simeal.models.usuario.Permiso;
+import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
+import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
+import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
+import org.hibernate.property.access.internal.PropertyAccessStrategyMixedImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -154,6 +160,28 @@ public class Prueba implements WithSimplePersistenceUnit {
 
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera);
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera1);
+
+    // CREATE SOME USERS
+    Permiso homepagePersona = new Permiso("Homepage Persona", "/home/humano", "GET");
+    Permiso homepageJuridico = new Permiso("Homepage Juridico", "/home/juridico", "GET");
+    Permiso adminPage = new Permiso("Admin Page", "/admin", "GET");
+
+    Rol personaRol = new Rol(TipoRol.HUMANO, List.of(homepagePersona));
+    Rol juridicoRol = new Rol(TipoRol.JURIDICO, List.of(homepageJuridico));
+    Rol adminRol = new Rol(TipoRol.ADMIN, List.of(adminPage));
+
+    Usuario karlHeun = new Usuario("KarlHeun", PasswordHasher.hashPassword("KarlHeun"), List.of(personaRol));
+    Usuario persona = new Usuario("persona", PasswordHasher.hashPassword("persona"), List.of(personaRol));
+    Usuario juridico = new Usuario("juridico", PasswordHasher.hashPassword("juridico"), List.of(juridicoRol));
+    Usuario admin = new Usuario("admin", PasswordHasher.hashPassword("admin"), List.of(adminRol));
+
+    var repo = ServiceLocator.getRepository(Repositorio.class);
+    repo.guardar(karlHeun);
+    repo.guardar(persona);
+    repo.guardar(juridico);
+    repo.guardar(admin);
+
+
 
   }
 }

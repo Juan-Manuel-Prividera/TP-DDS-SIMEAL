@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.middleware;
 
-import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
-import ar.edu.utn.frba.dds.simeal.server.handlers.NotAuthenticatedException;
+import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import io.javalin.Javalin;
 
 // Middlewares are like questions, this' question is: are you authenticated?
@@ -17,24 +16,24 @@ public class AuthenticatedMiddleware {
     public static void apply(Javalin app) {
         app.beforeMatched(ctx -> {
 
-//            for (var format : openFormats) {
-//                if (ctx.path().endsWith(format)) {
-//                    return;
-//                }
-//            }
-//
-//            for (var endpoint : openEndpoints) {
-//                if (ctx.path().equals(endpoint)) {
-//                    return;
-//                }
-//            }
-//
-//
-//            Integer userID = ctx.sessionAttribute("userID");
-//            if (userID == null) {
-//                throw new NotAuthenticatedException();
-//            }
-//            Rol rol = ctx.sessionAttribute("rol");
+            for (var format : openFormats) {
+                if (ctx.path().endsWith(format)) {
+                    return;
+                }
+            }
+
+            for (var endpoint : openEndpoints) {
+                if (ctx.path().equals(endpoint)) {
+                    return;
+                }
+            }
+
+
+            Long userID = ctx.sessionAttribute("user_id");
+            if (userID == null) {
+                throw new NotAuthenticatedException();
+            }
+            //Rol rol = ctx.sessionAttribute("rol");
         });
     }
 }

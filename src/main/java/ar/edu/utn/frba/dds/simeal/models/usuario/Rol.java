@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +17,10 @@ import java.util.List;
 @Table(name="roles")
 public class Rol extends Persistente {
   @Column(name="nombre")
-  private String rol;
+  @Enumerated(EnumType.STRING)
+  private TipoRol tipo;
+
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @ManyToMany
   @JoinTable(
           name = "rol_permiso",

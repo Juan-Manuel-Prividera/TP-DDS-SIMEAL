@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,8 +19,11 @@ import java.util.List;
 public class Usuario extends Persistente {
   @Column(name="username", nullable = false)
   private String username;
+
   @Column(name="hash", nullable = false)
   private String hash;
+
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @ManyToMany
   @JoinTable(
           name = "rol_usuario",
