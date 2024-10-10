@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class PersonaVulnerableController {
       .documento(new Documento(TipoDocumento.valueOf(app.formParam("documentoTipo").toUpperCase()), app.formParam("documentoNro")))
       .fechaNacimiento(LocalDate.parse(app.formParam("nacimiento")))
       .build();
+    personaVulnerable.calcularEdad();
 
     if (!app.formParams("nombreHijo").get(0).isEmpty()) {
       List<String> nombresHijos = app.formParams("nombreHijo");
@@ -46,6 +48,7 @@ public class PersonaVulnerableController {
 
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
     ServiceLocator.getController(TarjetasController.class).create(personaVulnerable);
+    app.redirect("/tarjeta");
   }
 
   public void delete(PersonaVulnerable personaVulnerable) {

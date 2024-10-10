@@ -14,26 +14,26 @@ public class AuthenticatedMiddleware {
     private static final String[] openFormats = new String[]{".css", ".jpg", ".png"};
 
     public static void apply(Javalin app) {
-        app.beforeMatched(ctx -> {
-
-            for (var format : openFormats) {
-                if (ctx.path().endsWith(format)) {
-                    return;
-                }
-            }
-
-            for (var endpoint : openEndpoints) {
-                if (ctx.path().equals(endpoint)) {
-                    return;
-                }
-            }
-
-
-            Long userID = ctx.sessionAttribute("user_id");
-            if (userID == null) {
-                throw new NotAuthenticatedException();
-            }
-            //Rol rol = ctx.sessionAttribute("rol");
-        });
+//        app.beforeMatched(ctx -> {
+//
+//            for (var format : openFormats) {
+//                if (ctx.path().endsWith(format)) {
+//                    return;
+//                }
+//            }
+//
+//            for (var endpoint : openEndpoints) {
+//                if (ctx.path().equals(endpoint)) {
+//                    return;
+//                }
+//            }
+//
+//
+//            Long userID = ctx.sessionAttribute("user_id");
+//            if (userID == null) {
+//                throw new NotAuthenticatedException();
+//            }
+//            //Rol rol = ctx.sessionAttribute("rol");
+//        });
     }
 }

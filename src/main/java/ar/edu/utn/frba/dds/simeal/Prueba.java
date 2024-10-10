@@ -27,7 +27,6 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
-import org.hibernate.property.access.internal.PropertyAccessStrategyMixedImpl;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

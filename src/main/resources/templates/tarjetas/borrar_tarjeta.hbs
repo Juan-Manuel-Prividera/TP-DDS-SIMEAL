@@ -1,44 +1,16 @@
 {{#partial "contenido"}}
-<div class="container-supremo">
-    <div class="tarjeta-personal-container">
-        <h2 >Tarjeta Personal</h2>
-        <div class="tarjeta-btns ml-auto mr-auto">
-            <a href="/tarjeta/new">
-                <button class="btn btn-dark mt-5 mb-3">Agregar tarjeta</button>
-            </a>
-            <a href="/tarjeta/delete">
-                <button class="btn btn-dark mb-3 seleccionado">Eliminar tarjeta</button>
-            </a>
-            <a href="/tarjeta/update">
-                <button class="btn btn-dark mb-3">Modificar tarjeta</button>
-            </a>
-        </div>
-
-    </div>
-    <div class="container-tarjetas">
-
-        {{#block "tarjeta-personal"}}
-        {{/block}}
-
-        <div class="tarjetas-entregadas ml-auto mr-auto">
-            <h2 class="mt-3">Tarjetas Entregadas</h2>
-            {{#each tarjetasEntregadas}}
-                <form class="form-tarjeta" action="/tarjeta/delete/{{this.numero}}" method="POST">
-                    <div class="tarjeta-persona-vulnerable div-expand">
-                    <p class="nro-tarjeta mr-5 mt-auto mb-auto">Nro: {{this.numero}}</p>
-                    <button class="btn-transparente" type="submit">
-                        <img class="paper-bin-img" src="/img/paper-bin.png" alt="Erase">
-                    </button>
-                    </div>
-                </form>
-            {{/each}}
-        </div
-    </div>
-
+<div class="tarjetas-entregadas ml-auto mr-auto">
+    <h2 class="mt-3">Tarjetas Entregadas</h2>
+    {{#each tarjetasEntregadas}}
+        <form class="form-tarjeta" action="/tarjeta/delete/{{this.numero}}" method="POST">
+            <div class="tarjeta-persona-vulnerable div-expand">
+            <p class="nro-tarjeta mr-5 mt-auto mb-auto">Nro: {{this.numero}}</p>
+            <button class="btn-transparente" type="submit">
+                <img class="paper-bin-img" src="/img/paper-bin.png" alt="Erase">
+            </button>
+            </div>
+        </form>
+    {{/each}}
 </div>
-
-<footer class="bg-dark text-white text-center py-3 mt-auto">
-    <p>Lo que querramos poner</p>
-</footer>
 {{/partial}}
-{{> templates/tarjetas/tarjeta_personal}}
+{{> templates/tarjetas/home}}

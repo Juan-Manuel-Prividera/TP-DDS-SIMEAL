@@ -8,6 +8,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +66,6 @@ public class PersonaVulnerable extends Persistente {
   }
 
   public void calcularEdad() {
-    edad = LocalDate.now().getYear() - this.fechaNacimiento.getYear();
+    edad = Period.between(fechaNacimiento, LocalDate.now()).getYears();
   }
 }

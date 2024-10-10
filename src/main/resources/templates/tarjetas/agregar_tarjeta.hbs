@@ -1,78 +1,56 @@
 {{#partial "contenido"}}
-<div class="container-supremo">
-    <div class="tarjeta-personal-container">
-        <h2 >Tarjeta Personal</h2>
-        <div class="tarjeta-btns ml-auto mr-auto">
-            <a href="tarjeta/new">
-                <button class="btn btn-dark mt-5 mb-3 seleccionado">Agregar tarjeta</button>
-            </a>
-            <a href="tarjeta/delete">
-                <button class="btn btn-dark mb-3">Eliminar tarjeta</button>
-            </a>
-            <a href="tarjeta/update">
-                <button class="btn btn-dark mb-3">Modificar tarjeta</button>
-            </a>
-        </div>
-
-    </div>
-    <div class="container-tarjetas">
-        {{#block "tarjeta-personal"}}
-        {{/block}}
-
-        <form method="POST" action="/tarjeta/new" name="formNewTarjeta" class="agregar-tarjeta">
-            <div class="form-container">
-                <div class="left">
-                    <h2>Datos personales</h2>
-                    <label for="nombre">*Nombre/s</label>
-                    <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
-                    <label for="apellido">*Apellido/s</label>
-                    <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido" required>
+<div>
+    <form method="POST" action="/tarjeta/new" name="formNewTarjeta" class="agregar-tarjeta">
+        <div class="form-container">
+            <div class="left">
+                <h2>Datos personales</h2>
+                <label for="nombre">*Nombre/s</label>
+                <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
+                <label for="apellido">*Apellido/s</label>
+                <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido" required>
+                <label for="documentoNro">Documento</label>
+                <div class="documento-container">
+                    <select class="form-control" name="documentoTipo">
+                        <option value="" disabled selected hidden>...</option>
+                        <option value="dni">DNI</option>
+                        <option value="pasaporte">Pasaporte</option>
+                        <option value="libreta">Libreta</option>
+                    </select>
+                    <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
+                </div>
+                <label for="apellido">Fecha de nacimiento</label>
+                <input type="date" class="form-control mb-4" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
+            </div>
+            <div class="right">
+                <h2>Menores a cargo</h2>
+                <div class="hijo-container">
+                    <label for="nombre">Nombre/s Hijo/a</label>
+                    <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre">
+                    <label for="apellido">Apellido/s Hijo/a</label>
+                    <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido">
                     <label for="documentoNro">Documento</label>
                     <div class="documento-container">
-                        <select class="form-control" name="documentoTipo">
+                        <select class="form-control" name="documentoTipoHijo">
                             <option value="" disabled selected hidden>...</option>
                             <option value="dni">DNI</option>
                             <option value="pasaporte">Pasaporte</option>
                             <option value="libreta">Libreta</option>
                         </select>
-                        <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
-                    </div>
+                        <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
+                     </div>
                     <label for="apellido">Fecha de nacimiento</label>
-                    <input type="date" class="form-control mb-4" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
+                    <input type="date" class="form-control mb-4" name="nacimientoHijo" id="nacimiento" placeholder="Fecha de nacimiento">
+                    <hr style="border-width:0.5vh;background-color:#135c52;">
                 </div>
-                <div class="right">
-                    <h2>Menores a cargo</h2>
-                    <div class="hijo-container">
-                        <label for="nombre">Nombre/s Hijo/a</label>
-                        <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre">
-                        <label for="apellido">Apellido/s Hijo/a</label>
-                        <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido">
-                        <label for="documentoNro">Documento</label>
-                        <div class="documento-container">
-                            <select class="form-control" name="documentoTipoHijo">
-                                <option value="" disabled selected hidden>...</option>
-                                <option value="dni">DNI</option>
-                                <option value="pasaporte">Pasaporte</option>
-                                <option value="libreta">Libreta</option>
-                            </select>
-                            <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
-                            <label for="apellido">Fecha de nacimiento</label>
-                            <input type="date" class="form-control mb-4" name="nacimientoHijo" id="nacimiento" placeholder="Fecha de nacimiento">
-                        </div>
-                        <hr style="border-width:0.5vh;background-color:#135c52;">
-                    </div>
-                    <div class="agregar-hijo" id="agregar-hijo-btn">
-                        <img alt="Agregar hijo" class="plus-img" src="/img/plus-icon.png">
-                    </div>
+                <div class="agregar-hijo" id="agregar-hijo-btn">
+                    <img alt="Agregar hijo" class="plus-img" src="/img/plus-icon.png">
+                </div>
 
-                </div>
             </div>
-            <button class="btn btn-dark mb-3" type="submit">Registrar</button>
-        </form>
-
-    </div>
+        </div>
+        <button class="btn btn-dark mb-3" type="submit">Registrar</button>
+    </form>
 </div>
-
 <script>
     document.getElementById('agregar-hijo-btn').addEventListener('click', function() {
         // Find the container to duplicate
@@ -83,10 +61,8 @@
         hijoContainer.parentNode.insertBefore(newHijoContainer, hijoContainer.nextSibling);
     });
 </script>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/js/desplegable.js"></script>
 {{/partial}}
-{{> templates/tarjetas/tarjeta_personal}}
+{{> templates/tarjetas/home}}

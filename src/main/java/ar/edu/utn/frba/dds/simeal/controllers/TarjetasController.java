@@ -6,21 +6,17 @@ import ar.edu.utn.frba.dds.simeal.models.dtos.SolicitudOperacionDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.TarjetaPersonaVulnerableDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
+import ar.edu.utn.frba.dds.simeal.utils.GeneradorNrosTarjeta;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
-import java.sql.Time;
-import java.text.Format;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,19 +25,20 @@ public class TarjetasController {
 
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
+    model.put("username", app.sessionAttribute("username"));
     logger.log(LoggerType.DEBUG, "Entrando a set navbar");
     setNavBar(model);
     logger.log(LoggerType.DEBUG, "Entrando a set tarjeta personal");
     setTarjetaPersonal(model);
     setTarjetasPersonasVulnerables(model);
 
-    app.render("tarjetas/home.hbs", model);
+    app.render("tarjetas/tarjetas_entregadas.hbs", model);
   }
 
   public void indexNewTarjeta(Context app) {
-    // TODO: Aca no anda el btn de accesos disponibles :(, raro
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Crear nueva tarjeta");
+    model.put("username", app.sessionAttribute("username"));
     setNavBar(model);
     setTarjetaPersonal(model);
 
@@ -66,6 +63,7 @@ public class TarjetasController {
     // TODO: Hay que borrar tambien a la persona vulnerable o solo la tarjeta?
     repositorio.desactivar(tarjeta);
     ServiceLocator.getController(PersonaVulnerableController.class).delete(tarjeta.getPersonaVulnerable());
+
     app.redirect("/tarjeta");
   }
 
@@ -78,7 +76,7 @@ public class TarjetasController {
     // TODO: Ver como se generaria el codigo
     // TODO: Completar con el resto de atributos que necesite
     TarjetaPersonaVulnerable tarjetaPersonaVulnerable = new TarjetaPersonaVulnerable(
-      "codigo",
+      GeneradorNrosTarjeta.generarCodigo(),
       personaVulnerable
     );
 
@@ -88,7 +86,6 @@ public class TarjetasController {
 
 
   private void setNavBar(HashMap<String, Object> model) {
-    model.put("username", "preguntarleAEliDeDondeLoSaco :)");
     model.put("tarjetas", "seleccionado");
     model.put("colaboraciones", "");
     model.put("ofertas", "");
