@@ -34,6 +34,9 @@ public class TarjetaPersonaVulnerable extends Persistente {
     this.personaVulnerable = personaVulnerable;
     this.usosHechos = 0;
   }
+  public int usosRestantes() {
+    return this.calcularLimiteDeUso() - usosHechos;
+  }
 
   public boolean puedeRetirar() {
     return usosHechos < calcularLimiteDeUso();

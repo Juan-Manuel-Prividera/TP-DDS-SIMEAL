@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -12,6 +13,7 @@ import javax.persistence.Enumerated;
 @Getter
 @NoArgsConstructor
 @Embeddable
+@Setter
 public class Documento {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoDocumento")

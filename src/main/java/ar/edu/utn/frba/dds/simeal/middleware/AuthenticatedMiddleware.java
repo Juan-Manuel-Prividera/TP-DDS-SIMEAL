@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.middleware;
 
-import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import io.javalin.Javalin;
 
 // Middlewares are like questions, this' question is: are you authenticated?

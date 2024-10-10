@@ -11,6 +11,7 @@ public class TarjetaPersonaVulnerableDTO {
   private String numero;
   private String usosDisponibles;
   private String nombrePropietario;
+  private String apellidoPropietario;
   private String dniPropietario;
   private String edadPropietario;
 }

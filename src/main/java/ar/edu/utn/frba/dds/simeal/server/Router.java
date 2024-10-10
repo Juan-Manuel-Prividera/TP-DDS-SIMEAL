@@ -34,7 +34,7 @@ public class Router {
     app.get("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
     app.post("tarjeta/delete/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::delete);
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
-    app.post("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
+    app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
     // ***************  Heladeras   ***************
 

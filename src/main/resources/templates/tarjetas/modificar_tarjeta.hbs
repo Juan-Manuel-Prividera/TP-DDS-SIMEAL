@@ -1,0 +1,52 @@
+{{#partial "contenido"}}
+<div class="tarjetas-entregadas ml-auto mr-auto">
+    <h2 class="mt-3">Tarjetas Entregadas</h2>
+    {{#each tarjetasEntregadas}}
+    <form class="form-update-tarjeta" method="POST" action="/tarjeta/update/{{this.numero}}" onsubmit="return confirmarEnvio()">
+    <div class="tarjeta-persona-vulnerable div-expand">
+        <p class="nro-tarjeta mr-5 mt-auto mb-auto">Nro: {{this.numero}}</p>
+        <button class="btn-transparente ml-5 mt-auto mb-auto" type="submit">
+            <img class="pencil-img" src="/img/pencil.png" alt="Erase">
+        </button>
+    </div>
+    <div class="expandible-t hidden">
+        <table>
+            <thead>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <th>Edad</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <input name="newNombre" type="text" value="{{this.nombrePropietario}}" placeholder="Nombre" class="input-tarjeta"></input>
+                </td>
+                <td>
+                    <input name="newApellido" type="text" value="{{this.apellidoPropietario}}" placeholder="Apellido" class="input-tarjeta"></input>
+                </td>
+                <td>
+                    <input name="newDni" type="text" value="{{this.dniPropietario}}" placeholder="DNI" class="input-tarjeta"></input>
+                </td>
+                <td>
+                    <input name="newEdad" type="number" value="{{this.edadPropietario}}" placeholder="Edad" class="input-tarjeta"></input>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </form>
+    {{/each}}
+</div>
+<script>
+    function confirmarEnvio() {
+        return confirm("¿Estás seguro de que quieres guardar los cambios?");
+    }
+</script>
+<!--<script src="/js/desplegable.js"></script>-->
+<script src="/js/tarjetas-entregadas-desplegable.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{{/partial}}
+{{> templates/tarjetas/home}}

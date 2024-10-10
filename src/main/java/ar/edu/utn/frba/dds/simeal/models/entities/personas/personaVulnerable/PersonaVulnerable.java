@@ -39,7 +39,7 @@ public class PersonaVulnerable extends Persistente {
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
   private Ubicacion domilicio;
 
-  @OneToMany
+  @OneToMany @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   @JoinColumn(name = "padre_id", referencedColumnName = "id")
   private List<PersonaVulnerable> hijos = new ArrayList<>();
 

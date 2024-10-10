@@ -8,9 +8,9 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PersonaVulnerableController {
 
@@ -38,7 +38,7 @@ public class PersonaVulnerableController {
           PersonaVulnerable.builder()
             .nombre(nombresHijos.get(i))
             .apellido(apellidosHijos.get(i))
-            .documento(new Documento(TipoDocumento.valueOf(documentoTIpoHijos.get(i)), documentoNroHijos.get(i)))
+            .documento(new Documento(TipoDocumento.valueOf(documentoTIpoHijos.get(i).toUpperCase()), documentoNroHijos.get(i)))
             .fechaNacimiento(LocalDate.parse(nacimientoHijos.get(i)))
             .build()
         );
@@ -55,4 +55,20 @@ public class PersonaVulnerableController {
     ServiceLocator.getRepository(Repositorio.class).desactivar(personaVulnerable);
   }
 
+  public void update(PersonaVulnerable personaVulnerable, String newName, String newApellido, String newDni, String newEdad) {
+    if (!Objects.equals(newName, personaVulnerable.getNombre())) {
+      personaVulnerable.setNombre(newName);
+    }
+    if (!Objects.equals(newApellido, personaVulnerable.getApellido())) {
+      personaVulnerable.setApellido(newApellido);
+    }
+    if (!Objects.equals(newDni, personaVulnerable.getDocumento().getNroDocumento())) {
+      personaVulnerable.getDocumento().setNroDocumento(newDni);
+    }
+    if (!Objects.equals(Integer.parseInt(newEdad), personaVulnerable.getEdad())) {
+      personaVulnerable.setEdad(Integer.parseInt(newEdad));
+    }
+
+    ServiceLocator.getRepository(Repositorio.class).actualizar(personaVulnerable);
+  }
 }

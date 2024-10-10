@@ -123,9 +123,9 @@ public class Prueba implements WithSimplePersistenceUnit {
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable1);
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable2);
 
-    TarjetaPersonaVulnerable tarjeta = new TarjetaPersonaVulnerable("123456789", personaVulnerable);
-    TarjetaPersonaVulnerable tarjeta1 = new TarjetaPersonaVulnerable("123456789", personaVulnerable1);
-    TarjetaPersonaVulnerable tarjeta2 = new TarjetaPersonaVulnerable("123456789", personaVulnerable2);
+    TarjetaPersonaVulnerable tarjeta = new TarjetaPersonaVulnerable("111222333", personaVulnerable);
+    TarjetaPersonaVulnerable tarjeta1 = new TarjetaPersonaVulnerable("333444555", personaVulnerable1);
+    TarjetaPersonaVulnerable tarjeta2 = new TarjetaPersonaVulnerable("666777888", personaVulnerable2);
     ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta);
     ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta1);
     ServiceLocator.getRepository(Repositorio.class).guardar(tarjeta2);
