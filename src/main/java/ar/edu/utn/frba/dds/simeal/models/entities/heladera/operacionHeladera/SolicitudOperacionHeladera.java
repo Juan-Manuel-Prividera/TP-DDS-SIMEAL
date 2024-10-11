@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaCo
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -15,18 +16,21 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Entity
-@Table(name = "solicitudOperacionHeladera")
+@Table(name = "solicitud_operacion_heladera")
 @AllArgsConstructor
+@NoArgsConstructor
 public class SolicitudOperacionHeladera extends Persistente {
   @Enumerated(EnumType.STRING)
   @Column(name = "tipoOperacion")
   private TipoOperacion tipoOperacion;
 
+
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @ManyToOne
   @JoinColumn(name = "tarjeta_colaborador_id", referencedColumnName = "id")
   private TarjetaColaborador tarjetaColaborador;
 
-  @ManyToOne @Cascade(org.hibernate.annotations.CascadeType.MERGE)
+  @ManyToOne @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
@@ -39,10 +43,10 @@ public class SolicitudOperacionHeladera extends Persistente {
 
   @Column(name = "hora_inicio")
   private LocalDateTime horaInicio;
+
   @Column(name = "hora_solicitud")
   private LocalDateTime horaSolicitud;
 
-  public SolicitudOperacionHeladera() { }
 
   //Por alguna razón, si ejecutas el metodo al mismo tiempo en el que creaste la solicitud, devuelve false
   public boolean puedeEjecutarse(Heladera heladera){

@@ -10,21 +10,11 @@ public class ServiceLocator {
   private static final Map<String, Object> controllers = new HashMap<>();
   private static final Map<String,Object> services = new HashMap<>();
 
-  private static final Repositorio repositorio = new Repositorio();
-//  // TODO: Ver de hacer como hizo el profe para no tener el bloque estatico
-//
-//  static {
-//    repositories.put(ColaboracionRepository.class.getName(), new ColaboracionRepository());
-//    repositories.put(SuscripcionesRepository.class.getName(), new SuscripcionesRepository());
-//    repositories.put(ModeloHeladeraRepository.class.getName(), new ModeloHeladeraRepository());
-//    repositories.put(ViandaRepository.class.getName(), new ViandaRepository());
-//    repositories.put(SensorRepository.class.getName(), new SensorRepository());
-//    repositories.put(TarjetaColaboradorRepository.class.getName(), new TarjetaColaboradorRepository());
-//    repositories.put(OfertaRepository.class.getName(), new OfertaRepository());
-//  }
-
+  // Metodo para obtener repositorios manteniendo Singleton
   public static Repositorio getRepository(Class<? extends Repositorio> repository) {
     String repoName = repository.getName();
+    // Si el repositorio esta en el Map lo devolvemos y listo
+    // Si no esta en el map se crea y guarda en el map para luego retornarlo
     if (!repositories.containsKey(repoName)) {
       try {
         repositories.put(repoName, repository.getDeclaredConstructor().newInstance());
@@ -35,13 +25,40 @@ public class ServiceLocator {
     return repositories.get(repoName);
   }
 
+  // Metodo para obtener Controllers manteniendo Singleton
   public static <T> T getController(Class<T> controllerClass) {
+    // Toda esta magia oscura se va a ejecutar una vez por controlador gracias a que guardamos todo en el MAP  :)
     String controllerName = controllerClass.getName();
+    // Si el controller ya esta en el map lo devolvemos
     if (!controllers.containsKey(controllerName)) {
       try {
-        controllers.put(controllerName, controllerClass.getDeclaredConstructor().newInstance());
+        // Si no, obtenemos el constructor del Controller pedido
+        var constructors = controllerClass.getDeclaredConstructors();
+        if (constructors.length == 0) {
+          throw new RuntimeException("No se encontraron constructores para " + controllerName);
+        }
+
+        // Usar el primer constructor disponible
+        var constructor = constructors[0];
+
+        // Obtenemos los tipos de parámetros del constructor
+        Class<?>[] parameterTypes = constructor.getParameterTypes();
+        // Los parametros deberian ser SOLAMENTE o Controllers o Repositorios
+        // Para cada tipo de parámetro, obtener la instancia
+        Object[] constructorArgs = new Object[parameterTypes.length];
+        for (int i = 0; i < parameterTypes.length; i++) {
+          // Chequeamos si es un Repositorio sino mandamos controlador
+          if (Repositorio.class.isAssignableFrom(parameterTypes[i])) {
+            constructorArgs[i] = getRepository((Class<? extends Repositorio>) parameterTypes[i]);
+          } else {
+            // Es un metodo Recursivo pero mientras no tengamos parametros infinitos todo bien :)
+            constructorArgs[i] = getController(parameterTypes[i]);
+          }
+        }
+        // Instanciar el controlador con los parametros obtenidos
+        controllers.put(controllerName, constructor.newInstance(constructorArgs));
       } catch (Exception e) {
-        throw new RuntimeException("Error al crear el controlador con getDeclareConstructor ", e);
+        throw new RuntimeException("Error al crear el controlador " + controllerName, e);
       }
     }
     return (T) controllers.get(controllerName);

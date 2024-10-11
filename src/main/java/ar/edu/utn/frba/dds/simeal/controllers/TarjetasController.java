@@ -11,8 +11,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Per
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.utils.GeneradorNrosTarjeta;
-import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
 import java.time.LocalTime;
@@ -21,14 +19,21 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TarjetasController {
-  Logger logger = Logger.getInstance("tarjetas.log");;
+  private PersonaVulnerableController personaVulnerableController;
+  private TarjetaPersonaVulnerableRepository repository;
+  private TarjetaColaboradorRepository tarjetaColaboradorRepository;
+
+  public TarjetasController(PersonaVulnerableController personaVulnerableController, TarjetaPersonaVulnerableRepository repository,
+                            TarjetaColaboradorRepository tarjetaColaboradorRepository) {
+    this.personaVulnerableController = personaVulnerableController;
+    this.repository = repository;
+    this.tarjetaColaboradorRepository = tarjetaColaboradorRepository;
+  }
 
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("username", app.sessionAttribute("username"));
-    logger.log(LoggerType.DEBUG, "Entrando a set navbar");
     setNavBar(model);
-    logger.log(LoggerType.DEBUG, "Entrando a set tarjeta personal");
     setTarjetaPersonal(model);
     setTarjetasPersonasVulnerables(model);
 
@@ -62,13 +67,10 @@ public class TarjetasController {
   }
 
   public void delete(Context app) {
-    TarjetaPersonaVulnerableRepository repositorio = (TarjetaPersonaVulnerableRepository) ServiceLocator.getRepository(TarjetaPersonaVulnerableRepository.class);
-    TarjetaPersonaVulnerable tarjeta = repositorio.getPorNumero(app.pathParam("numeroTarjeta"));
+    TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(app.pathParam("numeroTarjeta"));
 
-    // TODO: Hay que borrar tambien a la persona vulnerable o solo la tarjeta?
-    repositorio.desactivar(tarjeta);
-    ServiceLocator.getController(PersonaVulnerableController.class).delete(tarjeta.getPersonaVulnerable());
-
+    repository.desactivar(tarjeta);
+    personaVulnerableController.delete(tarjeta.getPersonaVulnerable());
     app.redirect("/tarjeta");
   }
 
@@ -78,13 +80,10 @@ public class TarjetasController {
     String newDni = app.formParam("newDni");
     String newEdad = app.formParam("newEdad");
     String numeroTarjeta = app.pathParam("numeroTarjeta");
-    TarjetaPersonaVulnerableRepository repo =
-      (TarjetaPersonaVulnerableRepository) ServiceLocator.getRepository(TarjetaPersonaVulnerableRepository.class);
-
-    TarjetaPersonaVulnerable tarjeta = repo.getPorNumero(numeroTarjeta);
+//
+    TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(numeroTarjeta);
     PersonaVulnerable personaVulnerable = tarjeta.getPersonaVulnerable();
-    ServiceLocator.getController(PersonaVulnerableController.class).update(personaVulnerable, newName, newApellido, newDni, newEdad);
-
+    personaVulnerableController.update(personaVulnerable, newName, newApellido, newDni, newEdad);
     app.redirect("/tarjeta");
   }
 
@@ -95,31 +94,31 @@ public class TarjetasController {
       personaVulnerable
     );
 
-    ServiceLocator.getRepository(Repositorio.class).guardar(tarjetaPersonaVulnerable);
+    repository.guardar(tarjetaPersonaVulnerable);
     ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable);
   }
 
 
   private void setNavBar(HashMap<String, Object> model) {
     model.put("tarjetas", "seleccionado");
+    model.put("esHumano","true");
+    model.put("user_type", "humano");
   }
 
   // TODO: Poner los datos del usuario que haga la request
   private void setTarjetaPersonal(HashMap<String, Object> model) {
-    TarjetaColaboradorRepository repository = (TarjetaColaboradorRepository) ServiceLocator.getRepository(TarjetaColaboradorRepository.class);
     //TODO: Sacar ID de la sesion
-    TarjetaColaborador tarjetaColaborador = repository.getPorColaborador(1L);
+    TarjetaColaborador tarjetaColaborador = tarjetaColaboradorRepository.getPorColaborador(1L);
     if (tarjetaColaborador == null) {
       throw new RuntimeException("No habia tarjetas de colaborador con id = 1");
     }
-    logger.log(LoggerType.DEBUG, "Se obtuvo la tarjeta de ID = " + tarjetaColaborador.getId());
 
     String codigo =String.format("%06d", tarjetaColaborador.getId());
     model.put("numeroTarjetaPersonal",codigo.substring(0,3) + "." + codigo.substring(3));
 
-    SolicitudOperacionRepository solicitudOperacionRepository = (SolicitudOperacionRepository) ServiceLocator.getRepository(SolicitudOperacionRepository.class);
+    SolicitudOperacionRepository solicitudOperacionRepository =
+      (SolicitudOperacionRepository) ServiceLocator.getRepository(SolicitudOperacionRepository.class);
     List<SolicitudOperacionHeladera> solicitudes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaColaborador.getId());
-    logger.log(LoggerType.INFORMATION,"Hay al menos una solicitud en la lista de solicitudes: " + solicitudes.get(0).getId());
     setSolicitudes(model,solicitudes);
   }
 
@@ -134,7 +133,6 @@ public class TarjetasController {
           .build()
       );
     }
-    logger.log(LoggerType.DEBUG, "Se creo la lista de solicitudes: " + solicitudesDTOs.size());
     model.put("solicitudes", solicitudesDTOs);
   }
 

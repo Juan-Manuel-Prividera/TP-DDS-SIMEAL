@@ -1,8 +1,22 @@
 // Cuando el html termina de cargar ejecuta cargarMapa()
 let map;
-$(document).ready(function() {
 
+class Heladera {
+    constructor(id, nombre, latitud, longitud,activa,altura,nombreCalle) {
+        this.id = id;
+        this.nombre = nombre;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.activa = activa;
+        this.altura = altura;
+        this.nombreCalle = nombreCalle;
+
+    }
+}
+
+$(document).ready(function() {
     cargarMapa();
+    buscarHeladeraMapa()
 });
 
 
@@ -30,8 +44,17 @@ function cargarMapa(){
     map.doubleClickZoom.disable();
 
     // Añadir puntos en el mapa
-    agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO",map,heladeraIcon);
-    agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS",map,heladeraIcon);
+    obtenerHeladeras().then(heladeras => {
+        console.log(heladeras)
+            heladeras.forEach(heladera => {
+                agregarHeladera(heladera,map,heladeraIcon)
+            })
+    })
+
+
+
+   //   agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO",map,heladeraIcon);
+  //  agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS",map,heladeraIcon);
 
     // Añadir heladeras al mapa haciendo doble click
     // Salta un cuadro de dialogo para que el usuario ingrese el nombre de la heladera
@@ -42,12 +65,16 @@ function cargarMapa(){
             agregarHeladera(punto.lat, punto.lng, nombreHeladera,map,heladeraIcon);
         }
     });
-    
+
 }
 
-function agregarHeladera(latitud,longitud,nombreHeladera,map, heladeraIcon){
-    var marker = L.marker([latitud, longitud], {icon: heladeraIcon}).addTo(map);
-    marker.bindPopup("<b>"+nombreHeladera+"</b>").openPopup();
+function agregarHeladera(heladera,map, heladeraIcon){
+    var marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
+    marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+    marker.on('click', function(){
+        document.getElementById("nombreHeladera").value = heladera.nombre
+        document.getElementById("ubicacionHeladera").value = heladera.nombreCalle + " " + heladera.altura
+    })
 }
 
 export function buscarDireccion(direccion){
@@ -63,3 +90,35 @@ export function buscarDireccion(direccion){
     });
 }
 
+function obtenerHeladeras() {
+    return fetch("http://localhost:8080/heladeras")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("No se pudieron obtener las heladeras: " + response.statusText)
+            }
+            return response.json()
+        });
+
+}
+
+function buscarHeladeraMapa() {
+    document.getElementById("inputHeladera").addEventListener('click', function () {
+        const nombreHeladera = document.getElementById("nombreHeladera").value;
+        const ubicacionHeladera = document.getElementById("ubicacionHeladera").value;
+        obtenerHeladeras().then(heladeras => {
+            heladeras.forEach(heladera => {
+                if (heladera.nombre == nombreHeladera) {
+                    map.flyTo([heladera.latitud, heladera.longitud], 13);
+                    fetch("http://localhost:8080/heladera/" + heladera.id).then(response =>{
+                        if (!response.ok) {
+                            throw new Error("Error al hacer get sobre heladera seleccionada")
+                        }
+                    })
+                }
+            })
+        })
+
+
+    })
+
+}

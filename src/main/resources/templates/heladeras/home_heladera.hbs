@@ -1,0 +1,21 @@
+{{> templates/navbar}}
+<div class="linear-container">
+    {{> templates/heladeras/mapa_heladera}}
+<div class="formulario">
+    <form class="form-group">
+        <h3 class="mb-5 mt-5">Complete con la información de la heladera</h3>
+        <label for="nombreHeladera">Nombre de la heladera</label>
+        <input id="nombreHeladera" type="text" class="form-control mb-4"  placeholder="Nombre">
+        <label for="ubicacionHeladera">Ubicación</label>
+        <input id="ubicacionHeladera" type="text" class="form-control mb-5" placeholder="Ubicación">
+
+        <a class="btn btn-dark btn-seleccionar rounded m-auto" id="inputHeladera" type="button">Seleccionar</a>
+    </form>
+</div>
+</div>
+
+<script type="module" src="/js/mapa.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script type="module" src="/js/recibirInputHeladera.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>

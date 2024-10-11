@@ -1,4 +1,4 @@
-import {buscarDireccion} from 'mapa.js'
+import {buscarDireccion} from '/js/mapa.js'
 
 function recibirInputHeladera(){
     const btn = document.getElementById('inputHeladera')

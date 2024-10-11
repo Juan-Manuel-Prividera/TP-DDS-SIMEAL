@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
@@ -24,8 +25,8 @@ public class Router {
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
 
     // ***************  HomePage   ***************
-    app.get("home/humano", context -> context.render("humano_home.hbs"));
-    app.get("home/juridico", context -> context.render("juridico_home.hbs"));
+    app.get("humano/home", context -> context.render("humano_home.hbs"));
+    app.get("juridico/home", context -> context.render("juridico_home.hbs"));
 
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);
@@ -38,7 +39,9 @@ public class Router {
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
     // ***************  Heladeras   ***************
-
+    app.get("{usr_type}/heladera", ServiceLocator.getController(HeladeraController.class)::index);
+    app.get("/heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera)
+    app.get("/heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
     // ***************  Ofertas  ***************
     app.get("{usr_type}/ofertas", ServiceLocator.getController(OfertasController.class)::index);
     app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);

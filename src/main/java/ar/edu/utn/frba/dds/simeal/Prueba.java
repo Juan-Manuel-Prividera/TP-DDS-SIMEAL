@@ -60,15 +60,28 @@ public class Prueba implements WithSimplePersistenceUnit {
     repositorioColabs.guardar(colaborador5);
 
 
-    Ubicacion ubicacion = new Ubicacion("frias", 1234);
+    Ubicacion ubicacion = new Ubicacion("Sarmiento", 2600, -34.57991061741367, -58.42111388432673);
+    Ubicacion ubicacion1 = new Ubicacion("Medrano", 1344, -34.59859548850497, -58.42011530932118);
+    Ubicacion ubicacion2 = new Ubicacion("Mozart", 2300, -34.65946430376541, -58.46797562733076);
+    Ubicacion ubicacion3 = new Ubicacion("Santa Fe", 1860, -34.59266250613197, -58.39405684357533);
+    Ubicacion ubicacion4 = new Ubicacion("Gorriti", 900, -34.60679445485131, -58.36548827958108);
     ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo1",2,3,4);
     Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
     modeloRepo.guardar(modeloHeladera);
 
-    Heladera heladera = new Heladera("Heladera de prueba",ubicacion, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+    Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+    Heladera heladera1 = new Heladera("Heladera Medrano",ubicacion1, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+    Heladera heladera2 = new Heladera("Heladera Campus",ubicacion2, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+    Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+    Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+
 
     Repositorio repositorioHeladera = ServiceLocator.getRepository(Repositorio.class);
     repositorioHeladera.guardar(heladera);
+    repositorioHeladera.guardar(heladera1);
+    repositorioHeladera.guardar(heladera2);
+    repositorioHeladera.guardar(heladera3);
+    repositorioHeladera.guardar(heladera4);
 
     Vianda vianda0 = new Vianda(new TipoDeComida("Ensalada"), LocalDate.of(2024,12,20), LocalDate.now(),colaborador5,200,heladera,false);
     Vianda vianda1 = new Vianda(new TipoDeComida("Pasta"), LocalDate.of(2024,12,20), LocalDate.now(),colaborador5,250,heladera,false);
@@ -106,10 +119,10 @@ public class Prueba implements WithSimplePersistenceUnit {
     repoColabs.guardar(adherirHeladera2);
 
     // ****** Prueba de obtener datos de BD ******
-    List<Colaborador> listaColabs = (List<Colaborador>) repositorioColabs.obtenerTodos(Colaborador.class);
-    for(Colaborador colaborador : listaColabs){
-      System.out.println(colaborador.getNombre() + " " + colaborador.getApellido());
-    }
+//    List<Colaborador> listaColabs = (List<Colaborador>) repositorioColabs.obtenerTodos(Colaborador.class);
+//    for(Colaborador colaborador : listaColabs){
+//      System.out.println(colaborador.getNombre() + " " + colaborador.getApellido());
+//    }
 
 
 
@@ -154,8 +167,8 @@ public class Prueba implements WithSimplePersistenceUnit {
     ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador4);
     ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador5);
 
-    SolicitudOperacionHeladera solicitudOperacionHeladera = new SolicitudOperacionHeladera(TipoOperacion.INGRESO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,10,0,30), LocalDateTime.now());
-    SolicitudOperacionHeladera solicitudOperacionHeladera1 = new SolicitudOperacionHeladera(TipoOperacion.RETIRO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,2,0,30), LocalDateTime.now());
+    SolicitudOperacionHeladera solicitudOperacionHeladera = new SolicitudOperacionHeladera(TipoOperacion.INGRESO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,10,0,30),LocalDateTime.of(2026,10,10,0,30) );
+    SolicitudOperacionHeladera solicitudOperacionHeladera1 = new SolicitudOperacionHeladera(TipoOperacion.RETIRO,tarjetaColaborador,heladera,2,3, LocalDateTime.of(2026,10,2,0,30),LocalDateTime.of(2026,10,2,0,30));
 
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera);
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera1);
