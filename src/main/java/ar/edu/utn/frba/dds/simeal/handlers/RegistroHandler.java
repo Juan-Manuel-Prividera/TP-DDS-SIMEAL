@@ -45,14 +45,15 @@ public class RegistroHandler {
             );
         }
 
+        // TODO: Humano o persona?? usemosuno solo!!
         HashMap<String, Object> map = new HashMap<>();
         map.put("preguntas", preguntas);
-        if (context.pathParam("tipoUsuario").equals("persona")){
-            map.put("persona", true);
-            map.put("juridico", false);
-        } else if (context.pathParam("tipoUsuario").equals("juridico")) {
-            map.put("persona", false);
-            map.put("juridico", true);
+        if (context.pathParam("rol").equals("persona")){
+            map.put("persona", "true");
+            map.put("rol", "humano");
+        } else if (context.pathParam("rol").equals("juridico")) {
+            map.put("juridico", "true");
+            map.put("rol", "juridico");
         }
 
         context.render("registroFormulario.hbs", map);

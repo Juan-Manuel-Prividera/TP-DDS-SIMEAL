@@ -31,7 +31,7 @@
 
 <div class="container-supremo">
     <h1>Registro</h1>
-    <form action="/user/create" method="post" class="form-group" onsubmit="return validateFields()">
+    <form action="/user/create/{{rol}}" method="post" class="form-group" onsubmit="return validateFields()">
         <!-- dinamico -->
         {{#each preguntas}}
             <label for="{{this.param}}">{{this.campo}}</label>
