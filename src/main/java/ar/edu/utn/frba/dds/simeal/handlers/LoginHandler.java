@@ -19,7 +19,7 @@ public class LoginHandler {
 
         if (username == null || password == null) {
             // The user bypassed the frontend and sent no username and/or no password
-            context.redirect("/");
+            context.render("impostor_among_us.hbs");
             return;
         }
 

@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
+import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
@@ -47,6 +48,9 @@ public class Router {
     app.get("logout", new LogoutHandler()::handle);
     app.get("registro", ctx->{ctx.render("registro.hbs");});
     app.get("registro/{tipoUsuario}", new RegistroHandler()::handle);
+    app.post("user/create", ServiceLocator.getController(UsuariosController.class)::create);
+
+    // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);
 
   }
