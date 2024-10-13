@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/tarjetas.css">
     <link rel="stylesheet" href="/css/suscripcion.css">
     <link rel="stylesheet" href="/css/heladeras.css">
+    <link rel="stylesheet" href="/css/formulario.css">
 </head>
 <body>
 <header>
@@ -31,7 +32,7 @@
         <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav">
-<!--                    Evalua como verdadero cualquier String no vacio, si e juridico enviar un String vacio :)-->
+<!--                    Evalua como verdadero cualquier String no vacio, si es juridico enviar un String vacio :)-->
                     {{#if esAdmin}}
                         <li class="nav-item mr-auto" id="tarjeta-btn">
                             <a class="nav-link {{cargacsv}}" href="/migracion">Cargar CSV</a>
@@ -41,6 +42,9 @@
                         </li>
                         <li class="nav-item mr-auto" id="colaboracion-btn">
                             <a class="nav-link {{cambiomodo}}" href="/cambiarmodo">Cambiar Modo</a>
+                        </li>
+                        <li class="nav-item mr-auto" id="colaboracion-btn">
+                            <a class="nav-link {{formulario}}" href="/formularios">Formularios</a>
                         </li>
                     {{else}}
                         {{#if esHumano}}

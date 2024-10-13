@@ -1,0 +1,30 @@
+{{> templates/navbar}}
+
+<h1 class="mt-2">Seleccionar o Crear Formulario</h1>
+<div class="container-formularios">
+    <div class="left">
+    <!-- Listado de Formularios Existentes -->
+    <div class="lista-formularios">
+        <h2>Formularios existentes</h2>
+        <ul>
+            {{#each formularios}}
+                <li>
+                    <a href="/formulario/{{this.id}}">{{this.nombre}}</a>
+                    <span> - Fecha Creación: {{this.fechaCreacion}}</span>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    </div>
+    <!-- Crear un nuevo formulario -->
+    <div class="crear-nuevo-formulario">
+        <h2>Crear nuevo formulario</h2>
+        <form id="formCrearFormulario" method="POST" action="/formulario">
+            <div class="form-group">
+                <label for="nombreFormulario">Nombre del Formulario</label>
+                <input type="text" name="nombreFormulario" id="nombreFormulario" class="form-control" placeholder="Nombre del formulario" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Crear Formulario</button>
+        </form>
+    </div>
+</div>

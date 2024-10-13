@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.handlers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.models.dtos.PreguntaDTO;
+import ar.edu.utn.frba.dds.simeal.models.dtos.formulario.PreguntaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;

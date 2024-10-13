@@ -1,14 +1,17 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pregunta")
 public class Pregunta extends Persistente {
@@ -22,6 +25,7 @@ public class Pregunta extends Persistente {
   @Enumerated(EnumType.STRING)
   private TipoPregunta tipo;
 
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @ManyToMany
   @JoinTable(
           name = "pregunta_opcion",

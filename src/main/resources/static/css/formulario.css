@@ -1,0 +1,158 @@
+.container-creacion-preguntas {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    width: 100%;
+}
+.preguntas-existentes {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: start;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+    margin-top: 2%;
+}
+#listaPreguntas {
+    width: 100%;
+}
+.container-crear-preguntas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.container-crear-preguntas form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+.container-crear-preguntas form button {
+    margin-bottom: 3%;
+}
+
+
+.tipo-respuesta {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    align-items: center;
+    /*margin-top: 5%;*/
+
+}
+
+#opcionesContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+#listaPreguntas {
+    width: 100%;
+}
+
+#listaPreguntas .list-group-item {
+    flex-direction: column; /* Asegura que todo esté alineado en columnas */
+}
+
+#listaPreguntas .list-group-item .d-flex {
+    width: 100%; /* Asegura que la pregunta y el botón eliminar se alineen correctamente */
+}
+
+
+
+.tipo-respuesta button {
+    align-self: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    align-self: center;
+    width: 70%;
+    margin-bottom: 15px;
+    align-items: start;
+    margin-left: 30%;
+}
+.form-group label {
+    margin-top: 3%;
+    margin-right: 40%;
+}
+
+.btn-secondary {
+}
+
+
+
+.container-formularios {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 3%;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.lista-formularios {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.lista-formularios ul {
+    width:100%;
+    list-style: none;
+    padding: 0;
+}
+
+.lista-formularios ul li a {
+    width: 100%;
+    text-decoration: none;
+}
+
+.lista-formularios li {
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+.crear-nuevo-formulario {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.crear-nuevo-formulario form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}

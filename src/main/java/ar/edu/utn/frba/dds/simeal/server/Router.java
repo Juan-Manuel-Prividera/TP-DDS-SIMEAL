@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
@@ -19,6 +20,9 @@ import io.javalin.Javalin;
 
 public class Router {
   public static void init(Javalin app) {
+    // ***************  HomePage   ***************
+    app.get("humano/home", context -> context.render("humano_home.hbs"));
+    app.get("juridico/home", context -> context.render("juridico_home.hbs"));
 
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
@@ -26,9 +30,11 @@ public class Router {
     app.get("cambiarmodo", ServiceLocator.getController(CambioModoController.class)::cambiarmodo);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
 
-    // ***************  HomePage   ***************
-    app.get("humano/home", context -> context.render("humano_home.hbs"));
-    app.get("juridico/home", context -> context.render("juridico_home.hbs"));
+    app.get("formularios", ServiceLocator.getController(FormularioController.class)::index);
+    app.post("formulario", ServiceLocator.getController(FormularioController.class)::crearFormulario);
+    app.get("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::editarFormulario);
+    app.post("formulario/{formulario_id}/pregunta", ServiceLocator.getController(FormularioController.class)::crearPregunta);
+    app.delete("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
 
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);
@@ -37,18 +43,23 @@ public class Router {
 
     app.get("tarjeta/delete", ServiceLocator.getController(TarjetasController.class)::indexBorrarTarjeta);
     app.post("tarjeta/delete/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::delete);
+
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
     // ***************  Heladeras   ***************
     app.get("{usr_type}/heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
+
     app.get("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::indexReporteFallo);
     app.post("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::reportarFallo);
+    app.get("heladera/incidentes/{heladera_id}", ServiceLocator.getController(IncidenteController.class)::index);
+
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
-    app.get("heladera/incidentes/{heladera_id}", ServiceLocator.getController(IncidenteController.class)::index);
+
     app.get("/heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
+
     // ***************  Ofertas  ***************
     app.get("{usr_type}/ofertas", ServiceLocator.getController(OfertasController.class)::index);
     app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
@@ -59,6 +70,8 @@ public class Router {
     app.get("registro", ctx->{ctx.render("registro.hbs");});
     app.get("registro/{rol}", new RegistroHandler()::handle);
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
+
+    // ****************** Colaboraciones ******************
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);

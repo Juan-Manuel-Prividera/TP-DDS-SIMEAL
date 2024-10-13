@@ -1,0 +1,139 @@
+{{> templates/navbar}}
+<div class="container-creacion-preguntas">
+        <!-- Panel izquierdo para mostrar las preguntas existentes -->
+        <div class="preguntas-existentes">
+            <h2 class="ml-3 ">Preguntas Existentes</h2>
+            <ul id="listaPreguntas" class="list-group mt-5">
+                {{#each preguntas}}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <!-- Pregunta y botón eliminar en la misma fila -->
+                            <span>Pregunta {{@index}}: {{this.campo}}</span>
+                            <button class="btn btn-danger ml-auto btn-sm" onclick="borrarPregunta({{this.id}}, {{formulario_id}})">Eliminar</button>
+                        </div>
+
+                        <!-- Botón para mostrar opciones y lista de opciones -->
+                        {{#if this.esChoice}}
+                            <div class="mt-2">
+                                <button style="text-decoration: none" class="btn btn-link" type="button" onclick="toggleOpciones({{@index}})">Ver Opciones</button>
+                                <ul id="opciones-{{@index}}" class="list-group mt-2" style="display: none;">
+                                    {{#each this.opciones}}
+                                        <li class="list-group-item">{{this.valor}}</li>
+                                    {{/each}}
+                                </ul>
+                            </div>
+                        {{/if}}
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+<div class="container-crear-preguntas">
+    <h1>Crear Pregunta para Formulario</h1>
+    <form id="formularioPreguntas" method="POST" action="/formulario/{{formulario_id}}/pregunta">
+        <!-- Campo para ingresar el texto de la pregunta -->
+        <div class="form-group">
+            <label for="pregunta">Pregunta</label>
+            <input type="text" name="pregunta" id="pregunta" class="form-control" placeholder="Escribe la pregunta" required>
+        </div>
+
+        <!-- Seleccionar el tipo de pregunta -->
+        <div class="form-group">
+            <label for="tipoPregunta">Tipo de Pregunta</label>
+            <select name="tipoPregunta" id="tipoPregunta" class="form-control" onchange="cambiarTipoPregunta()" required>
+                <option value="">Seleccione el tipo de pregunta</option>
+                <option value="abierta">Respuesta Abierta</option>
+                <option value="multiple">Multiple Choice</option>
+            </select>
+        </div>
+
+        <!-- Respuesta Abierta -->
+        <div id="respuestaAbierta" class="tipo-respuesta" style="display: none;">
+            <p>El usuario podrá escribir su respuesta.</p>
+        </div>
+
+        <!-- Respuesta Multiple Choice -->
+        <div id="multipleChoice" class="tipo-respuesta" style="display: none;">
+            <label>Opciones para Multiple Choice</label>
+            <div id="opcionesContainer">
+                <div class="form-group">
+                    <input type="text" name="opciones[]" class="form-control" placeholder="Opción 1">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="agregarOpcion()">Agregar Opción</button>
+            <!-- Botón para enviar el formulario -->
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-auto">Crear Pregunta</button>
+
+    </form>
+</div>
+</div>
+<script>
+    function cambiarTipoPregunta() {
+        const tipoPregunta = document.getElementById("tipoPregunta").value;
+        const respuestaAbierta = document.getElementById("respuestaAbierta");
+        const multipleChoice = document.getElementById("multipleChoice");
+
+        // Mostrar u ocultar los campos según el tipo de pregunta
+        if (tipoPregunta === "abierta") {
+            respuestaAbierta.style.display = "flex";
+            multipleChoice.style.display = "none";
+        } else if (tipoPregunta === "multiple") {
+            respuestaAbierta.style.display = "none";
+            multipleChoice.style.display = "flex";
+        } else {
+            respuestaAbierta.style.display = "none";
+            multipleChoice.style.display = "none";
+        }
+    }
+
+    function agregarOpcion() {
+        const opcionesContainer = document.getElementById("opcionesContainer");
+
+        const nuevaOpcion = document.createElement("div");
+        nuevaOpcion.classList.add("form-group");
+
+        const inputOpcion = document.createElement("input");
+        inputOpcion.type = "text";
+        inputOpcion.name = "opciones[]";
+        inputOpcion.classList.add("form-control");
+        inputOpcion.placeholder = `Opción ${opcionesContainer.children.length + 1}`;
+
+        nuevaOpcion.appendChild(inputOpcion);
+        opcionesContainer.appendChild(nuevaOpcion);
+    }
+    function toggleOpciones(index) {
+        const opcionesList = document.getElementById(`opciones-${index}`);
+        if (opcionesList.style.display === "none") {
+            opcionesList.style.display = "block"; // Mostrar opciones
+        } else {
+            opcionesList.style.display = "none"; // Ocultar opciones
+        }
+    }
+
+    function borrarPregunta(pregunta_id,formulario_id) {
+        // Confirmación antes de eliminar
+        if (confirm("¿Estás seguro de que deseas eliminar esta pregunta?")) {
+            // Enviar una solicitud POST al servidor para eliminar la pregunta
+            fetch(`/formulario/${formulario_id}/pregunta/${pregunta_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            // Recargar la página o eliminar la pregunta del DOM si se eliminó con éxito
+                            location.reload(); // Recargar la página para reflejar los cambios
+                        } else {
+                            alert('Error al eliminar la pregunta');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar la pregunta:', error);
+                        alert('Hubo un problema al intentar eliminar la pregunta.');
+                    });
+        }
+    }
+</script>
