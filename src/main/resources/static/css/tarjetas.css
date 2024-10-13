@@ -34,17 +34,17 @@
     align-self: center;
 }
 
-.form-container {
+.form-container-tarjeta {
     display: flex;
     flex-direction: row;
 }
 
-.form-container .left {
+.form-container-tarjeta .left {
     padding: 2vh;
     width: 100%;
 }
 
-.form-container .right {
+.form-container-tarjeta .right {
     padding: 2vh;
     width: 100%;
 }

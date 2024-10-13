@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.controllers.HeladeraController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
 import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
@@ -9,6 +9,8 @@ import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
 import ar.edu.utn.frba.dds.simeal.handlers.IndexHandler;
 import ar.edu.utn.frba.dds.simeal.handlers.LoginHandler;
 import ar.edu.utn.frba.dds.simeal.handlers.LogoutHandler;
@@ -40,7 +42,12 @@ public class Router {
 
     // ***************  Heladeras   ***************
     app.get("{usr_type}/heladera", ServiceLocator.getController(HeladeraController.class)::index);
-    app.get("/heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera)
+    app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
+    app.get("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::indexReporteFallo);
+    app.post("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::reportarFallo);
+    app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
+    app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
+    app.get("heladera/incidentes/{heladera_id}", ServiceLocator.getController(IncidenteController.class)::index);
     app.get("/heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
     // ***************  Ofertas  ***************
     app.get("{usr_type}/ofertas", ServiceLocator.getController(OfertasController.class)::index);

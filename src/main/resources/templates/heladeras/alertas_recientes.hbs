@@ -1,0 +1,36 @@
+{{> templates/navbar}}
+
+<link rel="stylesheet" href="/css/historial.css">
+<div class="container-supremo-alertas">
+    <div class="titulo-container">
+        <h1>Alertas</h1>
+    </div>
+    {{#if hayIncidentes}}
+    {{#each incidentes}}
+    <div class="alerta">
+        <div class="alerta-header">
+            {{this.tipoIncidente}}  {{this.fecha}}
+            <button class="detalle-btn" onclick="toggleDetalle({{@index}})">Detalle</button>
+        </div>
+        <ul id="{{@index}}" class="detalle-info" style="display: none;">
+            <li>Descripción: {{this.descripcion}}</li>
+            <li>Fecha: {{this.fecha}}</li>
+            <li>Hora: {{this.hora}} hs</li>
+        </ul>
+    </div>
+    {{/each}}
+    {{/if}}
+</div>
+
+
+
+<script>
+function toggleDetalle(id) {
+    const detalle = document.getElementById(id);
+    if (detalle.style.display === "none" || detalle.style.display === "") {
+        detalle.style.display = "block";  // Mostrar detalles
+    } else {
+        detalle.style.display = "none";   // Ocultar detalles
+    }
+}
+</script>

@@ -1,6 +1,5 @@
 // Cuando el html termina de cargar ejecuta cargarMapa()
 let map;
-
 class Heladera {
     constructor(id, nombre, latitud, longitud,activa,altura,nombreCalle) {
         this.id = id;
@@ -20,17 +19,18 @@ $(document).ready(function() {
 });
 
 
-// La L es un objeto de leaflet
 function cargarMapa(){
     const puntoCentral ={
 		lat : -34.656032172926906, 
 		lng : -58.426227983358935,
 	}
 
-  	var heladeraIcon = L.icon({
-  	  iconUrl: '/img/heladera.png',
-      iconSize: [20,40]
- 	});
+    // La L es un objeto de leaflet
+    // Seteamos el icono de la heladera
+    const heladeraIcon = L.icon({
+        iconUrl: '/img/heladera.png',
+        iconSize: [20, 40]
+    });
 
 
     // Inicializar el mapa y establecer su punto central y el nivel de zoom
@@ -41,55 +41,30 @@ function cargarMapa(){
         attribution: 'Grupo 11 Diseño de Sistemas'
     }).addTo(map);
 
+    // Si se hace doble click en el mapa no hace zoom
     map.doubleClickZoom.disable();
 
-    // Añadir puntos en el mapa
+    // Añadir las heladeras al mapa
     obtenerHeladeras().then(heladeras => {
-        console.log(heladeras)
-            heladeras.forEach(heladera => {
-                agregarHeladera(heladera,map,heladeraIcon)
-            })
+        heladeras.forEach(heladera => {
+            agregarHeladera(heladera,map,heladeraIcon)
+        })
     })
-
-
-
-   //   agregarHeladera(-34.598516864145495, -58.420117003006,"HELADERA MEDRANO",map,heladeraIcon);
-  //  agregarHeladera(-34.659069603084916, -58.467244833730525, "HELADERA CAMPUS",map,heladeraIcon);
-
-    // Añadir heladeras al mapa haciendo doble click
-    // Salta un cuadro de dialogo para que el usuario ingrese el nombre de la heladera
-    map.on('dblclick', function(event) {
-        var nombreHeladera = prompt("Ingrese el nombre de la heladera", "Heladera1")
-        if(nombreHeladera != null){
-            var punto = event.latlng;
-            agregarHeladera(punto.lat, punto.lng, nombreHeladera,map,heladeraIcon);
-        }
-    });
-
 }
 
 function agregarHeladera(heladera,map, heladeraIcon){
+    // Creamos el punto con los datos del back y lo ponemos
     var marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
     marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+    // Evento para que cuando se clickee sobre una heladera muestre sus datos en el formulario de seleccion
     marker.on('click', function(){
         document.getElementById("nombreHeladera").value = heladera.nombre
         document.getElementById("ubicacionHeladera").value = heladera.nombreCalle + " " + heladera.altura
     })
+
 }
 
-export function buscarDireccion(direccion){
-    const geocoder = new L.Control.Geocoder.Nominatim();
-
-    geocoder.geocode(direccion,function(result){
-        if(result && result.length > 0){
-            const latlng = result[0].center;
-
-            map.setView(latlng,13)
-        } else
-            alert("Direccion no encontrada");
-    });
-}
-
+// Request al Back para traer todas las heladeras
 function obtenerHeladeras() {
     return fetch("http://localhost:8080/heladeras")
         .then(response => {
@@ -100,25 +75,42 @@ function obtenerHeladeras() {
         });
 
 }
-
+// Cuando se selecciona una heladera por el formulario la centramos en el mapa
 function buscarHeladeraMapa() {
     document.getElementById("inputHeladera").addEventListener('click', function () {
+        // Leemos los inputs del formulario
         const nombreHeladera = document.getElementById("nombreHeladera").value;
         const ubicacionHeladera = document.getElementById("ubicacionHeladera").value;
         obtenerHeladeras().then(heladeras => {
+            var encontrada = false
             heladeras.forEach(heladera => {
-                if (heladera.nombre == nombreHeladera) {
+                // Nos fijamos que coincidan nombre y ubicación de la heladera
+                // No es una identificacion univoca pero son los datos que tenemos y seria raro mismo nombre y misma ubi
+                if (heladera.nombre == nombreHeladera && (heladera.nombreCalle + " " + heladera.altura) == ubicacionHeladera) {
+                    encontrada = true
                     map.flyTo([heladera.latitud, heladera.longitud], 13);
-                    fetch("http://localhost:8080/heladera/" + heladera.id).then(response =>{
-                        if (!response.ok) {
-                            throw new Error("Error al hacer get sobre heladera seleccionada")
-                        }
-                    })
+                    setTimeout(() => {
+                        // Hacemos la request que nos lleva a ver el estado de esa heladera
+                        // Si no entra al if la heladera que pidio no existe asi que no hacemos la request
+                        fetch("http://localhost:8080/heladera/" + heladera.id)
+                            .then(response => {
+                                console.log("ejecuto la request: /heladera/" + heladera.id)
+                                console.log(response.statusText)
+                                if (!response.ok)
+                                    throw new Error("Error al hacer get sobre heladera seleccionada")
+
+                                window.location.href = "http://localhost:8080/heladera/" + heladera.id;
+                            })
+                            .catch(error => {
+                                console.error(error)
+                            })
+                    }, 0)
                 }
             })
+            if (!encontrada) {
+                alert("No existe heladera con ese nombre y ubicación")
+            }
         })
 
-
     })
-
 }

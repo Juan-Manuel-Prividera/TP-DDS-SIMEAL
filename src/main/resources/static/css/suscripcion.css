@@ -1,20 +1,110 @@
-.container-supremo {
+.container-supremo-suscripcion {
     margin-top: 2%;
     display: flex;
     flex-direction: row;
-    align-content: center;
-    justify-content: space-around;
     width: 100%;
+    height: 75vh;
 }
 
 .container-frase-btn {
-    text-align: center;
     width: 50%;
-    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
 }
 
+.titulo-suscripcion {
+    width: 100%;
+    height: 20%;
+    text-align: start;
+    margin-left: 5%;
+}
+
+.tarjeta-btns-suscripcion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80%;
+    align-items: center;
+
+}
+
+.btn-con-input {
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
+    height: 25%;
+    justify-content: center;
+    align-items: center;
+}
+.btn-con-check {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 100%;
+}
+
+.btn-con-check a{
+    text-decoration: none;
+    display: flex;
+    margin-right: 10%;
+    min-width: 70%;
+}
+.btn-con-check a button {
+    font-size: 150%;
+    height: 110%;
+    min-width: 100%;
+}
+.input-suscripcion {
+    width: 100%;
+}
+.input-suscripcion input{
+    margin-top: 5%;
+    width: 70%;
+
+}
+
+.form-suscripciones {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.a-btn {
+    margin-top: 7%;
+    text-decoration: none;
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    font-size: 120%;
+}
+
+.a-btn button {
+    width: 50%;
+    justify-self: center;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .form-control {
-    margin-left: 0%;
+    /*margin-left: 0%;*/
     width: 60%;
 }
 
@@ -27,26 +117,4 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.tarjeta-btns {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 40vh;
-    align-items: center;
-    justify-content: center;
-    margin-top: 7%;
-}
-
-.tarjeta-btns a{
-    width: 60%;
-    height: 7vh;
-    font-size: 180% !important;
-    margin-bottom: 5%;
-}
-
-.tarjeta-btns a button{
-    margin-bottom: 5% !important;
-    font-size: 100%;
 }

@@ -11,20 +11,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HeladeraDTO {
+  private String id;
   private String nombre;
   private Double latitud;
   private Double longitud;
   private String nombreCalle;
   private int altura;
-  private Boolean activa;
+  private String activa;
+  private String ultimaTempRegistrada;
 
 
-  public HeladeraDTO(Heladera heladera) {
+  public HeladeraDTO(Heladera heladera, Double ultimaTempRegistrada) {
+    this.id = heladera.getId().toString();
     this.nombre = heladera.getNombre();
     this.latitud = heladera.getUbicacion().getCoordenada().getLatitud();
     this.longitud = heladera.getUbicacion().getCoordenada().getLongitud();
     this.nombreCalle = heladera.getUbicacion().getNombreCalle();
     this.altura = heladera.getUbicacion().getAltura();
-    this.activa = heladera.getActiva();
+    if (heladera.getActiva()){
+      this.activa = "Activa :)";
+    } else
+      this.activa = "Inactiva :(";
+
+    this.ultimaTempRegistrada = ultimaTempRegistrada.toString();
   }
 }

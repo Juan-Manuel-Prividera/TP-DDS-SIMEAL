@@ -3,11 +3,14 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
+import lombok.Getter;
 
+import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+@Getter
 @Entity
 @DiscriminatorValue("temperatura")
 public class MedicionTemperatura extends Medicion{

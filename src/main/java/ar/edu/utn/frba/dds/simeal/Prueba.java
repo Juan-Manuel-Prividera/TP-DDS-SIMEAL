@@ -6,6 +6,9 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPerson
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -194,6 +197,10 @@ public class Prueba implements WithSimplePersistenceUnit {
     repo.guardar(admin);
 
 
-
+    Alerta alerta = new Alerta(heladera,"Se predio fuego", TipoAlerta.ALERTA_TEMPERATURA);
+    FallaTecnica fallaTecnica = new FallaTecnica(heladera,"No arranca", LocalDateTime.now(), colaborador0,null);
+    IncidenteRepository incidenteRepository = ServiceLocator.getService(IncidenteRepository.class);
+    incidenteRepository.guardar(alerta);
+    incidenteRepository.guardar(fallaTecnica);
   }
 }

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/tarjetas.css">
+    <link rel="stylesheet" href="/css/suscripcion.css">
+    <link rel="stylesheet" href="/css/heladeras.css">
 </head>
 <body>
 <header>
@@ -41,7 +43,7 @@
                             <a class="nav-link {{cambiomodo}}" href="/cambiarmodo">Cambiar Modo</a>
                         </li>
                     {{else}}
-                        {{#if eshumano}}
+                        {{#if esHumano}}
                         <li class="nav-item mr-auto seleccionado" id="tarjeta-btn">
                             <a class="nav-link {{tarjetas}}" href="/tarjeta">Tarjetas</a>
                         </li>
@@ -54,7 +56,7 @@
                             <a class="nav-link {{ofertas}}" href="/{{user_type}}/ofertas">Ofertas</a>
                         </li>
                         <li class="nav-item mr-auto" id="heladera-btn">
-                            <a class="nav-link {{heladeras}}" href="/{{user_type}}/heladeras">Heladeras</a>
+                            <a class="nav-link {{heladeras}}" href="/{{user_type}}/heladera">Heladeras</a>
                         </li>
                         <li class="nav-item mr-auto ml-auto">
                             <a href="/{{user_type}}/home">
