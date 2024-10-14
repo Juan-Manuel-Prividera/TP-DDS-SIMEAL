@@ -48,8 +48,8 @@ public class RegistroHandler {
         // TODO: Humano o persona?? usemosuno solo!!
         HashMap<String, Object> map = new HashMap<>();
         map.put("preguntas", preguntas);
-        if (context.pathParam("rol").equals("persona")){
-            map.put("persona", "true");
+        if (context.pathParam("rol").equals("humano")){
+            map.put("humano", "true");
             map.put("rol", "humano");
         } else if (context.pathParam("rol").equals("juridico")) {
             map.put("juridico", "true");

@@ -11,6 +11,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "colaborador")
 public class Colaborador extends Persistente implements ReceptorDeNotificaciones {
