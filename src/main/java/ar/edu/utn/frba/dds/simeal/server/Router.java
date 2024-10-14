@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.server;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.*;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
@@ -66,6 +67,8 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
+
+    app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
 
    // ****************** Recomendacion de Colaboradores ******************
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
