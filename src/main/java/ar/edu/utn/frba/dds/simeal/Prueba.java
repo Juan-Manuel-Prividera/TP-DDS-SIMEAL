@@ -179,6 +179,7 @@ public class Prueba implements WithSimplePersistenceUnit {
     ServiceLocator.getRepository(SolicitudOperacionRepository.class).guardar(solicitudOperacionHeladera1);
 
     // CREATE SOME USERS
+    /*
     Permiso homepagePersona = new Permiso("Homepage Persona", "/home/humano", "GET");
     Permiso homepageJuridico = new Permiso("Homepage Juridico", "/home/juridico", "GET");
     Permiso adminPage = new Permiso("Admin Page", "/admin", "GET");
@@ -198,6 +199,8 @@ public class Prueba implements WithSimplePersistenceUnit {
     repo.guardar(juridico);
     repo.guardar(admin);
 
+
+     */
 
     Alerta alerta = new Alerta(heladera,"Se predio fuego", TipoAlerta.ALERTA_TEMPERATURA);
     FallaTecnica fallaTecnica = new FallaTecnica(heladera,"No arranca", LocalDateTime.now(), colaborador0,null);

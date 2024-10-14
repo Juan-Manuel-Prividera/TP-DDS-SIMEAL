@@ -31,7 +31,30 @@
 <div class="container-supremo">
     <h1>Registro</h1>
     <form action="/user/create/{{rol}}" method="post" class="form-group" onsubmit="return validateFields()">
-        {{#if persona}}
+        <!-- Usuario -->
+        <div class="user-box">
+            <label for="user" class="form-label">*Usuario</label>
+            <input type="text" placeholder="Usuario" id="user" name="user" class="my-input form-control" required="">
+        </div>
+
+        <div class="user-box">
+            <label for="password" class="form-label">*Contraseña</label>
+            <input type="password" placeholder="Contraseña" id="password" name="password" class="my-input form-control" required="">
+            <span class="password-toggle-icon">
+                <i class="fas fa-eye-slash" onclick="togglePw('password', this)"></i>
+            </span>
+        </div>
+
+        <div class="user-box">
+            <label for="passwordRepeat" class="form-label">*Repetir contraseña</label>
+            <input type="password" placeholder="Repetir contraseña" id="passwordRepeat" name="passwordRepeat"
+                   class="my-input form-control" required="">
+            <span class="password-toggle-icon" onclick="togglePw('passwordRepeat', this.querySelector('.password-toggle-icon i'))">
+                <i class="fas fa-eye-slash"></i>
+            </span>
+        </div>
+
+        {{#if humano}}
             <!-- Requeridos para persona -->
             <!-- Nombre -->
             <label for="nombre">Nombre</label>
@@ -71,9 +94,9 @@
             <label for="rubro">*Rubro</label>
             <select class="form-control mb-4" name="rubro" id="rubro">
                 <option value="" disabled selected hidden>...</option>
-                <option value="dni">Gastronomía</option>
-                <option value="pasaporte">Ingeniería</option>
-                <option value="libreta">Arte</option>
+                <option value="gastronomia">Gastronomía</option>
+                <option value="ingenieria">Ingeniería</option>
+                <option value="arte">Arte</option>
             </select>
             <!-- Razón social -->
             <label for="razon_social">Razón social</label>
@@ -86,7 +109,7 @@
 
             <!-- Tipo de jurídico -->
             <label for="tipo_juridico">*Tipo de empresa</label>
-            <select class="form-control mb-4" name="rubro" id="rubro">
+            <select class="form-control mb-4" name="tipo_juridico" id="tipo_juridico">
                 <option value="" disabled selected hidden>...</option>
                 <option value="gubernamental">Gubernamental</option>
                 <option value="ong">ONG</option>
@@ -99,7 +122,7 @@
         {{/if}}
 
         <!-- Requeridos para ambos, humano y jurídico -->
-        <label for="calle_nombre">Calle</label>
+        <label for="calle_nombre">Ubicación: nombre de calle</label>
         <input type="text"
                class="form-control mb-4"
                name="calle_nombre"
@@ -107,13 +130,22 @@
                placeholder="Nombre de la calle"
                required="required">
 
-        <label for="calle_altura">Altura</label>
+        <label for="calle_altura">Ubicación: altura de calle</label>
         <input type="number"
                class="form-control mb-4"
                name="calle_altura"
                id="calle_altura"
                placeholder="Altura de la calle"
                required="required">
+
+        <label for="medio_contacto">Medio de contacto</label>
+        <select class="form-control mb-4" name="medio_contacto" id="medio_contacto">
+            <option value="" disabled selected hidden>...</option>
+            <option value="email">Email</option>
+            <option value="telefono">Teléfono</option>
+            <option value="wpp">Whatsapp</option>
+            <option value="telegram">Telegram</option>
+        </select>
 
         <label for="info_contacto">Información de contacto</label>
         <input type="text"
@@ -123,48 +155,27 @@
                placeholder=""
                required="required">
 
-        <label for="medio_contacto">Medio de contacto</label>
-        <select class="form-control mb-4" name="rubro" id="rubro">
-            <option value="" disabled selected hidden>...</option>
-            <option value="email">Email</option>
-            <option value="telefono">Teléfono</option>
-            <option value="wpp">Whatsapp</option>
-            <option value="telegram">Telegram</option>
-        </select>
-
         <!-- Campos dinámicos -->
         {{#each preguntas}}
-            <label for="{{this.param}}">{{this.campo}}</label>
-            <input type="{{this.type}}"
-                   class="form-control mb-4"
-                   name="{{this.param}}"
-                   id="{{this.param}}"
-                   placeholder="{{this.campo}}"
-                   required="{{this.required}}">
+            {{#if this.esChoice}}
+                <label for="{{this.param}}">{{this.campo}}</label>
+                <select class="form-control mb-4" name="{{this.param}}" id="{{this.param}}">
+                    <option value="" disabled selected hidden>...</option>
+                    {{#each this.opciones}}
+                        <option value="{{this.valor}}">{{this.valor}}</option>
+                    {{/each}}
+                </select>
+            {{else}}
+                <label for="{{this.param}}">{{this.campo}}</label>
+                <input type="{{this.type}}"
+                       class="form-control mb-4"
+                       name="{{this.param}}"
+                       id="{{this.param}}"
+                       placeholder="{{this.campo}}"
+                       required="{{this.required}}">
+            {{/if}}
         {{/each}}
 
-        <!-- Usuario -->
-        <div class="user-box">
-            <label for="user" class="form-label">*Usuario</label>
-            <input type="text" placeholder="Usuario" id="user" name="user" class="my-input form-control" required="">
-        </div>
-
-        <div class="user-box">
-            <label for="password" class="form-label">*Contraseña</label>
-            <input type="password" placeholder="Contraseña" id="password" name="password" class="my-input form-control" required="">
-            <span class="password-toggle-icon">
-                <i class="fas fa-eye-slash" onclick="togglePw('password', this)"></i>
-            </span>
-        </div>
-
-        <div class="user-box">
-            <label for="passwordRepeat" class="form-label">*Repetir contraseña</label>
-            <input type="password" placeholder="Repetir contraseña" id="passwordRepeat" name="passwordRepeat"
-                   class="my-input form-control" required="">
-            <span class="password-toggle-icon" onclick="togglePw('passwordRepeat', this.querySelector('.password-toggle-icon i'))">
-                <i class="fas fa-eye-slash"></i>
-            </span>
-        </div>
 
         <div class="terminos-condiciones">
             <input type="checkbox" id="terminos-checkbox">

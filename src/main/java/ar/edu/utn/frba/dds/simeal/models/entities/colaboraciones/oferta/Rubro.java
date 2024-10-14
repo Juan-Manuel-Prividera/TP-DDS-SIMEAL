@@ -3,6 +3,8 @@ package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -16,11 +18,9 @@ public class Rubro extends Persistente {
 
   @ManyToOne
   @JoinColumn(name = "rubro_padre_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
+  @Setter
   private Rubro rubroPadre;
-
-  public void setRubroPadre(Rubro rubroPadre) {
-    this.rubroPadre = rubroPadre;
-  }
 
   public Rubro(String nombre, Rubro rubroPadre) {
     this.nombre = nombre;

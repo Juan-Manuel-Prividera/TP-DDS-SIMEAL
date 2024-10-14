@@ -25,10 +25,7 @@ public class IndexHandler {
                 case ADMIN:
                     context.redirect("/formularios");
                     break;
-                case JURIDICO:
-                    context.redirect("/home");
-                    break;
-                case HUMANO:
+                case JURIDICO, HUMANO:
                     context.redirect("/home");
                     break;
             }
