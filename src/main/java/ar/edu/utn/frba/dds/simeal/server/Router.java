@@ -20,9 +20,9 @@ public class Router {
 
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
+    app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
     app.get("reportes", ServiceLocator.getController(ReportesController.class)::reportes);
     app.get("cambiarmodo", ServiceLocator.getController(CambioModoController.class)::cambiarmodo);
-    app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
 
     app.get("formularios", ServiceLocator.getController(FormularioController.class)::index);
     app.post("formulario", ServiceLocator.getController(FormularioController.class)::crearFormulario);
@@ -43,7 +43,7 @@ public class Router {
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
     // ***************  Heladeras   ***************
-    app.get("{usr_type}/heladera", ServiceLocator.getController(HeladeraController.class)::index);
+    app.get("/heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
 
     app.get("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::indexReporteFallo);

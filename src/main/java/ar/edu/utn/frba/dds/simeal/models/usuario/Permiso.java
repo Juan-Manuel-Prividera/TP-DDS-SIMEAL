@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.regex.Pattern;
 
 @Getter
 @AllArgsConstructor
@@ -15,13 +14,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name="permisos")
 public class Permiso extends Persistente {
-  @Column(name="descripcion")
-  private String descripcion;
-
   @Column(name="endpoint")
-  private String endpoint;
+  @Convert(converter = PatternConverter.class)
+  private Pattern endpoint;
 
   @Column(name="verbo")
-  private String verbo;
+  @Enumerated(EnumType.STRING)
+  private TipoMetodoHttp verbo;
+
+  public Permiso(String ep, TipoMetodoHttp met){
+    String trimmedEp = ep.replaceAll("^/|/$", "");
+    endpoint = Pattern.compile("/?" + trimmedEp + "/?");
+    verbo = met;
+  }
+
+  public boolean isAllowed(String endpoint, TipoMetodoHttp method) {
+    return this.endpoint.matcher(endpoint).matches() && this.verbo.equals(method);
+  }
+
 
 }

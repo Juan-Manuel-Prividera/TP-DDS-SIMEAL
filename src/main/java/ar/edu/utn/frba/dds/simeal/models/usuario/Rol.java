@@ -9,6 +9,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
@@ -28,8 +29,17 @@ public class Rol extends Persistente {
           inverseJoinColumns = @JoinColumn(name = "permiso_id", referencedColumnName = "id"))
   private List<Permiso> permisos;
 
-  public Boolean tienePermisoPara(Permiso permiso) {
-    return this.permisos.contains(permiso);
+  public Boolean tienePermisoPara(String endpoint, String metodo) {
+    TipoMetodoHttp metodoHttp = TipoMetodoHttp.valueOf(metodo.toUpperCase());
+
+    for (Permiso p : permisos) {
+      if (!p.getActivo()) continue;
+      if (p.isAllowed(endpoint, metodoHttp)){
+        return true;
+      }
+    }
+
+    return false;
   }
 
 }
