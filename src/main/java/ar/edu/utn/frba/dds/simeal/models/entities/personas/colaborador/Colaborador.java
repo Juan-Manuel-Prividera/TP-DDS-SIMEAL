@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   private String apellido;
 
   @Embedded
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private Documento documento;
 
   // Campos solo de colab JURIDICO
@@ -44,6 +46,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
 
   @ManyToOne
   @JoinColumn(name="rubro_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private Rubro rubro;
 
   @Column(name = "tipo_juridico")
@@ -53,6 +56,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   // Campos mutuos
   @OneToOne
   @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private Ubicacion ubicacion;
 
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -65,6 +69,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
 
   @OneToOne
   @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private FormularioContestado formularioContestado;
 
   @ElementCollection(targetClass = TipoColaboracion.class)
@@ -74,6 +79,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
 
   @OneToOne
   @JoinColumn(name="usuario_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   private Usuario usuario;
 
   @Column(name = "puntos_de_reconocimiento_parciales")

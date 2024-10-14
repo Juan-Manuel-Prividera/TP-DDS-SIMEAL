@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OpcionesDTO {
+public class OpcionDTO {
   private String valor;
 }

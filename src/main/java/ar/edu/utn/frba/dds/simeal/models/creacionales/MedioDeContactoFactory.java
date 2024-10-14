@@ -1,10 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.models.creacionales;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.*;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.telegram.EnviadorTelegram;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.EnviadorDeWpp;
 
 public class MedioDeContactoFactory {
@@ -13,6 +13,16 @@ public class MedioDeContactoFactory {
       return new Email(ServiceLocator.getService(EnviadorDeMails.class));
     } else if (esUnTelefono(contacto)) {
       return new WhatsApp(ServiceLocator.getService(EnviadorDeWpp.class));
+    }
+    return null;
+  }
+
+  public static MedioContacto crearMedioDeContactoDeString(String medioContacto){
+    switch (medioContacto) {
+      case "email" -> new Email(EnviadorDeMails.getInstancia(new ConfigReader()));
+      case "wpp" -> new WhatsApp(EnviadorDeWpp.getInstance());
+      case "telefono" -> new Telefono();
+      case "telegram" -> new Telegram(EnviadorTelegram.getInstance());
     }
     return null;
   }

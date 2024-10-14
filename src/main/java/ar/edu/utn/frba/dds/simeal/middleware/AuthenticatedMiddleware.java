@@ -10,7 +10,10 @@ public class AuthenticatedMiddleware {
     private static final String[] openEndpoints = new String[]{"/login", "/", "/index",
             "/registro",
             "/registro/humano",
-            "/registro/juridico"};
+            "/registro/juridico",
+            "/user/create/humano",
+            "/user/create/juridico",
+    };
     private static final String[] openFormats = new String[]{".css", ".jpg", ".png"};
 
     public static void apply(Javalin app) {

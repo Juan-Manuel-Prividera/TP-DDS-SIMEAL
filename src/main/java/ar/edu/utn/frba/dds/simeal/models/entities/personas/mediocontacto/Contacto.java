@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -25,6 +27,7 @@ public class Contacto extends Persistente {
 
     @Convert(converter = MedioContactoConverter.class)
     @Column(name = "medio_contacto")
+    @Cascade({CascadeType.MERGE, CascadeType.PERSIST})
     private MedioContacto medioContacto;
 
     public void notificar(Mensaje mensaje) {

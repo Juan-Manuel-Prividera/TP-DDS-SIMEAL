@@ -1,8 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.handlers;
 
-import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.dtos.formulario.OpcionDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.formulario.PreguntaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
@@ -11,7 +12,6 @@ import io.javalin.http.Context;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RegistroHandler {
 
@@ -39,14 +39,18 @@ public class RegistroHandler {
 
         List<PreguntaDTO> preguntas = new ArrayList<>();
         for (Pregunta pregunta : formulario.getPreguntas()) {
-            preguntas.add(
-                    PreguntaDTO.builder()
-                            .campo(pregunta.getPregunta())
-                            .param(pregunta.getParam())
-                            .type(String.valueOf(pregunta.getTipo()))
-                            .required(pregunta.getRequired().toString())
-                            .build()
-            );
+
+            List<Opcion> opciones = pregunta.getOpciones();
+            List<OpcionDTO> opcionesDTOS = new ArrayList<>();
+            Boolean isChoice = false;
+            if (!opciones.isEmpty()){
+                isChoice = true;
+                for (Opcion o : opciones)
+                    opcionesDTOS.add(new OpcionDTO(o.getNombre()));
+            }
+
+            PreguntaDTO preguntaDTO = new PreguntaDTO(pregunta);
+            preguntas.add(preguntaDTO);
         }
 
         HashMap<String, Object> map = new HashMap<>();

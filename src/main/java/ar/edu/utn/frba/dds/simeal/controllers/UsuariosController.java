@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
@@ -24,6 +25,7 @@ import io.javalin.http.Context;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class UsuariosController {
@@ -113,8 +115,8 @@ public class UsuariosController {
         // Otros, no dependen
         String calleNombre = context.formParam("calle_nombre");
         String calleAltura = context.formParam("calle_altura");
-        String infoContacto = context.formParam("info_contacto");
         String medioContacto = context.formParam("medio_contacto");
+        String infoContacto = context.formParam("info_contacto");
 
         if (calleNombre == null || calleAltura == null || infoContacto == null || medioContacto == null) {
             fail(context, "El usuario no dio suficientes datos");
@@ -123,16 +125,16 @@ public class UsuariosController {
 
         int altura = Integer.parseInt(calleAltura);
         Ubicacion ubicacion = new Ubicacion(calleNombre, altura);
-
+        colaborador.setUbicacion(ubicacion);
 
         // TODO: Setear medio de contacto
         Contacto contacto = new Contacto();
         contacto.setInfoDeContacto(infoContacto);
-        /*
-        switch (infoContacto) {
-            case "email" -> contacto.setMedioContacto(new Email(new EnviadorDeMails()));
-        }
-         */
+        contacto.setMedioContacto(MedioDeContactoFactory.crearMedioDeContactoDeString(medioContacto));
+        repo.guardar(contacto);
+
+        colaborador.setContactoPreferido(contacto);
+        colaborador.addContacto(contacto);
 
         // Ahora, vamos con las preguntas dinámicas
         // Obtenemos el formulario activo
@@ -159,9 +161,7 @@ public class UsuariosController {
         }
 
         // Empezamos a cargar el formulario contestado
-        FormularioContestado formularioContestado = new FormularioContestado();
-        var formParamMap = context.formParamMap();
-        formularioContestado.setFechaRespuesta(LocalDate.now());
+        Map<String, List<String>> formParamMap = context.formParamMap();
         List<Respuesta> respuestas = new ArrayList<>();
 
         // Por cada pregunta en el formulario activo
@@ -201,11 +201,11 @@ public class UsuariosController {
             } // End switch tipo pregunta
             respuestas.add(respuesta);
         } // End for pregunta in cuestionario
-        formularioContestado.setRespuestas(respuestas);
+
+        FormularioContestado formularioContestado = new FormularioContestado(respuestas, formulario);
         colaborador.setFormularioContestado(formularioContestado);
 
         // Si fue t0do bien, persistimos el usr y el colaborador y lo mandamos al login
-        repo.guardar(user);
         repo.guardar(colaborador);
 
         context.redirect("/");
