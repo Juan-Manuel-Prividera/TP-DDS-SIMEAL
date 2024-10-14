@@ -28,6 +28,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "colaborador")
 public class Colaborador extends Persistente implements ReceptorDeNotificaciones {
+  // Campos solo de colab HUMANO
   @Column
   private String nombre;
 
@@ -37,10 +38,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @Embedded
   private Documento documento;
 
-  @OneToOne
-  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
-  private Ubicacion ubicacion;
-
+  // Campos solo de colab JURIDICO
   @Column
   private String razonSocial;
 
@@ -52,9 +50,10 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @Enumerated(EnumType.STRING)
   private TipoJuridico tipoJuridico;
 
+  // Campos mutuos
   @OneToOne
-  @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
-  private FormularioContestado formularioContestado;
+  @JoinColumn(name="ubicacion_id", referencedColumnName = "id")
+  private Ubicacion ubicacion;
 
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name="colaborador_id", referencedColumnName = "id")
@@ -63,6 +62,10 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
   @JoinColumn(name = "contacto_preferido_id", referencedColumnName = "id")
   private Contacto contactoPreferido;
+
+  @OneToOne
+  @JoinColumn(name = "formulario_contestado_id", referencedColumnName = "id")
+  private FormularioContestado formularioContestado;
 
   @ElementCollection(targetClass = TipoColaboracion.class)
   @CollectionTable(name = "colaborador_tipo_colaboracion", joinColumns = @JoinColumn(name = "colaborador_id"))
@@ -74,8 +77,10 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   private Usuario usuario;
 
   @Column(name = "puntos_de_reconocimiento_parciales")
-  private double puntosDeReconocimientoParcial;
+  private double puntosDeReconocimientoParcial = 0;
 
+
+  // MÉTODOS
   public Colaborador(Documento documento, String nombre, String apellido) {
     this.documento = documento;
     this.nombre = nombre;

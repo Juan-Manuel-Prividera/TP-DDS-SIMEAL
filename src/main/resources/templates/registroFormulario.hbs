@@ -32,7 +32,108 @@
 <div class="container-supremo">
     <h1>Registro</h1>
     <form action="/user/create/{{rol}}" method="post" class="form-group" onsubmit="return validateFields()">
-        <!-- dinamico -->
+        {{#if persona}}
+            <!-- Requeridos para persona -->
+            <!-- Nombre -->
+            <label for="nombre">Nombre</label>
+            <input type="text"
+                   class="form-control mb-4"
+                   name="nombre"
+                   id="nombre"
+                   placeholder="Nombre"
+                   required="required">
+
+            <!-- Apellido -->
+            <label for="apellido">Apellido</label>
+            <input type="text"
+                   class="form-control mb-4"
+                   name="apellido"
+                   id="apellido"
+                   placeholder="Apellido"
+                   required="required">
+
+            <!-- Documento -->
+            <label for="numero_documento">*Documento</label>
+            <div class="documento-container">
+                <select class="form-control" name="tipo_documento">
+                    <option value="" disabled selected hidden>...</option>
+                    <option value="dni">DNI</option>
+                    <option value="pasaporte">PASS</option>
+                    <option value="lc">LC</option>
+                    <option value="le">LE</option>
+                </select>
+                <input type="text" class="form-control mb-4"
+                       name="numero_documento" id="numero_documento"
+                       placeholder="Numero de documento">
+            </div>
+        {{else juridico}}
+            <!-- Requeridos para jurídico -->
+            <!-- Rubro -->
+            <label for="rubro">*Rubro</label>
+            <select class="form-control mb-4" name="rubro" id="rubro">
+                <option value="" disabled selected hidden>...</option>
+                <option value="dni">Gastronomía</option>
+                <option value="pasaporte">Ingeniería</option>
+                <option value="libreta">Arte</option>
+            </select>
+            <!-- Razón social -->
+            <label for="razon_social">Razón social</label>
+            <input type="text"
+                   class="form-control mb-4"
+                   name="razon_social"
+                   id="razon_social"
+                   placeholder="Razón social"
+                   required="required">
+
+            <!-- Tipo de jurídico -->
+            <label for="tipo_juridico">*Tipo de empresa</label>
+            <select class="form-control mb-4" name="rubro" id="rubro">
+                <option value="" disabled selected hidden>...</option>
+                <option value="gubernamental">Gubernamental</option>
+                <option value="ong">ONG</option>
+                <option value="institucion">Institución</option>
+                <option value="empresa">Empresa con fines de lucro</option>
+            </select>
+
+        {{else}}
+            <!-- TODO: Qué pasó que que no entró en las otras ramas mmmm sus AMONGUS-->
+        {{/if}}
+
+        <!-- Requeridos para ambos, humano y jurídico -->
+        <label for="calle_nombre">Calle</label>
+        <input type="text"
+               class="form-control mb-4"
+               name="calle_nombre"
+               id="calle_nombre"
+               placeholder="Nombre de la calle"
+               required="required">
+
+        <label for="calle_altura">Altura</label>
+        <input type="number"
+               class="form-control mb-4"
+               name="calle_altura"
+               id="calle_altura"
+               placeholder="Altura de la calle"
+               required="required">
+
+        <label for="info_contacto">Información de contacto</label>
+        <input type="text"
+               class="form-control mb-4"
+               name="info_contacto"
+               id="info_contacto"
+               placeholder=""
+               required="required">
+
+        <label for="medio_contacto">Medio de contacto</label>
+        <select class="form-control mb-4" name="rubro" id="rubro">
+            <option value="" disabled selected hidden>...</option>
+            <option value="email">Email</option>
+            <option value="telefono">Teléfono</option>
+            <option value="wpp">Whatsapp</option>
+            <option value="telegram">Telegram</option>
+        </select>
+
+        <!-- Campos dinámicos -->
         {{#each preguntas}}
             <label for="{{this.param}}">{{this.campo}}</label>
             <input type="{{this.type}}"
@@ -42,29 +143,8 @@
                    placeholder="{{this.campo}}"
                    required="{{this.required}}">
         {{/each}}
-        {{#if persona}}
-            <label for="documentoNro">*Documento</label>
-            <div class="documento-container">
-                <select class="form-control" name="documentoTipo">
-                    <option value="" disabled selected hidden>...</option>
-                    <option value="dni">DNI</option>
-                    <option value="pasaporte">Pasaporte</option>
-                    <option value="libreta">Libreta</option>
-                </select>
-                <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
-            </div>
-        {{else juridico}}
-            <label for="rubro">*Rubro</label>
-            <select class="form-control mb-4" name="rubro" id="rubro">
-                <option value="" disabled selected hidden>...</option>
-                <option value="dni">Gastronomía</option>
-                <option value="pasaporte">Ingeniería</option>
-                <option value="libreta">Arte</option>
-            </select>
-        {{else}}
-            <!-- TODO: Qué pasó que que no entró en las otras ramas mmmm sus AMONGUS-->
-        {{/if}}
 
+        <!-- Usuario -->
         <div class="user-box">
             <label for="user" class="form-label">*Usuario</label>
             <input type="text" placeholder="Usuario" id="user" name="user" class="my-input form-control" required="">

@@ -33,12 +33,11 @@ public class RegistroHandler {
         }
 
         if (formulario == null) {
-            context.redirect("/");
+            context.render("error.hbs");
             return;
         }
 
         List<PreguntaDTO> preguntas = new ArrayList<>();
-
         for (Pregunta pregunta : formulario.getPreguntas()) {
             preguntas.add(
                     PreguntaDTO.builder()

@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Respuesta extends Persistente {
   @JoinColumn(name = "pregunta_id", referencedColumnName = "id")
   @ManyToOne
-  private final Pregunta pregunta;
+  private Pregunta pregunta;
   @Lob
   @Column(name="respuesta")
   private String respuesta;
