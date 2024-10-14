@@ -1,6 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
+import com.twilio.rest.chat.v1.service.Role;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -26,6 +28,10 @@ public class Formulario extends Persistente {
             joinColumns = @JoinColumn( name="formulario_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "pregunta_id", referencedColumnName = "id"))
     private List<Pregunta> preguntas;
+    @Column(name="en_uso")
     private Boolean enUso;
+    @ManyToOne
+    private Rol rol;
+    @Column(name="nombre")
     private String nombre;
 }
