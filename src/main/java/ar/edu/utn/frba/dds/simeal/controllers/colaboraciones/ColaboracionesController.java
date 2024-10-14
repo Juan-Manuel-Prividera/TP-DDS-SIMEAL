@@ -25,4 +25,20 @@ public class ColaboracionesController {
       app.status(404).result("Tipo de usuario no válido");
     }
   }
+
+  public void donarDinero(Context app) {
+    String metodoPago = app.formParam("metodo_pago");
+    String monto = app.formParam("monto");
+
+    // lógica para procesar el pago según el método seleccionado.
+
+    // Crear un modelo para pasar a la vista
+    Map<String, Object> model = new HashMap<>();
+    model.put("monto", monto);
+    model.put("metodoPago", metodoPago);
+    model.put("mensaje", "Gracias por tu donación de " + monto + " ARS usando " + metodoPago);
+
+    // Renderizar la página de confirmación o agradecimiento
+    app.render("/colaboraciones/donarDinero.hbs", model);
+  }
 }

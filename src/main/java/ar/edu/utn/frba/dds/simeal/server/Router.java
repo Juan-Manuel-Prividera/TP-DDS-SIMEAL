@@ -69,8 +69,10 @@ public class Router {
     // ****************** Colaboraciones ******************
 
     app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
+    app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
 
-   // ****************** Recomendacion de Colaboradores ******************
+
+    // ****************** Recomendacion de Colaboradores ******************
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
 
     // ****************** Index ******************
