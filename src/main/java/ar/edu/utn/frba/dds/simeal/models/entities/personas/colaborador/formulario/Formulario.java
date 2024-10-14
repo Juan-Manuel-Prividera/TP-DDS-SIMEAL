@@ -1,7 +1,12 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+<<<<<<< HEAD
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
+=======
+import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
+import com.twilio.rest.chat.v1.service.Role;
+>>>>>>> refs/remotes/origin/main
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
@@ -35,5 +40,6 @@ public class Formulario extends Persistente {
     private TipoRol rol;
 
     @Column(name = "nombre")
+
     private String nombre;
 }

@@ -19,7 +19,7 @@ public class Pregunta extends Persistente {
   private String pregunta; // La pregunta de la pregunta O_o
 
   @Column(name="campo")
-  private String param; // El param es el nombre técnico (postParams, .hbs, ...) de la pregunta.
+  private String param; // El param es el nombre técnico (postParams, .hb) s, ...de la pregunta.
 
   @Column(name="tipo")
   @Enumerated(EnumType.STRING)

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
@@ -8,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
 import io.javalin.http.Context;
 
 import java.util.List;
@@ -18,10 +20,13 @@ public class UsuariosController {
     public void create(Context context){
 
         // TODO: Chequear que llegue
-        // TODO: CHequear que el nombre no exista ya
-        String rolParam = context.pathParam("rol");
+        // TODO: Chequear que el nombre no exista ya
+        // TODO: Usar el pw validator
 
+
+        // -- TRATAMOS DE CREAR EL USUARIO --
         // Estos son los básicos que necesitamos, lo demás en negociable
+        String rolParam = context.pathParam("rol");
         String username = context.formParam("user");
         String password = context.formParam("password");
         String passwordRepeat = context.formParam("passwordRepeat");
@@ -36,7 +41,6 @@ public class UsuariosController {
             return;
         }
 
-
         Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
         List<Rol> roles = (List<Rol>) repo.obtenerTodos(Rol.class);
         Rol rol = null;
@@ -46,10 +50,26 @@ public class UsuariosController {
                 break;
             }
 
-        Usuario user = new Usuario(username, PasswordHasher.hashPassword(password), List.of(rol));
-        repo.guardar(user);
+        if (rol == null) {
+            fail(context, "Rol no encontrado: '" + rolParam + "'");
+            return;
+        }
 
-        // Si fue todo bien lo mandamos al login
+        Usuario user = new Usuario(username, PasswordHasher.hashPassword(password), List.of(rol));
+        // -- USUARIO CREADO --
+
+        // -- TRATAMOS DE CREAR EL COLABORADOR --
+        String nombre = context.formParam("nombre");
+        String apellido = context.formParam("apellido");
+        Colaborador colaborador = new Colaborador();
+        colaborador.setNombre(nombre);
+        colaborador.setApellido(apellido);
+        colaborador.setUsuario(user);
+
+        // Si fue t0do bien, persistimos el usr y el colaborador y lo mandamos al login
+        repo.guardar(user);
+        repo.guardar(colaborador);
+
         context.redirect("/");
 
     }
