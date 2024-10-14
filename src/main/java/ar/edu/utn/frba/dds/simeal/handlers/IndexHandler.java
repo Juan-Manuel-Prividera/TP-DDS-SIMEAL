@@ -11,25 +11,25 @@ public class IndexHandler {
     public void handle(Context context){
 
         Boolean fail = Boolean.valueOf(context.queryParam("failed"));
-        String tipoUsuarioString = context.sessionAttribute("tipo_usuario");
+        String tipoUsuarioString = context.sessionAttribute("user_type");
 
         if (tipoUsuarioString == null) {
             context.render("login.hbs", Map.of("loginFailed", fail));
         } else {
             TipoRol tipoRol = TipoRol.valueOf(tipoUsuarioString);
-            String lastVisited = context.sessionAttribute("last_visited");
+            //String lastVisited = context.sessionAttribute("last_visited");
 
-            if (lastVisited != null) context.redirect(lastVisited);
+            //if (lastVisited != null) context.redirect(lastVisited);
 
             switch (tipoRol) {
                 case ADMIN:
-                    context.redirect("/admin");
+                    context.redirect("/formularios");
                     break;
                 case JURIDICO:
-                    context.redirect("/home/juridico");
+                    context.redirect("/home");
                     break;
                 case HUMANO:
-                    context.redirect("/home/humano");
+                    context.redirect("/home");
                     break;
             }
         }

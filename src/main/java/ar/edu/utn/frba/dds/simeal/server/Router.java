@@ -9,17 +9,13 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
-import ar.edu.utn.frba.dds.simeal.handlers.IndexHandler;
-import ar.edu.utn.frba.dds.simeal.handlers.LoginHandler;
-import ar.edu.utn.frba.dds.simeal.handlers.LogoutHandler;
-import ar.edu.utn.frba.dds.simeal.handlers.RegistroHandler;
+import ar.edu.utn.frba.dds.simeal.handlers.*;
 import io.javalin.Javalin;
 
 public class Router {
   public static void init(Javalin app) {
     // ***************  HomePage   ***************
-    app.get("humano/home", context -> context.render("humano_home.hbs"));
-    app.get("juridico/home", context -> context.render("juridico_home.hbs"));
+    app.get("home", ServiceLocator.getController(HomeHandler.class)::handle);
 
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);

@@ -27,7 +27,7 @@ public class Formulario extends Persistente {
             name = "formulario_pregunta",
             joinColumns = @JoinColumn( name="formulario_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "pregunta_id", referencedColumnName = "id"))
-    private List<Pregunta> preguntas = new ArrayList<>();
+    private List<Pregunta> preguntas;
 
     @Column(name = "en_uso")
     private Boolean enUso;

@@ -16,7 +16,7 @@ import java.util.List;
 public class LoginHandler {
 
     public void handle(Context context) {
-        Logger logger = Logger.getInstance();
+        Logger logger = Logger.getInstance("login.log");
 
         String username = context.formParam("user");
         String password = context.formParam("password");
@@ -60,6 +60,8 @@ public class LoginHandler {
 
             List<Colaborador> colaboradores = (List<Colaborador>) repo.obtenerTodos(Colaborador.class);
             for (Colaborador c : colaboradores){
+                Usuario u = c.getUsuario();
+                if (u == null) continue;
                 if (c.getUsuario().equals(usuario)){
                     colaboradorID = c.getId();
                     break;
@@ -79,18 +81,18 @@ public class LoginHandler {
             for (Rol r : usuario.getRoles())
                 switch (r.getTipo()) {
                 case ADMIN:
-                    context.sessionAttribute("tipo_usuario", r.getTipo().toString());
-                    context.redirect("/admin/");
+                    context.sessionAttribute("user_type", r.getTipo().toString());
+                    context.redirect("/formularios");
                     break;
 
                 case JURIDICO:
-                    context.sessionAttribute("tipo_usuario", r.getTipo().toString());
-                    context.redirect("/home/juridico/");
+                    context.sessionAttribute("user_type", r.getTipo().toString());
+                    context.redirect("/home");
                     break;
 
                 case HUMANO:
-                    context.sessionAttribute("tipo_usuario", r.getTipo().toString());
-                    context.redirect("/home/humano");
+                    context.sessionAttribute("user_type", r.getTipo().toString());
+                    context.redirect("/home");
                     break;
 
                 default:

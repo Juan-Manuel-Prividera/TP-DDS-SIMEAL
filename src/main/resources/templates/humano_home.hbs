@@ -1,50 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Simeal</title>
-    <link rel="stylesheet" href="/css/navbar-style.css">
-    <link rel="stylesheet" href="/css/containers.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/suscripcion.css">
-</head>
-<body>
-<header>
-    <div class="container-fluid">
-        <div class="header-container">
-            <img src = "/img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
-            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
-
-            <div class="icon-text ml-auto">
-                <span class="m-3">{{username}}</span>
-                <i class="bi bi-person mr-3"></i>
-            </div>
-        </div>
-    </div>
-    <div class="navbar-div">
-        <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item mr-auto" id="tarjeta-btn">
-                        <a class="nav-link" href="/tarjetas">Tarjetas</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="colaboracion-btn">
-                        <a class="nav-link" href="/colaboraciones">Colaboraciones</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="oferta-btn">
-                        <a class="nav-link" href="/ofertas">Ofertas</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="heladera-btn">
-                        <a class="nav-link" href="{{usertype}}/heladera">Heladeras</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
+{{> templates/navbar}}
 <main>
     <div class="img-container">
         <img alt="Invitación a un taller de armado de viandas" src="/img/tallerViandas.gif">
@@ -67,7 +21,5 @@
 </main>
 
 <footer class="bg-dark text-white text-center py-3 mt-auto">
-    <p>Lo que querramos poner</p>
+    <!--<p>Lo que querramos poner</p>-->
 </footer>
-</body>
-</html>
