@@ -18,6 +18,10 @@
 #listaPreguntas {
     width: 100%;
 }
+.btn-link:hover{
+    background-color: initial !important;
+}
+
 .container-crear-preguntas {
     display: flex;
     flex-direction: column;

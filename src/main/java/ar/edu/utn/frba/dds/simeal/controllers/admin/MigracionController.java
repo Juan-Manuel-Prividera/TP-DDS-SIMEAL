@@ -21,9 +21,10 @@ public class MigracionController {
   public void index(Context app) {
     Map<String, Object> model = new HashMap<>();
     model.put("cargacsv", "seleccionado");
-    model.put("reporte", "");
-    model.put("cambiomodo", "");
-
+    model.put("user_type", "admin");
+    model.put("esAdmin", true);
+    model.put("username", "Administrador");
+    model.put("titulo", "Migracion Colaboraciones");
     app.render("admin/cargar_colaboraciones.hbs", model);
   }
   public void migrarColaboraciones(Context app) throws IOException, CsvException {

@@ -12,7 +12,10 @@ public class CambioModoController {
     model.put("cargacsv", "");
     model.put("reporte", "");
     model.put("cambiomodo", "seleccionado");
-
+    model.put("esAdmin", true);
+    model.put("user_type", "admin");
+    model.put("username", "Administrador");
+    model.put("titulo", "Cambio de Modo");
     app.render("admin/cambiardemodo.hbs", model);
 
   }

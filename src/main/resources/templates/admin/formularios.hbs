@@ -11,6 +11,7 @@
                 <li>
                     <a href="/formulario/{{this.id}}">{{this.nombre}}</a>
                     <span> - Fecha Creación: {{this.fechaCreacion}}</span>
+                    <button class="btn btn-danger ml-auto btn-sm" onclick="borrarFormulario({{this.id}})">Eliminar</button>
                 </li>
             {{/each}}
         </ul>
@@ -28,3 +29,30 @@
         </form>
     </div>
 </div>
+<script>
+    function borrarFormulario(formulario_id) {
+        // Confirmación antes de eliminar
+        if (confirm("¿Estás seguro de que deseas eliminar este formulario?")) {
+            // Enviar una solicitud POST al servidor para eliminar la pregunta
+            fetch(`/formulario/${formulario_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            // Recargar la página o eliminar la pregunta del DOM si se eliminó con éxito
+                            //location.reload(); // Recargar la página para reflejar los cambios
+                            window.location.reload(true);
+                        } else {
+                            alert('Error al eliminar el formulario');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al eliminar el formulario:', error);
+                        alert('Hubo un problema al intentar eliminar el formulario.');
+                    });
+        }
+    }
+</script>

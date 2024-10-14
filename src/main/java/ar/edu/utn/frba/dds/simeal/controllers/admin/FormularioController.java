@@ -24,7 +24,7 @@ public class FormularioController {
   public void index(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
     setFormulario(model);
-
+    model.put("titulo", "Formularios");
     ctx.render("admin/formularios.hbs",model);
   }
 
@@ -34,6 +34,7 @@ public class FormularioController {
       .nombre(ctx.formParam("nombreFormulario"))
       .build();
     repositorio.guardar(formulario);
+    ctx.redirect("/formularios");
   }
 
   public void editarFormulario(Context ctx) {
@@ -47,6 +48,7 @@ public class FormularioController {
     }
     model.put("preguntas", preguntas);
     model.put("formulario_id", ctx.pathParam("formulario_id"));
+    model.put("titulo", "Preguntas Formulario");
     ctx.render("admin/creacion_preguntas.hbs", model);
   }
 
@@ -92,10 +94,21 @@ public class FormularioController {
     ctx.status(200);
   }
 
+  public void borrarFormulario(Context ctx) {
+    Formulario formulario = (Formulario) repositorio
+      .buscarPorId(Long.valueOf(ctx.pathParam("formulario_id")), Formulario.class);
+    try {
+      repositorio.desactivar(formulario);
+      ctx.status(200);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
 
   public void setNavBar(HashMap<String, Object> model) {
     model.put("user_type", "admin");
     model.put("esAdmin", true);
+    model.put("username", "Administrador");
   }
 
 

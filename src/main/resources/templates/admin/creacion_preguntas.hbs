@@ -125,7 +125,8 @@
                     .then(response => {
                         if (response.ok) {
                             // Recargar la página o eliminar la pregunta del DOM si se eliminó con éxito
-                            location.reload(); // Recargar la página para reflejar los cambios
+                            //location.reload(); // Recargar la página para reflejar los cambios
+                            window.location.reload(true);
                         } else {
                             alert('Error al eliminar la pregunta');
                         }
