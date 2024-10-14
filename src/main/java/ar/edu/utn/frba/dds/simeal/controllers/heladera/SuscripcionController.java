@@ -25,13 +25,12 @@ public class SuscripcionController {
 
   public void index(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
-    setNavBar(model);
+    setNavBar(model,ctx);
     model.put("titulo", "Home Suscripcion");
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
-    // TODO: SACAR DE LA SESION
     Colaborador colaborador = (Colaborador)  repositorio
-      .buscarPorId(1L, Colaborador.class);
+      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
 
 
     model.put("heladera", new HeladeraDTO(heladera,0D));
@@ -41,9 +40,8 @@ public class SuscripcionController {
   public void altaSuscripcion(Context ctx) {
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
-    // TODO: SACAR DE LA SESION
     Colaborador colaborador = (Colaborador) repositorio
-      .buscarPorId(1L, Colaborador.class);
+      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
 
     Boolean checkViandasInsuficientes = Objects.equals(ctx.formParam("checkViandasInsuficientes"), "true");
     Boolean checkMuchasViandas = Objects.equals(ctx.formParam("checkMuchasViandas"), "true");
@@ -83,13 +81,17 @@ public class SuscripcionController {
 
 
 
-  private void setNavBar(HashMap<String,Object> model) {
-    // TODO: Hacer un if con el rol de la sesion
-    model.put("esHumano", true);
-    // TODO: Esto esta en una cookie
-    model.put("user_type","humano");
+  private void setNavBar(HashMap<String,Object> model, Context app) {
+    if (app.sessionAttribute("user_type").equals("HUMANO"))
+      model.put("esHumano", "true");
+    else if (app.sessionAttribute("user_type").equals("JURIDICO"))
+      model.put("esJuridico", "true");
+
+    model.put("user_type",app.sessionAttribute("user_type"));
+
 
     model.put("heladeras", "seleccionado");
-    model.put("username", "sacar de la sesion :)");
+    model.put("username", app.sessionAttribute("username"));
+
   }
 }

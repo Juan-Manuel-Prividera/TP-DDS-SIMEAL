@@ -13,6 +13,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.Sol
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
@@ -202,5 +204,11 @@ public class Prueba implements WithSimplePersistenceUnit {
     IncidenteRepository incidenteRepository = ServiceLocator.getService(IncidenteRepository.class);
     incidenteRepository.guardar(alerta);
     incidenteRepository.guardar(fallaTecnica);
+
+
+    // Formulario de Humanos
+    Pregunta pregunta0 = new Pregunta();
+    Formulario formulario = new Formulario();
+
   }
 }

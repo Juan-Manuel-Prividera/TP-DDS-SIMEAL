@@ -14,12 +14,12 @@ public class MedioContactoConverter implements AttributeConverter<MedioContacto,
   @Override
   public String convertToDatabaseColumn(MedioContacto medioContacto) {
     return switch (medioContacto) {
-      case Telefono telefono -> "Telefono";
-      case Email email -> "Email";
-      case Telegram telegram -> "Telegram";
-      case WhatsApp whatsApp -> "WhatsApp";
-      default -> null;
-    };
+        case Telefono telefono -> "Telefono";
+        case Email email -> "Email";
+        case Telegram telegram -> "Telegram";
+        case WhatsApp whatsApp -> "WhatsApp";
+        default -> null;
+      };
   }
 
   @Override

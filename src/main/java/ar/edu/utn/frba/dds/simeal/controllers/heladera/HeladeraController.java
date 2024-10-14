@@ -24,7 +24,7 @@ public class HeladeraController {
 
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
-    setNavBar(model);
+    setNavBar(model,app);
     model.put("titulo", "Home Heladera");
 
     app.render("/heladeras/home_heladera.hbs",model);
@@ -46,7 +46,7 @@ public class HeladeraController {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Estado Heladera");
 
-    setNavBar(model);
+    setNavBar(model,ctx);
 
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
@@ -74,7 +74,7 @@ public class HeladeraController {
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
 
-    setNavBar(model);
+    setNavBar(model,ctx);
     model.put("titulo", "Reportar Fallo");
     HeladeraDTO heladeraDTO = new HeladeraDTO(heladera, 0D);
     model.put("heladera", heladeraDTO);
@@ -84,13 +84,13 @@ public class HeladeraController {
 
   public void reportarFallo(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
-    setNavBar(model);
+    setNavBar(model, ctx);
     model.put("titulo", "Agreadecimiento Reporte");
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
-    // TODO: SACAR DE LA SESION
+
     Colaborador colaborador = (Colaborador)  repositorio
-      .buscarPorId(1L, Colaborador.class);
+      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
 
     FallaTecnica fallaTecnica = FallaTecnica.builder()
       .heladera(heladera)
@@ -104,13 +104,15 @@ public class HeladeraController {
   }
 
 
-  private void setNavBar(HashMap<String,Object> model) {
-    // TODO: Hacer un if con el rol de la sesion
-    model.put("esHumano", "true");
-    // TODO: Esto esta en una cookie
-    model.put("user_type","humano");
+  private void setNavBar(HashMap<String,Object> model, Context app) {
+    if (app.sessionAttribute("user_type").equals("HUMANO"))
+      model.put("esHumano", "true");
+    else if (app.sessionAttribute("user_type").equals("JURIDICO"))
+      model.put("esJuridico", "true");
+
+    model.put("user_type",app.sessionAttribute("user_type"));
 
     model.put("heladeras", "seleccionado");
-    model.put("username", "sacar de la sesion :)");
+    model.put("username", app.sessionAttribute("username"));
   }
 }

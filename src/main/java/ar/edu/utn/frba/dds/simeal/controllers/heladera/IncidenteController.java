@@ -42,20 +42,22 @@ public class IncidenteController {
       model.put("hayIncidentes", true);
     }
 
-    setNavBar(model);
+    setNavBar(model, ctx);
     ctx.render("/heladeras/alertas_recientes.hbs", model);
   }
 
   public void create(Incidente incidente) {
     repositorio.guardar((Persistente) incidente);
   }
-  private void setNavBar(HashMap<String,Object> model) {
-    // TODO: Hacer un if con el rol de la sesion
-    model.put("esHumano", true);
-    // TODO: Esto esta en una cookie
-    model.put("user_type","humano");
+  private void setNavBar(HashMap<String,Object> model, Context app) {
+    if (app.sessionAttribute("user_type").equals("HUMANO"))
+      model.put("esHumano", "true");
+    else if (app.sessionAttribute("user_type").equals("JURIDICO"))
+      model.put("esJuridico", "true");
+
+    model.put("user_type",app.sessionAttribute("user_type"));
 
     model.put("heladeras", "seleccionado");
-    model.put("username", "sacar de la sesion :)");
+    model.put("username", app.sessionAttribute("username"));
   }
 }

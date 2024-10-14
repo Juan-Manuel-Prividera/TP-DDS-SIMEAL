@@ -33,9 +33,9 @@ public class TarjetasController {
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("username", app.sessionAttribute("username"));
-    setNavBar(model);
-    setTarjetaPersonal(model);
-    setTarjetasPersonasVulnerables(model);
+    setNavBar(model,app);
+    setTarjetaPersonal(model, app);
+    setTarjetasPersonasVulnerables(model, app);
 
     app.render("tarjetas/tarjetas_entregadas.hbs", model);
   }
@@ -43,26 +43,25 @@ public class TarjetasController {
   public void indexNewTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Crear nueva tarjeta");
-    model.put("username", app.sessionAttribute("username"));
-    setNavBar(model);
-    setTarjetaPersonal(model);
+    setNavBar(model, app);
+    setTarjetaPersonal(model, app);
 
     app.render("tarjetas/agregar_tarjeta.hbs", model);
   }
 
   public void indexBorrarTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
-    setNavBar(model);
-    setTarjetasPersonasVulnerables(model);
-    setTarjetaPersonal(model);
+    setNavBar(model, app);
+    setTarjetasPersonasVulnerables(model, app);
+    setTarjetaPersonal(model, app);
     app.render("tarjetas/borrar_tarjeta.hbs", model);
   }
 
   public void indexUpdateTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
-    setNavBar(model);
-    setTarjetasPersonasVulnerables(model);
-    setTarjetaPersonal(model);
+    setNavBar(model, app);
+    setTarjetasPersonasVulnerables(model, app);
+    setTarjetaPersonal(model, app);
     app.render("tarjetas/modificar_tarjeta.hbs", model);
   }
 
@@ -99,16 +98,18 @@ public class TarjetasController {
   }
 
 
-  private void setNavBar(HashMap<String, Object> model) {
+  private void setNavBar(HashMap<String, Object> model, Context ctx) {
     model.put("tarjetas", "seleccionado");
-    model.put("esHumano","true");
-    model.put("user_type", "humano");
+    model.put("user_type", ctx.sessionAttribute("user_type").toString().toLowerCase());
+    if (ctx.sessionAttribute("user_type") == "HUMANO")
+      model.put("esHumano","true");
+
+    model.put("username", ctx.sessionAttribute("username"));
   }
 
-  // TODO: Poner los datos del usuario que haga la request
-  private void setTarjetaPersonal(HashMap<String, Object> model) {
-    //TODO: Sacar ID de la sesion
-    TarjetaColaborador tarjetaColaborador = tarjetaColaboradorRepository.getPorColaborador(1L);
+  private void setTarjetaPersonal(HashMap<String, Object> model, Context ctx) {
+    TarjetaColaborador tarjetaColaborador = tarjetaColaboradorRepository
+      .getPorColaborador(Long.valueOf(ctx.sessionAttribute("colaborador_id")));
     if (tarjetaColaborador == null) {
       throw new RuntimeException("No habia tarjetas de colaborador con id = 1");
     }
@@ -136,11 +137,10 @@ public class TarjetasController {
     model.put("solicitudes", solicitudesDTOs);
   }
 
-  private void setTarjetasPersonasVulnerables(HashMap<String, Object> model) {
+  private void setTarjetasPersonasVulnerables(HashMap<String, Object> model, Context app) {
     ColaboracionRepository repository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
-    // TODO: Sacar id de la sesion
     List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) repository
-      .getPorColaborador(1L, DarDeAltaPersonaVulnerable.class);
+      .getPorColaborador(Long.valueOf(app.sessionAttribute("colaborador_id")), DarDeAltaPersonaVulnerable.class);
 
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
 

@@ -23,17 +23,21 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .noticia {
+    display: flex;
     margin-top: 10vh;
     align-self: center;
     flex-direction: column;
     justify-content: center;
+    align-items: start;
     width: 60%;
 }
-
+.noticia a {
+    text-decoration: none;
+}
 .noticia h2 {
     font-size: 4vh;
     width: fit-content;
