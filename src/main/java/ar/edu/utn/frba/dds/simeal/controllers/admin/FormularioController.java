@@ -79,7 +79,7 @@ public class FormularioController {
 
     Pregunta pregunta = Pregunta.builder()
      .tipo(obtenerTipoPregunta(ctx.formParam("tipoPregunta")))
-     .param(ctx.formParam("nombre_tecnico"))
+     .param(ctx.formParam("parametro"))
      .pregunta(ctx.formParam("pregunta"))
      .required(true)
      .opciones(opciones)

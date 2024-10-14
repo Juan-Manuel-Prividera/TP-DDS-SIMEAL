@@ -160,3 +160,7 @@ h1 {
     width: 100%;
 
 }
+.crear-nuevo-formulario form label{
+    /*margin-right: 50%;*/
+    margin-left: 0 !important;
+}

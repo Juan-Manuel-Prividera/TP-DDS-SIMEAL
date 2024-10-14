@@ -1,16 +1,12 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-<<<<<<< HEAD
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
-=======
-import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
-import com.twilio.rest.chat.v1.service.Role;
->>>>>>> refs/remotes/origin/main
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hibernate.annotations.CascadeType.MERGE;
@@ -31,7 +27,8 @@ public class Formulario extends Persistente {
             name = "formulario_pregunta",
             joinColumns = @JoinColumn( name="formulario_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "pregunta_id", referencedColumnName = "id"))
-    private List<Pregunta> preguntas;
+    private List<Pregunta> preguntas = new ArrayList<>();
+
     @Column(name = "en_uso")
     private Boolean enUso;
 
@@ -40,6 +37,5 @@ public class Formulario extends Persistente {
     private TipoRol rol;
 
     @Column(name = "nombre")
-
     private String nombre;
 }
