@@ -62,7 +62,7 @@ public class Router {
     app.post("login", new LoginHandler()::handle);
     app.get("logout", new LogoutHandler()::handle);
     app.get("registro", ctx->{ctx.render("registro.hbs");});
-    app.get("registro/{rol}", new RegistroHandler()::handle);
+    app.get("registro/{rol}", ServiceLocator.getController(RegistroHandler.class)::handle);
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
