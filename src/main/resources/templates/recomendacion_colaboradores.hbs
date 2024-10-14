@@ -1,0 +1,70 @@
+{{> templates/navbar}}
+<div class="container">
+    <h2>Solicitar Recomendación de Colaboradores</h2>
+    <label for="param1">Puntos requeridos</label>
+    <input type="text" id="param1" placeholder="Ingrese la cantidad de puntos que deben tener los colaboradores"><br>
+    <label for="param2">Donaciones requeridos</label>
+    <input type="text" id="param2" placeholder="Ingrese la cantidad de donaciones que deben tener los colaboradores"><br>
+    <label for="param3">Cantidad maxima requeridos</label>
+    <input type="text" id="param3" placeholder="Ingrese la cantidad maxima de resultados requeridos"><br>
+    <button id="request-btn">Obtener Recomendación</button>
+    <table id="tablaColaboradores" class="table">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Contacto</th>
+            <th>Donaciones</th>
+            <th>Puntos</th>
+        </tr>
+        </thead>
+        <tbody id="tbodyColaboradores">
+        <!-- Las filas de colaboradores se agregarán aquí dinámicamente -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('request-btn').addEventListener('click', function() {
+        // Obtener los valores de los parámetros ingresados por el usuario
+        const param1 = document.getElementById('param1').value;
+        const param2 = document.getElementById('param2').value;
+        const param3 = document.getElementById('param3').value;
+
+        // Verificar que los parámetros no estén vacíos
+        if (!param1 || !param2 || !param3) {
+            alert("Por favor, ingrese los tres parámetros.");
+            return;
+        }
+
+        // Construir la URL con los parámetros como query params
+        const apiUrl = `http://127.0.0.1:3000/simeal/api/colabs/recomendacion?puntos=${encodeURIComponent(param1)}&donaciones=${encodeURIComponent(param2)}&max=${encodeURIComponent(param3)}`;
+
+        // Realizar la solicitud a la API
+        fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.getElementById('tbodyColaboradores'); // Cuerpo de la tabla                    resultDiv.style.display = 'block'; // Mostrar la sección de resultado
+
+                    // Limpiar el contenido previo
+                    tbody.innerHTML = '';
+                    // Iterar sobre los colaboradores y generar HTML dinámico
+                    data.colaboradores.forEach(colaborador => {
+                        const row = `
+                         <tr>
+                            <td>${colaborador.nombre}</td>
+                            <td>${colaborador.apellido}</td>
+                            <td>${colaborador.contacto}</td>
+                            <td>${colaborador.donaciones}</td>
+                            <td>${colaborador.puntos}</td>
+                        </tr>
+                        `;
+                        tbody.innerHTML += row;
+
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos:', error);
+                });
+    });
+</script>

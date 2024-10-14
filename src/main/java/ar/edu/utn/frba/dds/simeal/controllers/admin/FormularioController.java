@@ -7,12 +7,14 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import com.twilio.twiml.voice.Prompt;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class FormularioController {
   private final Repositorio repositorio;
@@ -29,11 +31,22 @@ public class FormularioController {
   }
 
   public void crearFormulario(Context ctx) {
-    Formulario formulario = Formulario.builder()
-      .enUso(true)
-      .nombre(ctx.formParam("nombreFormulario"))
-      .build();
-    repositorio.guardar(formulario);
+    Formulario formulario;
+    if (Objects.equals(ctx.formParam("rol"), "HUMANO")) {
+      formulario = Formulario.builder()
+        .enUso(true)
+        .rol(TipoRol.HUMANO)
+        .nombre(ctx.formParam("nombreFormulario"))
+        .build();
+      repositorio.guardar(formulario);
+    } else if (Objects.equals(ctx.formParam("rol"), "JURIDICO")) {
+      formulario = Formulario.builder()
+        .enUso(true)
+        .rol(TipoRol.JURIDICO)
+        .nombre(ctx.formParam("nombreFormulario"))
+        .build();
+      repositorio.guardar(formulario);
+    }
     ctx.redirect("/formularios");
   }
 
@@ -66,8 +79,7 @@ public class FormularioController {
 
     Pregunta pregunta = Pregunta.builder()
      .tipo(obtenerTipoPregunta(ctx.formParam("tipoPregunta")))
-     // TODO: Para que es el param??
-     //.param()
+     .param(ctx.formParam("nombre_tecnico"))
      .pregunta(ctx.formParam("pregunta"))
      .required(true)
      .opciones(opciones)

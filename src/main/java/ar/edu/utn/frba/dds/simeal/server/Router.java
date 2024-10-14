@@ -1,12 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.*;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
-import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
-import ar.edu.utn.frba.dds.simeal.controllers.PersonaVulnerableController;
-import ar.edu.utn.frba.dds.simeal.controllers.TarjetasController;
-import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
@@ -36,6 +33,7 @@ public class Router {
     app.post("formulario/{formulario_id}/pregunta", ServiceLocator.getController(FormularioController.class)::crearPregunta);
     app.delete("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
     app.delete("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
+
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);
     app.get("tarjeta/new", ServiceLocator.getController(TarjetasController.class)::indexNewTarjeta);
@@ -72,6 +70,9 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
+
+   // ****************** Recomendacion de Colaboradores ******************
+    app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);
