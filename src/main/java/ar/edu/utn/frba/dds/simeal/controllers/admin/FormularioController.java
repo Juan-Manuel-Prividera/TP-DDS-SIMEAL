@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
+import ar.edu.utn.frba.dds.simeal.models.repositories.FormularioRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import com.twilio.twiml.voice.Prompt;
@@ -17,64 +18,78 @@ import java.util.List;
 import java.util.Objects;
 
 public class FormularioController {
-  private final Repositorio repositorio;
+  private final FormularioRepository repositorio;
 
-  public FormularioController(Repositorio repositorio) {
+  public FormularioController(FormularioRepository repositorio) {
     this.repositorio = repositorio;
   }
-
+  // /formuarios
   public void index(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
     setFormulario(model);
     model.put("titulo", "Formularios");
     ctx.render("admin/formularios.hbs",model);
   }
-
+  // POST /formulario
   public void crearFormulario(Context ctx) {
     Formulario formulario;
-    if (Objects.equals(ctx.formParam("rol"), "HUMANO")) {
+    if (ctx.formParam("rol").equals("HUMANO")) {
       formulario = Formulario.builder()
         .enUso(true)
         .rol(TipoRol.HUMANO)
         .nombre(ctx.formParam("nombreFormulario"))
         .build();
       repositorio.guardar(formulario);
-    } else if (Objects.equals(ctx.formParam("rol"), "JURIDICO")) {
+      desactivarFormularios(formulario);
+    } else if (ctx.formParam("rol").equals("JURIDICO")) {
       formulario = Formulario.builder()
         .enUso(true)
         .rol(TipoRol.JURIDICO)
         .nombre(ctx.formParam("nombreFormulario"))
         .build();
       repositorio.guardar(formulario);
+      desactivarFormularios(formulario);
     }
     ctx.redirect("/formularios");
   }
 
+  // formulario/{formulario_id}
   public void editarFormulario(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
-    setFormulario(model);
+    setNavBar(model);
     Formulario formulario = (Formulario) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("formulario_id")), Formulario.class);
+    repositorio.refresh(formulario);
     List<PreguntaDTO> preguntas = new ArrayList<>();
     for(Pregunta pregunta : formulario.getPreguntas()) {
       preguntas.add(new PreguntaDTO(pregunta));
     }
+
     model.put("preguntas", preguntas);
     model.put("formulario_id", ctx.pathParam("formulario_id"));
     model.put("titulo", "Preguntas Formulario");
     ctx.render("admin/creacion_preguntas.hbs", model);
   }
 
-
+  // post formulario/{formulario_id}/pregunta
   public void crearPregunta(Context ctx) {
-    List<Opcion> opciones = new ArrayList<>();
-    List<String> opcionesForm = ctx.formParams("opciones[]");
     Formulario formulario = (Formulario) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("formulario_id")), Formulario.class);
+    if (formulario == null) {
+      ctx.status(404).result("Formulario no encontrado");
+      return;
+    }
 
+    List<Opcion> opciones = new ArrayList<>();
+    List<String> opcionesForm = ctx.formParams("opciones[]");
 
-    for (String opcion : opcionesForm) {
-      opciones.add(new Opcion(opcion));
+    if (!opcionesForm.isEmpty()) {
+      for (String opcion : opcionesForm) {
+        opciones.add(new Opcion(opcion));
+      }
+    } else {
+      ctx.status(400).result("No se proporcionaron opciones válidas");
+      return;
     }
 
     Pregunta pregunta = Pregunta.builder()
@@ -84,10 +99,11 @@ public class FormularioController {
      .required(true)
      .opciones(opciones)
      .build();
-    formulario.getPreguntas().add(pregunta);
 
     repositorio.guardar(pregunta);
+    formulario.addPregunta(pregunta);
     repositorio.actualizar(formulario);
+    repositorio.refresh(formulario);
     ctx.redirect("/formulario/" + formulario.getId());
   }
 
@@ -141,5 +157,14 @@ public class FormularioController {
       case "multiple" -> TipoPregunta.CHOICE;
       default -> null;
     };
+  }
+
+  private void desactivarFormularios(Formulario formulario) {
+    List<Formulario> formularios = (List<Formulario>) repositorio.obtenerTodos(Formulario.class);
+    for (Formulario f : formularios) {
+      if (f.getRol().equals(formulario.getRol()) && !f.getNombre().equals(formulario.getNombre())) {
+        f.setEnUso(false);
+      }
+    }
   }
 }
