@@ -23,7 +23,7 @@ public class MigracionController {
     model.put("cargacsv", "seleccionado");
     model.put("user_type", app.sessionAttribute("user_type"));
     model.put("esAdmin", true);
-    model.put("username", app.sessionAttribute("username"));
+    model.put("username", app.sessionAttribute("user_name"));
     model.put("titulo", "Migracion Colaboraciones");
     app.render("admin/cargar_colaboraciones.hbs", model);
   }

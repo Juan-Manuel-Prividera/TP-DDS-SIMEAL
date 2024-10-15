@@ -113,7 +113,7 @@ public class HeladeraController {
     model.put("user_type",app.sessionAttribute("user_type").toString().toLowerCase());
 
     model.put("heladeras", "seleccionado");
-    model.put("username", app.sessionAttribute("username"));
+    model.put("username", app.sessionAttribute("user_name"));
     model.put("colaborador_id", app.sessionAttribute("colaborador_id"));
   }
 }

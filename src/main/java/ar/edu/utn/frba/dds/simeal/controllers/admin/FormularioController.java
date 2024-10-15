@@ -26,7 +26,7 @@ public class FormularioController {
   // /formuarios
   public void index(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
-    setFormulario(model);
+    setFormulario(model,ctx);
     model.put("titulo", "Formularios");
     ctx.render("admin/formularios.hbs",model);
   }
@@ -56,7 +56,7 @@ public class FormularioController {
   // formulario/{formulario_id}
   public void editarFormulario(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
-    setNavBar(model);
+    setNavBar(model,ctx);
     Formulario formulario = (Formulario) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("formulario_id")), Formulario.class);
     repositorio.refresh(formulario);
@@ -133,14 +133,14 @@ public class FormularioController {
     }
   }
 
-  public void setNavBar(HashMap<String, Object> model) {
+  public void setNavBar(HashMap<String, Object> model, Context ctx) {
     model.put("user_type", "admin");
     model.put("esAdmin", true);
-    model.put("username", "Administrador");
+    model.put("username", ctx.sessionAttribute("user_name"));
   }
 
 
-  private void setFormulario(HashMap<String, Object> model) {
+  private void setFormulario(HashMap<String, Object> model, Context ctx) {
     List<Formulario> formularios = (List<Formulario>) repositorio.obtenerTodos(Formulario.class);
     List<FormularioDTO> formulariosDtos = new ArrayList<>();
     for (Formulario formulario : formularios) {
@@ -148,7 +148,7 @@ public class FormularioController {
     }
 
     model.put("formularios", formulariosDtos);
-    setNavBar(model);
+    setNavBar(model, ctx);
   }
 
   private TipoPregunta obtenerTipoPregunta(String tipoPregunta) {

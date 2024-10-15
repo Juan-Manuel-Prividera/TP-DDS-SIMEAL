@@ -44,7 +44,8 @@ button:hover {
 }
 
 .cargacsv label {
-  margin-right: 45%;
+    margin-right: 0 !important;
+    margin-left: 25% !important;
 }
 .cargacsv input{
     width: 50%;

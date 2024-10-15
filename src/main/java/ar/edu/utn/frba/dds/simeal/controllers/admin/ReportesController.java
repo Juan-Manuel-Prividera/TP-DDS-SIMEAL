@@ -11,7 +11,7 @@ public class ReportesController {
     model.put("reporte", "seleccionado");
     model.put("user_type", "admin");
     model.put("esAdmin", true);
-    model.put("username", "Administrador");
+    model.put("username", app.sessionAttribute("user_name"));
     model.put("titulo", "Reportes");
     app.render("admin/reportes.hbs", model);
   }

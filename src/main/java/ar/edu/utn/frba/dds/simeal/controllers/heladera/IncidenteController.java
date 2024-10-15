@@ -58,6 +58,6 @@ public class IncidenteController {
     model.put("user_type",app.sessionAttribute("user_type"));
 
     model.put("heladeras", "seleccionado");
-    model.put("username", app.sessionAttribute("username"));
+    model.put("username", app.sessionAttribute("user_name"));
   }
 }

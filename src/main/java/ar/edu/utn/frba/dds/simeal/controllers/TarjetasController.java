@@ -33,7 +33,6 @@ public class TarjetasController {
 
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
-    model.put("username", app.sessionAttribute("username"));
     setNavBar(model,app);
     setTarjetaPersonal(model, app);
     setTarjetasPersonasVulnerables(model, app);
@@ -80,7 +79,7 @@ public class TarjetasController {
     String newDni = app.formParam("newDni");
     String newEdad = app.formParam("newEdad");
     String numeroTarjeta = app.pathParam("numeroTarjeta");
-//
+
     TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(numeroTarjeta);
     PersonaVulnerable personaVulnerable = tarjeta.getPersonaVulnerable();
     personaVulnerableController.update(personaVulnerable, newName, newApellido, newDni, newEdad);
@@ -105,7 +104,7 @@ public class TarjetasController {
     if (ctx.sessionAttribute("user_type") == "HUMANO")
       model.put("esHumano","true");
 
-    model.put("username", ctx.sessionAttribute("username"));
+    model.put("username", ctx.sessionAttribute("user_name"));
   }
 
   private void setTarjetaPersonal(HashMap<String, Object> model, Context ctx) {

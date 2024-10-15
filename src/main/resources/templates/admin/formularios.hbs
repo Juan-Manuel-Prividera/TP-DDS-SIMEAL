@@ -42,7 +42,7 @@
         // Confirmación antes de eliminar
         if (confirm("¿Estás seguro de que deseas eliminar este formulario?")) {
             // Enviar una solicitud POST al servidor para eliminar la pregunta
-            fetch(`/formulario/${formulario_id}`, {
+            fetch(`http://localhost:8080/formulario/${formulario_id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

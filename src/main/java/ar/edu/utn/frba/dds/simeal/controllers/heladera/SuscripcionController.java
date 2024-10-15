@@ -116,7 +116,7 @@ public class SuscripcionController {
 
 
     model.put("heladeras", "seleccionado");
-    model.put("username", app.sessionAttribute("username"));
+    model.put("username", app.sessionAttribute("user_name"));
 
   }
 }
