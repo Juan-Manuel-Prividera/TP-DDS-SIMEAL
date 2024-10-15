@@ -41,4 +41,32 @@ public class ColaboracionesController {
     // Renderizar la página de confirmación o agradecimiento
     app.render("/colaboraciones/donarDinero.hbs", model);
   }
+
+  public void mostrarFormularioDonacionVianda(Context app) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Donar Vianda");
+
+    // Renderizar la vista donde el usuario puede seleccionar una heladera y donar una vianda
+    app.render("/colaboraciones/donarVianda.hbs", model);
+  }
+
+  public void donarVianda(Context app) {
+    // Obtener los datos del formulario
+    String nombreHeladera = app.formParam("nombre_heladera");
+    String direccionHeladera = app.formParam("direccion");
+
+    // Lógica para registrar la donación
+    // Aquí podrías, por ejemplo, guardar la donación en una base de datos
+
+    // Crear el modelo para la vista de confirmación
+    Map<String, Object> model = new HashMap<>();
+    model.put("nombreHeladera", nombreHeladera);
+    model.put("direccionHeladera", direccionHeladera);
+    model.put("mensaje", "Gracias por tu donación a la heladera " + nombreHeladera + " ubicada en " + direccionHeladera);
+
+    // Renderizar la página de confirmación
+    app.render("/colaboraciones/donarVianda.hbs", model);
+  }
+
+
 }
