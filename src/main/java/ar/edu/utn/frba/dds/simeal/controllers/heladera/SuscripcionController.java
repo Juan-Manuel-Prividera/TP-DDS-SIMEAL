@@ -85,11 +85,12 @@ public class SuscripcionController {
   public void buscarSuscripciones(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
     setNavBar(model,ctx);
-    Colaborador colaborador = (Colaborador) repositorio.buscarPorId(Long.valueOf(ctx.pathParam("colaborador_id")), Colaborador.class);
+    Colaborador colaborador = (Colaborador) repositorio.buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
     List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(colaborador);
     List<SuscripcionDTO> suscripcionesDTO = new ArrayList<>();
     for (Suscripcion suscripcion : suscripciones) {
-      suscripcionesDTO.add(new SuscripcionDTO(suscripcion));
+      if (suscripcion.getActivo())
+        suscripcionesDTO.add(new SuscripcionDTO(suscripcion));
     }
     model.put("colaborador_id", colaborador.getId());
     model.put("suscripciones", suscripcionesDTO);
@@ -102,7 +103,7 @@ public class SuscripcionController {
     Suscripcion suscripcion = (Suscripcion) suscripcionesRepository
       .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")),Suscripcion.class);
     suscripcionesRepository.desactivar(suscripcion);
-    ctx.redirect("/suscripciones/" + suscripcion.getSuscriptor().getId());
+    ctx.status(200);
   }
 
   private void setNavBar(HashMap<String,Object> model, Context app) {

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -20,11 +21,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "suscripcion")
 public class Suscripcion extends Persistente {
-  @ManyToOne
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
+  @ManyToOne (fetch = FetchType.EAGER)
   @JoinColumn(name = "suscriptor_id", referencedColumnName = "id")
   private Colaborador suscriptor;
 
-  @ManyToOne
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
+  @ManyToOne (fetch = FetchType.EAGER)
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 

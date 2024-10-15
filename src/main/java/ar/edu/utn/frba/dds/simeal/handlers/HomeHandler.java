@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.handlers;
 import io.javalin.http.Context;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HomeHandler {
     public void handle(Context context) {
@@ -38,5 +39,18 @@ public class HomeHandler {
         hbMap.put("username", username);
         hbMap.put("titulo", "Simeal - Home");
         context.render("humano_home.hbs", hbMap);
+    }
+    // TODO: No anda
+    public void setUserType(Context context) {
+        Map body = context.bodyValidator(Map.class).get();
+        String userType = (String) body.get("userType");
+
+        // Establecer el tipo de usuario en la sesión
+        context.sessionAttribute("user_type", userType);
+
+        // Responder con un mensaje de éxito
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Tipo de usuario establecido a " + userType);
+        context.json(response);
     }
 }

@@ -27,7 +27,10 @@ public class AuthenticatedMiddleware {
                 }
             }
             // TODO : Arreglar
-            if(ctx.path().startsWith("/heladera")) {
+            if(ctx.path().startsWith("/heladera") ||
+              ctx.path().startsWith("/suscripcion/") ||
+              ctx.path().startsWith("/suscripciones") ||
+              ctx.path().startsWith("/heladera/suscribirse/"))  {
                 return;
             }
             for (var endpoint : openEndpoints) {
@@ -51,7 +54,6 @@ public class AuthenticatedMiddleware {
                 if (userID == null || colaboradorId == null || username == null) {
                     throw new NotAuthenticatedException();
                 }
-            } else {
             }
 
         });

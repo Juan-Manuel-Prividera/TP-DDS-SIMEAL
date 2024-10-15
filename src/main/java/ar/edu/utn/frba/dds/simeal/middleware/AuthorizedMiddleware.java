@@ -38,7 +38,10 @@ public class AuthorizedMiddleware {
                         }
                     }
                     // TODO : Arreglar
-                    if(ctx.path().startsWith("/heladera")) {
+                    if(ctx.path().startsWith("/heladera") ||
+                      ctx.path().startsWith("/suscripcion/") ||
+                      ctx.path().startsWith("/suscripciones") ||
+                      ctx.path().startsWith("/heladera/suscribirse/"))  {
                       return;
                     }
 

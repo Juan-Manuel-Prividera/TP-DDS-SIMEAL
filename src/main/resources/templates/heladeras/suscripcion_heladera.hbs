@@ -6,7 +6,7 @@
             <h1>Quiere ser notificado cuando: </h1>
         </div>
         <div class="tarjeta-btns-suscripcion ml-auto mr-auto">
-            <form method="POST" action="/heladera/suscribirse/{{heladera.id}}" class="form-suscripciones">
+            <form id="form-suscripcion-hela" method="POST" action="/heladera/suscribirse/{{heladera.id}}" class="form-suscripciones">
             <div class="btn-con-input">
                 <div class="btn-con-check">
                 <a onclick="mostrarInput('inputInsuficientes')" >
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <a class="a-btn">
-                <button type="submit" class="btn btn-custom btn-info mb-4" onclick="validarSuscripcion()">Confirmar suscripción</button>
+                <button type="submit" class="btn btn-custom btn-info mb-4">Confirmar suscripción</button>
             </a>
             </form>
         </div>
@@ -60,6 +60,51 @@
 </div>
 </body>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Adjuntar el evento de validación al submit del formulario
+        document.getElementById('form-suscripcion-hela').addEventListener('submit', validarSuscripcion);
+    })
+
+    function validarSuscripcion(event) {
+        // Obtén los checkboxes y inputs
+        const checkInsuficientes = document.getElementById('check-viandas-insuficientes');
+        const inputInsuficientes = document.getElementById('inputInsuficientes').querySelector('input[type="number"]').value;
+
+        const checkMuchas = document.getElementById('check-muchas-viandas');
+        const inputMuchas = document.getElementById('inputMuchas').querySelector('input[type="number"]').value;
+
+        const checkDesperfecto = document.getElementById('check-desperfecto');
+
+        let isValid = true; // Asumimos que todo es válido inicialmente
+
+        // Validar Viandas Insuficientes
+        if (checkInsuficientes.checked && (!inputInsuficientes || inputInsuficientes <= 0)) {
+            alert('Por favor, introduce una cantidad válida para "Haya Viandas Insuficientes".');
+            isValid = false;
+        }
+
+        // Validar Muchas Viandas
+        if (checkMuchas.checked && (!inputMuchas || inputMuchas <= 0)) {
+            alert('Por favor, introduce una cantidad válida para "Haya Muchas Viandas".');
+            isValid = false;
+        }
+
+        // Validar si no hay ninguna opción seleccionada
+        if (!checkInsuficientes.checked && !checkMuchas.checked && !checkDesperfecto.checked) {
+            alert('Por favor, selecciona al menos una opción.');
+            isValid = false;
+        }
+
+        // Si no es válido, prevenir el envío del formulario
+        if (!isValid) {
+            event.preventDefault();
+            console.log("prevengo el evento default")
+        }
+    }
+
+
+
+
     function mostrarInput(inputId) {
         // Ocultar todos los inputs
         const inputElement = document.getElementById(inputId);        // Verificar si el input ya está visible
@@ -77,44 +122,5 @@
         }
     }
 
-    function validarSuscripcion() {
-        // Obtén los checkboxes
-        const checkInsuficientes = document.getElementById('check-viandas-insuficientes');
-        const inputInsuficientes = document.getElementById('inputInsuficientes').querySelector('input[type="number"]').value;
-
-        const checkMuchas = document.getElementById('check-muchas-viandas');
-        const inputMuchas = document.getElementById('inputMuchas').querySelector('input[type="number"]').value;
-
-        const checkDesperfecto = document.getElementById('check-desperfecto');
-
-        let isValid = true; // Variable para comprobar la validez
-
-        // Verifica si el checkbox de Viandas Insuficientes está marcado
-        if (checkInsuficientes.checked) {
-            if (!inputInsuficientes) {
-                alert('Por favor, introduce una cantidad para "Haya Viandas Insuficientes".');
-                isValid = false;
-            }
-        }
-
-        // Verifica si el checkbox de Muchas Viandas está marcado
-        if (checkMuchas.checked) {
-            if (!inputMuchas) {
-                alert('Por favor, introduce una cantidad para "Haya Muchas Viandas".');
-                isValid = false;
-            }
-        }
-
-        // Verifica el checkbox de Ocurra un Desperfecto (no tiene input, pero puedes agregar lógica si es necesario)
-        if (checkDesperfecto.checked) {
-            // Aquí puedes agregar validaciones específicas para este checkbox si es necesario
-        }
-
-        // Si todo es válido
-        if (isValid) {
-            alert('Suscripción confirmada con éxito!');
-            // Aquí puedes agregar la lógica para proceder con la suscripción
-        }
-    }
 
 </script>

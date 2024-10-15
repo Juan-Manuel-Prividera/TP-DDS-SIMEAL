@@ -17,7 +17,7 @@ public class Router {
   public static void init(Javalin app) {
     // ***************  HomePage   ***************
     app.get("home", ServiceLocator.getController(HomeHandler.class)::handle);
-
+    app.post("setUserType",ServiceLocator.getController(HomeHandler.class)::setUserType);
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
@@ -55,8 +55,8 @@ public class Router {
 
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
-    app.get("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::buscarSuscripciones);
-    app.delete("suscripciones/{suscripcion_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
+    app.delete("suscripcion/{suscripcion_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
+    app.get("suscripciones", ServiceLocator.getController(SuscripcionController.class)::buscarSuscripciones);
 
     app.get("heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
 

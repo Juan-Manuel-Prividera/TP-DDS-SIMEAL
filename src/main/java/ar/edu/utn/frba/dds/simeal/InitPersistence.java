@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
@@ -22,6 +23,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 
@@ -62,6 +64,10 @@ public class InitPersistence {
         Permiso getTarjeta = new Permiso("/tarjeta", TipoMetodoHttp.GET);
         Permiso getTarjetas = new Permiso("/tarjeta/.+",TipoMetodoHttp.GET);
         Permiso postTarjetas = new Permiso("/tarjeta/.+",TipoMetodoHttp.POST);
+        Permiso getSolicitud = new Permiso("/solicitud/.+", TipoMetodoHttp.GET);
+        Permiso postSolicitud = new Permiso("/solicitud/.+", TipoMetodoHttp.POST);
+
+
 
         Permiso getColaboraciones = new Permiso("colaboraciones", TipoMetodoHttp.GET);
         Permiso postDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.POST);
@@ -77,7 +83,7 @@ public class InitPersistence {
         Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
                 TipoMetodoHttp.GET);
         Permiso getSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.GET);
-        Permiso deleteSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.DELETE);
+        Permiso deleteSuscripciones = new Permiso("/suscripcion/\\d+", TipoMetodoHttp.DELETE);
 
         Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
@@ -87,8 +93,9 @@ public class InitPersistence {
         List<Permiso> permisosHumano = List.of(
                 getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
-                getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones
-        );
+                getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
+                getSolicitud, postSolicitud
+          );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
@@ -103,7 +110,8 @@ public class InitPersistence {
                 deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
-                getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones
+                getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
+                getHome
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
@@ -122,10 +130,14 @@ public class InitPersistence {
         colaboradorHumano.setUsuario(usuarioHumano);
         repo.guardar(colaboradorHumano);
 
+        TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaboradorHumano, LocalDate.now());
+        ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
+
         Colaborador colaboradorJuridico = new Colaborador(
                 "Arcos dorados",
                 new Rubro()
         );
+
         colaboradorJuridico.setUsuario(usuarioJuridico);
         repo.guardar(colaboradorJuridico);
 
