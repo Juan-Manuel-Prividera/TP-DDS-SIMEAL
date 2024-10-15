@@ -76,6 +76,8 @@ public class InitPersistence {
                 TipoMetodoHttp.GET);
         Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
                 TipoMetodoHttp.GET);
+        Permiso getSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.GET);
+        Permiso deleteSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.DELETE);
 
         Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
@@ -85,7 +87,7 @@ public class InitPersistence {
         List<Permiso> permisosHumano = List.of(
                 getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
-                getHeladeras, getOfertas, getOferta
+                getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones
         );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
@@ -101,7 +103,7 @@ public class InitPersistence {
                 deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
-                getOferta, getOfertas, postSuscribirHeladera
+                getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
@@ -191,6 +193,7 @@ public class InitPersistence {
         repositorioHeladera.guardar(heladera2);
         repositorioHeladera.guardar(heladera3);
         repositorioHeladera.guardar(heladera4);
+
 
     }
 }

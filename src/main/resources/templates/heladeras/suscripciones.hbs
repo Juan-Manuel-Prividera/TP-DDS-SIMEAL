@@ -1,16 +1,31 @@
+{{> templates/navbar}}
 <div class="container-suprem-suscripciones">
     <h1 class="mt-4">Suscripciones de Colaborador</h1>
 
     <!-- Aquí se generarán las suscripciones -->
     <div id="subscriptions-list">
-        {{#each suscripciones}}
-        <div class="subscription-container">
-            <h5>Heladera: {{this.heladeraNombre}}</h5>
-            <p>Tipo de suscripción: {{this.tipoSuscripcion}}</p>
-            <p>Cantidad crítica: {{this.cantidadViandas}}</p>
-            <button class="btn btn-danger" onclick="deleteSubscription({{this.id}})">Eliminar</button>
-        </div>
-        {{/each}}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Heladera</th>
+                <th>Tipo de suscripción</th>
+                <th>Cantidad crítica</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each suscripciones}}
+                <tr>
+                    <td>{{this.heladeraNombre}}</td>
+                    <td>{{this.tipoSuscripcion}}</td>
+                    <td>{{this.cantidadViandas}}</td>
+                    <td>
+                        <button class="btn btn-danger" onclick="deleteSubscription({{this.id}})">Eliminar</button>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
 </div>
 
