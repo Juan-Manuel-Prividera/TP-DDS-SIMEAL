@@ -31,7 +31,6 @@ public class ColaboracionesController {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Dinero");
 
-    // Renderizar el formulario de donación de dinero
     app.render("/colaboraciones/donarDinero.hbs", model);
   }
 
@@ -47,15 +46,13 @@ public class ColaboracionesController {
     model.put("metodoPago", metodoPago);
     model.put("mensaje", "Gracias por tu donación de " + monto + " ARS usando " + metodoPago);
 
-    // Renderizar la página de confirmación o agradecimiento
-    app.render("/colaboraciones/confirmacion.hbs", model);
+    app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
   public void mostrarFormularioDonacionVianda(Context app) {
     Map<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Vianda");
 
-    // Renderizar la vista donde el usuario puede seleccionar una heladera y donar una vianda
     app.render("/colaboraciones/donarVianda.hbs", model);
   }
 
@@ -65,17 +62,64 @@ public class ColaboracionesController {
     String direccionHeladera = app.formParam("direccion");
 
     // Lógica para registrar la donación
-    // Aquí podrías, por ejemplo, guardar la donación en una base de datos
 
-    // Crear el modelo para la vista de confirmación
     Map<String, Object> model = new HashMap<>();
     model.put("nombreHeladera", nombreHeladera);
     model.put("direccionHeladera", direccionHeladera);
     model.put("mensaje", "Gracias por tu donación a la heladera " + nombreHeladera + " ubicada en " + direccionHeladera);
 
-    // Renderizar la página de confirmación
-    app.render("/colaboraciones/donarVianda.hbs", model);
+    app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
+  public void mostrarFormularioDistribucionVianda(Context app) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Distribuir Vianda");
+
+    app.render("/colaboraciones/distribuirVianda.hbs", model);
+  }
+
+  public void distribuirVianda(Context ctx) {
+    // Procesar datos del formulario
+    String heladeraOrigen = ctx.formParam("heladeraOrigen");
+    String direccionOrigen = ctx.formParam("direccionOrigen");
+    String heladeraDestino = ctx.formParam("heladeraDestino");
+    String direccionDestino = ctx.formParam("direccionDestino");
+
+    // Aquí guardas los datos en tu clase Repositorio
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("heladeraOrigen", heladeraOrigen);
+    model.put("heladeraDestino", heladeraDestino);
+    model.put("direccionOrigen", direccionOrigen);
+    model.put("direccionDestino", direccionDestino);
+    model.put("mensaje", "Gracias por tu distribucion de la heladera " + heladeraOrigen + " ubicada en " + direccionOrigen + "a la heladera " + heladeraDestino + " ubicada en " + direccionDestino);
+
+    ctx.render("templates/confirmacion_Distribucion.hbs");
+  }
+
+  public void mostrarFormularioAdherirHeladera(Context app) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Adherir Heladera");
+
+    app.render("/colaboraciones/adherirHeladera.hbs", model);
+  }
+
+  public void adherirHeladera(Context app) {
+    // Obtener los datos del formulario
+    String nombreHeladera = app.formParam("nombreHeladera");
+    String ubicacionHeladera = app.formParam("ubicacionHeladera");
+    String modeloHeladera = app.formParam("modeloHeladera");
+
+    // Lógica para registrar la nueva heladera
+    // Aquí puedes agregar la heladera a la base de datos o repositorio
+
+    Map<String, Object> model = new HashMap<>();
+    model.put("nombreHeladera", nombreHeladera);
+    model.put("ubicacionHeladera", ubicacionHeladera);
+    model.put("modeloHeladera", modeloHeladera);
+    model.put("mensaje", "La heladera " + nombreHeladera + " ha sido adherida exitosamente.");
+
+    app.render("/colaboraciones/confirmacion_adherencia.hbs", model);
+  }
 
 }
