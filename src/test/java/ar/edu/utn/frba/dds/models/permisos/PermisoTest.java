@@ -45,4 +45,11 @@ public class PermisoTest {
         Assertions.assertFalse(p.isAllowed("/home/user/view/lal", TipoMetodoHttp.DELETE));
     }
 
+    @Test
+    public void TestearRegex3() {
+        Permiso p = new Permiso(Pattern.compile("/formulario/\\d+"), TipoMetodoHttp.GET);
+        Assertions.assertTrue(p.isAllowed("/formulario/123", TipoMetodoHttp.GET));
+        Assertions.assertFalse(p.isAllowed("/formulario/123/elicapo", TipoMetodoHttp.GET));
+    }
+
 }

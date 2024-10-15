@@ -10,6 +10,7 @@ public class AppHandlers {
     private final IHandler[] handlers = new IHandler[]{
             new NotAuthenticatedHandler(),
             new NotAuthorizedHandler(),
+            new ServerErrorHandler()
     };
 
     public static void applyHandlers(Javalin app){

@@ -43,6 +43,7 @@ public class InitPersistence {
         Permiso getTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.GET);
         Permiso postTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.POST);
 
+        Permiso getColaboraciones = new Permiso("colaboraciones", TipoMetodoHttp.GET);
         Permiso postDonarDinero = new Permiso(Pattern.compile("colaboraciones/donarDinero"), TipoMetodoHttp.POST);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
@@ -62,14 +63,14 @@ public class InitPersistence {
 
         // Crear roles
         List<Permiso> permisosHumano = List.of(
-                getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero,
+                getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta
         );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
-                getHome, getHeladera, postHeladera, postDonarDinero,
+                getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
                 getHeladeras, getOfertas, getOferta
         );
         Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
@@ -77,7 +78,8 @@ public class InitPersistence {
         List<Permiso> permisosAdmin = List.of(
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
                 getFormularios, getFormulario, postFormularios, postPregunta,
-                deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas,
+                deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
+                postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera
         );

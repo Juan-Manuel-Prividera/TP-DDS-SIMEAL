@@ -22,6 +22,7 @@ public class ColaboracionesController {
     } else if (usrType.equals("personal")) {
       app.render("/colaboraciones/colaboraciones_personal.hbs", model);
     } else {
+      // TODO: Qué pasa si el admin quiere ver esta página ? -> no puede
       app.status(404).result("Tipo de usuario no válido");
     }
   }

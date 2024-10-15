@@ -83,7 +83,7 @@ public class SuscripcionController {
   public void buscarSuscripciones(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
     setNavBar(model,ctx);
-    List<Suscripcion> suscripciones = suscripcionesRepository.
+    //List<Suscripcion> suscripciones = suscripcionesRepository.obtenerTodos();
 
     ctx.render("/heladeras/suscripciones.hbs",model);
   }

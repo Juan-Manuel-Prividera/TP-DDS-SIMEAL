@@ -21,7 +21,7 @@ public class AuthorizedMiddleware {
             "/user/create/juridico",
     };
 
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png"};
+    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".hbs"};
 
     public static void apply(Javalin app) {
         app.beforeMatched(
