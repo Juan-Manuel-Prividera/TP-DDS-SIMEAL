@@ -42,6 +42,9 @@ public class Router {
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
+    // ***************  Solicitud de operacion heladera  ***************
+    app.get("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::index);
+    app.post("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::create);
     // ***************  Heladeras   ***************
     app.get("heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
@@ -52,6 +55,8 @@ public class Router {
 
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
+    app.get("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::buscarSuscripciones);
+    app.delete("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
 
     app.get("heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
 

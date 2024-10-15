@@ -1,0 +1,40 @@
+<div class="container-suprem-suscripciones">
+    <h1 class="mt-4">Suscripciones de Colaborador</h1>
+
+    <!-- Aquí se generarán las suscripciones -->
+    <div id="subscriptions-list">
+        {{#each suscripciones}}
+        <div class="subscription-container">
+            <h5>Heladera: {{this.heladeraNombre}}</h5>
+            <p>Tipo de suscripción: {{this.tipoSuscripcion}}</p>
+            <p>Cantidad crítica: {{this.cantidadViandas}}</p>
+            <button class="btn btn-danger" onclick="deleteSubscription({{@index}}, {{this.heladeraId}})">Eliminar</button>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script>
+    function deleteSubscription(subscriptionId) {
+        // Aquí iría la lógica para eliminar la suscripción
+        // Por ejemplo, podrías hacer una solicitud fetch a tu API para eliminar la suscripción
+
+        if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
+            Aquí puedes realizar la solicitud AJAX para eliminar la suscripción
+            Ejemplo:
+            fetch(`/suscripcion/${subscriptionId}`, { method: 'DELETE' })
+                .then(response => {
+                    if (response.ok) {
+                        // Eliminar el elemento del DOM o recargar la lista
+                        document.getElementById(`subscription-${subscriptionId}`).remove();
+                    } else {
+                        alert('Error al eliminar la suscripción.');
+                    }
+                });
+
+            console.log(`Suscripción con ID ${subscriptionId} eliminada.`);
+            // Aquí se eliminaría la suscripción del DOM como ejemplo
+            // document.getElementById(`subscription-${subscriptionId}`).remove();
+        }
+    }
+</script>

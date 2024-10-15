@@ -90,7 +90,7 @@ public class HeladeraController {
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
 
     Colaborador colaborador = (Colaborador)  repositorio
-      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
+      .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
 
     FallaTecnica fallaTecnica = FallaTecnica.builder()
       .heladera(heladera)
@@ -110,7 +110,7 @@ public class HeladeraController {
     else if (app.sessionAttribute("user_type").equals("JURIDICO"))
       model.put("esJuridico", "true");
 
-    model.put("user_type",app.sessionAttribute("user_type"));
+    model.put("user_type",app.sessionAttribute("user_type").toString().toLowerCase());
 
     model.put("heladeras", "seleccionado");
     model.put("username", app.sessionAttribute("username"));

@@ -47,7 +47,7 @@ public class PersonaVulnerableController {
     }
 
     ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
-    ServiceLocator.getController(TarjetasController.class).create(personaVulnerable);
+    ServiceLocator.getController(TarjetasController.class).create(personaVulnerable, app);
     app.redirect("/tarjeta");
   }
 

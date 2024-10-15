@@ -14,6 +14,7 @@ import ar.edu.utn.frba.dds.simeal.utils.GeneradorNrosTarjeta;
 import io.javalin.http.Context;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,9 +68,9 @@ public class TarjetasController {
 
   public void delete(Context app) {
     TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(app.pathParam("numeroTarjeta"));
-
     repository.desactivar(tarjeta);
     personaVulnerableController.delete(tarjeta.getPersonaVulnerable());
+
     app.redirect("/tarjeta");
   }
 
@@ -87,14 +88,14 @@ public class TarjetasController {
   }
 
 
-  public void create(PersonaVulnerable personaVulnerable) {
+  public void create(PersonaVulnerable personaVulnerable, Context app) {
     TarjetaPersonaVulnerable tarjetaPersonaVulnerable = new TarjetaPersonaVulnerable(
       GeneradorNrosTarjeta.generarCodigo(),
       personaVulnerable
     );
 
     repository.guardar(tarjetaPersonaVulnerable);
-    ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable);
+    ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable, app);
   }
 
 
@@ -109,14 +110,14 @@ public class TarjetasController {
 
   private void setTarjetaPersonal(HashMap<String, Object> model, Context ctx) {
     TarjetaColaborador tarjetaColaborador = tarjetaColaboradorRepository
-      .getPorColaborador(Long.valueOf(ctx.sessionAttribute("colaborador_id")));
+      .getPorColaborador(ctx.sessionAttribute("colaborador_id"));
     if (tarjetaColaborador == null) {
       throw new RuntimeException("No habia tarjetas de colaborador con id = 1");
     }
 
     String codigo =String.format("%06d", tarjetaColaborador.getId());
     model.put("numeroTarjetaPersonal",codigo.substring(0,3) + "." + codigo.substring(3));
-
+    model.put("tarjeta_personal_id", tarjetaColaborador.getId());
     SolicitudOperacionRepository solicitudOperacionRepository =
       (SolicitudOperacionRepository) ServiceLocator.getRepository(SolicitudOperacionRepository.class);
     List<SolicitudOperacionHeladera> solicitudes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaColaborador.getId());
@@ -125,12 +126,13 @@ public class TarjetasController {
 
   private void setSolicitudes(HashMap<String, Object> model, List<SolicitudOperacionHeladera> solicitudes) {
     List<SolicitudOperacionDTO> solicitudesDTOs = new ArrayList<>();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM  HH:mm:ss");
     for (SolicitudOperacionHeladera solicitud : solicitudes) {
       solicitudesDTOs.add(
         SolicitudOperacionDTO.builder()
           .nombre(solicitud.getHeladera().getNombre())
           .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
-          .horaFin(LocalTime.from(LocalTime.of(solicitud.getHoraSolicitud().getHour() + solicitud.getHorasParaEjecutarse(),solicitud.getHoraSolicitud().getMinute())).toString())
+          .horaFin(String.valueOf(dateTimeFormatter.format(solicitud.getHoraInicio().plusHours(solicitud.getHorasParaEjecutarse()))))
           .build()
       );
     }
@@ -140,7 +142,7 @@ public class TarjetasController {
   private void setTarjetasPersonasVulnerables(HashMap<String, Object> model, Context app) {
     ColaboracionRepository repository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
     List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) repository
-      .getPorColaborador(Long.valueOf(app.sessionAttribute("colaborador_id")), DarDeAltaPersonaVulnerable.class);
+      .getPorColaborador((app.sessionAttribute("colaborador_id")), DarDeAltaPersonaVulnerable.class);
 
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
 
