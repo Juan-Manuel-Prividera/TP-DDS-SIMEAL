@@ -21,14 +21,13 @@ public class MigracionController {
   public void index(Context app) {
     Map<String, Object> model = new HashMap<>();
     model.put("cargacsv", "seleccionado");
-    model.put("user_type", "admin");
+    model.put("user_type", app.sessionAttribute("user_type"));
     model.put("esAdmin", true);
-    model.put("username", "Administrador");
+    model.put("username", app.sessionAttribute("username"));
     model.put("titulo", "Migracion Colaboraciones");
     app.render("admin/cargar_colaboraciones.hbs", model);
   }
   public void migrarColaboraciones(Context app) throws IOException, CsvException {
-    app.redirect("/simeal/migracion");
     UploadedFile uploadedFile = app.uploadedFile("file");
     if (uploadedFile != null) {
       String filepath = "src/main/resources/migration/" + uploadedFile.filename();
@@ -46,5 +45,6 @@ public class MigracionController {
 
       }
     }
+    app.redirect("/migracion");
   }
 }

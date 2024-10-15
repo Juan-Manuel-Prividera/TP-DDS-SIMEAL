@@ -7,7 +7,8 @@ import io.javalin.Javalin;
 public class AuthenticatedMiddleware {
 
     // Si lo mandamos a logearse y para logearse tiene que estar logeado... => O_o
-    private static final String[] openEndpoints = new String[]{"/login", "/", "/index",
+    private static final String[] openEndpoints = new String[]{
+            "/login", "/", "/index",
             "/registro",
             "/registro/humano",
             "/registro/juridico",
@@ -28,16 +29,28 @@ public class AuthenticatedMiddleware {
 
             for (var endpoint : openEndpoints) {
                 if (ctx.path().equals(endpoint)) {
+                    System.out.println("Returning " + ctx.path());
                     return;
                 }
             }
 
-
             Long userID = ctx.sessionAttribute("user_id");
-            if (userID == null) {
+            Long colaboradorId = ctx.sessionAttribute("colaborador_id");
+            String username = ctx.sessionAttribute("user_name");
+            String userType = ctx.sessionAttribute("user_type");
+
+            if (userType == null){
+                System.out.println("User type NULL");
                 throw new NotAuthenticatedException();
             }
-            //Rol rol = ctx.sessionAttribute("rol");
+
+            if (!userType.equals("ADMIN")){
+                if (userID == null || colaboradorId == null || username == null) {
+                    throw new NotAuthenticatedException();
+                }
+            } else {
+            }
+
         });
     }
 }

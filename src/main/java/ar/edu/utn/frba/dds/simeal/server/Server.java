@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.middleware.AuthenticatedMiddleware;
+import ar.edu.utn.frba.dds.simeal.middleware.AuthorizedMiddleware;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.AppHandlers;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.Initializer;
@@ -30,6 +31,7 @@ public class Server {
       app = Javalin.create(config()).start(port);
 
       AuthenticatedMiddleware.apply(app);
+      AuthorizedMiddleware.apply(app);
 
       // Apply our custom interruption handlers
       AppHandlers.applyHandlers(app);

@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 // Dudo que alguien más quiera usar esto, pero si por alguna razón quieren handlear una excepción, se declara acá
 public class AppHandlers {
-    private IHandler[] handlers = new IHandler[]{
-            new ForbiddenHandler(),
+    private final IHandler[] handlers = new IHandler[]{
             new NotAuthenticatedHandler(),
+            new NotAuthorizedHandler(),
     };
 
     public static void applyHandlers(Javalin app){

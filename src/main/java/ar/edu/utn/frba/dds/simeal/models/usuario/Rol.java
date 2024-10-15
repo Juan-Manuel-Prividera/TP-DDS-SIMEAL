@@ -17,7 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name="roles")
 public class Rol extends Persistente {
-  @Column(name="nombre")
+  @Column(name="tipo")
   @Enumerated(EnumType.STRING)
   private TipoRol tipo;
 

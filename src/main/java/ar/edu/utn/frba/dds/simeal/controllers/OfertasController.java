@@ -21,9 +21,9 @@ public class OfertasController {
     model.put("titulo", "Simeal - Lista de productos");
 
     //TODO: Cambiar forma en la que diferencia juridico de humano
-    if(app.pathParam("usr_type").equals("juridico")){
+    if(app.sessionAttribute("user_type").equals("juridico")){
       app.render("/ofertas/ofertas_juridico.hbs", model);
-    } else if(app.pathParam("usr_type").equals("personal")){
+    } else if(app.sessionAttribute("user_type").equals("personal")){
       app.render("/ofertas/ofertas_personal.hbs", model);
     }
   }
@@ -39,9 +39,9 @@ public class OfertasController {
     model.put("oferta", oferta);
     model.put("href_oferta", "oferta_juridico.hbs");
 
-    if(app.pathParam("usr_type").equals("juridico")){
+    if(app.sessionAttribute("user_type").equals("juridico")){
       app.render("/ofertas/oferta_juridico.hbs", model);
-    } else if(app.pathParam("usr_type").equals("personal")){
+    } else if(app.sessionAttribute("user_type").equals("personal")){
       app.render("/ofertas/oferta_personal.hbs", model);
     }
   }

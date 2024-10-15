@@ -41,7 +41,7 @@ public class Logger {
       System.out.println(out);
     }
   }
-  private Logger (String file) {
+  private Logger(String file) {
     this.filename = file;
   }
 

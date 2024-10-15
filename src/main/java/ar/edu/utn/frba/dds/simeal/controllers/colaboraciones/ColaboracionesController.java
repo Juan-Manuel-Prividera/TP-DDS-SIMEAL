@@ -14,7 +14,7 @@ public class ColaboracionesController {
     model.put("titulo", "SIMEAL - Colaboraciones");
 
     // Verificar el tipo de usuario desde el path param
-    String usrType = app.pathParam("usr_type");
+    String usrType = app.sessionAttribute("user_type");
 
     // Renderizar la vista correspondiente según el tipo de usuario
     if (usrType.equals("juridico")) {

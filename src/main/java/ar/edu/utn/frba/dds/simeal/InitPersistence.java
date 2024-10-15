@@ -1,19 +1,19 @@
 package ar.edu.utn.frba.dds.simeal;
 
-import ar.edu.utn.frba.dds.simeal.models.usuario.Permiso;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
-import ar.edu.utn.frba.dds.simeal.models.usuario.TipoMetodoHttp;
-import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.usuario.*;
+import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
+import lombok.experimental.Tolerate;
 import org.apache.commons.io.input.buffer.PeekableInputStream;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 // Este archivo mete en la BD algunos datos hardcodeados, como los tipos de roles, los formularios, etc...
 public class InitPersistence {
     public static void main(String[] args){
-
         initPermisosRolesYUsuarios();
-
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -29,18 +29,59 @@ public class InitPersistence {
 
         Permiso getFormularios = new Permiso("formularios", TipoMetodoHttp.GET);
         Permiso postFormularios = new Permiso("formularios", TipoMetodoHttp.POST);
-        Permiso getFormulario = new Permiso(Pattern.compile("formularios/\\d*"), TipoMetodoHttp.GET);
-        Permiso postPregunta = new Permiso(Pattern.compile("formularios/\\d*/pregunta"), TipoMetodoHttp.POST);
+        Permiso getFormulario = new Permiso(Pattern.compile("formularios/\\d+"), TipoMetodoHttp.GET);
+        Permiso postPregunta = new Permiso(Pattern.compile("formularios/\\d+/pregunta"), TipoMetodoHttp.POST);
 
-        Permiso deletePregunta = new Permiso(Pattern.compile("formularios/\\d*/pregunta/\\d*"), TipoMetodoHttp.DELETE);
-        Permiso deleteFormulario = new Permiso(Pattern.compile("formularios/\\d*"), TipoMetodoHttp.DELETE);
+        Permiso deletePregunta = new Permiso(Pattern.compile("formularios/\\d+/pregunta/\\d+"), TipoMetodoHttp.DELETE);
+        Permiso deleteFormulario = new Permiso(Pattern.compile("formularios/\\d+"), TipoMetodoHttp.DELETE);
 
         // Humano
-        Permiso getTarjetas = new Permiso(Pattern.compile("tarjeta/.*"),TipoMetodoHttp.GET);
-        Permiso postTarjetas = new Permiso(Pattern.compile("tarjeta/.*"),TipoMetodoHttp.POST);
+        Permiso getTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.GET);
+        Permiso postTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.POST);
 
-        Permiso getHeladera = new Permiso(Pattern.compile("heladera/.*"), TipoMetodoHttp.GET);
+        Permiso getHeladera = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
+                TipoMetodoHttp.GET);
+        Permiso postHeladera = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
+                TipoMetodoHttp.POST);
 
+        Permiso getSuscribirHeladera = new Permiso(Pattern.compile("heladera/suscribirse/\\d+"),
+                TipoMetodoHttp.GET);
+        Permiso postSuscribirHeladera = new Permiso(Pattern.compile("heladera/suscribirse/\\d+"),
+                TipoMetodoHttp.GET);
+
+        Permiso getHeladeras = new Permiso("/heladeras", TipoMetodoHttp.GET);
+        Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
+        Permiso getOferta = new Permiso(Pattern.compile("oferta/\\d+"), TipoMetodoHttp.GET);
+
+        // Crear roles
+        List<Permiso> permisosHumano = List.of(
+                getHome, getTarjetas, postTarjetas,
+                getHeladera, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
+                getHeladeras, getOfertas, getOferta
+        );
+        Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
+
+        List<Permiso> permisosJuridico = List.of(
+                getHome, getHeladera, postHeladera,
+                getHeladeras, getOfertas, getOferta
+        );
+        Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
+
+        List<Permiso> permisosAdmin = List.of(
+                getMigracion, postMigracionUpload, getReportes, getCambiarModo,
+                getFormularios, getFormulario, postFormularios, postPregunta,
+                deletePregunta, deleteFormulario, getTarjetas, postTarjetas,
+                getHeladeras, postHeladera, getSuscribirHeladera, postSuscribirHeladera
+        );
+        Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
+
+        Repositorio repo = new Repositorio();
+        repo.guardar(humano);
+        repo.guardar(juridico);
+        repo.guardar(admin);
+
+        Usuario usuarioAdmin = new Usuario("admin", PasswordHasher.hashPassword("admin"), List.of(admin));
+        repo.guardar(usuarioAdmin);
 
     }
 }

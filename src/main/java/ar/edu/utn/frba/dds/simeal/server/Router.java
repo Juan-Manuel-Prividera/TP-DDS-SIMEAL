@@ -43,7 +43,7 @@ public class Router {
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
     // ***************  Heladeras   ***************
-    app.get("/heladera", ServiceLocator.getController(HeladeraController.class)::index);
+    app.get("heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
 
     app.get("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::indexReporteFallo);
@@ -53,11 +53,11 @@ public class Router {
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
 
-    app.get("/heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
+    app.get("heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
 
     // ***************  Ofertas  ***************
-    app.get("{usr_type}/ofertas", ServiceLocator.getController(OfertasController.class)::index);
-    app.get("{usr_type}/oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
+    app.get("ofertas", ServiceLocator.getController(OfertasController.class)::index);
+    app.get("oferta/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     // **************** Usuarios *****************
     app.post("login", new LoginHandler()::handle);

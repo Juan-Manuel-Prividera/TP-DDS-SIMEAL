@@ -10,7 +10,7 @@ public class NotAuthenticatedHandler implements IHandler {
         app.exception(NotAuthenticatedException.class, (e, ctx) -> {
             HttpSession session = ctx.req().getSession(false);
             if (session != null) {
-                session.invalidate();  // Invalidate session
+             session.invalidate();  // Invalidate session
             }
             ctx.status(401);
             ctx.redirect("/");
