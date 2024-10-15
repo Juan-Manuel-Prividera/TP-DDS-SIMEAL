@@ -8,7 +8,7 @@
             <h5>Heladera: {{this.heladeraNombre}}</h5>
             <p>Tipo de suscripción: {{this.tipoSuscripcion}}</p>
             <p>Cantidad crítica: {{this.cantidadViandas}}</p>
-            <button class="btn btn-danger" onclick="deleteSubscription({{@index}}, {{this.heladeraId}})">Eliminar</button>
+            <button class="btn btn-danger" onclick="deleteSubscription({{this.id}})">Eliminar</button>
         </div>
         {{/each}}
     </div>
@@ -20,8 +20,6 @@
         // Por ejemplo, podrías hacer una solicitud fetch a tu API para eliminar la suscripción
 
         if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
-            Aquí puedes realizar la solicitud AJAX para eliminar la suscripción
-            Ejemplo:
             fetch(`/suscripcion/${subscriptionId}`, { method: 'DELETE' })
                 .then(response => {
                     if (response.ok) {

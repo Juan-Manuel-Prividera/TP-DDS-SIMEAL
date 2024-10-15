@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.dtos.HeladeraDTO;
+import ar.edu.utn.frba.dds.simeal.models.dtos.SuscripcionDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
@@ -11,6 +12,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import io.javalin.http.Context;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -83,13 +85,23 @@ public class SuscripcionController {
   public void buscarSuscripciones(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
     setNavBar(model,ctx);
-    //List<Suscripcion> suscripciones = suscripcionesRepository.obtenerTodos();
-
+    Colaborador colaborador = (Colaborador) repositorio.buscarPorId(Long.valueOf(ctx.pathParam("colaborador_id")), Colaborador.class);
+    List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(colaborador);
+    List<SuscripcionDTO> suscripcionesDTO = new ArrayList<>();
+    for (Suscripcion suscripcion : suscripciones) {
+      suscripcionesDTO.add(new SuscripcionDTO(suscripcion));
+    }
+    model.put("suscripciones", suscripcionesDTO);
     ctx.render("/heladeras/suscripciones.hbs",model);
   }
 
   public void borrarSuscripcion(Context ctx) {
-
+    HashMap<String,Object> model = new HashMap<>();
+    setNavBar(model,ctx);
+    Suscripcion suscripcion = (Suscripcion) suscripcionesRepository
+      .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")),Suscripcion.class);
+    suscripcionesRepository.desactivar(suscripcion);
+    ctx.redirect("/suscripciones/" + suscripcion.getSuscriptor().getId());
   }
 
   private void setNavBar(HashMap<String,Object> model, Context app) {

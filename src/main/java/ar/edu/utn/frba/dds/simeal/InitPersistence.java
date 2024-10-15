@@ -9,10 +9,24 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,6 +35,8 @@ public class InitPersistence {
     public static void main(String[] args){
         initPermisosRolesYUsuarios();
         initFormularios();
+        initHeladeras();
+
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -116,7 +132,6 @@ public class InitPersistence {
         repo.guardar(usuarioJuridico);
 
     }
-
     private static void initFormularios() {
         Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
         // Formulario persona
@@ -147,4 +162,35 @@ public class InitPersistence {
         repo.guardar(formularioJuridico);
     }
 
+    private static void initHeladeras() {
+        Ubicacion ubicacion = new Ubicacion("Sarmiento", 2600, -34.57991061741367, -58.42111388432673);
+        Ubicacion ubicacion1 = new Ubicacion("Medrano", 1344, -34.59859548850497, -58.42011530932118);
+        Ubicacion ubicacion2 = new Ubicacion("Mozart", 2300, -34.65946430376541, -58.46797562733076);
+        Ubicacion ubicacion3 = new Ubicacion("Santa Fe", 1860, -34.59266250613197, -58.39405684357533);
+        Ubicacion ubicacion4 = new Ubicacion("Gorriti", 900, -34.60679445485131, -58.36548827958108);
+        ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo1",2,3,4);
+        Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
+        modeloRepo.guardar(modeloHeladera);
+
+        Colaborador colaborador0 = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez", new Contacto("541198765432", new WhatsApp(null)));
+        colaborador0.sumarPuntosReconocimiento(200);
+
+        Repositorio repositorioColabs = ServiceLocator.getRepository(Repositorio.class);
+        repositorioColabs.guardar(colaborador0);
+
+        Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera1 = new Heladera("Heladera Medrano",ubicacion1, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera2 = new Heladera("Heladera Campus",ubicacion2, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+
+
+        Repositorio repositorioHeladera = ServiceLocator.getRepository(Repositorio.class);
+        repositorioHeladera.guardar(heladera);
+        repositorioHeladera.guardar(heladera1);
+        repositorioHeladera.guardar(heladera2);
+        repositorioHeladera.guardar(heladera3);
+        repositorioHeladera.guardar(heladera4);
+
+    }
 }

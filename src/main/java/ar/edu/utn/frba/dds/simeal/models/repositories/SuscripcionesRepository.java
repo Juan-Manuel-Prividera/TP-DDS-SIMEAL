@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 
 import java.util.ArrayList;
@@ -17,5 +18,16 @@ public class SuscripcionesRepository extends Repositorio {
      .getResultList();
    commitTransaction();
    return suscripciones;
+  }
+
+  public List<Suscripcion> buscarPor(Colaborador colaborador) {
+    List<Suscripcion> suscripciones = new ArrayList<>();
+    beginTransaction();
+    suscripciones = entityManager()
+      .createQuery("FROM " + Suscripcion.class.getName() + " WHERE suscriptor_id = :id")
+      .setParameter("id", colaborador.getId())
+      .getResultList();
+    commitTransaction();
+    return suscripciones;
   }
 }

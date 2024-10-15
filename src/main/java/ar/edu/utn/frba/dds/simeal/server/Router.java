@@ -56,7 +56,7 @@ public class Router {
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
     app.get("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::buscarSuscripciones);
-    app.delete("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
+    app.delete("suscripciones/{suscripcion_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
 
     app.get("heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
 
