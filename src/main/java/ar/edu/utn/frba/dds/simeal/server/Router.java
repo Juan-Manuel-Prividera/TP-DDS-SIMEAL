@@ -72,18 +72,11 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
-<<<<<<< HEAD
-
     app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
+    app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionDinero);
     app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
     app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
     app.post("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
-
-=======
-    app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
-    app.post("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
->>>>>>> 9ce42cf4e0dd002c755f1bc1d5224d9e3c31442d
-
 
     // ****************** Recomendacion de Colaboradores ******************
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);

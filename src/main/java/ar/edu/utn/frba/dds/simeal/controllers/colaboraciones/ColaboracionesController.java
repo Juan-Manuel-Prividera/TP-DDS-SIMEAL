@@ -26,6 +26,14 @@ public class ColaboracionesController {
     }
   }
 
+  public void mostrarFormularioDonacionDinero(Context app) {
+    Map<String, Object> model = new HashMap<>();
+    model.put("titulo", "Donar Dinero");
+
+    // Renderizar el formulario de donación de dinero
+    app.render("/colaboraciones/donarDinero.hbs", model);
+  }
+
   public void donarDinero(Context app) {
     String metodoPago = app.formParam("metodo_pago");
     String monto = app.formParam("monto");

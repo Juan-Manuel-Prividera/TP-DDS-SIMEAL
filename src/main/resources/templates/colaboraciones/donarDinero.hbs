@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmación de Donación</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-<header>
-    <h1>Sistema de Mejora Alimentaria</h1>
-</header>
+{{> templates/navbar}}
 
-<section>
-    <h2>¡Gracias por tu donación!</h2>
-    <p>{{mensaje}}</p>
+<div class="linear-container">
+    <div class="form-donacion-dinero">
+        <form action="/{{user_type}}/colaboraciones/donarDinero" method="POST">
+            <h3 class="mb-5 mt-5">Complete su donación</h3>
 
-    <div>
-        <p>Monto donado: {{monto}} ARS</p>
-        <p>Método de pago: {{metodoPago}}</p>
+            <!-- Campo para ingresar el monto de la donación -->
+            <label for="monto">Monto</label>
+            <input id="monto" name="monto" type="number" class="form-control mb-4" placeholder="ARS" required>
+
+            <!-- Campo para seleccionar el método de pago -->
+            <label for="metodoPago">Método de pago</label>
+            <select id="metodoPago" name="metodoPago" class="form-control mb-5" required>
+                <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+                <option value="Tarjeta de débito">Tarjeta de débito</option>
+                <option value="Transferencia bancaria">Transferencia bancaria</option>
+            </select>
+
+            <!-- Botón de aceptar -->
+            <button class="btn btn-success rounded" type="submit">Donar</button>
+            <a class="btn btn-danger rounded" href="/{{user_type}}/colaboraciones">Cancelar</a>
+        </form>
     </div>
-
-    <div>
-        <button onclick="location.href='/volver-al-inicio'">Volver al inicio</button>
-    </div>
-</section>
-
-<footer>
-    <p>Sistema de Mejora Alimentaria - 2024</p>
-</footer>
-</body>
-</html>
+</div>
