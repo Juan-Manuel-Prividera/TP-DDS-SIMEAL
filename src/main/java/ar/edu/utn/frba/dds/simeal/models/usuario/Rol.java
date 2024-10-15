@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.usuario;
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import io.javalin.http.HandlerType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,11 @@ public class Rol extends Persistente {
           inverseJoinColumns = @JoinColumn(name = "permiso_id", referencedColumnName = "id"))
   private List<Permiso> permisos;
 
-  public Boolean tienePermisoPara(String endpoint, String metodo) {
-    TipoMetodoHttp metodoHttp = TipoMetodoHttp.valueOf(metodo.toUpperCase());
+  public Boolean tienePermisoPara(String endpoint, HandlerType metodo) throws Exception {
+    if (!metodo.isHttpMethod()) throw new Exception("Metodo pasado no es un http method");
+
+    System.out.println(metodo.toString().toUpperCase());
+    TipoMetodoHttp metodoHttp = TipoMetodoHttp.valueOf(metodo.toString().toUpperCase());
 
     for (Permiso p : permisos) {
       if (!p.getActivo()) continue;

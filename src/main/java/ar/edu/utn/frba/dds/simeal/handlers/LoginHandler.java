@@ -85,17 +85,12 @@ public class LoginHandler {
                     context.redirect("/formularios");
                     break;
 
-                case JURIDICO:
+                case JURIDICO, HUMANO:
                     context.sessionAttribute("user_type", r.getTipo().toString());
                     context.redirect("/home");
                     break;
 
-                case HUMANO:
-                    context.sessionAttribute("user_type", r.getTipo().toString());
-                    context.redirect("/home");
-                    break;
-
-                default:
+                    default:
                     context.result("xd");
                     break;
                 }

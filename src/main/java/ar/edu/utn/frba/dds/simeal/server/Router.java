@@ -72,9 +72,8 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
-
-    app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
-    app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
+    app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
+    app.post("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
 
 
     // ****************** Recomendacion de Colaboradores ******************

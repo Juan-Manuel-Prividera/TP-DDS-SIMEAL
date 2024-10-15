@@ -1,12 +1,14 @@
 package ar.edu.utn.frba.dds.simeal;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
-import lombok.experimental.Tolerate;
-import org.apache.commons.io.input.buffer.PeekableInputStream;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,7 @@ import java.util.regex.Pattern;
 public class InitPersistence {
     public static void main(String[] args){
         initPermisosRolesYUsuarios();
+        initFormularios();
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -28,18 +31,22 @@ public class InitPersistence {
         Permiso getCambiarModo = new Permiso("cambiarmodo", TipoMetodoHttp.GET);
 
         Permiso getFormularios = new Permiso("formularios", TipoMetodoHttp.GET);
-        Permiso postFormularios = new Permiso("formularios", TipoMetodoHttp.POST);
-        Permiso getFormulario = new Permiso(Pattern.compile("formularios/\\d+"), TipoMetodoHttp.GET);
-        Permiso postPregunta = new Permiso(Pattern.compile("formularios/\\d+/pregunta"), TipoMetodoHttp.POST);
+        Permiso postFormularios = new Permiso("formulario", TipoMetodoHttp.POST);
+        Permiso getFormulario = new Permiso(Pattern.compile("formulario/\\d+"), TipoMetodoHttp.GET);
+        Permiso postPregunta = new Permiso(Pattern.compile("formulario/\\d+/pregunta"), TipoMetodoHttp.POST);
 
         Permiso deletePregunta = new Permiso(Pattern.compile("formularios/\\d+/pregunta/\\d+"), TipoMetodoHttp.DELETE);
         Permiso deleteFormulario = new Permiso(Pattern.compile("formularios/\\d+"), TipoMetodoHttp.DELETE);
 
         // Humano
+        Permiso getTarjeta = new Permiso(Pattern.compile("tarjeta"), TipoMetodoHttp.GET);
         Permiso getTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.GET);
         Permiso postTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.POST);
 
-        Permiso getHeladera = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
+        Permiso postDonarDinero = new Permiso(Pattern.compile("colaboraciones/donarDinero"), TipoMetodoHttp.POST);
+
+        Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
+        Permiso getHeladeraEspecifico = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
                 TipoMetodoHttp.GET);
         Permiso postHeladera = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
                 TipoMetodoHttp.POST);
@@ -49,20 +56,20 @@ public class InitPersistence {
         Permiso postSuscribirHeladera = new Permiso(Pattern.compile("heladera/suscribirse/\\d+"),
                 TipoMetodoHttp.GET);
 
-        Permiso getHeladeras = new Permiso("/heladeras", TipoMetodoHttp.GET);
+        Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
         Permiso getOferta = new Permiso(Pattern.compile("oferta/\\d+"), TipoMetodoHttp.GET);
 
         // Crear roles
         List<Permiso> permisosHumano = List.of(
-                getHome, getTarjetas, postTarjetas,
-                getHeladera, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
+                getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero,
+                getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta
         );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
-                getHome, getHeladera, postHeladera,
+                getHome, getHeladera, postHeladera, postDonarDinero,
                 getHeladeras, getOfertas, getOferta
         );
         Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
@@ -70,8 +77,9 @@ public class InitPersistence {
         List<Permiso> permisosAdmin = List.of(
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
                 getFormularios, getFormulario, postFormularios, postPregunta,
-                deletePregunta, deleteFormulario, getTarjetas, postTarjetas,
-                getHeladeras, postHeladera, getSuscribirHeladera, postSuscribirHeladera
+                deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas,
+                getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
+                getOferta, getOfertas, postSuscribirHeladera
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
@@ -84,4 +92,35 @@ public class InitPersistence {
         repo.guardar(usuarioAdmin);
 
     }
+
+    private static void initFormularios() {
+        Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
+        // Formulario persona
+        Opcion opcionSi = new Opcion("Sí");
+        Opcion opcionUnPoco = new Opcion("Un poco");
+        Opcion opcionSiMucho = new Opcion("Sí, mucho!");
+        Pregunta teGustanLosGatos = new Pregunta("¿Te gustan los gatos?", "gatos_sino",
+                TipoPregunta.CHOICE, List.of(opcionUnPoco, opcionSi, opcionSiMucho), true);
+        Pregunta comoSeLlamaTuGato = new Pregunta("¿Cómo se llama(n) tu(s) gato(s)?", "gatos_nombres",
+                TipoPregunta.TEXT, null, true);
+        Formulario formularioHumano = new Formulario(List.of(teGustanLosGatos, comoSeLlamaTuGato), true,
+                TipoRol.HUMANO, "Cuestionario de registro humano");
+        repo.guardar(formularioHumano);
+
+        // Formulario juridico
+        Opcion muyEnDesacuerdo = new Opcion("Muy en desacuerdo");
+        Opcion levementeEnDesacuerdo = new Opcion("Levemente en desacuerdo");
+        Opcion indiferente = new Opcion("Indiferente");
+        Opcion levementeDeAcuerdo = new Opcion("Levemente de acuerdo");
+        Opcion muyDeAcuerdo = new Opcion("Muy de acuerdo");
+        Pregunta cuanDeAcuerdo = new Pregunta("¿Está de acuerdo con la siguiente afirmación?: 'Vamos a besar gatos'", "cuan_de_acuerdo",
+                TipoPregunta.CHOICE, List.of(muyEnDesacuerdo, levementeEnDesacuerdo,
+                indiferente, levementeDeAcuerdo, muyDeAcuerdo), true);
+        Pregunta porfavorVentajas = new Pregunta("Por favor, indique tres ventajas por las que tener un gato como mascota", "razones",
+                TipoPregunta.TEXT, null, true);
+        Formulario formularioJuridico = new Formulario(List.of(cuanDeAcuerdo, porfavorVentajas), true,
+                TipoRol.JURIDICO, "Cuestionario de registro juridico");
+        repo.guardar(formularioJuridico);
+    }
+
 }

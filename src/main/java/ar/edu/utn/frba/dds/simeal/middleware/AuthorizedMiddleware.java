@@ -3,14 +3,12 @@ package ar.edu.utn.frba.dds.simeal.middleware;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
-import ar.edu.utn.frba.dds.simeal.models.usuario.TipoMetodoHttp;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthorizedException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.Javalin;
-import net.bytebuddy.implementation.bytecode.Throw;
 
 public class AuthorizedMiddleware {
     // Algunos endpoints están abiertos a todos.
@@ -42,6 +40,7 @@ public class AuthorizedMiddleware {
 
                     Long userID = ctx.sessionAttribute("user_id");
                     if (userID == null) {
+                        System.out.println("NO user_id");
                         throw new NotAuthenticatedException();
                     }
 
@@ -52,9 +51,10 @@ public class AuthorizedMiddleware {
                     logger.log(LoggerType.DEBUG, ctx.path());
 
                     for (Rol r : usuario.getRoles()){
+                        System.out.printf("Probando rol");
                         if (r.tienePermisoPara(
                                 ctx.path(),
-                                String.valueOf(ctx.method()))) return;
+                                ctx.method())) return;
                     }
 
                     throw new NotAuthorizedException();
