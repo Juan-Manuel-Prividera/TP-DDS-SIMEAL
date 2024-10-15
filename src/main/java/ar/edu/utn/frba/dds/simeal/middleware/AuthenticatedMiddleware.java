@@ -15,7 +15,7 @@ public class AuthenticatedMiddleware {
             "/user/create/humano",
             "/user/create/juridico",
     };
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js"};
+    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".gif"};
 
     public static void apply(Javalin app) {
         app.beforeMatched(

@@ -1,10 +1,14 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
@@ -91,7 +95,25 @@ public class InitPersistence {
         repo.guardar(admin);
 
         Usuario usuarioAdmin = new Usuario("admin", PasswordHasher.hashPassword("admin"), List.of(admin));
+        Usuario usuarioHumano = new Usuario("humano", PasswordHasher.hashPassword("humano"), List.of(humano));
+        Usuario usuarioJuridico = new Usuario("juridico", PasswordHasher.hashPassword("juridico"), List.of(juridico));
+
+        Colaborador colaboradorHumano = new Colaborador(
+                new Documento(TipoDocumento.DNI, "13"),
+                "Friederich", "Gauss");
+        colaboradorHumano.setUsuario(usuarioHumano);
+        repo.guardar(colaboradorHumano);
+
+        Colaborador colaboradorJuridico = new Colaborador(
+                "Arcos dorados",
+                new Rubro()
+        );
+        colaboradorJuridico.setUsuario(usuarioJuridico);
+        repo.guardar(colaboradorJuridico);
+
         repo.guardar(usuarioAdmin);
+        repo.guardar(usuarioHumano);
+        repo.guardar(usuarioJuridico);
 
     }
 
