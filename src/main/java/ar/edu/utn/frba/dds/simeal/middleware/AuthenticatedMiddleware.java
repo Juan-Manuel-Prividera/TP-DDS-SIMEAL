@@ -15,7 +15,7 @@ public class AuthenticatedMiddleware {
             "/user/create/humano",
             "/user/create/juridico",
     };
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".gif"};
+    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".map", ".gif"};
 
     public static void apply(Javalin app) {
         app.beforeMatched(
@@ -26,7 +26,10 @@ public class AuthenticatedMiddleware {
                     return;
                 }
             }
-
+            // TODO : Arreglar
+            if(ctx.path().startsWith("/heladera")) {
+                return;
+            }
             for (var endpoint : openEndpoints) {
                 if (ctx.path().equals(endpoint)) {
                     System.out.println("Returning " + ctx.path());

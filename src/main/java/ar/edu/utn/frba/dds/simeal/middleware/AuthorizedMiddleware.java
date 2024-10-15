@@ -21,7 +21,7 @@ public class AuthorizedMiddleware {
             "/user/create/juridico",
     };
 
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".hbs", ".gif"};
+    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".hbs", ".map", ".gif"};
 
     public static void apply(Javalin app) {
         app.beforeMatched(
@@ -36,6 +36,10 @@ public class AuthorizedMiddleware {
                         if (ctx.path().equals(endpoint)) {
                             return;
                         }
+                    }
+                    // TODO : Arreglar
+                    if(ctx.path().startsWith("/heladera")) {
+                      return;
                     }
 
                     Long userID = ctx.sessionAttribute("user_id");

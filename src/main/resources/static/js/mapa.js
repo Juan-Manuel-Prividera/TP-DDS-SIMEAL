@@ -104,7 +104,7 @@ function buscarHeladeraMapa() {
                             .catch(error => {
                                 console.error(error)
                             })
-                    }, 0)
+                    }, 1)
                 }
             })
             if (!encontrada) {

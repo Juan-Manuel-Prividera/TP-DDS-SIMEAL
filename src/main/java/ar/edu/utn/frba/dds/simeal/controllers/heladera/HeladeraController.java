@@ -114,5 +114,6 @@ public class HeladeraController {
 
     model.put("heladeras", "seleccionado");
     model.put("username", app.sessionAttribute("username"));
+    model.put("colaborador_id", app.sessionAttribute("colaborador_id"));
   }
 }
