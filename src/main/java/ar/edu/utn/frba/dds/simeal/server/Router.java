@@ -82,6 +82,7 @@ public class Router {
     app.get("/{usr_type}/colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioAdherirHeladera);
     app.post("/{usr_type}/colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::adherirHeladera);
 
+
     // ****************** Recomendacion de Colaboradores ******************
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
 

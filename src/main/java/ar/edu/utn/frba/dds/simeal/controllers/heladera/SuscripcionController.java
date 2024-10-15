@@ -91,6 +91,7 @@ public class SuscripcionController {
     for (Suscripcion suscripcion : suscripciones) {
       suscripcionesDTO.add(new SuscripcionDTO(suscripcion));
     }
+    model.put("colaborador_id", colaborador.getId());
     model.put("suscripciones", suscripcionesDTO);
     ctx.render("/heladeras/suscripciones.hbs",model);
   }
