@@ -32,34 +32,34 @@ public class InitPersistence {
 
         Permiso getFormularios = new Permiso("formularios", TipoMetodoHttp.GET);
         Permiso postFormularios = new Permiso("formulario", TipoMetodoHttp.POST);
-        Permiso getFormulario = new Permiso(Pattern.compile("formulario/\\d+"), TipoMetodoHttp.GET);
-        Permiso postPregunta = new Permiso(Pattern.compile("formulario/\\d+/pregunta"), TipoMetodoHttp.POST);
+        Permiso getFormulario = new Permiso("formulario/.+", TipoMetodoHttp.GET);
+        Permiso postPregunta = new Permiso("formulario/\\d+/pregunta", TipoMetodoHttp.POST);
 
-        Permiso deletePregunta = new Permiso(Pattern.compile("formularios/\\d+/pregunta/\\d+"), TipoMetodoHttp.DELETE);
-        Permiso deleteFormulario = new Permiso(Pattern.compile("formularios/\\d+"), TipoMetodoHttp.DELETE);
+        Permiso deletePregunta = new Permiso("/formularios/\\d+/pregunta/\\d+", TipoMetodoHttp.DELETE);
+        Permiso deleteFormulario = new Permiso("/formularios/\\d+", TipoMetodoHttp.DELETE);
 
         // Humano
-        Permiso getTarjeta = new Permiso(Pattern.compile("tarjeta"), TipoMetodoHttp.GET);
-        Permiso getTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.GET);
-        Permiso postTarjetas = new Permiso(Pattern.compile("tarjeta/.+"),TipoMetodoHttp.POST);
+        Permiso getTarjeta = new Permiso("/tarjeta", TipoMetodoHttp.GET);
+        Permiso getTarjetas = new Permiso("/tarjeta/.+",TipoMetodoHttp.GET);
+        Permiso postTarjetas = new Permiso("/tarjeta/.+",TipoMetodoHttp.POST);
 
         Permiso getColaboraciones = new Permiso("colaboraciones", TipoMetodoHttp.GET);
-        Permiso postDonarDinero = new Permiso(Pattern.compile("colaboraciones/donarDinero"), TipoMetodoHttp.POST);
+        Permiso postDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.POST);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
-        Permiso getHeladeraEspecifico = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
+        Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
                 TipoMetodoHttp.GET);
-        Permiso postHeladera = new Permiso(Pattern.compile("heladera/(?!suscribirse/).*"),
+        Permiso postHeladera = new Permiso("/heladera/(?!suscribirse/).*",
                 TipoMetodoHttp.POST);
 
-        Permiso getSuscribirHeladera = new Permiso(Pattern.compile("heladera/suscribirse/\\d+"),
+        Permiso getSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
                 TipoMetodoHttp.GET);
-        Permiso postSuscribirHeladera = new Permiso(Pattern.compile("heladera/suscribirse/\\d+"),
+        Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
                 TipoMetodoHttp.GET);
 
         Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
-        Permiso getOferta = new Permiso(Pattern.compile("oferta/\\d+"), TipoMetodoHttp.GET);
+        Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
 
         // Crear roles
         List<Permiso> permisosHumano = List.of(

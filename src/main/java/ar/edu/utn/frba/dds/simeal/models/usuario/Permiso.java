@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.regex.Pattern;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="permisos")
@@ -28,8 +27,8 @@ public class Permiso extends Persistente {
     verbo = met;
   }
 
-  public boolean isAllowed(String endpoint, TipoMetodoHttp method) {
-    return this.endpoint.matcher(endpoint).matches() && this.verbo.equals(method);
+  public boolean isAllowed(String ep, TipoMetodoHttp method) {
+    return this.endpoint.matcher(ep).matches() && this.verbo.equals(method);
   }
 
 

@@ -36,7 +36,7 @@ public class Rol extends Persistente {
     System.out.println(metodo.toString().toUpperCase());
     TipoMetodoHttp metodoHttp = TipoMetodoHttp.valueOf(metodo.toString().toUpperCase());
 
-    for (Permiso p : permisos) {
+    for (Permiso p : this.permisos) {
       if (!p.getActivo()) continue;
       if (p.isAllowed(endpoint, metodoHttp)){
         return true;

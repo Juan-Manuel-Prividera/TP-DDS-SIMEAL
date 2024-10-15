@@ -75,7 +75,6 @@ public class Router {
     app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
     app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionDinero);
     app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
-    app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
     app.post("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
 
     // ****************** Recomendacion de Colaboradores ******************
