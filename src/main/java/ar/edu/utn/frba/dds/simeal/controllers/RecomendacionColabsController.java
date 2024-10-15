@@ -9,6 +9,8 @@ public class RecomendacionColabsController {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Recomendacion de Colaboradores");
     model.put("username", ctx.sessionAttribute("username"));
+    model.put("esJuridico", true);
+    model.put("recomendacion", "seleccionado");
     ctx.render("recomendacion_colaboradores.hbs", model);
   }
 }

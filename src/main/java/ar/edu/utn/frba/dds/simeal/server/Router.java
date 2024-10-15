@@ -17,7 +17,7 @@ public class Router {
   public static void init(Javalin app) {
     // ***************  HomePage   ***************
     app.get("home", ServiceLocator.getController(HomeHandler.class)::handle);
-    app.post("setUserType",ServiceLocator.getController(HomeHandler.class)::setUserType);
+    app.post("setuser/{user_type}",ServiceLocator.getController(HomeHandler.class)::setUserType);
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
@@ -72,15 +72,15 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
-    app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
-    app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionDinero);
-    app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
-    app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
-    app.post("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
-    app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);
-    app.post("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
-    app.get("/{usr_type}/colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioAdherirHeladera);
-    app.post("/{usr_type}/colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::adherirHeladera);
+    app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
+    app.get("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionDinero);
+    app.post("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
+    app.get("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
+    app.post("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
+    app.get("colaboraciones/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
+    app.post("colaboraciones/distribuirVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
+    app.get("colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioAdherirHeladera);
+    app.post("colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::adherirHeladera);
 
 
     // ****************** Recomendacion de Colaboradores ******************

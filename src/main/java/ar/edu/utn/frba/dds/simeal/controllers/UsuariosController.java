@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
@@ -13,6 +14,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
@@ -205,8 +207,13 @@ public class UsuariosController {
         FormularioContestado formularioContestado = new FormularioContestado(respuestas, formulario);
         colaborador.setFormularioContestado(formularioContestado);
 
+        //Seteamos tarjeta de colaborador
+        TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaborador, LocalDate.now());
+
         // Si fue t0do bien, persistimos el usr y el colaborador y lo mandamos al login
         repo.guardar(colaborador);
+
+        ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
 
         context.redirect("/");
 

@@ -9,17 +9,18 @@ import java.util.Map;
 public class ColaboracionesController {
 
   public void index(Context app) {
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
 
     model.put("titulo", "SIMEAL - Colaboraciones");
+    setNavBar(model, app);
 
     // Verificar el tipo de usuario desde el path param
     String usrType = app.sessionAttribute("user_type");
-
+    System.out.println(usrType);
     // Renderizar la vista correspondiente según el tipo de usuario
-    if (usrType.equals("juridico")) {
-      app.render("/colaboraciones/colaboraciones_juridico.hbs", model);
-    } else if (usrType.equals("personal")) {
+    if (usrType.equals("JURIDICO")) {
+      app.render("/colaboraciones/colaboracion_juridico.hbs", model);
+    } else if (usrType.equals("HUMANO")) {
       app.render("/colaboraciones/colaboraciones_personal.hbs", model);
     } else {
       // TODO: Qué pasa si el admin quiere ver esta página ? -> no puede
@@ -28,8 +29,9 @@ public class ColaboracionesController {
   }
 
   public void mostrarFormularioDonacionDinero(Context app) {
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Dinero");
+    setNavBar(model, app);
 
     app.render("/colaboraciones/donarDinero.hbs", model);
   }
@@ -41,17 +43,19 @@ public class ColaboracionesController {
     // lógica para procesar el pago según el método seleccionado.
 
     // Crear un modelo para pasar a la vista
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("monto", monto);
     model.put("metodoPago", metodoPago);
     model.put("mensaje", "Gracias por tu donación de " + monto + " ARS usando " + metodoPago);
+    setNavBar(model, app);
 
     app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
   public void mostrarFormularioDonacionVianda(Context app) {
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Vianda");
+    setNavBar(model, app);
 
     app.render("/colaboraciones/donarVianda.hbs", model);
   }
@@ -63,17 +67,19 @@ public class ColaboracionesController {
 
     // Lógica para registrar la donación
 
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("nombreHeladera", nombreHeladera);
     model.put("direccionHeladera", direccionHeladera);
     model.put("mensaje", "Gracias por tu donación a la heladera " + nombreHeladera + " ubicada en " + direccionHeladera);
+    setNavBar(model, app);
 
     app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
   public void mostrarFormularioDistribucionVianda(Context app) {
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Distribuir Vianda");
+    setNavBar(model, app);
 
     app.render("/colaboraciones/distribuirVianda.hbs", model);
   }
@@ -87,19 +93,21 @@ public class ColaboracionesController {
 
     // Aquí guardas los datos en tu clase Repositorio
 
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("heladeraOrigen", heladeraOrigen);
     model.put("heladeraDestino", heladeraDestino);
     model.put("direccionOrigen", direccionOrigen);
     model.put("direccionDestino", direccionDestino);
     model.put("mensaje", "Gracias por tu distribucion de la heladera " + heladeraOrigen + " ubicada en " + direccionOrigen + "a la heladera " + heladeraDestino + " ubicada en " + direccionDestino);
+    setNavBar(model, ctx);
 
     ctx.render("templates/confirmacion_Distribucion.hbs");
   }
 
   public void mostrarFormularioAdherirHeladera(Context app) {
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Adherir Heladera");
+    setNavBar(model, app);
 
     app.render("/colaboraciones/adherirHeladera.hbs", model);
   }
@@ -113,13 +121,22 @@ public class ColaboracionesController {
     // Lógica para registrar la nueva heladera
     // Aquí puedes agregar la heladera a la base de datos o repositorio
 
-    Map<String, Object> model = new HashMap<>();
+    HashMap<String, Object> model = new HashMap<>();
     model.put("nombreHeladera", nombreHeladera);
     model.put("ubicacionHeladera", ubicacionHeladera);
     model.put("modeloHeladera", modeloHeladera);
     model.put("mensaje", "La heladera " + nombreHeladera + " ha sido adherida exitosamente.");
-
+    setNavBar(model, app);
     app.render("/colaboraciones/confirmacion_adherencia.hbs", model);
   }
 
+  public void setNavBar(HashMap<String, Object> model, Context app) {
+    model.put("colaboraciones", "seleccionado");
+    model.put("user_type", app.sessionAttribute("user_type").toString().toLowerCase());
+    if (app.sessionAttribute("user_type") == "HUMANO")
+      model.put("esHumano","true");
+    else if (app.sessionAttribute("user_type") == "JURIDICO")
+      model.put("esJuridico","true");
+
+    model.put("username", app.sessionAttribute("username"));  }
 }

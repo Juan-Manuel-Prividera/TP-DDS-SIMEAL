@@ -71,6 +71,11 @@ public class InitPersistence {
 
         Permiso getColaboraciones = new Permiso("colaboraciones", TipoMetodoHttp.GET);
         Permiso postDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.POST);
+        Permiso getDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.GET);
+        Permiso getDonarVianda = new Permiso("colaboraciones/donarVianda", TipoMetodoHttp.GET);
+        Permiso postDonarVianda = new Permiso("colaboraciones/donarVianda", TipoMetodoHttp.POST);
+        Permiso getAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.GET);
+        Permiso postAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.POST);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
         Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
@@ -85,6 +90,8 @@ public class InitPersistence {
         Permiso getSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.GET);
         Permiso deleteSuscripciones = new Permiso("/suscripcion/\\d+", TipoMetodoHttp.DELETE);
 
+        Permiso getRecomendacion = new Permiso("/recomendacion", TipoMetodoHttp.GET);
+
         Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
         Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
@@ -94,13 +101,14 @@ public class InitPersistence {
                 getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
-                getSolicitud, postSolicitud
+                getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
                 getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
-                getHeladeras, getOfertas, getOferta
+                getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
+                getAdherirHeladera, postAdherirHeladera, getRecomendacion
         );
         Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
 
