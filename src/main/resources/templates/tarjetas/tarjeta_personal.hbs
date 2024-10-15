@@ -1,6 +1,9 @@
 <div class="tarjeta-personal">
     <p class="nro-tarjeta mr-5 mt-auto mb-auto">{{numeroTarjetaPersonal}}</p>
     <button class="btn btn-info btn-accesos ml-3 mt-auto mb-auto" id="btn-expand">Accesos disponibles</button>
+    <a style="text-decoration: none" href="/solicitud/{{tarjeta_personal_id}}">
+        <button class="btn btn-info btn-accesos ml-3 mt-auto mb-auto">Realizar Solicitud</button>
+    </a>
 </div>
 <div id="expandible-p" class="hidden">
     <table>
@@ -20,4 +23,17 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    function realizarSolicitud(tarjetaId) {
+        fetch("http://localhost:8080/solicitud/" + tarjetaId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Asegura que los datos se envían como JSON
+            },
+        })
+    }
+
+
+</script>
 <script src="/js/desplegable.js"></script>

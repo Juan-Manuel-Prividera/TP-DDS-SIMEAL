@@ -12,6 +12,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.SuscripcionesRepository;
 import io.javalin.http.Context;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class SuscripcionController {
@@ -30,7 +31,7 @@ public class SuscripcionController {
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
     Colaborador colaborador = (Colaborador)  repositorio
-      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
+      .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
 
 
     model.put("heladera", new HeladeraDTO(heladera,0D));
@@ -41,7 +42,7 @@ public class SuscripcionController {
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
     Colaborador colaborador = (Colaborador) repositorio
-      .buscarPorId(Long.valueOf(ctx.sessionAttribute("colaborador_id")), Colaborador.class);
+      .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
 
     Boolean checkViandasInsuficientes = Objects.equals(ctx.formParam("checkViandasInsuficientes"), "true");
     Boolean checkMuchasViandas = Objects.equals(ctx.formParam("checkMuchasViandas"), "true");
@@ -79,7 +80,17 @@ public class SuscripcionController {
     ctx.redirect("/heladera/suscribirse/" + heladera.getId());
   }
 
+  public void buscarSuscripciones(Context ctx) {
+    HashMap<String,Object> model = new HashMap<>();
+    setNavBar(model,ctx);
+    List<Suscripcion> suscripciones = suscripcionesRepository.
 
+    ctx.render("/heladeras/suscripciones.hbs",model);
+  }
+
+  public void borrarSuscripcion(Context ctx) {
+
+  }
 
   private void setNavBar(HashMap<String,Object> model, Context app) {
     if (app.sessionAttribute("user_type").equals("HUMANO"))

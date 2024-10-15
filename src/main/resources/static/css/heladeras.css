@@ -14,8 +14,9 @@
 }
 
 .form-group-heladeras label {
-    margin-left: 20%;
     align-self: start;
+    margin-left: 20% !important;
+
 }
 
 .form-group-reporte {
@@ -38,4 +39,30 @@
 .form-group-reporte form a {
     display: flex;
     align-self: center;
+}
+
+.form-solicitud-operacion {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+.form-solicitud-operacion label {
+    margin-left: 0 !important;
+}
+
+.container-suprem-suscripciones {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-content: center;
+}
+.subscription-list {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.subscription-container {
+
 }

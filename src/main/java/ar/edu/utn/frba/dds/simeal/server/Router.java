@@ -42,6 +42,9 @@ public class Router {
     app.get("tarjeta/update", ServiceLocator.getController(TarjetasController.class)::indexUpdateTarjeta);
     app.post("tarjeta/update/{numeroTarjeta}", ServiceLocator.getController(TarjetasController.class)::update);
 
+    // ***************  Solicitud de operacion heladera  ***************
+    app.get("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::index);
+    app.post("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::create);
     // ***************  Heladeras   ***************
     app.get("heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);
@@ -52,6 +55,8 @@ public class Router {
 
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);
+    app.get("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::buscarSuscripciones);
+    app.delete("suscripciones/{colaborador_id}", ServiceLocator.getController(SuscripcionController.class)::borrarSuscripcion);
 
     app.get("heladeras", ServiceLocator.getController(HeladeraController.class)::getAll);
 
@@ -67,12 +72,17 @@ public class Router {
     app.post("user/create/{rol}", ServiceLocator.getController(UsuariosController.class)::create);
 
     // ****************** Colaboraciones ******************
+<<<<<<< HEAD
 
     app.get("/{usr_type}/colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
     app.post("/{usr_type}/colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
     app.get("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
     app.post("/{usr_type}/colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
 
+=======
+    app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
+    app.post("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
+>>>>>>> 9ce42cf4e0dd002c755f1bc1d5224d9e3c31442d
 
 
     // ****************** Recomendacion de Colaboradores ******************

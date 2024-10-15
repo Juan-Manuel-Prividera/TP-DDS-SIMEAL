@@ -96,7 +96,7 @@ public class FormularioController {
      .tipo(obtenerTipoPregunta(ctx.formParam("tipoPregunta")))
      .param(ctx.formParam("parametro"))
      .pregunta(ctx.formParam("pregunta"))
-     .required(true)
+     .required(false)
      .opciones(opciones)
      .build();
 
