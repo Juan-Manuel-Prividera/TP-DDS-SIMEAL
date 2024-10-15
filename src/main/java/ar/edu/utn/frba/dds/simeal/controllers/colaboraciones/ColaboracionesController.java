@@ -47,7 +47,7 @@ public class ColaboracionesController {
     model.put("mensaje", "Gracias por tu donación de " + monto + " ARS usando " + metodoPago);
 
     // Renderizar la página de confirmación o agradecimiento
-    app.render("/colaboraciones/donarDinero.hbs", model);
+    app.render("/colaboraciones/confirmacion.hbs", model);
   }
 
   public void mostrarFormularioDonacionVianda(Context app) {
