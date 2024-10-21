@@ -8,6 +8,13 @@ import java.util.Map;
 
 public class ColaboracionesController {
 
+  private ColaboracionRepository colaboracionRepository;
+
+  public ColaboracionesController(ColaboracionRepository colaboracionRepository) {
+    this.colaboracionRepository = colaboracionRepository;
+  }
+
+
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
 
