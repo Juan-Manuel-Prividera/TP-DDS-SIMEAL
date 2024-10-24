@@ -67,4 +67,5 @@ public class Repositorio implements WithSimplePersistenceUnit {
         throw e;
       }
     }
+
 }

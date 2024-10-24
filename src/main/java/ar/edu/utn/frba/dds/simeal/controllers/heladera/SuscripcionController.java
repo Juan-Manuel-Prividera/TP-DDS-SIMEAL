@@ -100,10 +100,15 @@ public class SuscripcionController {
   public void borrarSuscripcion(Context ctx) {
     HashMap<String,Object> model = new HashMap<>();
     setNavBar(model,ctx);
-    Suscripcion suscripcion = (Suscripcion) suscripcionesRepository
-      .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")),Suscripcion.class);
-    suscripcionesRepository.desactivar(suscripcion);
-    ctx.status(200);
+    try {
+      Suscripcion suscripcion = (Suscripcion) suscripcionesRepository
+        .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")), Suscripcion.class);
+      suscripcionesRepository.desactivar(suscripcion);
+      suscripcionesRepository.refresh(suscripcion);
+      ctx.status(200);
+    } catch (Exception e) {
+      ctx.status(500);
+    }
   }
 
   private void setNavBar(HashMap<String,Object> model, Context app) {

@@ -35,6 +35,7 @@
         // Por ejemplo, podrías hacer una solicitud fetch a tu API para eliminar la suscripción
 
         if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
+            console.log("haciendo solicitud de eliminacion")
             fetch(`http://localhost:8080/suscripcion/${subscriptionId}`, {
                 method: 'DELETE'
             })
@@ -42,13 +43,12 @@
                     if (response.ok) {
                         console.log("se respondio 200 ok")
                         document.getElementById(`subscription-${subscriptionId}`).remove();
-
+                        console.log(`Suscripción con ID ${subscriptionId} eliminada.`);
+                        location.reload()
                     } else {
                         alert('Error al eliminar la suscripción.');
                     }
                 });
-            location.reload()
-            console.log(`Suscripción con ID ${subscriptionId} eliminada.`);
 
         }
     }

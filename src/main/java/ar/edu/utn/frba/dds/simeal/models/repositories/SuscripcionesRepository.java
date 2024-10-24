@@ -33,4 +33,8 @@ public class SuscripcionesRepository extends Repositorio {
     commitTransaction();
     return suscripciones;
   }
+
+  public void refresh(Suscripcion suscripcion) {
+    entityManager().refresh(suscripcion);
+  }
 }
