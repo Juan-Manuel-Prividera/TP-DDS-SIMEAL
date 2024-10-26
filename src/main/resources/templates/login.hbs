@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="/css/styles.css">
-
     </head>
 
     <body>
@@ -69,9 +68,7 @@
         </footer>
 
         {{#if loginFailed}}
-            <script>
-                alert("Credenciales no válidas!");
-            </script>
+            {{> templates/popup}}
         {{/if}}
 
         <script src="js/ocultarPassword.js"></script>
