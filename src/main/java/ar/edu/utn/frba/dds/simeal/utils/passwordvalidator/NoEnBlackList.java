@@ -48,4 +48,9 @@ public class NoEnBlackList implements Condicion {
     }
     return true;
   }
+
+  @Override
+  public String mensaje() {
+    return "La contraseña es poco segura";
+  }
 }

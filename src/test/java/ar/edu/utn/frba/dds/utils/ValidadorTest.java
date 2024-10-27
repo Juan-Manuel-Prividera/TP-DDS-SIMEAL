@@ -31,13 +31,13 @@ public class ValidadorTest {
     @Test @DisplayName("Si la password es suficientemente larga y no esta en la blackList => Es valida")
     public void testIsLongEnough(){
         validador = new PasswordValidator(condiciones);
-        Assertions.assertTrue(validador.validate("passwordLarga"));
+        Assertions.assertNull(validador.validate("passwordLarga"));
     }
 
     @Test @DisplayName("Si las passowrd no es lo suficientemente larga => No es valida")
     public void testIsNotLongEnough(){
         validador = new PasswordValidator(condiciones);
-        Assertions.assertFalse(validador.validate("lol"));
+        Assertions.assertNotNull(validador.validate("lol"));
     }
 
     @Test @DisplayName("Si se iniciliza el validador con un path correcto al blackList y la password cumple ambas condiciones => Es valida")
@@ -45,7 +45,7 @@ public class ValidadorTest {
         condiciones.add(siTieneBlackList);
 
         validador = new PasswordValidator(condiciones);
-        Assertions.assertTrue(validador.validate("4prt67os02kd"));
+        Assertions.assertNull(validador.validate("4prt67os02kd"));
     }
 
     @Test @DisplayName("Si no se pasa un path de la blackList pero la password es suficientemente larga => Es valida")
@@ -53,7 +53,7 @@ public class ValidadorTest {
         condiciones.add(noTieneBlackList);
 
         validador = new PasswordValidator(condiciones);
-        Assertions.assertTrue(validador.validate("password"));
+        Assertions.assertNull(validador.validate("password"));
     }
 
     @Test @DisplayName("Si se pasa un path a un archivo que no existe pero la password es suficientemente larga => Es valida")
@@ -61,7 +61,7 @@ public class ValidadorTest {
         condiciones.add(noExisteArchivo);
 
         validador = new PasswordValidator(condiciones);
-        Assertions.assertTrue(validador.validate("password"));
+        Assertions.assertNull(validador.validate("password"));
     }
 
     @Test @DisplayName("Si la password es suficientemente larga y no esta en la blackList => Es valida")
@@ -69,7 +69,7 @@ public class ValidadorTest {
         condiciones.add(siTieneBlackList);
 
         validador = new PasswordValidator(condiciones);
-        Assertions.assertTrue(validador.validate("AguanteLaUTNloco"));
+        Assertions.assertNull(validador.validate("AguanteLaUTNloco"));
     }
 
     @Test @DisplayName("Si la password es suficientemente larga pero esta en la blackList => No es valida")
@@ -77,7 +77,7 @@ public class ValidadorTest {
         condiciones.add(siTieneBlackList);
 
         validador = new PasswordValidator(condiciones);
-        Assertions.assertFalse(validador.validate("password"));
+        Assertions.assertNotNull(validador.validate("password"));
     }
 
 }

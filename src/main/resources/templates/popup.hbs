@@ -1,9 +1,9 @@
 <div id="overlay">
     <div id="overlayContent">
-        <h6>{{title}}</h6>
-        <p>{{message}}</p>
+        <h6>{{popup_title}}</h6>
+        <p>{{popup_message}}</p>
         <button class="btn btn-dark my-button redondeado" onclick="hideOverlay()">
-            {{#if button}}{{button}}{{else}}Ok{{/if}}
+            {{#if popup_button}}{{popup_button}}{{else}}Ok{{/if}}
         </button>
     </div>
     <script>

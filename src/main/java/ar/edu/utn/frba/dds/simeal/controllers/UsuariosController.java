@@ -22,6 +22,10 @@ import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.Condicion;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.LongitudTest;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
+import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
@@ -51,6 +55,18 @@ public class UsuariosController {
 
         if (!password.equals(passwordRepeat)){
             fail(context, "Passwords do not match");
+            return;
+        }
+
+        // TODO: Hacer esto un toque mejor
+        ArrayList<Condicion> condiciones = new ArrayList<>();
+        // TODO: Qué ruta pongo para la blacklist??
+        condiciones.add(new NoEnBlackList("blacklist.txt"));
+        condiciones.add(new LongitudTest(8));
+        PasswordValidator validator = new PasswordValidator(condiciones);
+        String msg = validator.validate(password);
+        if (msg != null) {
+            context.redirect("/registro/" + rolParam+"?error="+msg);
             return;
         }
 

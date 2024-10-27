@@ -63,6 +63,14 @@ public class RegistroHandler {
             map.put("rol", "juridico");
         }
 
+        // TODO: Revisar como pasar esta info de alguna otra forma que no sea query param
+        if (context.queryParam("error") != null) {
+            map.put("error", context.queryParam("error"));
+            map.put("popup_message", context.queryParam("error"));
+            map.put("popup_title", "Error");
+            map.put("popup_button", "Reintentar");
+        }
+
         context.render("registroFormulario.hbs", map);
     }
 }

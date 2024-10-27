@@ -11,13 +11,14 @@ public class PasswordValidator {
     this.condiciones.addAll(condiciones);
   }
 
-  public boolean validate(String posiblePassword) {
+  // Returns the error message
+  public String validate(String posiblePassword) {
     for (Condicion condicion : condiciones) {
       if (!condicion.validar(posiblePassword)) {
-        return false;
+        return condicion.mensaje();
       }
     }
-    return true;
+    return null;
   }
 
 }

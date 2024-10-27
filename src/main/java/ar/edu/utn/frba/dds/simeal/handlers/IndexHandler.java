@@ -15,9 +15,9 @@ public class IndexHandler {
 
         if (tipoUsuarioString == null) {
             context.render("login.hbs", Map.of("loginFailed", fail,
-                    "message", "Credenciales no válidas",
-                    "title", "Error",
-                    "button", "Reintentar"));
+                    "popup_message", "Credenciales no válidas",
+                    "popup_title", "Error",
+                    "popup_button", "Reintentar"));
         } else {
             TipoRol tipoRol = TipoRol.valueOf(tipoUsuarioString);
             //String lastVisited = context.sessionAttribute("last_visited");
