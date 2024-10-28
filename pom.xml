@@ -27,6 +27,13 @@
   </repositories>
 
   <dependencies>
+    <!-- Escaner estático de vulnerabilidades de OWASP! -->
+    <dependency>
+      <groupId>org.owasp</groupId>
+      <artifactId>dependency-check-maven</artifactId>
+      <version>11.0.0</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-math3</artifactId>
@@ -142,7 +149,7 @@
     <dependency>
       <groupId>com.itextpdf</groupId>
       <artifactId>itextpdf</artifactId>
-      <version>5.5.13.3</version>
+      <version>5.5.13.4</version>
     </dependency>
 
     <dependency>
