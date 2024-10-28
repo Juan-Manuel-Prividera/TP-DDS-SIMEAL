@@ -98,11 +98,17 @@
     background-color: #135c52;
 }
 
-#return-home-btn{
+#logout-btn{
     align-items: center;
     justify-content: center;
-    width: 60% !important;
-    font-size: 100% !important;
+    background-color: #135c52;
+    border: 0;
+    width: 40% !important;
+    font-size: 70% !important;
+}
+
+#heladera-img{
+    cursor: pointer;
 }
 
 .btn-dark{
@@ -113,4 +119,11 @@
    padding: 0 0 0 0 !important;
 }
 
+.logout-link {
+    color: #000000;
+    text-decoration: none;
+}
 
+.logout-link:hover {
+    color: #ffffff;
+}

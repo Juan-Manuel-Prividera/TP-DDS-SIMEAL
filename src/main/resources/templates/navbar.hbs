@@ -22,7 +22,11 @@
 <header>
     <div class="container-fluid">
         <div class="header-container">
-            <img src = "/img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
+                <img src = "/img/heladera.png"
+                     alt="logo"
+                     id="heladera-img"
+                     class="logo mt-2 mb-2 ml-3 mr-3"
+                     onclick="window.location.href='/home';">
             <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
 
             <div class="icon-text ml-auto">
@@ -71,8 +75,8 @@
                             </li>
                         {{/if}}
                         <li class="nav-item mr-auto ml-auto">
-                            <a href="/home">
-                                <button class = "btn btn-dark rounded" id="return-home-btn">Volver al inicio</button>
+                            <a href="/logout">
+                                <button class = "btn btn-dark rounded" id="logout-btn">Cerrar sesión</button>
                             </a>
                         </li>
                     </ul>
