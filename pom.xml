@@ -27,7 +27,7 @@
   </repositories>
 
   <dependencies>
-    <!-- Escaner estático de vulnerabilidades de OWASP! -->
+    <!-- Esto chequea que no tengamos dependencias de mierda (inseguras) -->
     <dependency>
       <groupId>org.owasp</groupId>
       <artifactId>dependency-check-maven</artifactId>
@@ -235,6 +235,12 @@
       </testResource>
     </testResources>
     <plugins>
+      <!-- Análisis estático de código -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
