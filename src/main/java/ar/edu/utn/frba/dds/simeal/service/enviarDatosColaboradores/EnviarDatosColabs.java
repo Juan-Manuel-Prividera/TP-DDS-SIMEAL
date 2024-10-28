@@ -9,7 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.Javalin;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -22,47 +22,46 @@ import java.util.*;
 public class EnviarDatosColabs {
     private static final ConfigReader configReader = new ConfigReader();
     private static final String miApiKey = configReader.getProperty("api.key");
-    private static final Logger logger = Logger.getInstance("envioDatos.log");
 
     public static void main(String[] args) {
         Javalin app = Javalin.create().start(8080);
 
         app.get("simeal/auth", ctx -> {
-            logger.log(LoggerType.DEBUG,"Solicitud de autenticacion recibida: " + ctx.userAgent());
+            Logger.debug("Solicitud de autenticacion recibida: " + ctx.userAgent());
             String apikey = ctx.queryParam("apikey");
             String clientID = ctx.queryParam("clientID");
 
             if (apikey.equals(miApiKey)) {
                 String token = generateToken(clientID);
                 ctx.json(Map.of("token", token));
-                logger.log(LoggerType.DEBUG, "Usuario autenticado, se envia el token: " + token);
+                Logger.debug("Usuario autenticado, se envia el token: " + token);
             } else {
-                logger.log(LoggerType.DEBUG, "Solicitud recibida de usuario no autorizado");
+                Logger.debug("Solicitud recibida de usuario no autorizado");
                 ctx.status(400).result("Usuario no autorizado");
             }
         });
 
         app.get("simeal/colaboradores", ctx -> {
             String token = ctx.header("Authorization");
-            logger.log(LoggerType.DEBUG, "Solicitud de colaboradores recibida: " + ctx.headerMap() + " " + ctx.header("Authorization"));
+            Logger.debug("Solicitud de colaboradores recibida: " + ctx.headerMap() + " " + ctx.header("Authorization"));
 
             if (token != null && validateToken(token.replace("Bearer ", ""))) {
-                logger.log(LoggerType.DEBUG, "Usuario validado correctamente");
+                Logger.debug("Usuario validado correctamente");
 
                 List<Colaborador> colaboradores = obtenerColaboradores();
                 List<DonarVianda> donacionesViandas = obtenerDonaciones();
 
                 if (colaboradores.isEmpty() || donacionesViandas.isEmpty()) {
-                    logger.log(LoggerType.ERROR, "No hay colaboradores ni donaciones dispoibles para enviar");
+                    Logger.error("No hay colaboradores ni donaciones dispoibles para enviar");
                     throw new RuntimeException("No hay colaboradores ni donaciones dispoibles");
                 } else
-                    logger.log(LoggerType.DEBUG, "Se obtuvieron correctamente colaboradores y donaciones");
+                    Logger.debug("Se obtuvieron correctamente colaboradores y donaciones");
 
                 List<ColaboradorEnviado> response = prepararRespuesta(colaboradores, donacionesViandas);
                 ctx.json(response);
-                logger.log(LoggerType.DEBUG, "Respuesta enviada correctamente: " + response);
+                Logger.debug("Respuesta enviada correctamente: " + response);
             } else {
-                logger.log(LoggerType.DEBUG, "Usuario no autenticado se retorna un 400, token recibido: " + token);
+                Logger.debug("Usuario no autenticado se retorna un 400, token recibido: " + token);
                 ctx.status(400).result("Usuario no autorizado");
             }
         });
@@ -104,7 +103,7 @@ public class EnviarDatosColabs {
                   donacion.getFechaDeRealizacion().getMonth() == LocalDate.now().getMonth())
                     cantDonaciones++;
             }
-            logger.log(LoggerType.DEBUG, "El colaborador: " + colaborador.getId() + " tiene: " + cantDonaciones +" donaciones de vianda");
+            Logger.debug("El colaborador: " + colaborador.getId() + " tiene: " + cantDonaciones +" donaciones de vianda");
             List<AdherirHeladera> colabsExtra = obtenerColbasExtra(colaborador);
             double puntos = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,colabsExtra);
 

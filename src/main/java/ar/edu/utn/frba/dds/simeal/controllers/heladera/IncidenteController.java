@@ -7,8 +7,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecni
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthorizedException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.Javalin;
 
 public class AuthorizedMiddleware {
@@ -56,8 +56,7 @@ public class AuthorizedMiddleware {
                     Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
                     Usuario usuario = (Usuario) repositorio.buscarPorId(userID, Usuario.class);
 
-                    Logger logger = Logger.getInstance("AuthorizedMiddleware.log");
-                    logger.log(LoggerType.DEBUG, ctx.path());
+                    Logger.debug(ctx.path());
 
                     for (Rol r : usuario.getRoles()){
                         System.out.printf("Probando rol");

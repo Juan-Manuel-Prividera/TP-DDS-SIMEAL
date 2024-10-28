@@ -13,7 +13,7 @@ public class NoEnBlackList implements Condicion {
   public NoEnBlackList(String pathToPasswordBlacklist) {
     if (pathToPasswordBlacklist != null) {
       // Once we check the path is not null, we also check it is actually a valid file.
-      // If it isn't we print a warning a set the passwordFile to null.
+      // If it isn't we print a warn a set the passwordFile to null.
       blackList = new File(pathToPasswordBlacklist);
       if (!blackList.isFile()) {
         System.out.println("Given path is not a valid file! blacklist test will not be conducted.");

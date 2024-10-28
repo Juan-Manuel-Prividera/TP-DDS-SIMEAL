@@ -8,7 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemper
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
@@ -16,10 +16,8 @@ import java.util.*;
 
 public class HeladeraController {
   private Repositorio repositorio;
-  private Logger log;
   public HeladeraController(Repositorio repositorio) {
     this.repositorio = repositorio;
-    log = Logger.getInstance("heladeraController");
   }
 
   public void index(Context app) {
@@ -42,7 +40,7 @@ public class HeladeraController {
   }
 
   public void getEstadoHeladera(Context ctx) {
-    log.log(LoggerType.INFORMATION, "Entra a getEstadoHeladera");
+    Logger.info("Entra a getEstadoHeladera");
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Estado Heladera");
 
@@ -65,7 +63,7 @@ public class HeladeraController {
     }
     model.put("heladera", heladeraDTO);
 
-    log.log(LoggerType.INFORMATION, "Antes de hacer el Render, el map tiene: " + model);
+    Logger.info("Antes de hacer el Render, el map tiene: " + model);
     ctx.render("/heladeras/status_heladera.hbs",model);
   }
 

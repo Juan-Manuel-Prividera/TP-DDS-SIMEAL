@@ -1,8 +1,10 @@
 package ar.edu.utn.frba.dds.simeal.utils.logger;
 
-public enum LoggerType {
+public enum LogType {
+  TRACE,
   DEBUG,
-  INFORMATION,
+  INFO,
+  WARN,
   ERROR,
-  WARNING
+  FATAL
 }

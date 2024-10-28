@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
@@ -10,8 +9,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
@@ -20,8 +17,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
-import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.Condicion;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.LongitudTest;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
@@ -32,11 +28,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class UsuariosController {
-    Logger logger = Logger.getInstance();
-
     public void create(Context context){
         // TODO: Chequear que el nombre no exista ya
         // TODO: Usar el pw validator
@@ -236,8 +229,8 @@ public class UsuariosController {
     }
 
     private void fail(Context context, String reason){
-        logger.log(LoggerType.DEBUG, "No se pudo crear el usuario - " + reason);
-        logger.log(LoggerType.INFORMATION, "La ip '" + context.ip() + "' está toqueteando el sistema, mandemos la policía");
+        Logger.debug("No se pudo crear el usuario - " + reason);
+        Logger.info("La ip '" + context.ip() + "' está toqueteando el sistema, mandemos la policía");
         context.status(418);
         context.render("impostor_among_us.hbs");
     }

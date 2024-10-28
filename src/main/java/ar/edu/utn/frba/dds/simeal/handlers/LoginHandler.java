@@ -7,7 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.http.Context;
 
 import java.util.List;
@@ -16,14 +16,12 @@ import java.util.List;
 public class LoginHandler {
 
     public void handle(Context context) {
-        Logger logger = Logger.getInstance("login.log");
-
         String username = context.formParam("user");
         String password = context.formParam("password");
 
         if (username == null || password == null) {
             // The user bypassed the frontend and sent no username and/or no password
-            logger.log(LoggerType.DEBUG, "Someone tried to login without a username or password");
+            Logger.debug("Someone tried to login without a username or password");
             context.render("impostor_among_us.hbs");
             return;
         }
@@ -40,16 +38,16 @@ public class LoginHandler {
         }
 
         if (usuario == null) {
-            logger.log(LoggerType.DEBUG, "The requested user does not exist");
+            Logger.debug("The requested user does not exist");
             fail(context);
             return;
         }
 
         if (!PasswordHasher.checkPassword(password, usuario.getHash())) {
-            logger.log(LoggerType.DEBUG, "Incorrect login attempt");
+            Logger.debug("Incorrect login attempt");
             fail(context);
         } else {
-            logger.log(LoggerType.INFORMATION, "Login successful, welcome " + username);
+            Logger.info("Login successful, welcome " + username);
 
             // TODO: Setear Cookies:
             //  - el id_usuario, nombre_usuario, rol, colaborador_id (hacer metodo), ...
@@ -69,7 +67,7 @@ public class LoginHandler {
             }
 
             if (colaboradorID == null) {
-                logger.log(LoggerType.DEBUG, "No hay un colaborador asociado al usuario '"+username+"'");
+                Logger.debug("No hay un colaborador asociado al usuario '"+username+"'");
             } else {
                 context.sessionAttribute("colaborador_id", colaboradorID);
             }

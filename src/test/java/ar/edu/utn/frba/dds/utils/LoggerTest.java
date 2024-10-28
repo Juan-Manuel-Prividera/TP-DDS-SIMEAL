@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.utils;
 
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -18,44 +18,14 @@ public class LoggerTest {
   Logger logger;
 
   @Test
-  public void logToFile()
-  {
-    String filename = "TEST_LOGGER.txt";
-    logger = Logger.getInstance(filename);
-
-    logger.log(LoggerType.DEBUG, "This is DEBUG information");
-    logger.log(LoggerType.WARNING, "This is a WARNING!");
-    logger.log(LoggerType.ERROR, "This is an ERROR!!");
-    logger.log(LoggerType.INFORMATION, "This is plain INFORMATION");
-
-    File logFile = new File(filename);
-    try {
-      assertTrue(Files.exists(Path.of("src/main/java/ar/edu/utn/frba/dds/simeal/log/" + filename)), "Log file should be created");
-
-      List<String> lines = Files.readAllLines(Paths.get(filename));
-      int expectedLines = 4;
-      assertEquals(expectedLines, lines.size());
-
-    } catch (IOException e) {
-      e.getStackTrace();
-    } finally {
-      if (logFile.exists()) {
-        assertTrue(logFile.delete());
-      }
-    }
-  }
-
-  // Esto no tiene un test la verdad, pero está bueno para ver el formato.
-  @Test
   public void logToStdout()
   {
-    logger = Logger.getInstance();
-
-    logger.log(LoggerType.DEBUG, "This is DEBUG information");
-    logger.log(LoggerType.WARNING, "This is a WARNING!");
-    logger.log(LoggerType.ERROR, "This is an ERROR!!");
-    logger.log(LoggerType.INFORMATION, "This is plain INFORMATION");
-
+    Logger.trace("This is a trace message");
+    Logger.debug("This is DEBUG information");
+    Logger.info("This is some INFO");
+    Logger.warn("This is a WARN!");
+    Logger.error("This is an ERROR!!");
+    Logger.fatal("This is a FATAL!");
   }
 
 
