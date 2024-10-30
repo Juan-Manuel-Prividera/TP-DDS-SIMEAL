@@ -99,8 +99,13 @@ public class HeladeraController {
       .colaborador(colaborador)
       .imagen(ctx.formParam("imagen"))
       .build();
+
     ServiceLocator.getController(IncidenteController.class).create(fallaTecnica);
-    ctx.render("/heladeras/agradecimiento_reporte.hbs", model);
+
+    model.put("popup_title","Fallo Reportado");
+    model.put("popup_message", "Gracias por reportar el fallo!");
+
+    ctx.render("/heladeras/reportar_fallo.hbs", model);
   }
 
 

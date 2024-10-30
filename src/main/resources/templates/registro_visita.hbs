@@ -1,8 +1,11 @@
 {{> templates/header}}
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
 <div class="container my-5" style="max-width: 500px;">
     <h2 class="text-center mb-4">Registrar Visita Técnica</h2>
 
-    <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" class="form-group" enctype="multipart/form-data"
+    <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" class="form-group"
     style="display: flex; flex-direction: column; justify-content: center; align-items: start; margin-left: 0; width: 80%"
     >
     <!-- Campo de Descripción -->

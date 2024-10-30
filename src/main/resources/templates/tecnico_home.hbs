@@ -2,6 +2,9 @@
 
 <div class="d-flex vh-100">
     <!-- Sección de Encargos -->
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
     <div class="col-md-6 overflow-auto border-end p-3" style="display: flex; flex-direction: column; align-items: center;">
         <h2 class="mb-4">Encargos Asignados</h2>
         <ul class="list-group"  style="width: 100%">
@@ -16,9 +19,9 @@
                             <small>{{this.fechaHora}}</small>
                         </div>
                         <div>
-                            <button class="btn btn-success btn-sm" onclick="aceptarEncargo('{{this.id}}')">Aceptar</button>
-                            <button class="btn btn-danger btn-sm ms-2" onclick="rechazarEncargo('{{this.id}}')">Rechazar</button>
-                            <button class="btn btn-primary btn-sm ms-2" onclick="registrarVisita('{{this.id}}')">Registrar Visita</button>
+                            <button class="btn btn-success btn-sm" onclick="aceptarEncargo('{{this.id}}', '{{this.aceptado}}')">Aceptar</button>
+                            <button class="btn btn-danger btn-sm ms-2" onclick="rechazarEncargo('{{this.id}}', '{{this.aceptado}}')">Rechazar</button>
+                            <button class="btn btn-primary btn-sm ms-2" onclick="registrarVisita('{{this.id}}', '{{this.aceptado}}')">Registrar Visita</button>
                         </div>
                     </div>
 
@@ -77,19 +80,19 @@
     }
 
     // Funciones de botón (ejemplo de cómo podrías manejarlos)
-    function aceptarEncargo(index) {
-        console.log('Encargo aceptado:', index);
-        window.location.href = "/encargo/"+ index + "/aceptado"
+    function aceptarEncargo(index, estado) {
+            console.log('Encargo aceptado:', index);
+            window.location.href = "/encargo/"+ index + "/aceptado"
     }
 
-    function rechazarEncargo(index) {
-        console.log('Encargo rechazado:', index);
-        window.location.href = "/encargo/"+ index + "/rechazado"
+    function rechazarEncargo(index, estado) {
+            console.log('Encargo rechazado:', index);
+            window.location.href = "/encargo/" + index + "/rechazado"
     }
 
-    function registrarVisita(index) {
-        console.log('Visita registrada para encargo:', index);
-        window.location.href = "/"+ index + "/visita"
+    function registrarVisita(index, estado) {
+            console.log('Visita registrada para encargo:', index);
+            window.location.href = "/"+ index + "/visita"
     }
 
     // Agregar un evento para alternar el despliegue al hacer clic en el nombre del encargo

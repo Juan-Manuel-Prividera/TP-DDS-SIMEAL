@@ -2,7 +2,7 @@
     <div id="overlayContent">
         <h6>{{popup_title}}</h6>
         <p>{{popup_message}}</p>
-        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay()">
+        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('{{popup_ruta}}')">
             {{#if popup_button}}{{popup_button}}{{else}}Ok{{/if}}
         </button>
     </div>
@@ -13,8 +13,11 @@
         }
 
         // Function to hide the overlay
-        function hideOverlay() {
+        function hideOverlay(ruta) {
             document.getElementById("overlay").classList.remove("show");
+            if (ruta != null) {
+                window.location.href = ruta;
+            }
         }
 
         // Show the overlay when the page loads

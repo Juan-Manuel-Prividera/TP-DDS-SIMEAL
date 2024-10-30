@@ -3,6 +3,9 @@
     {{> templates/heladeras/mapa_heladera}}
 
 <div class="status-container">
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
     <div class="info-heladera">
         <img src="/img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
         <div>
