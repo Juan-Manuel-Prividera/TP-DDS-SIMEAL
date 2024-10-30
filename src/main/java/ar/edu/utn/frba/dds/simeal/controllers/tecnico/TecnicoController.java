@@ -1,9 +1,8 @@
-package ar.edu.utn.frba.dds.simeal.controllers;
+package ar.edu.utn.frba.dds.simeal.controllers.tecnico;
 
 
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.dtos.TecnicoDTO;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.EncargoTecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
@@ -13,6 +12,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.EncargoTecnicoRepostiry;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 
@@ -74,9 +74,10 @@ public class TecnicoController {
 
       repositorio.guardar(tecnico);
       ctx.redirect("/tecnico", HttpStatus.CREATED);
+      Logger.debug("Tecnico creado correctamente");
     } catch (Exception e) {
       ctx.status(500);
-      System.out.println(e.getMessage());
+      Logger.error("Ocurrio un error en la creacion del tecnico: " + e.getMessage());
     }
   }
   // DELETE /tecnico/{tecnico_id}

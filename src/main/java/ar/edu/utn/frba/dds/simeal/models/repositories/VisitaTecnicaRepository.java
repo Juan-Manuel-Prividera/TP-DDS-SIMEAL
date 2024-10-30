@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.EncargoTecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 
 import java.util.ArrayList;

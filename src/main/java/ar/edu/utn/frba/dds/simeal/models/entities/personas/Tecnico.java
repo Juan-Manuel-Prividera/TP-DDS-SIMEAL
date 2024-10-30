@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
+import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
+import org.jboss.jandex.TypeTarget;
 
 import javax.persistence.*;
 import java.util.List;
@@ -47,6 +49,11 @@ public class Tecnico extends Persistente implements ReceptorDeNotificaciones {
 
   @Embedded @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private AreaDeCobertura areaDeCobertura;
+
+  @OneToOne
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
+  @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+  private Usuario usuario;
 
   public Tecnico(Contacto contacto, AreaDeCobertura areaDeCobertura) {
     this.contactoPreferido = contacto;

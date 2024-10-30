@@ -7,7 +7,6 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.http.Context;
 
 import java.util.List;

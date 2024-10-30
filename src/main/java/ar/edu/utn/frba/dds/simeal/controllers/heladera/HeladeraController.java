@@ -8,7 +8,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemper
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;

@@ -7,7 +7,6 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthorizedException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.Javalin;
 
 public class AuthorizedMiddleware {

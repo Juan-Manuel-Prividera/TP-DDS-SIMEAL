@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.controllers;
+package ar.edu.utn.frba.dds.simeal.controllers.tecnico;
 
 import ar.edu.utn.frba.dds.simeal.models.dtos.EncargoTecnicoDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.VisitaTecnicaDTO;

@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
@@ -19,12 +18,10 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.Condicion;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.LongitudTest;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;

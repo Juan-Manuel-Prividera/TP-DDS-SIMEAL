@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;

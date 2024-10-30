@@ -10,6 +10,9 @@ import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesContr
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
+import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
+import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
+import ar.edu.utn.frba.dds.simeal.controllers.tecnico.VisitaController;
 import ar.edu.utn.frba.dds.simeal.handlers.*;
 import io.javalin.Javalin;
 

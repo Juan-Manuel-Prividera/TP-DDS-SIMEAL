@@ -1,6 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 
-import ar.edu.utn.frba.dds.simeal.controllers.EncargoController;
+import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.models.dtos.IncidenteDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
