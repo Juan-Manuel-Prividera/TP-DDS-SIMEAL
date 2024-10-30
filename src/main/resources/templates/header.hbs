@@ -1,0 +1,39 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{titulo}}</title>
+    <link rel="stylesheet" href="/css/navbar-style.css">
+    <link rel="stylesheet" href="/css/mapa.css">
+    <link rel="stylesheet" href="/css/containers.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/tarjetas.css">
+    <link rel="stylesheet" href="/css/suscripcion.css">
+    <link rel="stylesheet" href="/css/heladeras.css">
+    <link rel="stylesheet" href="/css/formulario.css">
+    <link rel="stylesheet" href="/css/cargacolabs.css">
+    <link rel="stylesheet" href="/css/api.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+         <div class="header-container">
+                <img src = "/img/heladera.png"
+                     alt="logo"
+                     id="heladera-img"
+                     class="logo mt-2 mb-2 ml-3 mr-3"
+                     onclick="window.location.href='/home';">
+            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
+
+            <div class="icon-text ml-auto">
+                <span class="m-3">{{username}}</span>
+                <i class="bi bi-person mr-3"></i>
+            </div>
+        </div>
+    </div>
+</header>
+</body>

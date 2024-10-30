@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.server.exception_handlers;
 
 import io.javalin.Javalin;
-import jakarta.servlet.http.HttpSession;
 
 public class NotAuthorizedHandler implements IHandler {
     @Override

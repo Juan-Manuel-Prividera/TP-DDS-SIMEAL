@@ -68,4 +68,8 @@ public class Repositorio implements WithSimplePersistenceUnit {
       }
     }
 
+    public void refresh(Persistente p) {
+      entityManager().refresh(p);
+    }
+
 }

@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.simeal.models.repositories;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 
 import java.util.ArrayList;
 import java.util.List;

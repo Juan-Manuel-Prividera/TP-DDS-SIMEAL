@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name="visita_tecnica")
 @Getter
 @NoArgsConstructor
+@Builder
 public class VisitaTecnica extends Persistente {
   @ManyToOne
   @JoinColumn(referencedColumnName = "id", name = "heladera_id")
@@ -29,4 +31,5 @@ public class VisitaTecnica extends Persistente {
 
   @Column(name = "imagen")
   private String imagen;
+
 }

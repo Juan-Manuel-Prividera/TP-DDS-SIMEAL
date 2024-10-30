@@ -1,42 +1,13 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.TipoAlerta;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
-import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
-import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
-import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.repositories.*;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Permiso;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
-import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
-import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Prueba implements WithSimplePersistenceUnit {
   public static void main(String[] args) {

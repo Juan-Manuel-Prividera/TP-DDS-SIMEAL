@@ -30,8 +30,8 @@ public class Server {
       Integer port = Integer.parseInt(configReader.getProperty("server_port"));
       app = Javalin.create(config()).start(port);
 
-      AuthenticatedMiddleware.apply(app);
-      AuthorizedMiddleware.apply(app);
+      // AuthenticatedMiddleware.apply(app);
+    //  AuthorizedMiddleware.apply(app);
 
       // Apply our custom interruption handlers
       AppHandlers.applyHandlers(app);

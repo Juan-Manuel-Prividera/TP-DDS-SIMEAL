@@ -2,12 +2,12 @@ package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.*;
-import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
-import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
+import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
 import ar.edu.utn.frba.dds.simeal.handlers.*;
@@ -18,6 +18,7 @@ public class Router {
     // ***************  HomePage   ***************
     app.get("home", ServiceLocator.getController(HomeHandler.class)::handle);
     app.post("setuser/{user_type}",ServiceLocator.getController(HomeHandler.class)::setUserType);
+
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
@@ -30,6 +31,19 @@ public class Router {
     app.post("formulario/{formulario_id}/pregunta", ServiceLocator.getController(FormularioController.class)::crearPregunta);
     app.delete("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
     app.delete("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
+
+   // ***************  Tecnicos  ***************
+    app.get("tecnico", ServiceLocator.getController(TecnicoController.class)::index);
+    app.get("registro/tecnico", ServiceLocator.getController(TecnicoController.class)::registroIndex);
+    app.post("tecnico", ServiceLocator.getController(TecnicoController.class)::crearTecnico);
+    app.delete("tecnico/{tecnico_id}", ServiceLocator.getController(TecnicoController.class)::borrarTecnico);
+
+    app.get("encargo/{encargo_id}/aceptado", ServiceLocator.getController(EncargoController.class)::aceptarEncargo);
+    app.get("encargo/{encargo_id}/rechazado", ServiceLocator.getController(EncargoController.class)::rechazarEncargo);
+
+    app.get("tecnico/home", ServiceLocator.getController(VisitaController.class)::index);
+    app.get("{encargo_id}/visita", ServiceLocator.getController(VisitaController.class)::indexRegistroVisita);
+    app.post("{encargo_id}/visita", ServiceLocator.getController(VisitaController.class)::registrar);
 
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);

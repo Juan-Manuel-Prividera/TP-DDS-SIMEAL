@@ -1,10 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 
 import javax.persistence.EntityGraph;
-import javax.persistence.NamedEntityGraph;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +30,5 @@ public class FormularioRepository extends Repositorio{
       }
     }
 
-    public void refresh(Formulario formulario) {
-      entityManager().refresh(formulario);
-    }
+
 }

@@ -7,12 +7,15 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,21 +28,24 @@ public class Tecnico extends Persistente implements ReceptorDeNotificaciones {
   @Column(name = "apellido")
   private String apellido;
 
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @Embedded
   private Documento documento;
 
   @Column(name = "cuil")
   private String cuil;
 
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @OneToMany
   @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
   private List<Contacto> contactos;
 
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @OneToOne
   @JoinColumn(name = "contacto_preferido_id", referencedColumnName = "id")
   private Contacto contactoPreferido;
 
-  @Embedded
+  @Embedded @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private AreaDeCobertura areaDeCobertura;
 
   public Tecnico(Contacto contacto, AreaDeCobertura areaDeCobertura) {

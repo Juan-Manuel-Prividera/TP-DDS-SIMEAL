@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
@@ -9,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
@@ -22,6 +24,7 @@ import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.Condicion;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.LongitudTest;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
+import ar.edu.utn.frba.dds.simeal.utils.logger.LoggerType;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
@@ -128,6 +131,8 @@ public class UsuariosController {
         String calleAltura = context.formParam("calle_altura");
         String medioContacto = context.formParam("medio_contacto");
         String infoContacto = context.formParam("info_contacto");
+        String provincia = context.formParam("provincia").replace("_", " ");
+        String codigoPostal = context.formParam("codigo_postal");
 
         if (calleNombre == null || calleAltura == null || infoContacto == null || medioContacto == null) {
             fail(context, "El usuario no dio suficientes datos");
@@ -135,7 +140,7 @@ public class UsuariosController {
         }
 
         int altura = Integer.parseInt(calleAltura);
-        Ubicacion ubicacion = new Ubicacion(calleNombre, altura);
+        Ubicacion ubicacion = new Ubicacion(calleNombre, altura, Provincia.valueOf(provincia),Integer.parseInt(codigoPostal));
         colaborador.setUbicacion(ubicacion);
 
         // TODO: Setear medio de contacto

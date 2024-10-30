@@ -1,0 +1,36 @@
+{{> templates/header}}
+<div class="container my-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Registrar Visita Técnica</h2>
+
+    <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" enctype="multipart/form-data">
+        <!-- Campo de Descripción -->
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción del Incidente:</label>
+            <textarea id="descripcion" name="descripcion" class="form-control" rows="4" required></textarea>
+        </div>
+
+        <!-- Campo de Estado de Éxito -->
+        <div class="mb-3">
+            <label for="exitosa" class="form-label">¿Fue exitosa?</label>
+            <select id="exitosa" name="exitosa" class="form-select" required>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+        <!-- Campo de Fecha y Hora -->
+        <div class="mb-3">
+            <label for="fechaHora" class="form-label">Fecha y Hora:</label>
+            <input type="datetime-local" id="fechaHora" name="fechaHora" class="form-control" required>
+        </div>
+
+        <!-- Campo de Imagen (Opcional) -->
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen (opcional):</label>
+            <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
+        </div>
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-success w-100">Registrar Visita</button>
+    </form>
+</div>

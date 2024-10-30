@@ -1,6 +1,5 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +10,20 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "alerta")
 @Entity
-public class Alerta extends Persistente implements Incidente {
+@DiscriminatorValue("alerta")
+public class Alerta extends Incidente {
+  @Getter
   @ManyToOne
   @JoinColumn(name="heladera_id", referencedColumnName = "id")
   private Heladera heladera;
+
   @Column(name = "descripcion")
   private String descripcion;
+
   @Column(name = "fecha_hora")
   private LocalDateTime fechaHora;
+
   @Column(name = "tipo_alerta")
   @Enumerated(EnumType.STRING)
   private TipoAlerta tipoAlerta;

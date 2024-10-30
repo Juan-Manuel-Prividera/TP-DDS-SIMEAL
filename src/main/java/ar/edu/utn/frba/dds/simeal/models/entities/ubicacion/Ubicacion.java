@@ -1,26 +1,35 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.ubicacion;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.service.CalculadorCoordenadas.CalculadorCoordenadas;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.geotools.referencing.GeodeticCalculator;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name="ubicacion")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Ubicacion extends Persistente {
   @Column(name = "nombre_calle")
   private String nombreCalle;
+
   @Column(name = "altura")
   private int altura;
+
+  @Column(name = "provincia")
+  @Enumerated(EnumType.STRING)
+  private Provincia provincia;
+
+  @Column(name = "codigo_postal")
+  private int codigoPostal;
+
   @Embedded
   private Coordenada coordenada;
 
@@ -28,9 +37,11 @@ public class Ubicacion extends Persistente {
     this.coordenada = new Coordenada(longitud, latitud);
   }
 
-  public Ubicacion(String nombreCalle, int altura) {
+  public Ubicacion(String nombreCalle, int altura, Provincia provincia, int codigoPostal) {
     this.nombreCalle = nombreCalle;
     this.altura = altura;
+    this.provincia = provincia;
+    this.codigoPostal = codigoPostal;
   }
 
   public Ubicacion(String nombreCalle, int altura, double longitud, double latitud) {
@@ -46,6 +57,10 @@ public class Ubicacion extends Persistente {
 
 
   public double distanciaA(Ubicacion ubicacion) {
+    if (getCoordenada() == null) {
+      coordenada = CalculadorCoordenadas.calcular(this);
+    }
+
     double lat1 = this.getCoordenada().getLatitud();
     double lon1 = this.getCoordenada().getLongitud();
     double lat2 = ubicacion.getCoordenada().getLatitud();

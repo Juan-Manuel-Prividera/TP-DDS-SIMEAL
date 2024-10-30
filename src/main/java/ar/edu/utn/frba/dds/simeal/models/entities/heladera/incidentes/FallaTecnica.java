@@ -1,9 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes;
 
-import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,16 +16,17 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "falla_tecnica")
-public class FallaTecnica extends Persistente implements Incidente{
+@DiscriminatorValue("fallaTecnica")
+public class FallaTecnica extends Incidente{
+  @Getter
   @ManyToOne
-  @JoinColumn(referencedColumnName = "id", name = "heladera_id")
+  @JoinColumn(name="heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
-  @Column(name="descripcion")
+  @Column(name = "descripcion")
   private String descripcion;
 
-  @Column(name="fecha_hora")
+  @Column(name = "fecha_hora")
   private LocalDateTime fechaHora;
 
   @ManyToOne

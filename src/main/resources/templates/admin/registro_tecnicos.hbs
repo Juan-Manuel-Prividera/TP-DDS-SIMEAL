@@ -1,0 +1,91 @@
+{{> templates/navbar}}
+<form class="form-group" action="/tecnico" method="POST" style="margin-left: 0; margin-bottom: 0; margin-top: 3%; align-items: center; justify-content: center">
+    <h2>Registrar Técnico</h2>
+
+    <!-- Nombre Completo -->
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Pérez" />
+
+        <label for="apellido">Apellido</label>
+        <input type="text" id="apellido" name="apellido" required placeholder="Ej. Pérez" />
+    <!-- Tipo y Número de Documento -->
+        <label for="tipoDocumento">Tipo de Documento</label>
+        <select class="form-control" id="tipoDocumento" name="tipoDocumento"  style="width: 30%; height: 5vh" required>
+            <option value="">Seleccione</option>
+            <option value="DNI">DNI</option>
+            <option value="LC">LC</option>
+            <option value="LE">LE</option>
+            <option value="PASAPORTE">Pasaporte</option>
+        </select>
+
+        <label for="numeroDocumento">Número de Documento</label>
+        <input type="text" id="numeroDocumento" name="numeroDocumento" required placeholder="Ej. 12345678" />
+
+    <!-- CUIL -->
+        <label for="cuil">CUIL</label>
+        <input type="text" id="cuil" name="cuil" required placeholder="Ej. 20-12345678-9" />
+
+    <!-- Medio de Contacto -->
+        <label for="medioContacto">Medio de Contacto</label>
+        <select class="form-control" id="medioContacto" name="medioContacto"  style="width: 30%; height: 5vh" required>
+            <option value="">Seleccione</option>
+            <option value="email">Email</option>
+            <option value="wpp">WhatsApp</option>
+            <option value="telegram">Telegram</option>
+            <option value="telefono">Teléfono</option>
+        </select>
+
+        <label for="infoContacto">Información de Contacto</label>
+        <input type="text" id="infoContacto" name="infoContacto" required placeholder="Ej. 11 1234 6786" />
+
+    <!-- Área de Cobertura -->
+    <!-- Dirección de Cobertura -->
+        <label for="calleCobertura">Dirección de Cobertura: Calle</label>
+        <input type="text" id="calleCobertura" name="calleCobertura" required placeholder="Ej. Av. Siempre Viva" />
+
+        <label for="alturaCobertura">Dirección de Cobertura: Altura</label>
+        <input type="text" id="alturaCobertura" name="alturaCobertura" required placeholder="Ej. 742" />
+
+    <label for="codigo_postal">Dirección de Cobertrura: código postal</label>
+    <input type="number"
+           name="codigo_postal"
+           id="codigo_postal"
+           placeholder="Código postal"
+           required="required">
+
+    <label for="provincia" class="form-label">Provincia de Cobertura</label>
+    <select id="provincia" name="provincia" class="form-control" style="width: 30%; height: 5vh" required>
+        <option value="" disabled selected hidden>Provincias</option>
+        <option value="Buenos Aires">Buenos Aires</option>
+        <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
+        <option value="Catamarca">Catamarca</option>
+        <option value="Chaco">Chaco</option>
+        <option value="Chubut">Chubut</option>
+        <option value="Córdoba">Córdoba</option>
+        <option value="Corrientes">Corrientes</option>
+        <option value="Entre Ríos">Entre Ríos</option>
+        <option value="Formosa">Formosa</option>
+        <option value="Jujuy">Jujuy</option>
+        <option value="La Pampa">La Pampa</option>
+        <option value="La Rioja">La Rioja</option>
+        <option value="Mendoza">Mendoza</option>
+        <option value="Misiones">Misiones</option>
+        <option value="Neuquén">Neuquén</option>
+        <option value="Río Negro">Río Negro</option>
+        <option value="Salta">Salta</option>
+        <option value="San Juan">San Juan</option>
+        <option value="San Luis">San Luis</option>
+        <option value="Santa Cruz">Santa Cruz</option>
+        <option value="Santa Fe">Santa Fe</option>
+        <option value="Santiago del Estero">Santiago del Estero</option>
+        <option value="Tierra del Fuego">Tierra del Fuego</option>
+        <option value="Tucumán">Tucumán</option>
+    </select>
+
+    <!-- Radio de Cobertura -->
+        <label for="radioCobertura">Radio de Cobertura (en km)</label>
+        <input type="number" id="radioCobertura" name="radioCobertura" required placeholder="Ej. 10" min="0" step="0.1" />
+
+    <!-- Botón de envío -->
+    <button class="btn-success mb-5 mt-5" type="submit">Registrar Técnico</button>
+</form>

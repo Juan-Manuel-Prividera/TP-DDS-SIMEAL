@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.usuario;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

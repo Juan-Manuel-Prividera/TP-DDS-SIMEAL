@@ -3,7 +3,6 @@ package ar.edu.utn.frba.dds.simeal.models.dtos;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.Suscripcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HayMuchasViandas;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;
-import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
 import lombok.Getter;
 import lombok.Setter;
