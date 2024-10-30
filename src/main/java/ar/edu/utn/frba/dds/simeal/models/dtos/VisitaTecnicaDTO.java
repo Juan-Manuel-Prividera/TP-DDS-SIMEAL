@@ -2,9 +2,13 @@ package ar.edu.utn.frba.dds.simeal.models.dtos;
 
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
 
+@Getter
+@Setter
 public class VisitaTecnicaDTO {
   private Long id;
   private Long heladeraId;

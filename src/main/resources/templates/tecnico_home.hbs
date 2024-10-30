@@ -2,15 +2,17 @@
 
 <div class="d-flex vh-100">
     <!-- Sección de Encargos -->
-    <div class="col-md-6 overflow-auto border-end p-3">
+    <div class="col-md-6 overflow-auto border-end p-3" style="display: flex; flex-direction: column; align-items: center;">
         <h2 class="mb-4">Encargos Asignados</h2>
-        <ul class="list-group">
+        <ul class="list-group"  style="width: 100%">
+            {{#if encargos.length}}
             {{#each encargos}}
                 <li class="list-group-item mb-3">
                     <!-- Encargo principal -->
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <strong>{{this.nombreHeladera}}</strong><br>
+                            <p>Estado: {{this.aceptado}}</p>
                             <small>{{this.fechaHora}}</small>
                         </div>
                         <div>
@@ -27,13 +29,17 @@
                     </div>
                 </li>
             {{/each}}
+            {{else}}
+                <h3 class="mt-5">No hay encargos asignados</h3>
+            {{/if}}
         </ul>
     </div>
 
     <!-- Sección de Visitas Técnicas -->
-    <div class="col-md-6 overflow-auto p-3">
+    <div class="col-md-6 overflow-auto p-3" style="display: flex; flex-direction: column; align-items: center;">
         <h2 class="mb-4">Visitas Técnicas</h2>
-        <ul class="list-group">
+        <ul class="list-group"  style="width: 100%">
+            {{#if visitas.length}}
             {{#each visitas}}
                 <li class="list-group-item mb-3">
                     <div>
@@ -50,6 +56,10 @@
                     </div>
                 </li>
             {{/each}}
+            {{else}}
+                <h3 class="mt-5">Aún no hay visitas registradas</h3>
+                <p style="font-size: 20px"><strong>A laburar loco!!</strong></p>
+            {{/if}}
         </ul>
     </div>
 </div>

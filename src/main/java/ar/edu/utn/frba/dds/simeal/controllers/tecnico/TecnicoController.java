@@ -73,7 +73,7 @@ public class TecnicoController {
         .build();
 
       repositorio.guardar(tecnico);
-      ctx.redirect("/tecnico", HttpStatus.CREATED);
+      ctx.redirect("/tecnico");
       Logger.debug("Tecnico creado correctamente");
     } catch (Exception e) {
       ctx.status(500);
@@ -88,8 +88,10 @@ public class TecnicoController {
 
       repositorio.desactivar(tecnico);
       repositorio.refresh(tecnico);
-      ctx.redirect("tecnico", HttpStatus.OK);
+      Logger.debug("Tecnico eliminado correctamente");
+      ctx.redirect("/tecnico");
     } catch (Exception e) {
+      Logger.debug("Error al eliminar el tecnico: " + e.getMessage());
       ctx.status(500);
     }
   }

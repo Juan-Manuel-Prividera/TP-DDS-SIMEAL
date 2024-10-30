@@ -32,8 +32,7 @@ import java.util.Map;
 public class UsuariosController {
     public void create(Context context){
         // TODO: Chequear que el nombre no exista ya
-        // TODO: Usar el pw validator
-
+        Logger.info("Creando usuario");
         // -- TRATAMOS DE CREAR EL USUARIO --
         // Estos son los básicos que necesitamos, lo demás en negociable
         String rolParam = context.pathParam("rol");
@@ -54,7 +53,7 @@ public class UsuariosController {
         // TODO: Hacer esto un toque mejor
         ArrayList<Condicion> condiciones = new ArrayList<>();
         // TODO: Qué ruta pongo para la blacklist??
-        condiciones.add(new NoEnBlackList("blacklist.txt"));
+        condiciones.add(new NoEnBlackList("src/main/resources/blacklist.txt"));
         condiciones.add(new LongitudTest(8));
         PasswordValidator validator = new PasswordValidator(condiciones);
         String msg = validator.validate(password);
@@ -128,7 +127,7 @@ public class UsuariosController {
         String calleAltura = context.formParam("calle_altura");
         String medioContacto = context.formParam("medio_contacto");
         String infoContacto = context.formParam("info_contacto");
-        String provincia = context.formParam("provincia").replace("_", " ");
+        Provincia provincia = Provincia.valueOf(context.formParam("provincia"));
         String codigoPostal = context.formParam("codigo_postal");
 
         if (calleNombre == null || calleAltura == null || infoContacto == null || medioContacto == null) {
@@ -137,7 +136,7 @@ public class UsuariosController {
         }
 
         int altura = Integer.parseInt(calleAltura);
-        Ubicacion ubicacion = new Ubicacion(calleNombre, altura, Provincia.valueOf(provincia),Integer.parseInt(codigoPostal));
+        Ubicacion ubicacion = new Ubicacion(calleNombre, altura, provincia,Integer.parseInt(codigoPostal));
         colaborador.setUbicacion(ubicacion);
 
         // TODO: Setear medio de contacto
@@ -226,12 +225,13 @@ public class UsuariosController {
 
         ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
 
+        Logger.info("Usuario creado correctamente");
         context.redirect("/");
 
     }
 
     private void fail(Context context, String reason){
-        Logger.debug("No se pudo crear el usuario - " + reason);
+        Logger.error("No se pudo crear el usuario - " + reason);
         Logger.info("La ip '" + context.ip() + "' está toqueteando el sistema, mandemos la policía");
         context.status(418);
         context.render("impostor_among_us.hbs");

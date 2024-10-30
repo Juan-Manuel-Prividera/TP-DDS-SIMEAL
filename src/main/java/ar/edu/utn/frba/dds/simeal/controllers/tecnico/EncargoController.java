@@ -26,7 +26,7 @@ public class EncargoController {
     EncargoTecnico encargoTecnico = EncargoTecnico.builder()
       .tecnico(tecnico) // Aca ya llega el tecnico mas cercano al incidente
       .incidente(incidente)
-      .aceptado(false) // Por defecto no esta aceptado y luego el tecnico puede aceptarlo manualmente
+      .aceptado(null) // Trato el null como 'Pendiente'
       .build();
 
     repoEncargo.guardar(encargoTecnico);
@@ -39,6 +39,7 @@ public class EncargoController {
 
     encargoTecnico.setAceptado(true);
     repoEncargo.actualizar(encargoTecnico);
+    ctx.redirect("tecnico/home");
   }
 
   // GET /encargo/{encargo_id}/rechazado

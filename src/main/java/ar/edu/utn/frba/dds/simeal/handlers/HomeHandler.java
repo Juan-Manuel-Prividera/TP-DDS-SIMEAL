@@ -21,15 +21,15 @@ public class HomeHandler {
         HashMap<String, Object> hbMap = new HashMap<>();
 
         switch (rol){
-            case "ADMIN":
-                hbMap.put("esAdmin", true);
-                hbMap.put("user_type", "admin");
-                hbMap.put("formulario", "seleccionado");
+//            case "ADMIN":
+//                hbMap.put("esAdmin", true);
+//                hbMap.put("user_type", "admin");
+//                hbMap.put("formulario", "seleccionado");
+//                break;
+            case "HUMANO":
+                hbMap.put("esHumano", true);
+                hbMap.put("user_type", "humano");
                 break;
-                case "HUMANO":
-                    hbMap.put("esHumano", true);
-                    hbMap.put("user_type", "humano");
-                    break;
             case "JURIDICO":
                 hbMap.put("esJuridico", true);
                 hbMap.put("user_type", "juridico");
@@ -38,7 +38,7 @@ public class HomeHandler {
 
         hbMap.put("username", username);
         hbMap.put("titulo", "Simeal - Home");
-        context.render("humano_home.hbs", hbMap);
+        context.render("home.hbs", hbMap);
     }
     // TODO: No anda
     public void setUserType(Context context) {
@@ -62,6 +62,6 @@ public class HomeHandler {
         response.put("message", "Tipo de usuario establecido a " + userType);
         context.status(200);
 
-        context.render("humano_home.hbs", model);
+        context.render("home.hbs", model);
     }
 }

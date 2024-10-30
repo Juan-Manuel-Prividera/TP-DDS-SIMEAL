@@ -1,9 +1,11 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
@@ -13,13 +15,18 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -89,6 +96,18 @@ public class InitPersistence {
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
         Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
 
+        Permiso getTecnico = new Permiso("/tecnicoRol", TipoMetodoHttp.GET);
+        Permiso postTecnico = new Permiso("/tecnicoRol", TipoMetodoHttp.POST);
+        Permiso getRegistroTecnico = new Permiso("/registro/tecnicoRol", TipoMetodoHttp.GET);
+        Permiso deleteTecnicos = new Permiso("tecnicoRol/\\d+", TipoMetodoHttp.DELETE);
+
+        Permiso getEncargoAceptado = new Permiso("encargo/\\d+/aceptado", TipoMetodoHttp.GET);
+        Permiso getEncargoRechazado = new Permiso("encargo/\\d+/rechazado", TipoMetodoHttp.GET);
+
+        Permiso getTecnicoHome = new Permiso("/tecnicoRol/home", TipoMetodoHttp.GET);
+        Permiso getEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.GET);
+        Permiso postEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.POST);
+
         // Crear roles
         List<Permiso> permisosHumano = List.of(
                 getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
@@ -112,18 +131,28 @@ public class InitPersistence {
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome
+                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
+
+        List<Permiso> permisosTecnico = List.of(
+          getEncargoAceptado, getEncargoRechazado, getTecnicoHome, getEncargoVisita,
+          postEncargoVisita
+        );
+
+        Rol tecnicoRol = new Rol(TipoRol.TECNICO, permisosTecnico);
+
 
         Repositorio repo = new Repositorio();
         repo.guardar(humano);
         repo.guardar(juridico);
         repo.guardar(admin);
+        repo.guardar(tecnicoRol);
 
         Usuario usuarioAdmin = new Usuario("admin", PasswordHasher.hashPassword("admin"), List.of(admin));
         Usuario usuarioHumano = new Usuario("humano", PasswordHasher.hashPassword("humano"), List.of(humano));
         Usuario usuarioJuridico = new Usuario("juridico", PasswordHasher.hashPassword("juridico"), List.of(juridico));
+        Usuario usuarioTecnico = new Usuario("tecnico", PasswordHasher.hashPassword("tecnico"), List.of(tecnicoRol));
 
         Colaborador colaboradorHumano = new Colaborador(
                 new Documento(TipoDocumento.DNI, "13"),
@@ -138,13 +167,23 @@ public class InitPersistence {
                 "Arcos dorados",
                 new Rubro()
         );
-
         colaboradorJuridico.setUsuario(usuarioJuridico);
         repo.guardar(colaboradorJuridico);
+
+        Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia(new ConfigReader())));
+        AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
+          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179), 10000.0);
+        Tecnico tecnico = new Tecnico("Tomas", "Pauza",
+          new Documento(TipoDocumento.DNI, "1234556677"),
+            "2012334556599", List.of(contactoTecnico), contactoTecnico, areaDeCobertura
+          );
+        tecnico.setUsuario(usuarioTecnico);
+        repo.guardar(tecnico);
 
         repo.guardar(usuarioAdmin);
         repo.guardar(usuarioHumano);
         repo.guardar(usuarioJuridico);
+        repo.guardar(usuarioTecnico);
 
     }
     private static void initFormularios() {

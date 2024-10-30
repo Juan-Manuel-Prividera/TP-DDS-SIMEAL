@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.server.exception_handlers.AppHandlers;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.Initializer;
 import ar.edu.utn.frba.dds.simeal.utils.JavalinRenderer;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
@@ -39,6 +40,7 @@ public class Server {
         Initializer.init();
       }
     }
+    Logger.info("*** Iniciando aplicacion ***");
   }
 
   private static Consumer<JavalinConfig> config() {

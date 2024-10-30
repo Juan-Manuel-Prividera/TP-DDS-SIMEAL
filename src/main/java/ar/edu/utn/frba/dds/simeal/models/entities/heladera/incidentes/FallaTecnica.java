@@ -44,7 +44,7 @@ public class FallaTecnica extends Incidente{
     return "\t- Fecha: " + fechaHora.format(formatterDia)
         + "\n\t- Hora: " + fechaHora.format(formatterHora)
         + "\n\t- Colaborador: " + colaborador.getNombre() + " " + colaborador.getApellido()
-        + "\n\t- Descripcion: " + descripcion
-        + "\n\t- ImagePath: " + imagen;
+        + "\n\t- Descripcion: " + descripcion;
+   //     + "\n\t- ImagePath: " + imagen;
   }
 }

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Logger {
 
-  static String filename = "log_de_todo.log";
+  static String filename = "src/main/java/ar/edu/utn/frba/dds/simeal/log/log_de_todo.log";
 
   static Map<LogType, String> strings = Map.of(
           LogType.TRACE, ".",

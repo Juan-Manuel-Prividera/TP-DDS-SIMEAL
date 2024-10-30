@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,5 +32,9 @@ public class VisitaTecnica extends Persistente {
 
   @Column(name = "imagen")
   private String imagen;
+
+  @ManyToOne
+  @JoinColumn(name = "tecnico_id", referencedColumnName = "id")
+  private Tecnico tecnico;
 
 }

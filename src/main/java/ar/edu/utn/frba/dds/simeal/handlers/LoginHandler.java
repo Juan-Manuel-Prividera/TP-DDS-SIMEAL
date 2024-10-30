@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.handlers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
@@ -48,28 +49,8 @@ public class LoginHandler {
         } else {
             Logger.info("Login successful, welcome " + username);
 
-            // TODO: Setear Cookies:
-            //  - el id_usuario, nombre_usuario, rol, colaborador_id (hacer metodo), ...
 
-            //context.sessionAttribute("user_id", usuario.getId());
 
-            Long colaboradorID = null;
-
-            List<Colaborador> colaboradores = (List<Colaborador>) repo.obtenerTodos(Colaborador.class);
-            for (Colaborador c : colaboradores){
-                Usuario u = c.getUsuario();
-                if (u == null) continue;
-                if (c.getUsuario().equals(usuario)){
-                    colaboradorID = c.getId();
-                    break;
-                }
-            }
-
-            if (colaboradorID == null) {
-                Logger.debug("No hay un colaborador asociado al usuario '"+username+"'");
-            } else {
-                context.sessionAttribute("colaborador_id", colaboradorID);
-            }
 
             // Guardamos los datos que necesitemos en la sesión
             context.sessionAttribute("user_id", usuario.getId());
@@ -83,15 +64,50 @@ public class LoginHandler {
                     break;
 
                 case JURIDICO, HUMANO:
+                    Long colaboradorID = obtenerColabId(usuario);
+                    if (colaboradorID == null)
+                        Logger.error("No hay un colaborador asociado al usuario '"+username+"'");
+                    else
+                        context.sessionAttribute("colaborador_id", colaboradorID);
+
                     context.sessionAttribute("user_type", r.getTipo().toString());
                     context.redirect("/home");
                     break;
 
-                    default:
-                    context.result("xd");
+                case TECNICO:
+                    Long tecnicoId = obtenerTecnicoId(usuario);
+                    if (tecnicoId == null) Logger.error("No hay un colaborador asociado al usuario '"+username+"'");
+                    else context.sessionAttribute("tecnico_id", tecnicoId);
+
+                    context.sessionAttribute("user_type", r.getTipo().toString());
+                    context.redirect("/tecnico/home");
+                default:
+                        context.result("xd");
                     break;
                 }
         }
+    }
+
+    private Long obtenerColabId(Usuario usuario) {
+        Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
+        List<Colaborador> colaboradores = (List<Colaborador>) repo.obtenerTodos(Colaborador.class);
+        for (Colaborador c : colaboradores){
+            Usuario u = c.getUsuario();
+            if (u == null) continue;
+            if (c.getUsuario().equals(usuario)) return c.getId();
+        }
+        return null;
+    }
+
+    private Long obtenerTecnicoId(Usuario usuario) {
+        Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
+        List<Tecnico> tecnicos= (List<Tecnico>) repo.obtenerTodos(Tecnico.class);
+        for (Tecnico c : tecnicos){
+            Usuario u = c.getUsuario();
+            if (u == null) continue;
+            if (c.getUsuario().equals(usuario)) return c.getId();
+        }
+        return null;
     }
 
     private void fail(Context context){

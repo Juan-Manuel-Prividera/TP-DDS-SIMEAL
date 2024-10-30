@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class VisitaController {
   private VisitaTecnicaRepository visitaTecnicaRepository;
@@ -36,6 +37,7 @@ public class VisitaController {
       encargosDTO.add(new EncargoTecnicoDTO(encargo));
     }
     HashMap<String, Object> model = new HashMap<>();
+    setModel(model, ctx);
     model.put("visitas", visitasDTO);
     model.put("encargos", encargosDTO);
     ctx.render("tecnico_home.hbs",model);
@@ -43,8 +45,10 @@ public class VisitaController {
 
   // GET /{encargo_id}/visita
   public void indexRegistroVisita(Context ctx) {
-    // TODO: Ver que mas hace falta aca
-    ctx.render("registro_visita.hbs");
+    HashMap<String, Object> model = new HashMap<>();
+    setModel(model, ctx);
+    model.put("encargo_id",ctx.pathParam("encargo_id"));
+    ctx.render("registro_visita.hbs", model);
   }
 
   // POST /{encargo_id}/visita
@@ -69,5 +73,14 @@ public class VisitaController {
     encargo.incrementVisitasHechas();
     encargoTecnicoRepostiry.actualizar(encargo);
     encargoTecnicoRepostiry.refresh(encargo);
+
+    visitaTecnicaRepository.guardar(visitaTecnica);
+    ctx.redirect("tecnico/home");
+  }
+
+  private void setModel(HashMap<String, Object> model, Context ctx) {
+    model.put("esTecnico", true);
+    model.put("username", ctx.sessionAttribute("username"));
+    model.put("user_type", ctx.sessionAttribute("user_type"));
   }
 }

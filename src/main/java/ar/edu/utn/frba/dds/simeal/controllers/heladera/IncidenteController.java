@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import io.javalin.http.Context;
@@ -56,12 +57,15 @@ public class IncidenteController {
 
     // Avisar a tecnico mas cercano
     Tecnico tecnicoMasCercano = obtenerTecnicoMasCercano(incidente);
-    Mensaje mensaje = new Mensaje(
-      incidente.getNotificacion(),
-      "Aviso de Incidente en " + incidente.getHeladera().getUbicacion().getStringUbi() +
-        "\n Podra ver el detalle del aviso en el apartado de encargos e informar si lo acepta o rechaza.");
-    Notificador.notificar(tecnicoMasCercano,mensaje);
-    encargoController.create(incidente,tecnicoMasCercano);
+    if (tecnicoMasCercano != null) {
+      Mensaje mensaje = new Mensaje(
+        incidente.getNotificacion(),
+        "Aviso de Incidente en " + incidente.getHeladera().getUbicacion().getStringUbi() +
+          "\n Podra ver el detalle del aviso en el apartado de encargos e informar si lo acepta o rechaza.");
+      Notificador.notificar(tecnicoMasCercano,mensaje);
+      encargoController.create(incidente,tecnicoMasCercano);
+    } else
+      Logger.error("No hay tecnico a quien asignar el encargo");
   }
 
   private void setNavBar(HashMap<String,Object> model, Context app) {
