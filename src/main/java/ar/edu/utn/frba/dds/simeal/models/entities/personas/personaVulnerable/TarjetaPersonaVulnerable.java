@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(force = true)
 @Entity
-@Table(name = "tarjetaPersonaVulnerable")
+@Table(name = "tarjeta_persona_vulnerable")
 public class TarjetaPersonaVulnerable extends Persistente {
   @Column(name = "codigo")
   private final String codigo;

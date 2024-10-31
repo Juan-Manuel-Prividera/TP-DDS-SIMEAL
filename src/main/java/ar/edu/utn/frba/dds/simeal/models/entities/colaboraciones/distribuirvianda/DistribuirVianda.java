@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 @Getter
 @Entity
-@Table(name = "distribuirVianda")
+@Table(name = "distribuir_vianda")
 public class DistribuirVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")

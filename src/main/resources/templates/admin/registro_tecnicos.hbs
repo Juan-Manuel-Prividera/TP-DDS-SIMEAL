@@ -2,9 +2,13 @@
 <form class="form-group" action="/tecnico" method="POST" style="margin-left: 0; margin-bottom: 0; margin-top: 3%; align-items: center; justify-content: center">
     <h2>Registrar Técnico</h2>
 
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
+
     <!-- Nombre Completo -->
         <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Pérez" />
+        <input type="text" id="nombre" name="nombre" required placeholder="Ej. Carlos" />
 
         <label for="apellido">Apellido</label>
         <input type="text" id="apellido" name="apellido" required placeholder="Ej. Pérez" />
@@ -23,7 +27,7 @@
 
     <!-- CUIL -->
         <label for="cuil">CUIL</label>
-        <input type="text" id="cuil" name="cuil" required placeholder="Ej. 20-12345678-9" />
+        <input type="text" id="cuil" name="cuil" required placeholder="Ej. 20123456789" />
 
     <!-- Medio de Contacto -->
         <label for="medioContacto">Medio de Contacto</label>
@@ -36,12 +40,12 @@
         </select>
 
         <label for="infoContacto">Información de Contacto</label>
-        <input type="text" id="infoContacto" name="infoContacto" required placeholder="Ej. 11 1234 6786" />
+        <input type="text" id="infoContacto" name="infoContacto" required placeholder="Ej. 1112346786" />
 
     <!-- Área de Cobertura -->
     <!-- Dirección de Cobertura -->
         <label for="calleCobertura">Dirección de Cobertura: Calle</label>
-        <input type="text" id="calleCobertura" name="calleCobertura" required placeholder="Ej. Av. Siempre Viva" />
+        <input type="text" id="calleCobertura" name="calleCobertura" required placeholder="Ej. Av. Medrano" />
 
         <label for="alturaCobertura">Dirección de Cobertura: Altura</label>
         <input type="text" id="alturaCobertura" name="alturaCobertura" required placeholder="Ej. 742" />
@@ -50,14 +54,14 @@
     <input type="number"
            name="codigo_postal"
            id="codigo_postal"
-           placeholder="Código postal"
+           placeholder="1930"
            required="required">
 
     <label for="provincia" class="form-label">Provincia de Cobertura</label>
     <select id="provincia" name="provincia" class="form-control" style="width: 30%; height: 5vh" required>
             <option value="" disabled selected hidden>Provincias</option>
             <option value="Buenos_Aires">Buenos Aires</option>
-            <option value="CABA">Ciudad Autónoma de Buenos Aires</option>
+            <option value="Ciudad_Autonoma_De_Buenos_Aires">Ciudad Autónoma de Buenos Aires</option>
             <option value="Catamarca">Catamarca</option>
             <option value="Chaco">Chaco</option>
             <option value="Chubut">Chubut</option>

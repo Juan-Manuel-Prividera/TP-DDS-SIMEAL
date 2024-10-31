@@ -25,7 +25,6 @@ public class Contacto extends Persistente {
     @Column(name = "infoDeContacto")
     private String infoDeContacto;
 
-
     @Convert(converter = MedioContactoConverter.class)
     @Column(name = "medio_contacto")
     @Cascade({CascadeType.MERGE, CascadeType.PERSIST})

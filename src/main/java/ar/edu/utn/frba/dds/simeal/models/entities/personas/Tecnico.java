@@ -9,7 +9,6 @@ import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.jboss.jandex.TypeTarget;
 
 import javax.persistence.*;
 import java.util.List;

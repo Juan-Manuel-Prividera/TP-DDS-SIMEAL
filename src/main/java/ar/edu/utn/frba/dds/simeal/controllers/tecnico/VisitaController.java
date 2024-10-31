@@ -9,9 +9,11 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
-import javax.print.attribute.standard.PresentationDirection;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 public class VisitaController {
   private VisitaTecnicaRepository visitaTecnicaRepository;
@@ -29,39 +31,30 @@ public class VisitaController {
     Boolean failed = Boolean.parseBoolean(ctx.queryParam("failed"));
     String action = ctx.queryParam("action");
     Logger.debug("Failed: " + failed);
-    List<VisitaTecnica> visitas = visitaTecnicaRepository.getPorTecnico(ctx.sessionAttribute("tecnico_id"));
-    visitas.sort(Comparator.comparing(VisitaTecnica::getFechaHora));
 
-    List<VisitaTecnicaDTO> visitasDTO = new ArrayList<>();
-    for (VisitaTecnica visita : visitas) {
-      if (visita.getActivo())
-        visitasDTO.add(new VisitaTecnicaDTO(visita));
-    }
-    List<EncargoTecnico> encargos = encargoTecnicoRepostiry.getPorTecnico(ctx.sessionAttribute("tecnico_id"));
-    encargos.sort(Comparator.comparing(EncargoTecnico::getFechaAlta));
-
-    List<EncargoTecnicoDTO> encargosDTO = new ArrayList<>();
-    for (EncargoTecnico encargo : encargos) {
-      if (encargo.getActivo())
-        encargosDTO.add(new EncargoTecnicoDTO(encargo));
-    }
     setModel(model, ctx);
-    model.put("visitas", visitasDTO);
-    model.put("encargos", encargosDTO);
+    setVisitasEncargos(model,ctx);
 
-    if (failed && action != null) {
+    if (failed && action.equals("RegistrarVisita")) {
+      model.put("popup_title", "Error al registrar visita");
+      model.put("popup_message","No puede registrar una visita si no acepto el encargo!!");
+      model.put("popup_ruta","/tecnico/home");
+      ctx.render("tecnico/tecnico_home.hbs",model);
+
+    } else if (failed && action != null) {
       model.put("popup_title","Error al " + action + " encargo");
       model.put("popup_message","No se puede "+ action +" porque ya lo estaba!!");
       model.put("popup_ruta","/tecnico/home");
-      ctx.render("tecnico_home.hbs",model);
+      ctx.render("tecnico/tecnico_home.hbs",model);
+
     } else if (!failed && action == null) {
       model.put("popup_ruta","/tecnico/home");
-      ctx.render("tecnico_home.hbs",model);
+      ctx.render("tecnico/tecnico_home.hbs",model);
+
     } else if (!failed && action != null) {
       model.put("popup_title","Operación realizada exitosamente");
       model.put("popup_ruta","/tecnico/home");
-      ctx.render("tecnico_home.hbs",model);
-
+      ctx.render("tecnico/tecnico_home.hbs",model);
     }
 
   }
@@ -69,9 +62,18 @@ public class VisitaController {
   // GET /{encargo_id}/visita
   public void indexRegistroVisita(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
+    EncargoTecnico encargo = (EncargoTecnico) encargoTecnicoRepostiry
+      .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
+
     setModel(model, ctx);
+    setVisitasEncargos(model,ctx);
+
+    if (!encargo.getAceptado()) {
+      ctx.redirect("/tecnico/home?failed=true&action=RegistrarVisita");
+      return;
+    }
     model.put("encargo_id",ctx.pathParam("encargo_id"));
-    ctx.render("registro_visita.hbs", model);
+    ctx.render("tecnico/registro_visita.hbs", model);
   }
 
   // POST /{encargo_id}/visita
@@ -109,12 +111,34 @@ public class VisitaController {
     model.put("popup_ruta", "/tecnico/home");
     model.put("popup_button", "Volver al inicio");
     visitaTecnicaRepository.guardar(visitaTecnica);
-    ctx.render("registro_visita.hbs", model);
+    ctx.render("tecnico/registro_visita.hbs", model);
   }
 
   private void setModel(HashMap<String, Object> model, Context ctx) {
     model.put("esTecnico", true);
     model.put("username", ctx.sessionAttribute("user_name"));
     model.put("user_type", ctx.sessionAttribute("user_type"));
+  }
+
+  private void setVisitasEncargos(HashMap<String, Object> model, Context ctx) {
+    List<VisitaTecnica> visitas = visitaTecnicaRepository.getPorTecnico(ctx.sessionAttribute("tecnico_id"));
+    visitas.sort(Comparator.comparing(VisitaTecnica::getFechaHora));
+
+    List<VisitaTecnicaDTO> visitasDTO = new ArrayList<>();
+    for (VisitaTecnica visita : visitas) {
+      if (visita.getActivo())
+        visitasDTO.add(new VisitaTecnicaDTO(visita));
+    }
+    List<EncargoTecnico> encargos = encargoTecnicoRepostiry.getPorTecnico(ctx.sessionAttribute("tecnico_id"));
+    encargos.sort(Comparator.comparing(EncargoTecnico::getFechaAlta));
+
+    List<EncargoTecnicoDTO> encargosDTO = new ArrayList<>();
+    for (EncargoTecnico encargo : encargos) {
+      if (encargo.getActivo())
+        encargosDTO.add(new EncargoTecnicoDTO(encargo));
+    }
+
+    model.put("visitas", visitasDTO);
+    model.put("encargos", encargosDTO);
   }
 }

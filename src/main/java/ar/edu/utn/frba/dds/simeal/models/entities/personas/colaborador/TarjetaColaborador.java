@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tarjetaColaborador")
+@Table(name = "tarjeta_colaborador")
 public class TarjetaColaborador extends Persistente {
 
   @OneToOne

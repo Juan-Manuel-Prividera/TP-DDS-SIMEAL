@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Entity
-@Table(name = "personaVulnerable")
+@Table(name = "persona_pulnerable")
 @NoArgsConstructor(force = true)
 public class PersonaVulnerable extends Persistente {
   @Column (name = "nombre")

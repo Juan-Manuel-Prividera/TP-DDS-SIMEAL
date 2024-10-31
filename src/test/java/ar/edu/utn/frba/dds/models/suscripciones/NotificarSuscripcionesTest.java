@@ -14,6 +14,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Hay
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.HuboUnDesperfecto;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.Notificacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.notificacion.QuedanPocasViandas;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
@@ -43,7 +44,7 @@ public class NotificarSuscripcionesTest {
 
   @BeforeEach
   public void setUp() {
-    heladera = new Heladera(new Ubicacion("hola", 123));
+    heladera = new Heladera(new Ubicacion("hola", 123, Provincia.Buenos_Aires,1234));
     vianda1 = new Vianda(heladera);
     vianda2 = new Vianda(heladera);
     vianda3 = new Vianda(heladera);

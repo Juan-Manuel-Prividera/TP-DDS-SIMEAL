@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-@Table(name = "donarDinero")
+@Table(name = "donar_dinero")
 public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Getter
   @ManyToOne

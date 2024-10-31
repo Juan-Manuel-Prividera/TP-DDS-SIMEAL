@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
@@ -96,15 +95,15 @@ public class InitPersistence {
         Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
         Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
 
-        Permiso getTecnico = new Permiso("/tecnicoRol", TipoMetodoHttp.GET);
-        Permiso postTecnico = new Permiso("/tecnicoRol", TipoMetodoHttp.POST);
-        Permiso getRegistroTecnico = new Permiso("/registro/tecnicoRol", TipoMetodoHttp.GET);
-        Permiso deleteTecnicos = new Permiso("tecnicoRol/\\d+", TipoMetodoHttp.DELETE);
+        Permiso getTecnico = new Permiso("/tecnico", TipoMetodoHttp.GET);
+        Permiso postTecnico = new Permiso("/tecnico", TipoMetodoHttp.POST);
+        Permiso getRegistroTecnico = new Permiso("/registro/tecnico", TipoMetodoHttp.GET);
+        Permiso deleteTecnicos = new Permiso("tecnico/\\d+", TipoMetodoHttp.DELETE);
 
         Permiso getEncargoAceptado = new Permiso("encargo/\\d+/aceptado", TipoMetodoHttp.GET);
         Permiso getEncargoRechazado = new Permiso("encargo/\\d+/rechazado", TipoMetodoHttp.GET);
 
-        Permiso getTecnicoHome = new Permiso("/tecnicoRol/home", TipoMetodoHttp.GET);
+        Permiso getTecnicoHome = new Permiso("/tecnico/home", TipoMetodoHttp.GET);
         Permiso getEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.GET);
         Permiso postEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.POST);
 

@@ -25,6 +25,7 @@ public class FormularioController {
     HashMap<String, Object> model = new HashMap<>();
     setFormulario(model,ctx);
     model.put("titulo", "Formularios");
+    model.put("formulario", "seleccionado");
     ctx.render("admin/formularios.hbs",model);
   }
   // POST /formulario
