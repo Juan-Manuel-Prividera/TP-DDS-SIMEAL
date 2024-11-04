@@ -1,6 +1,7 @@
 # Simeal
 _Sistema de Mejora Alimentaria_
 ![Logo simeal](src/main/resources/static/img/heladera.png)
+> Lo que no se persiste, no existe -Anónimo
 
 # java-base-project
 
