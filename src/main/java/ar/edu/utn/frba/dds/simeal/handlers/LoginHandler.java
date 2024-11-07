@@ -6,6 +6,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
@@ -51,8 +52,11 @@ public class LoginHandler {
 
 
 
-
             // Guardamos los datos que necesitemos en la sesión
+            context.req().getSession().setMaxInactiveInterval(
+                    Integer.parseInt(
+                            new ConfigReader().getProperty("sessions.max_inactive_interval")
+            ));
             context.sessionAttribute("user_id", usuario.getId());
             context.sessionAttribute("user_name", usuario.getUsername());
 
