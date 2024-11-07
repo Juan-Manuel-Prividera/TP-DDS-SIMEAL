@@ -52,6 +52,15 @@ public class Oferta extends Persistente {
         .build();
   }
 
+  public static Oferta create(Colaborador colaborador, String nombre, LocalDate fechaDeRealizacion, double puntosNecesarios, Rubro rubro) {
+    return Oferta.builder()
+            .colaborador(colaborador)
+            .fechaDeRealizacion(fechaDeRealizacion)
+            .puntosNecesarios(puntosNecesarios)
+            .rubro(rubro)
+            .build();
+  }
+
   // La validacion de si puede canjearla se haria antes de ejecutar este metodo
   public void canjear(Colaborador colaborador) {
     colaborador.gastarPuntos(this.puntosNecesarios);

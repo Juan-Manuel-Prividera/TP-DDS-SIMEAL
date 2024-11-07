@@ -1,3 +1,7 @@
+#confirmacion{
+    display: none;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -257,6 +261,7 @@ input[type="number"] {
     border-radius: 20px;
 }
 .confirmation-box {
+    display: none;
     background-color: white; /* Fondo blanco */
     color: black; /* Texto negro */
     padding: 3%;

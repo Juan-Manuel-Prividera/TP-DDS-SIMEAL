@@ -1,0 +1,51 @@
+{{> templates/navbar}}
+<div class="container-superior" id="ofertas_body">
+    <div class="filters">
+        <label for="rubro"><b>Rubro:</b></label>
+        <select id="rubro">
+                <option value="Todos">Todos</option>
+            {{#each rubros}}
+                <option value="{{this.id}}">{{this.nombre}}</option>
+            {{/each}}
+            </select>
+        </select>
+    </div>
+
+    <div class="points">
+        <div class="points-min">
+            <label for="puntos-min"><b>Puntos Mínimos</b></label>
+            <input type="number" id="puntos-min" value="XXX" min="0" step="10">
+        </div>
+
+        <div class="points-max">
+            <label for="puntos-max"><b>Puntos Máximos</b></label>
+            <input type="number" id="puntos-max" value="XXX" min="0" step="10">
+        </div>
+    </div>
+    {{#if esHumano}}
+        <div class="available-points">
+            <p><b>Puntos</b> <p>
+            <p><b> Disponibles </b></p>
+        </div>
+        <div class="value-points">
+            <b>{{puntosDisponibles}}</b>
+        </div>
+    {{else}}
+    {{#if esJuridico}}
+        {{#if agregarOferta}}
+            <div class="agregar-oferta">
+                <a class="dark-btn" href="misOfertas/publicar">Publicar Oferta</a>
+            </div>
+        {{else}}
+        <div class="agregar-oferta">
+            <a class="dark-btn" href="{{directorio}}ofertas/misOfertas">Tus Ofertas</a>
+        </div>
+        {{/if}}
+    {{/if}}
+    {{/if}}
+</div>
+<div id="ofertas_body">
+    {{#block "ofertas"}}{{/block}}
+</div>
+
+<script src="/js/busquedaOfertas.js"></script>

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
@@ -21,9 +22,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsAp
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ModeloHeladeraRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 
@@ -38,7 +37,7 @@ public class InitPersistence {
         initPermisosRolesYUsuarios();
         initFormularios();
         initHeladeras();
-
+        initOfertas();
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -215,5 +214,38 @@ public class InitPersistence {
         repositorioHeladera.guardar(heladera4);
 
 
+    }
+    //TODO: Agregar las imagenes
+    private static void initOfertas(){
+        Repositorio modeloRepo = ServiceLocator.getRepository(OfertaRepository.class);
+        Repositorio repoColaborador = ServiceLocator.getRepository(ColaboracionRepository.class);
+        Repositorio repoRubro = ServiceLocator.getRepository(Repositorio.class);
+
+        Colaborador colaborador= new Colaborador(
+                new Documento(TipoDocumento.DNI, "666"),
+                "Mr. Ofertas", "Monopoly");
+
+        repoColaborador.guardar(colaborador);
+
+        Rubro rubro = new Rubro("Alimentos");
+        repoRubro.guardar(rubro);
+        Rubro rubro1 = new Rubro("Pollo en escabeche", rubro);
+        repoRubro.guardar(rubro1);
+
+        int quantity = 20;
+        for(int i = 1; i < quantity; i++){
+            ignorarEstaFuncion(i, colaborador, modeloRepo, rubro1);
+        }
+
+    }
+
+    private static void ignorarEstaFuncion(int day, Colaborador colaborador, Repositorio repositorio, Rubro rubro) {
+
+        Oferta oferta = Oferta.create(colaborador,
+                "Pollo del:" + Integer.valueOf(day).toString(),
+                LocalDate.of(2024, 1, day),
+                (double) (day+10),
+                rubro);
+        repositorio.guardar(oferta);
     }
 }

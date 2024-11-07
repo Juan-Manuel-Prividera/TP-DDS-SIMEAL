@@ -26,4 +26,7 @@ public class Rubro extends Persistente {
     this.nombre = nombre;
     this.rubroPadre = rubroPadre;
   }
+  public Rubro(String nombre) {
+    this.nombre = nombre;
+  }
 }

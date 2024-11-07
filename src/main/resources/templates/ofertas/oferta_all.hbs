@@ -1,0 +1,16 @@
+{{#partial "ofertas"}}
+    <div class="container-inferior">
+        {{#each ofertas}}
+            <a class="offer-card" href="ofertas/{{this.id}}" data-point="{{this.puntosNecesarios}}" data-rubro="{{this.rubro.id}}">
+                <img src="{{this.imagen}}" alt="Descripción de la oferta" class="offer-image-short">
+                <p class="offer-title">{{this.nombre}}</p>
+                <p class="offer-update">Coste: {{this.puntosNecesarios}} pts</p>
+                <p class="offer-update">Rubro: {{this.rubro.nombre}}</p>
+                <p class="offer-update">Fecha de publicación: {{this.fechaDeRealizacion}}</p>
+            </a>
+        {{/each}}
+    </div>
+
+{{/partial}}
+{{> templates/ofertas/oferta_upperBox}}
+
