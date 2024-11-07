@@ -1,9 +1,9 @@
 # Simeal
 _Sistema de Mejora Alimentaria_
-![Logo simeal](src/main/resources/static/img/heladera.png){width="30%"}
 <p align="center">
     <img src="https://github.com/dds-utn/2024-tpa-ma-ma-grupo-11/blob/main/src/main/resources/static/img/heladera.png?raw=true" width="30%">
 </p>
+
 > Lo que no se persiste, no existe -Anónimo
 
 > "Siempre volvemos a lo mismo, roles y permisos" -Desconocido
