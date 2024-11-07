@@ -75,16 +75,21 @@ public class UsuariosController {
                 tecnicoRol = rol;
                 break;
             }
+
         String password = PasswordGenerator.generar(10);
         Usuario user = new Usuario(
           tecnico.getNombre() + tecnico.getApellido(),
-          PasswordHasher.hashPassword(password),
-          List.of(tecnicoRol));
+                   PasswordHasher.hashPassword(password),
+                   List.of(tecnicoRol)
+        );
+        
+        Logger.debug("Usuario de tecnico creado: <" + user.getUsername()+ " :"+password+ ">");
 
-        Notificador.notificar(tecnico,new Mensaje("Su clave de acceso al sistema Simeal es: \n "+ password + " \n " +
-          "No comparta esta contraseña. Va a poder modficarla por una que usted desee desde nuestro sistema en el apartado de su perfil. \n " +
-          "Saludos cordiales. \n Simeal.", "Credenciales de acceso Simeal"));
-        Logger.debug("Usuario de tecnico creado correctamente");
+        Notificador.notificar(tecnico,new Mensaje("Bienvenido a Simeal " + tecnico.getNombre() + "!! \nSus credenciales de acceso al sistema Simeal son: " +
+          "\nUsuario: "+ user.getUsername() +  "\n Contraseña: "+ password + "\n" +
+          "No comparta estas credenciales. Va a poder modficarlas por unas que usted desee desde nuestro sistema en el apartado de su perfil.\n" +
+          "Saludos cordiales.\nSimeal.", "Credenciales de acceso Simeal"));
+        Logger.debug("Notificacion enviada a tecnico: " + user.getUsername());
         return user;
     }
 

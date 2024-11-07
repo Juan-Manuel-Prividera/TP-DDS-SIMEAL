@@ -18,5 +18,17 @@ public class ColaboracionRepository extends Repositorio {
     commitTransaction();
     return colaboraciones;
   }
+
+  public void guardar(List<ColaboracionPuntuable> colaboraciones) {
+    try {
+      beginTransaction();
+      for (ColaboracionPuntuable colaboracion : colaboraciones) {
+        entityManager().persist(colaboracion);
+      }
+      commitTransaction();
+    } catch (Exception e) {
+      rollbackTransaction();
+    }
+  }
 }
 

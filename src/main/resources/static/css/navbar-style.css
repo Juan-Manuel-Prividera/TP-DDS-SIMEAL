@@ -74,11 +74,12 @@
     text-align: center;
     background-color: var(--verde);
     /*font-size: 20px;*/
-   font-size: 3vh;
+   font-size: 1.2vw;
 }
 .nav-item .seleccionado{
     background-color: white;
     font-style: italic;
+    height: 100%;
 }
 
 .nav-link {

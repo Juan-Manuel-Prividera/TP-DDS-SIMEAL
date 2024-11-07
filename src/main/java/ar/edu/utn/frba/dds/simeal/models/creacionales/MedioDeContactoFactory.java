@@ -19,7 +19,7 @@ public class MedioDeContactoFactory {
 
   public static MedioContacto crearMedioDeContactoDeString(String medioContacto){
     switch (medioContacto) {
-      case "email": return new Email(EnviadorDeMails.getInstancia(new ConfigReader()));
+      case "email": return new Email(EnviadorDeMails.getInstancia());
       case "wpp": return new WhatsApp(EnviadorDeWpp.getInstance());
       case "telefono": return new Telefono();
       case "telegram": return new Telegram(EnviadorTelegram.getInstance());

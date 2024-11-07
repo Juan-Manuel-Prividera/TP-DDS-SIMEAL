@@ -35,7 +35,7 @@ public class EnviadorDeMailsTest {
     greenmailPort = configReader.getProperty("greenmail.port");
     greenmailHost = configReader.getProperty("greenmail.host");
 
-    enviadorDeMails = EnviadorDeMails.getInstancia(configReader, "greenmail");
+    enviadorDeMails = EnviadorDeMails.getInstancia("greenmail");
 
     greenMail = new GreenMail(new ServerSetup(3025,greenmailHost,"smtp"));
     greenMail.setUser(configReader.getProperty("user.email"),configReader.getProperty("app.password"));
@@ -80,13 +80,11 @@ public class EnviadorDeMailsTest {
     Assertions.assertEquals(mensaje.getMensaje(), messages[0].getContent());
   }
 
-/*
+//
+//    @Test
+//    public void enviarMailPosta() {
+//        enviadorDeMails = EnviadorDeMails.getInstancia("gmail");
+//        enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
+//    }
 
-    @Test
-    public void enviarMailPosta() {
-        enviadorDeMails = EnviadorDeMails.getInstancia(new ConfigReader(),"gmail");
-        enviadorDeMails.enviar("jmprividera@gmail.com", new Mensaje("hola","hola"));
-    }
-
-*/
 }

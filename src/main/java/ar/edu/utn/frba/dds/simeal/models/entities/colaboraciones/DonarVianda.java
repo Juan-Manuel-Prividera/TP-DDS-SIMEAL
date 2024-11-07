@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,8 @@ import java.time.LocalDate;
 @Table(name = "donar_vianda")
 @Getter
 public class DonarVianda extends Persistente implements ColaboracionPuntuable {
-  @ManyToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 

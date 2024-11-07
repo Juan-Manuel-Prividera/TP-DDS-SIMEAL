@@ -127,7 +127,6 @@ public class TecnicoController {
       Logger.debug("Tecnico creado correctamente");
     } catch (Exception e) {
       ctx.redirect("/registro/tecnico?exito=false&action=create");
-      //ctx.status(500);
       Logger.error("Ocurrio un error en la creacion del tecnico: " + e.getMessage());
     }
   }

@@ -15,8 +15,8 @@ public class SolicitudOperacionHeladeraTest {
   @BeforeEach
   public void init(){
     this.heladera = new Heladera();
-    this.solicitudFueraDeHora = SolicitudOperacionHeladera.builder().horaInicio(LocalDateTime.now().minusHours(10)).heladera(this.heladera).build();
-    this.solicitudEnHora = SolicitudOperacionHeladera.builder().horaInicio(LocalDateTime.now().plusSeconds(1)).heladera(this.heladera).build();
+    this.solicitudFueraDeHora = SolicitudOperacionHeladera.builder().horaDeRealizacion(LocalDateTime.now().minusHours(10)).heladera(this.heladera).build();
+    this.solicitudEnHora = SolicitudOperacionHeladera.builder().horaDeRealizacion(LocalDateTime.now().plusSeconds(1)).heladera(this.heladera).build();
   }
   @Test @DisplayName("Solicitud con heladera correcta, pero fuera de hora => solicitud.puedeEjecutarse() == False")
   public void heladeraCorrectaHoraIncorrecta(){

@@ -34,7 +34,7 @@ public class MedioContactoConverter implements AttributeConverter<MedioContacto,
     if ("Telefono".equals(s)) {
       return new Telefono();
     } else if ("Email".equals(s)) {
-      return new Email(EnviadorDeMails.getInstancia(new ConfigReader()));
+      return new Email(EnviadorDeMails.getInstancia());
     } else if ("Telegram".equals(s)) {
       return new Telegram(EnviadorTelegram.getInstance());
     } else if ("WhatsApp".equals(s)) {

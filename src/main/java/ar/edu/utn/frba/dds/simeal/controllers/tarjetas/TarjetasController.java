@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.controllers;
+package ar.edu.utn.frba.dds.simeal.controllers.tarjetas;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.AltaPersonaVulnerableController;
@@ -14,12 +14,15 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionReposito
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaPersonaVulnerableRepository;
 import ar.edu.utn.frba.dds.simeal.utils.GeneradorNrosTarjeta;
+import ar.edu.utn.frba.dds.simeal.utils.ValidadorDeInputs;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class TarjetasController {
   private PersonaVulnerableController personaVulnerableController;
@@ -33,69 +36,127 @@ public class TarjetasController {
     this.tarjetaColaboradorRepository = tarjetaColaboradorRepository;
   }
 
+  // GET /tarjeta
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     setNavBar(model,app);
     setTarjetaPersonal(model, app);
     setTarjetasPersonasVulnerables(model, app);
 
+    // Invalidamos cache de navegador para que no mueste datos desactualizados :|
+    app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    app.header("Pragma", "no-cache");
+    app.header("Expires", "0");
+
     app.render("tarjetas/tarjetas_entregadas.hbs", model);
   }
-
+  // GET /tarjeta/new
   public void indexNewTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Crear nueva tarjeta");
     setNavBar(model, app);
     setTarjetaPersonal(model, app);
 
+    String failed = app.queryParam("failed");
+    String action = app.queryParam("action");
+
+    if (Objects.equals(failed,"false") && Objects.equals(action,"createPersona")){
+      model.put("popup_title", "Tarjeta y Persona creadas correctamente");
+      model.put("popup_ruta", "/tarjeta");
+    } else if (Objects.equals(failed,"true") && Objects.equals(action,"createPersona")){
+      model.put("popup_title", "Error al crear la tarjeta y/o persona");
+      model.put("popup_message", "Por favor revise los campos del formulario y vuelva a intentarlo");
+      model.put("popup_ruta", "/tarjeta/new");
+    }
     app.render("tarjetas/agregar_tarjeta.hbs", model);
   }
-
+  // GET /tarjeta/delete
   public void indexBorrarTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     setNavBar(model, app);
     setTarjetasPersonasVulnerables(model, app);
     setTarjetaPersonal(model, app);
+    String failed = app.queryParam("failed");
+    String action = app.queryParam("action");
+
+    if (Objects.equals(failed,"false") && Objects.equals(action,"deletePersona")){
+      model.put("popup_title", "Tarjeta y Persona borradas correctamente");
+    } else if (Objects.equals(failed,"true") && Objects.equals(action,"deletePersona")){
+      model.put("popup_title", "Error al borrar la tarjeta y/o persona");
+    }
+    model.put("popup_ruta", "/tarjeta/delete");
     app.render("tarjetas/borrar_tarjeta.hbs", model);
   }
-
+  // GET /tarjeta/update
   public void indexUpdateTarjeta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     setNavBar(model, app);
     setTarjetasPersonasVulnerables(model, app);
     setTarjetaPersonal(model, app);
+
+    String failed = app.queryParam("failed");
+    String action = app.queryParam("action");
+
+    if (Objects.equals(failed,"false") && Objects.equals(action,"updatePersona")){
+      model.put("popup_title", "Tarjeta y Persona actualizadas correctamente");
+    } else if (Objects.equals(failed,"true") && Objects.equals(action,"updatePersona")){
+      model.put("popup_title", "Error al actualizar la tarjeta y/o persona");
+      model.put("popup_message", "Verifique que los datos ingresados sean validos");
+    }
+
+    model.put("popup_ruta", "/tarjeta/update");
     app.render("tarjetas/modificar_tarjeta.hbs", model);
   }
-
+  // POST /tarjeta/delete/{numeroTarjeta}
   public void delete(Context app) {
-    TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(app.pathParam("numeroTarjeta"));
-    repository.desactivar(tarjeta);
-    personaVulnerableController.delete(tarjeta.getPersonaVulnerable());
-
-    app.redirect("/tarjeta");
+    try {
+      TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(app.pathParam("numeroTarjeta"));
+      repository.desactivar(tarjeta);
+      personaVulnerableController.delete(tarjeta.getPersonaVulnerable());
+      repository.refresh(tarjeta);
+      app.redirect("/tarjeta/delete?failed=false&action=deletePersona");
+    } catch (Exception e) {
+      app.redirect("/tarjeta/delete?failed=true&action=deletePersona");
+    }
   }
 
+  // POST /tarjeta/update/{numeroTarjeta}
   public void update(Context app) {
-    String newName = app.formParam("newNombre");
-    String newApellido = app.formParam("newApellido");
-    String newDni = app.formParam("newDni");
-    String newEdad = app.formParam("newEdad");
-    String numeroTarjeta = app.pathParam("numeroTarjeta");
-
-    TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(numeroTarjeta);
-    PersonaVulnerable personaVulnerable = tarjeta.getPersonaVulnerable();
-    personaVulnerableController.update(personaVulnerable, newName, newApellido, newDni, newEdad);
-    app.redirect("/tarjeta");
+    try {
+      String newName = app.formParam("newNombre");
+      String newApellido = app.formParam("newApellido");
+      String newDni = app.formParam("newDni");
+      String newEdad = app.formParam("newEdad");
+      String numeroTarjeta = app.pathParam("numeroTarjeta");
+      if (!validarInput(newName,newApellido,newDni,newEdad)) {
+        Logger.error("Se quizo actualizar una tarjetas con parametros invalidos :0");
+        throw new RuntimeException("Los parametros ingreados no son validos");
+      }
+      TarjetaPersonaVulnerable tarjeta = repository.getPorNumero(numeroTarjeta);
+      PersonaVulnerable personaVulnerable = tarjeta.getPersonaVulnerable();
+      personaVulnerableController.update(personaVulnerable, newName, newApellido, newDni, newEdad);
+      repository.refresh(tarjeta);
+      app.redirect("/tarjeta/update?failed=false&action=updatePersona");
+    } catch (Exception e) {
+      app.redirect("/tarjeta/update?failed=true&action=updatePersona");
+    }
   }
 
+  private boolean validarInput(String nombre,String apellido,String dni,String edad) {
+    return ValidadorDeInputs.soloNumero(dni) && ValidadorDeInputs.soloNumero(edad) &&
+           ValidadorDeInputs.soloLetras(nombre) && ValidadorDeInputs.soloLetras(apellido);
+  }
 
+  // Se llama desde personaVulnerableController
   public void create(PersonaVulnerable personaVulnerable, Context app) {
+    Logger.debug("Persona creada, creando tarjeta...");
     TarjetaPersonaVulnerable tarjetaPersonaVulnerable = new TarjetaPersonaVulnerable(
       GeneradorNrosTarjeta.generarCodigo(),
       personaVulnerable
     );
 
     repository.guardar(tarjetaPersonaVulnerable);
+    repository.refresh(tarjetaPersonaVulnerable);
     ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable, app);
   }
 
@@ -133,7 +194,7 @@ public class TarjetasController {
         SolicitudOperacionDTO.builder()
           .nombre(solicitud.getHeladera().getNombre())
           .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
-          .horaFin(String.valueOf(dateTimeFormatter.format(solicitud.getHoraInicio().plusHours(solicitud.getHorasParaEjecutarse()))))
+          .horaFin(String.valueOf(dateTimeFormatter.format(solicitud.getHoraDeRealizacion().plusHours(solicitud.getHorasParaEjecutarse()))))
           .build()
       );
     }
@@ -148,6 +209,7 @@ public class TarjetasController {
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
 
     for (DarDeAltaPersonaVulnerable persona : personas) {
+      TarjetaPersonaVulnerableDTO tarjetaPersonaVulnerableDTO;
       if (persona.getTarjeta().getActivo()) {
         tarjetaPersonaVulnerableDTOS.add(TarjetaPersonaVulnerableDTO.builder()
           .numero(persona.getTarjeta().getCodigo())

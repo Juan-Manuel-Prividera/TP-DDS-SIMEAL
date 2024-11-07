@@ -1,4 +1,8 @@
 {{#partial "contenido"}}
+
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
 <div class="tarjetas-entregadas ml-auto mr-auto">
     <h2 class="mt-3">Tarjetas Entregadas</h2>
     {{#each tarjetasEntregadas}}

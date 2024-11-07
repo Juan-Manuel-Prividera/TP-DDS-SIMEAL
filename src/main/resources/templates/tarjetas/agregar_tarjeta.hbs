@@ -1,4 +1,7 @@
 {{#partial "contenido"}}
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
     <style src="/css/tarjetas.css"></style>
 <div>
     <form method="POST" action="/tarjeta/new" name="formNewTarjeta" class="agregar-tarjeta">
@@ -19,17 +22,68 @@
                     </select>
                     <input type="text" class="form-control mb-4" name="documentoNro" id="documentoNro" placeholder="Documento">
                 </div>
-                <label for="apellido">Fecha de nacimiento</label>
-                <input type="date" class="form-control mb-4" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
+                <label for="nacimiento">Fecha de nacimiento</label>
+                <input type="date" class="form-control mb-4 fecha" max="" name="nacimiento" id="nacimiento" placeholder="Fecha de nacimiento">
+
+<!--                Ubicacion opcional para las personas vulnerables -->
+                <label for="calle_nombre">Ubicación: nombre de calle</label>
+                <input type="text"
+                       class="form-control mb-4"
+                       name="calle_nombre"
+                       id="calle_nombre"
+                       placeholder="Nombre de la calle">
+
+                <label for="calle_altura">Ubicación: altura de calle</label>
+                <input type="number"
+                       class="form-control mb-4"
+                       name="calle_altura"
+                       id="calle_altura"
+                       placeholder="Altura de la calle">
+
+                <label for="codigo_postal">Ubicación: código postal</label>
+                <input type="number"
+                       class="form-control mb-4"
+                       name="codigo_postal"
+                       id="codigo_postal"
+                       placeholder="Código postal">
+
+                <label for="provincia" class="form-label">Selecciona Provincias</label>
+                <select id="provincia" name="provincia" class="form-control" style="width: 100%;">
+                    <option value="" disabled selected hidden>Provincias</option>
+                    <option value="Buenos_Aires">Buenos Aires</option>
+                    <option value="Ciudad_Autonoma_De_Buenos_Aires">Ciudad Autónoma de Buenos Aires</option>
+                    <option value="Catamarca">Catamarca</option>
+                    <option value="Chaco">Chaco</option>
+                    <option value="Chubut">Chubut</option>
+                    <option value="Cordoba">Córdoba</option>
+                    <option value="Corrientes">Corrientes</option>
+                    <option value="Entre_Rios">Entre Ríos</option>
+                    <option value="Formosa">Formosa</option>
+                    <option value="Jujuy">Jujuy</option>
+                    <option value="La_Pampa">La Pampa</option>
+                    <option value="La_Rioja">La Rioja</option>
+                    <option value="Mendoza">Mendoza</option>
+                    <option value="Misiones">Misiones</option>
+                    <option value="Neuquen">Neuquén</option>
+                    <option value="Rio_Negro">Río Negro</option>
+                    <option value="Salta">Salta</option>
+                    <option value="San_Juan">San Juan</option>
+                    <option value="San_Luis">San Luis</option>
+                    <option value="Santa_Cruz">Santa Cruz</option>
+                    <option value="Santa_Fe">Santa Fe</option>
+                    <option value="Santiago_del_Estero">Santiago del Estero</option>
+                    <option value="Tierra_del_Fuego">Tierra del Fuego</option>
+                    <option value="Tucuman">Tucumán</option>
+                </select>
             </div>
             <div class="right">
                 <h2>Menores a cargo</h2>
                 <div class="hijo-container">
-                    <label for="nombre">Nombre/s Hijo/a</label>
+                    <label for="nombreHijo">Nombre/s Hijo/a</label>
                     <input type="text" class="form-control mb-4" name="nombreHijo" id="nombreHijo" placeholder="Nombre">
-                    <label for="apellido">Apellido/s Hijo/a</label>
+                    <label for="apellidoHijo">Apellido/s Hijo/a</label>
                     <input type="text" class="form-control mb-4" name="apellidoHijo" id="apellidoHijo" placeholder="Apellido">
-                    <label for="documentoNro">Documento</label>
+                    <label for="documentoNroHijo">Documento</label>
                     <div class="documento-container">
                         <select style="margin-top: 1%" class="form-control" name="documentoTipoHijo">
                             <option value="" disabled selected hidden>...</option>
@@ -40,7 +94,7 @@
                         <input type="text" class="form-control mb-4" name="documentoNroHijo" id="documentoNroHijo" placeholder="Documento">
                      </div>
                     <label for="apellido">Fecha de nacimiento</label>
-                    <input type="date" class="form-control mb-4" name="nacimientoHijo" id="nacimiento" placeholder="Fecha de nacimiento">
+                    <input type="date" class="form-control mb-4 fecha" max="" name="nacimientoHijo" id="nacimiento" placeholder="Fecha de nacimiento">
                     <hr style="border-width:0.5vh;background-color:#135c52;">
                 </div>
                 <div class="agregar-hijo" id="agregar-hijo-btn">
@@ -60,6 +114,14 @@
         const newHijoContainer = hijoContainer.cloneNode(true);
         // Insert the clone after the last hijo-container
         hijoContainer.parentNode.insertBefore(newHijoContainer, hijoContainer.nextSibling);
+    });
+
+    // Obtener la fecha actual
+    const today = new Date().toISOString().split('T')[0];
+
+    // Seleccionar todos los inputs con la clase 'fecha' y establecer el valor máximo
+    document.querySelectorAll('.fecha').forEach(input => {
+        input.setAttribute('max', today);
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

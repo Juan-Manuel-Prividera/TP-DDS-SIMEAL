@@ -55,13 +55,13 @@ public class AuthorizedMiddleware {
                     Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
                     Usuario usuario = (Usuario) repositorio.buscarPorId(userID, Usuario.class);
 
-                    Logger.debug(ctx.path());
+                    Logger.debug("Se hizo:" + ctx.path());
 
                     for (Rol r : usuario.getRoles()){
-                        System.out.printf("Probando rol");
                         if (r.tienePermisoPara(
                                 ctx.path(),
-                                ctx.method())) return;
+                                ctx.method()))
+                          return;
                     }
 
                     throw new NotAuthorizedException();

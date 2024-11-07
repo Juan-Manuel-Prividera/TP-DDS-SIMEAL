@@ -65,8 +65,11 @@ public class LoginHandler {
 
                 case JURIDICO, HUMANO:
                     Long colaboradorID = obtenerColabId(usuario);
-                    if (colaboradorID == null)
-                        Logger.error("No hay un colaborador asociado al usuario '"+username+"'");
+                    if (colaboradorID == null) {
+                        Logger.error("No hay un colaborador asociado al usuario '" + username + "'");
+                        fail(context);
+                        return;
+                    }
                     else
                         context.sessionAttribute("colaborador_id", colaboradorID);
 
@@ -76,10 +79,15 @@ public class LoginHandler {
 
                 case TECNICO:
                     Long tecnicoId = obtenerTecnicoId(usuario);
-                    if (tecnicoId == null) Logger.error("No hay un colaborador asociado al usuario '"+username+"'");
+                    if (tecnicoId == null) {
+                        Logger.error("No hay un tecnico asociado al usuario '"+username+"'");
+                        fail(context);
+                        return;
+                    }
                     else context.sessionAttribute("tecnico_id", tecnicoId);
 
                     context.sessionAttribute("user_type", r.getTipo().toString());
+                    Logger.debug("Redirigiendo tecncio a /tecnico/home  ...");
                     context.redirect("/tecnico/home");
                 default:
                         context.result("xd");
