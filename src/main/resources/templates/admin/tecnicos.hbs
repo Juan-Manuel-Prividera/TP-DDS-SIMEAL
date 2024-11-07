@@ -1,0 +1,52 @@
+{{> templates/navbar}}
+
+<h1 class="mt-2">Técnicos</h1>
+<div class="container-formularios">
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
+    <div class="left">
+        <div class="lista-formularios">
+            <h2>Técnicos Registrados</h2>
+            <ul>
+                {{#each tecnicos}}
+                    <li>
+                        <span> Nombre: {{this.nombre}} {{this.apellido}}  </span>
+                        <span class="ml-3"> Area de cobertura: {{this.areaDeCobertura}}</span>
+                        <button class="btn btn-danger ml-auto btn-sm" onclick="borrarTecnico({{this.id}})">Eliminar</button>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+    <div class="crear-nuevo-formulario">
+        <h2>Registrar Técnico</h2>
+        <a class="btn btn-dark mt-5" href="/registro/tecnico">Registrar nuevo técnico</a>
+    </div>
+</div>
+<script>
+    function borrarTecnico(tecnico_id) {
+        // Confirmación antes de eliminar
+        if (confirm("¿Estás seguro de que deseas eliminar este técnico del sistema?")) {
+            // Enviar una solicitud POST al servidor para eliminar la pregunta
+            fetch(`http://localhost:8080/tecnico/${tecnico_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "/tecnico?exito=true&action=delete"
+                    } else {
+                        window.location.href = "/tecnico?exito=false&action=delete"
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar el formulario:', error);
+                    window.location.href = "/tecnico?exito=false&action=delete"
+                });
+        }
+    }
+</script>

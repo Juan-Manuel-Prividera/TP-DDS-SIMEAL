@@ -7,7 +7,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEvento;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,0 +1,32 @@
+{{> templates/header}}
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
+<div class="container my-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Registrar Visita Técnica</h2>
+
+    <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" class="form-group"
+    style="display: flex; flex-direction: column; justify-content: center; align-items: start; margin-left: 0; width: 80%"
+    >
+    <!-- Campo de Descripción -->
+        <label for="descripcion" style="margin-left: 0;">Descripción del Incidente:</label>
+        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" style="width: 100%;"></textarea>
+
+    <!-- Campo de Estado de Éxito -->
+        <label for="exitosa"  style="margin-left: 0;">¿Fue exitosa?</label>
+        <select id="exitosa" name="exitosa" class="form-control" style="width: 100%;" required>
+            <option value="true">Sí</option>
+            <option value="false">No</option>
+        </select>
+    <!-- Campo de Fecha y Hora -->
+        <label for="fechaHora" style="margin-left: 0;">Fecha y Hora:</label>
+        <input type="datetime-local" id="fechaHora" name="fechaHora"  style="width: 100%;" class="form-control" required>
+
+    <!-- Campo de Imagen (Opcional) -->
+        <label for="imagen" style="margin-left: 0;">Imagen (opcional):</label>
+        <input type="file" id="imagen" name="imagen" style="width: 100%;" class="form-control" accept="image/*">
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-success w-70">Registrar Visita</button>
+    </form>
+</div>

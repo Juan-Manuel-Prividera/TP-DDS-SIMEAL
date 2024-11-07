@@ -16,12 +16,14 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -100,6 +102,58 @@ public class LectorCsv {
     }
   }
 
+  public Boolean validarFormato(File csvFile) throws IOException, CsvException {
+    CSVReader lector = new CSVReaderBuilder(
+      new InputStreamReader(new FileInputStream(csvFile), StandardCharsets.UTF_8))
+      .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
+      .build();
 
+    List<String[]> filas = lector.readAll();
 
+    for (String[] fila : filas) {
+      if(fila.length != 8)
+        return false;
+      try {
+        TipoDocumento.valueOf(fila[0]);
+      } catch (IllegalArgumentException e) {
+        return false;
+      }
+      if(!soloNumero(fila[1]))
+        return false;
+
+      if(!soloLetras(fila[2]) || !soloLetras(fila[3]))
+        return false;
+
+      if(!fila[4].contains("@"))
+        return false;
+
+      if(!esFechaValida(fila[5]))
+        return false;
+      try {
+        TipoColaboracion.valueOf(fila[6]);
+      } catch (IllegalArgumentException e) {
+        return false;
+      }
+      if (!soloNumero(fila[7]))
+        return false;
+    }
+    return true;
+  }
+
+  private Boolean soloNumero(String str) {
+    return str.matches("\\d+");
+  }
+  private Boolean soloLetras(String str) {
+    return str.matches("[a-zA-Z]+");
+  }
+
+  private Boolean esFechaValida(String fecha) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+      LocalDate.parse(fecha, formatter);
+      return true;
+    } catch (DateTimeParseException e) {
+      return false;
+    }
+  }
 }

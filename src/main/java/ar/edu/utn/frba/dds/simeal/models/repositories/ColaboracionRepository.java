@@ -8,7 +8,6 @@ import java.util.List;
 
 @Getter
 public class ColaboracionRepository extends Repositorio {
-
   public List<? extends ColaboracionPuntuable> getPorColaborador(Long id, Class<? extends ColaboracionPuntuable> clase) {
     List<? extends ColaboracionPuntuable> colaboraciones = new ArrayList<>();
     beginTransaction();

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Retiros")
+@Table(name = "retiro")
 @Getter
 public class Retiro extends Persistente {
   @Column (name = "fechaRealizacion")

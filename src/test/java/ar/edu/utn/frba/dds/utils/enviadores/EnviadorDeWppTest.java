@@ -39,6 +39,11 @@ public class EnviadorDeWppTest {
   }
 
   @Test
+  public void pruebaDeFuego() {
+    enviadorDeWpp.enviar(DESTINATARIO,mensajePrueba);
+  }
+
+  @Test
   public void enviaWppTest() {
     when(myMessageCreatorMock
         .getMessageCreator(DESTINATARIO, phoneNumber, mensajePrueba))

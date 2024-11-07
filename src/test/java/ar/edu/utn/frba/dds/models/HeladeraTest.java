@@ -62,7 +62,7 @@ public class HeladeraTest {
     visitaExitosa = new VisitaTecnica(heladera,
       "Arreglado del condensador de flujo de la heladera.",
       LocalDateTime.now(),
-      true, null);
+      true, null, null);
 
     notificadorMock = mockStatic(Notificador.class);
     notificadorMock.when(() -> Notificador.notificar((List<? extends ReceptorDeNotificaciones>) any(),any())).thenAnswer(invocationOnMock -> null);

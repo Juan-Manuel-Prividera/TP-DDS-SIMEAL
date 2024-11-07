@@ -4,13 +4,13 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hibernate.annotations.CascadeType.*;
+import static org.hibernate.annotations.CascadeType.MERGE;
+import static org.hibernate.annotations.CascadeType.PERSIST;
 
 @Getter
 @Builder

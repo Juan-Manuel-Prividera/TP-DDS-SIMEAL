@@ -31,10 +31,7 @@
 
 <script>
     function deleteSubscription(subscriptionId) {
-        // Aquí iría la lógica para eliminar la suscripción
-        // Por ejemplo, podrías hacer una solicitud fetch a tu API para eliminar la suscripción
-
-        if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
+         if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
             console.log("haciendo solicitud de eliminacion")
             fetch(`http://localhost:8080/suscripcion/${subscriptionId}`, {
                 method: 'DELETE'

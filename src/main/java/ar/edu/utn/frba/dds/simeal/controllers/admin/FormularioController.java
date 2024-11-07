@@ -7,15 +7,12 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.TipoPregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.FormularioRepository;
-import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
-import com.twilio.twiml.voice.Prompt;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class FormularioController {
   private final FormularioRepository repositorio;
@@ -28,6 +25,7 @@ public class FormularioController {
     HashMap<String, Object> model = new HashMap<>();
     setFormulario(model,ctx);
     model.put("titulo", "Formularios");
+    model.put("formulario", "seleccionado");
     ctx.render("admin/formularios.hbs",model);
   }
   // POST /formulario

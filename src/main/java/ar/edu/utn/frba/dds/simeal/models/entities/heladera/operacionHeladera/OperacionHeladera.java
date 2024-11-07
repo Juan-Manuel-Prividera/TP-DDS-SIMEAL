@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "operacionHeladera")
+@Table(name = "operacion_heladera")
 public class OperacionHeladera extends Persistente {
   @OneToOne
   @JoinColumn(name = "solicitud_id", referencedColumnName = "id")

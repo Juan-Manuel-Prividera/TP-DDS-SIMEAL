@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
-@Table(name = "donarVianda")
+@Table(name = "donar_vianda")
 @Getter
 public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne(cascade = CascadeType.PERSIST)

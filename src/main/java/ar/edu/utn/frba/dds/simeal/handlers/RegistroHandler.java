@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class RegistroHandler {
     }
 
     public void handle(Context context) {
-
         List<Formulario> formularios = (List<Formulario>) repo.obtenerTodos(Formulario.class);
         Formulario formulario = null;
         String rol = context.pathParam("rol");
@@ -33,6 +33,7 @@ public class RegistroHandler {
         }
 
         if (formulario == null) {
+            Logger.error("No existe el formulario con el rol " + rol);
             context.render("error.hbs");
             return;
         }
@@ -71,6 +72,7 @@ public class RegistroHandler {
             map.put("popup_button", "Reintentar");
         }
 
+        Logger.trace("Saliendo de registro handler");
         context.render("registroFormulario.hbs", map);
     }
 }

@@ -8,11 +8,13 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemper
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import ar.edu.utn.frba.dds.simeal.utils.logger.LogType;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 public class HeladeraController {
   private Repositorio repositorio;
@@ -97,8 +99,13 @@ public class HeladeraController {
       .colaborador(colaborador)
       .imagen(ctx.formParam("imagen"))
       .build();
+
     ServiceLocator.getController(IncidenteController.class).create(fallaTecnica);
-    ctx.render("/heladeras/agradecimiento_reporte.hbs", model);
+
+    model.put("popup_title","Fallo Reportado");
+    model.put("popup_message", "Gracias por reportar el fallo!");
+
+    ctx.render("/heladeras/reportar_fallo.hbs", model);
   }
 
 
