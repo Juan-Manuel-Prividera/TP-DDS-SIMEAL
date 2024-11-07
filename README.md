@@ -1,6 +1,7 @@
 # Simeal
 _Sistema de Mejora Alimentaria_
 ![Logo simeal](src/main/resources/static/img/heladera.png)
+<img src="https://github.com/favicon.ico" width="50%">
 > Lo que no se persiste, no existe -Anónimo
 
 > "Siempre volvemos a lo mismo, roles y permisos" -Desconocido
