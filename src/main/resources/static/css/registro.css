@@ -70,6 +70,7 @@
 .documento-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
     height: auto;
 }
@@ -78,6 +79,7 @@
     width: 20%;
     height: 65%;
     margin-right: 2%;
+    margin-bottom: 1.5vh;
 }
 
 .user-box {

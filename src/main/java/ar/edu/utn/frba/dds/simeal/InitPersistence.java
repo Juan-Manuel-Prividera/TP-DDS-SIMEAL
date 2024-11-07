@@ -169,7 +169,7 @@ public class InitPersistence {
         colaboradorJuridico.setUsuario(usuarioJuridico);
         repo.guardar(colaboradorJuridico);
 
-        Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia(new ConfigReader())));
+        Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia()));
         AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
           new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179), 10000.0);
         Tecnico tecnico = new Tecnico("Tomas", "Pauza",

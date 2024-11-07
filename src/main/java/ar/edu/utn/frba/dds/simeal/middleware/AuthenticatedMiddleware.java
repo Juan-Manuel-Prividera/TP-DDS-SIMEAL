@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.middleware;
 
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.Javalin;
 
 // Middlewares are like questions, this' question is: are you authenticated?
@@ -20,12 +21,13 @@ public class AuthenticatedMiddleware {
     public static void apply(Javalin app) {
         app.beforeMatched(
         ctx -> {
-
             for (var format : openFormats) {
                 if (ctx.path().endsWith(format)) {
                     return;
                 }
             }
+
+            Logger.debug("Se trato de hacer: " + ctx.path());
             // TODO : Arreglar
             if(ctx.path().startsWith("/heladera") ||
               ctx.path().startsWith("/suscripcion/") ||
@@ -45,6 +47,7 @@ public class AuthenticatedMiddleware {
 
             Long userID = ctx.sessionAttribute("user_id");
             Long colaboradorId = ctx.sessionAttribute("colaborador_id");
+            Long tecnicoId= ctx.sessionAttribute("tecnico_id");
             String username = ctx.sessionAttribute("user_name");
             String userType = ctx.sessionAttribute("user_type");
 
@@ -53,12 +56,18 @@ public class AuthenticatedMiddleware {
                 throw new NotAuthenticatedException();
             }
 
-            if (!userType.equals("ADMIN")){
+            if (!userType.equals("ADMIN") && !userType.equals("TECNICO")){
                 if (userID == null || colaboradorId == null || username == null) {
                     throw new NotAuthenticatedException();
                 }
             }
+            if (!userType.equals("ADMIN") && !userType.equals("HUMANO") && !userType.equals("JURIDICO")){
+                if (userID == null || tecnicoId == null || username == null) {
+                    throw new NotAuthenticatedException();
+                }
+            }
+            Logger.debug("Puede pasar a: " + ctx.path());
 
-        });
+            });
     }
 }

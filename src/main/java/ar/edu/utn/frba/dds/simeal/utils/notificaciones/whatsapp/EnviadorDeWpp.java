@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp;
 
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.MessageCreator;
@@ -39,11 +40,8 @@ public class EnviadorDeWpp {
 
   public void enviar(String destinatario, Mensaje mensaje) {
     try {
-      MessageCreator messageCreator =
-          myMessageCreator.getMessageCreator(destinatario, numeroWpp, mensaje);
-
-      // Este metodo directamente envia el mensaje
-      messageCreator.create();
+      myMessageCreator.getMessageCreator(destinatario, numeroWpp, mensaje).create();
+      Logger.debug("Mensaje de WPP enviado: " + mensaje.toString());
     } catch (Exception e) {
       System.err.println("Error al enviar el mensaje: " + e.getMessage());
     }

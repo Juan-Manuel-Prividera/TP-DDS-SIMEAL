@@ -51,3 +51,4 @@ src/main/resources/META-INF/persistence.xml
 /API_RecomendacionDeColaboradores/vendor/
 /API_RecomendacionDeColaboradores/api_test-shm
 /API_RecomendacionDeColaboradores/api_test-wal
+/src/main/resources/migration/

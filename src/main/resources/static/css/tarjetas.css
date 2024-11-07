@@ -179,17 +179,22 @@ thead {
 .form-tarjeta {
     display: flex;
     justify-content: center;
+    align-content: space-between;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
 
 }
 
 .btn-transparente {
-    background-color: var(--verde);
+    background-color: transparent;
     box-shadow: none;
     border: none;
     outline: none;
 }
-
+.btn-transparente:hover {
+    background-color: transparent;
+}
 .container-supremo {
     font-size: 2vh;
     margin-top: 2%;
@@ -253,7 +258,18 @@ thead {
     white-space: nowrap;
 
 }
-
+/*.tarjeta-personal p {*/
+/*    font-size: 5%;*/
+/*}*/
+.tarjeta-personal button {
+    width: 35%;
+}
+.tarjeta-personal a {
+    width: 35%;
+}
+.tarjeta-personal a button {
+    width: 100%;
+}
 .contenido-container {
     width: 100%;
     height: 80vh;

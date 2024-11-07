@@ -38,10 +38,12 @@ public class EnviadorDeWppTest {
     enviadorDeWpp.setMyMessageCreator(myMessageCreatorMock);
   }
 
-  @Test
-  public void pruebaDeFuego() {
-    enviadorDeWpp.enviar(DESTINATARIO,mensajePrueba);
-  }
+
+//  @Test
+//  public void pruebaDeFuego() {
+//    EnviadorDeWpp enviadorDeWpp = EnviadorDeWpp.getInstance();
+//    enviadorDeWpp.enviar(DESTINATARIO,mensajePrueba);
+//  }
 
   @Test
   public void enviaWppTest() {

@@ -22,16 +22,25 @@ public class EnviadorDeMails {
   private static EnviadorDeMails instancia = null;
 
 
-  public static EnviadorDeMails getInstancia(ConfigReader configReader) {
-    return getInstancia(configReader, "gmail");
+  public static EnviadorDeMails getInstancia() {
+    return getInstancia( "gmail");
   }
 
-  public static EnviadorDeMails getInstancia(ConfigReader configReader, String proveedor) {
+  public static EnviadorDeMails getInstancia(String proveedor) {
+    ConfigReader configReader = new ConfigReader();
     if (instancia == null
         || !instancia.port.equals(configReader.getProperty(proveedor + ".port"))) {
       instancia = new EnviadorDeMails(configReader, proveedor);
     }
     return instancia;
+  }
+  public EnviadorDeMails() {
+    ConfigReader configReader = new ConfigReader();
+    this.host = configReader.getProperty("gmail.host");
+    this.port = configReader.getProperty("gmail.port");
+    this.useremail = configReader.getProperty("user.email");
+    this.password = configReader.getProperty("app.password");
+    this.auth = true;
   }
 
   private EnviadorDeMails(ConfigReader configReader, String proveedor) {

@@ -9,6 +9,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.utils.ValidadorDeInputs;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
 import com.opencsv.CSVParserBuilder;
@@ -34,7 +36,6 @@ public class LectorCsv {
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
   public List<ColaboracionPuntuable> leerColaboradores(String csvFile) throws IOException, CsvException {
     List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
-    String[] line;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     CSVReader lector = new CSVReaderBuilder(
@@ -45,7 +46,7 @@ public class LectorCsv {
     List<String[]> filas = lector.readAll();
     cantTotalColaboraciones = filas.size();
 
-    while ((line = lector.readNext()) != null) {
+    for (String[] line : filas) {
       if (Objects.equals(line[0], "\n")) {
         continue;
       }
@@ -63,6 +64,7 @@ public class LectorCsv {
       TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
       System.out.println(nombre);
+
       Colaborador colaborador =
           validarSiExisteElColaboradorEnLista(numeroDocumento, listadoColaboracionesPuntuable);
 
@@ -89,6 +91,7 @@ public class LectorCsv {
     for (ColaboracionPuntuable colaboracion : colaboraciones) {
       String nro = colaboracion.getColaborador().getDocumento().getNroDocumento();
       if (numeroDocumento.equals(nro)) {
+        Logger.debug("Colab Repetido");
         return colaboracion.getColaborador();
       }
     }
@@ -107,53 +110,56 @@ public class LectorCsv {
       new InputStreamReader(new FileInputStream(csvFile), StandardCharsets.UTF_8))
       .withCSVParser(new CSVParserBuilder().withSeparator(',').build())
       .build();
-
-    List<String[]> filas = lector.readAll();
-
+    List<String[]> filas;
+    try {
+      filas = lector.readAll();
+    } catch (Exception e) {
+      return false;
+    }
     for (String[] fila : filas) {
-      if(fila.length != 8)
+      for (int i = 0; i < fila.length; i++) {
+        fila[i] = fila[i].strip();
+      }
+
+      if(fila.length != 8){
+        Logger.error("La cantidad de columnas en una fila del csv no es 8 es: " + fila.length);
         return false;
+      }
       try {
         TipoDocumento.valueOf(fila[0]);
       } catch (IllegalArgumentException e) {
+        Logger.error("El tipo de documento no es valido: " + fila[0]);
         return false;
       }
-      if(!soloNumero(fila[1]))
+      if(!ValidadorDeInputs.soloNumero(fila[1])) {
+        Logger.error("El dni no es valido: " + fila[1]);
         return false;
-
-      if(!soloLetras(fila[2]) || !soloLetras(fila[3]))
+      }
+      if(!ValidadorDeInputs.soloLetras(fila[2]) || !ValidadorDeInputs.soloLetras(fila[3])) {
+        Logger.error("El nombre y/o apellido no son validos");
         return false;
-
-      if(!fila[4].contains("@"))
+      }
+      if(!fila[4].contains("@")) {
+        Logger.error("El email no es valido: " + fila[4]);
         return false;
-
-      if(!esFechaValida(fila[5]))
+      }
+      if(!ValidadorDeInputs.esFechaValida(fila[5])) {
+        Logger.error("No es una fecha valida: "+ fila[5]);
         return false;
+      }
       try {
         TipoColaboracion.valueOf(fila[6]);
       } catch (IllegalArgumentException e) {
+        Logger.error("No es un tipo de colaboracion valido: " + fila[6]);
         return false;
       }
-      if (!soloNumero(fila[7]))
+      if (!ValidadorDeInputs.soloNumero(fila[7])) {
+        Logger.error("No es una cantidad valida: " + fila[7]);
         return false;
+      }
     }
     return true;
   }
 
-  private Boolean soloNumero(String str) {
-    return str.matches("\\d+");
-  }
-  private Boolean soloLetras(String str) {
-    return str.matches("[a-zA-Z]+");
-  }
 
-  private Boolean esFechaValida(String fecha) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    try {
-      LocalDate.parse(fecha, formatter);
-      return true;
-    } catch (DateTimeParseException e) {
-      return false;
-    }
-  }
 }

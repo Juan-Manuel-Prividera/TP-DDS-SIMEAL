@@ -41,8 +41,8 @@ public class SolicitudOperacionHeladera extends Persistente {
   @Transient
   private int horasParaEjecutarse = 3;
 
-  @Column(name = "hora_inicio")
-  private LocalDateTime horaInicio;
+  @Column(name = "hora_realizacion")
+  private LocalDateTime horaDeRealizacion;
 
   @Column(name = "hora_solicitud")
   private LocalDateTime horaSolicitud;
@@ -50,6 +50,6 @@ public class SolicitudOperacionHeladera extends Persistente {
 
   //Por alguna razón, si ejecutas el metodo al mismo tiempo en el que creaste la solicitud, devuelve false
   public boolean puedeEjecutarse(Heladera heladera){
-    return heladera == this.heladera && LocalDateTime.now().isBefore(this.horaInicio.plusHours(this.horasParaEjecutarse));
+    return heladera == this.heladera && LocalDateTime.now().isBefore(this.horaDeRealizacion.plusHours(this.horasParaEjecutarse));
   }
 }

@@ -1,4 +1,8 @@
 {{> templates/navbar}}
+
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
 <div class="container-creacion-preguntas">
         <!-- Panel izquierdo para mostrar las preguntas existentes -->
         <div class="preguntas-existentes">
@@ -118,26 +122,21 @@
     function borrarPregunta(pregunta_id,formulario_id) {
         // Confirmación antes de eliminar
         if (confirm("¿Estás seguro de que deseas eliminar esta pregunta?")) {
+            console.log("Anates de hacer request de borrar pregunta")
             // Enviar una solicitud POST al servidor para eliminar la pregunta
             fetch(`/formulario/${formulario_id}/pregunta/${pregunta_id}`, {
-                method: 'DELETE',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            })
-                    .then(response => {
-                        if (response.ok) {
-                            // Recargar la página o eliminar la pregunta del DOM si se eliminó con éxito
-                            //location.reload(); // Recargar la página para reflejar los cambios
-                            window.location.reload(true);
-                        } else {
-                            alert('Error al eliminar la pregunta');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error al eliminar la pregunta:', error);
-                        alert('Hubo un problema al intentar eliminar la pregunta.');
-                    });
+            }).then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url; // Redirige a la URL proporcionada en la respuesta
+                } else {
+                    window.location.reload(); // Recarga la página
+                }
+            });
+            console.log("Termina funcion borrarPregunta")
         }
     }
 </script>

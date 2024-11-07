@@ -27,6 +27,7 @@ public class VisitaController {
   // Este index es como el home del tecnico asi que tambien tiene los encargos
   // Podria verse de acomodar de otra forma las cosas pero de momento queda
   public void index(Context ctx) {
+    Logger.debug("Home Tecnico");
     HashMap<String, Object> model = new HashMap<>();
     Boolean failed = Boolean.parseBoolean(ctx.queryParam("failed"));
     String action = ctx.queryParam("action");

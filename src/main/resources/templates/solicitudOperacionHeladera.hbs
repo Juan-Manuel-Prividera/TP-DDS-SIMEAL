@@ -1,4 +1,7 @@
 {{> templates/navbar}}
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
 <div class="linear-container">
     {{> templates/heladeras/mapa_heladera}}
 <div class="container">
@@ -18,14 +21,14 @@
         <!-- Cantidad de Viandas -->
         <div class="form-group mb-3">
             <label for="cantidadViandas" class="form-label">Cantidad de Viandas</label>
-            <input type="number" class="form-control" id="cantidadViandas" name="cantidadViandas" placeholder="Ingresa la cantidad" required>
+            <input min="1" type="number" class="form-control" id="cantidadViandas" name="cantidadViandas" placeholder="Ingresa la cantidad" required>
             <div class="invalid-feedback">Por favor ingresa la cantidad de viandas.</div>
         </div>
 
         <!-- Horario -->
         <div class="form-group mb-3">
             <label for="horario" class="form-label">Horario</label>
-            <input type="datetime-local" class="form-control" id="horario" name="horario" required>
+            <input  max="" min="" type="datetime-local" class="form-control" id="horario" name="horario" required>
             <div class="invalid-feedback">Por favor selecciona un horario.</div>
         </div>
 
@@ -58,6 +61,25 @@
             }, false)
         })
     })()
+
+    // Obtenemos la fecha actual y configuramos el mínimo y el valor inicial
+    const inputFecha = document.getElementById("horario");
+
+    // Crear una fecha con el día actual
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0); // Establecer hora en 00:00 para la fecha de hoy
+
+    // Crear una fecha máxima para mañana a las 23:59
+    const maximo = new Date(hoy);
+    maximo.setDate(hoy.getDate() + 1); // Establecer como máximo el día siguiente
+
+    // Formatear la fecha mínima y máxima en el formato requerido por datetime-local
+    const formatoFecha = fecha => fecha.toISOString().slice(0, 16);
+
+    // Asignar valor mínimo, máximo, y valor inicial
+    inputFecha.min = formatoFecha(hoy); // Establece la fecha actual como mínimo
+    inputFecha.max = formatoFecha(maximo); // Establece el día siguiente como máximo
+    inputFecha.value = formatoFecha(hoy); // Por defecto: día actual, hora vacía
 </script>
 
 <script type="module" src="/js/mapa.js"></script>

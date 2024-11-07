@@ -1,4 +1,8 @@
 {{> templates/navbar}}
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
+
 <div class="example-cargacsv-container">
 <div class="example-container">
 
@@ -22,8 +26,8 @@
         <progress id="progressBar" value="0" max="100"></progress>
         <p id="progressText">0% completado</p>
 
-        <a>
-            <button type="submit" class="btn btn-primary btn-seleccionar rounded m-auto">Subir archivo</button>
+        <a class="mb-5">
+            <button id="uploadButton"  type="submit" class="btn btn-primary btn-seleccionar rounded m-auto mb-5">Subir archivo</button>
         </a>
     </form>
 

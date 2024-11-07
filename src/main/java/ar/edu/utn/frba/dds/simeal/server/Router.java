@@ -10,6 +10,9 @@ import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesContr
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
+import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.PersonaVulnerableController;
+import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.SolicitudHeladeraController;
+import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.TarjetasController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.VisitaController;
@@ -32,8 +35,8 @@ public class Router {
     app.post("formulario", ServiceLocator.getController(FormularioController.class)::crearFormulario);
     app.get("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::editarFormulario);
     app.post("formulario/{formulario_id}/pregunta", ServiceLocator.getController(FormularioController.class)::crearPregunta);
-    app.delete("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
-    app.delete("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
+    app.post("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
+    app.post("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
 
    // ***************  Tecnicos  ***************
     app.get("tecnico", ServiceLocator.getController(TecnicoController.class)::index);
@@ -62,6 +65,7 @@ public class Router {
     // ***************  Solicitud de operacion heladera  ***************
     app.get("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::index);
     app.post("solicitud/{tarjeta_personal_id}", ServiceLocator.getController(SolicitudHeladeraController.class)::create);
+
     // ***************  Heladeras   ***************
     app.get("heladera", ServiceLocator.getController(HeladeraController.class)::index);
     app.get("heladera/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getEstadoHeladera);

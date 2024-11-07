@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
 @Table(name = "donar_dinero")
 public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Getter
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   @ManyToOne
   @JoinColumn(name = "colaborador", referencedColumnName = "id")
   private Colaborador colaborador;
