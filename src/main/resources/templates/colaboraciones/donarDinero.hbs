@@ -1,8 +1,10 @@
 {{> templates/navbar}}
-
+{{#if popup_message}}
+    {{> templates/popup}}
+{{/if}}
 <div class="linear-container">
     <div class="form-donacion-dinero">
-        <form action="/{{user_type}}/colaboraciones/donarDinero" method="POST">
+        <form action="/colaboraciones/donarDinero" method="POST">
             <h3 class="mb-5 mt-5">Complete su donación</h3>
 
             <!-- Campo para ingresar el monto de la donación -->

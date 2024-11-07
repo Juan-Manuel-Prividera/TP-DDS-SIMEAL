@@ -74,6 +74,7 @@ public class InitPersistence {
         Permiso postDonarVianda = new Permiso("colaboraciones/donarVianda", TipoMetodoHttp.POST);
         Permiso getAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.GET);
         Permiso postAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.POST);
+        Permiso getDistribucionVianda = new Permiso("colaboraciones/distribucionVianda", TipoMetodoHttp.GET);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
         Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
@@ -111,7 +112,8 @@ public class InitPersistence {
                 getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
-                getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda
+                getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
+                getDistribucionVianda
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
@@ -129,7 +131,7 @@ public class InitPersistence {
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos
+                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
