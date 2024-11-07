@@ -13,21 +13,27 @@ public class NotificacionConverter implements AttributeConverter<Notificacion, S
 
   @Override
   public String convertToDatabaseColumn(Notificacion notificacion) {
-    return switch(notificacion) {
-      case HayMuchasViandas hayMuchasViandas -> "HayMuchasViandas";
-      case QuedanPocasViandas quedanPocasViandas -> "QuedanPocasViandas";
-      case HuboUnDesperfecto huboUnDesperfecto -> "HuboUnDesperfecto";
-      default -> null;
-    };
+    if (notificacion instanceof HayMuchasViandas) {
+      return "HayMuchasViandas";
+    } else if (notificacion instanceof QuedanPocasViandas) {
+      return "QuedanPocasViandas";
+    } else if (notificacion instanceof HuboUnDesperfecto) {
+      return "HuboUnDesperfecto";
+    } else {
+      return null;
+    }
   }
 
   @Override
   public Notificacion convertToEntityAttribute(String s) {
-    return switch (s) {
-      case "HayMuchasViandas" -> new HayMuchasViandas();
-      case "QuedanPocasViandas" -> new QuedanPocasViandas();
-      case "HuboUnDesperfecto" -> new HuboUnDesperfecto();
-      default -> null;
-    };
+    if ("HayMuchasViandas".equals(s)) {
+      return new HayMuchasViandas();
+    } else if ("QuedanPocasViandas".equals(s)) {
+      return new QuedanPocasViandas();
+    } else if ("HuboUnDesperfecto".equals(s)) {
+      return new HuboUnDesperfecto();
+    } else {
+      return null;
+    }
   }
 }

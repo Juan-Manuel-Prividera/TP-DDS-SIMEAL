@@ -30,7 +30,7 @@ target/**
 .idea/**
 
 # Properties
-application.properties
+src/main/resources/application.properties
 
 src/main/resources/META-INF/persistence.xml.lol
 src/main/resources/META-INF/persistence.xml

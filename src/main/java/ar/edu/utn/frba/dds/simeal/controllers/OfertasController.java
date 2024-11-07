@@ -119,7 +119,7 @@ public class OfertasController {
   //Setea la parte superior de la pág ofertas
   private void setUpperBox(HashMap<String, Object> model, Context ctx) {
     setRubros(model, ctx);
-    Logger.debug("user_type = ", ctx.sessionAttribute("user_type"));
+    //Logger.debug("user_type = %s", ctx.sessionAttribute("user_type").toString());
     /*
     if(ctx.sessionAttribute("user_type").equals("HUMANO") && false){
       setSelfPuntos(model, ctx);
