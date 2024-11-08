@@ -17,8 +17,10 @@
     <h2><b>{{oferta.nombre}}</b></h2>
     <div class="texto-izquierda">
         <p>Puntos necesarios: {{oferta.puntosNecesarios}}</p>
-        <!-- OFERTA NO TIENE DESCRIPCIÓN, QUE HAGO? <p class="descripcion">Descripción del producto...</p> -->
+        <p>Producto: {{producto.nombre}}</p>
+        <p class="descripcion">Descripcion: {{producto.descripcion}}<p>
     </div>
+
 
     {{!-- ESTA BIEN EL HREF??? --}}
     <a class="dark-btn" href="../{{oferta.id}}/modificar">Modificar</a>

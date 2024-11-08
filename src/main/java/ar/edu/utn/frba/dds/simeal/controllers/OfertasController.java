@@ -52,8 +52,7 @@ public class OfertasController {
 
     setNavBar(model,app);
     setUpperBox(model,app);
-    //TODO: ASOCIAR LAS OFERTAS A UN USUARIO VÁLIDO
-    //setSelfOffers(model,app);
+    setSelfOffers(model,app);
 
     model.put("agregarOferta", "true");
     app.render("ofertas/oferta_self.hbs",model);
@@ -64,8 +63,7 @@ public class OfertasController {
 
     setNavBar(model,app);
     setUpperBox(model,app);
-    //TODO: ASOCIAR LAS OFERTAS A UN USUARIO VÁLIDO
-    //setSelfOffers(model,app);
+    setSelfOffers(model,app);
 
     setOferta(model,app);
 
@@ -115,7 +113,7 @@ public class OfertasController {
     //TODO: NO USAR PATHPARAMS
     Oferta oferta = (Oferta) ofertaRepository.buscarPorId(Long.valueOf(ctx.pathParam("oferta_id")), Oferta.class);
     model.put("oferta", oferta);
-    Producto producto = (Producto) repositorio.buscarPorId(Long.valueOf(ctx.pathParam("producto_id")), Producto.class);
+    Producto producto = (Producto) repositorio.buscarPorId(oferta.getProducto().getId(), Producto.class);
     model.put("producto", producto);
   }
 
@@ -155,9 +153,9 @@ public class OfertasController {
 
   //Setea las ofertas que pertenecen al usuario
   private void setSelfOffers(HashMap<String, Object> model, Context ctx) {
-    Logger.debug("Colaborador id:" + ctx.sessionAttribute("colaborador_id").toString());
-    Long colabId = Long.valueOf(ctx.sessionAttribute("colaborador_id"));
-    List<Oferta> ofertas = (List<Oferta>) ofertaRepository.getPorColaborador(colabId);
+    //Long colabId = Long.valueOf(ctx.sessionAttribute("colaborador_id"));
+    Long colabId = 52L;
+    List<Oferta> ofertas = ofertaRepository.getPorColaborador(colabId);
     model.put("ofertas", ofertas);
   }
 }
