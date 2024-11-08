@@ -35,6 +35,10 @@ public class Oferta extends Persistente {
   @Column (name = "imagen")
   private String imagen;
 
+  @ManyToOne
+  @JoinColumn(name="producto_id", referencedColumnName = "id")
+  private Producto producto;
+
 
   public static Oferta create(Colaborador colaborador, LocalDate fechaDeRealizacion) {
     return Oferta.builder()
@@ -52,12 +56,14 @@ public class Oferta extends Persistente {
         .build();
   }
 
-  public static Oferta create(Colaborador colaborador, String nombre, LocalDate fechaDeRealizacion, double puntosNecesarios, Rubro rubro) {
+  //Usado en OfertasController
+  public static Oferta create(Colaborador colaborador, String nombre, LocalDate fechaDeRealizacion, double puntosNecesarios, Rubro rubro, Producto producto) {
     return Oferta.builder()
             .colaborador(colaborador)
             .fechaDeRealizacion(fechaDeRealizacion)
             .puntosNecesarios(puntosNecesarios)
             .rubro(rubro)
+            .producto(producto)
             .build();
   }
 

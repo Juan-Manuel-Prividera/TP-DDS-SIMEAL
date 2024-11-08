@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.OfertaRepository;
@@ -114,6 +115,8 @@ public class OfertasController {
     //TODO: NO USAR PATHPARAMS
     Oferta oferta = (Oferta) ofertaRepository.buscarPorId(Long.valueOf(ctx.pathParam("oferta_id")), Oferta.class);
     model.put("oferta", oferta);
+    Producto producto = (Producto) repositorio.buscarPorId(Long.valueOf(ctx.pathParam("producto_id")), Producto.class);
+    model.put("producto", producto);
   }
 
   //Setea la parte superior de la pág ofertas

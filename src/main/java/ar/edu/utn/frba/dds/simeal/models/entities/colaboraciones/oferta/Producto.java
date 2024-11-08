@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -18,4 +19,9 @@ public class Producto extends Persistente {
   private String descripcion;
   @Embedded
   private Categoria categoria;
+
+  public Producto(String nombre, String descripcion) {
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+  }
 }

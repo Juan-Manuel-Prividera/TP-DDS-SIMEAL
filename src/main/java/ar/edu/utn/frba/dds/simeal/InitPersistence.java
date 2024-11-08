@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
@@ -274,12 +275,15 @@ public class InitPersistence {
     }
 
     private static void ignorarEstaFuncion(int day, Colaborador colaborador, Repositorio repositorio, Rubro rubro) {
+        Producto producto = new Producto("nombre", "Descripción");
+        repositorio.guardar(producto);
 
         Oferta oferta = Oferta.create(colaborador,
                 "Pollo del:" + Integer.valueOf(day).toString(),
                 LocalDate.of(2024, 1, day),
                 (double) (day+10),
-                rubro);
+                rubro,
+                producto);
         repositorio.guardar(oferta);
     }
 }
