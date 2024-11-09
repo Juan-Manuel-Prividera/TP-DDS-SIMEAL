@@ -12,6 +12,7 @@ public class CustomMessageReceptor implements IMqttMessageListener {
   public CustomMessageReceptor(SensorRepository sensorRepository) {
     this.sensorRepository = sensorRepository;
   }
+
   @Override
   public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
     try {

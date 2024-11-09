@@ -10,10 +10,10 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttSubscriber {
 
-  ConfigReader configReader = new ConfigReader();
+  private static ConfigReader configReader = new ConfigReader();
 
-  public void conectar(String topic) {
-
+  public static void main(String[] args) throws MqttException {
+    String topic = "heladera/medicion";
     //ejemplo topico: "test/topic"
     String broker = configReader.getProperty("broker.host");
     String clientId = "JavaSubscriber";
@@ -25,6 +25,7 @@ public class MqttSubscriber {
       MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
       MqttConnectOptions connOpts = new MqttConnectOptions();
       connOpts.setCleanSession(true);
+
       System.out.println("Connecting to broker: " + broker);
       sampleClient.connect(connOpts);
       System.out.println("Connected");

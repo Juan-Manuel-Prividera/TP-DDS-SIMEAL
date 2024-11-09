@@ -36,6 +36,8 @@ public class AdherirHeladera extends Persistente implements ColaboracionPuntuabl
   @Transient
   private final double factorDeReconocimiento = 5;
 
+
+
   public static AdherirHeladera create(Colaborador colaborador, LocalDate fecha) {
     return AdherirHeladera.builder()
         .colaborador(colaborador)

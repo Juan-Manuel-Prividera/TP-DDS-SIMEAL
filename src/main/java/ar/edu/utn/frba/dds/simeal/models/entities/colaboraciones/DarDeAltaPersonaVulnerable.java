@@ -4,10 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity

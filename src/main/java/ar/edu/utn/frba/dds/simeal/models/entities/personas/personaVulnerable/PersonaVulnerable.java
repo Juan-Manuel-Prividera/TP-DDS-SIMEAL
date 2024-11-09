@@ -62,7 +62,8 @@ public class PersonaVulnerable extends Persistente {
     if (hijos == null) {
       return 0;
     }
-    return this.hijos.stream().filter(PersonaVulnerable::esMenor).toList().size();
+    this.cantidadHijosMenores = (int) this.hijos.stream().filter(PersonaVulnerable::esMenor).count();
+    return cantidadHijosMenores;
   }
 
   public void calcularEdad() {

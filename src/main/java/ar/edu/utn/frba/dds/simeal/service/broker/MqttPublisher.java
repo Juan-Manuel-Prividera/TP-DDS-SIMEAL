@@ -11,11 +11,12 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class MqttPublisher {
 
-  ConfigReader configReader = new ConfigReader();
+  private static ConfigReader configReader = new ConfigReader();
 
 
-  public void conectar(SolicitudOperacionHeladera solicitudOperacion, String topic) {
-
+  public static void main(String[] args) {
+    String topic = "heladera/medicion";
+    String solicitudOperacion = "hola";
     //ejemplo topico: "test/topic"
     String broker = configReader.getProperty("broker.host");
     String clientId = "JavaPublisher";
