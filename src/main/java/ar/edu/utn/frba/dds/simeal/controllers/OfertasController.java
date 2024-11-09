@@ -88,23 +88,8 @@ public class OfertasController {
     HashMap<String, Object> model = new HashMap<>();
     Producto producto = new Producto(app.formParam("productoNombre"), app.formParam("descripcion"));
     Colaborador colaborador = (Colaborador)  repositorio.buscarPorId(app.sessionAttribute("colaborador_id"), Colaborador.class);
-    List<Rubro> rubros = (List<Rubro>) repositorio.obtenerTodos(Rubro.class);
-
-    Rubro newRubro = null;
-    for(Rubro rubro : rubros){
-      if (Objects.equals(rubro.getNombre(), app.formParam("rubro"))){
-        newRubro = rubro;
-        break;
-      }
-    }
-    if(Objects.isNull(newRubro)){
-      newRubro = new Rubro(app.formParam("rubro"));
-      repositorio.guardar(newRubro);
-    }
-
-    Logger.info("Info formulario: %s, %s, %s", app.formParam("puntos"), app.formParam("nombre"), app.formParam("imagen"));
-
-    Producto produto = new Producto(app.formParam("productoNombre"), app.formParam("descripcion"));
+    Rubro newRubro = giveRubroNotRepeted(app.formParam("rubro"));
+    repositorio.guardar(producto);
 
     Oferta oferta = Oferta.create(
         colaborador,
@@ -115,19 +100,20 @@ public class OfertasController {
         app.formParam("imagen"),
         producto
     );
+    Logger.info("Info formulario: %s", oferta.toString());
     repositorio.guardar(oferta);
 
     setNavBar(model,app);
     model.put("publicar_modificar", "publicar");
     model.put("agregarOferta", "true");
+    model.put("required", "required");
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
   public void modificar(Context app){
     HashMap<String, Object> model = new HashMap<>();
 
-    model.put("ofertaId", app.pathParam("ofertaId"));
-
+    model.put("ofertaId", app.pathParam("oferta_id"));
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
@@ -135,7 +121,31 @@ public class OfertasController {
   public void updateOferta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
 
-    model.put("ofertaId", app.pathParam("ofertaId"));
+    Oferta oferta = (Oferta) ServiceLocator.getRepository(OfertaRepository.class).buscarPorId(Long.valueOf(app.pathParam("oferta_id")), Oferta.class);
+
+    if (app.formParam("nombre") != null && !app.formParam("nombre").isEmpty()) {
+      oferta.setNombre(app.formParam("nombre"));
+    }
+    if (app.formParam("puntos") != null && !app.formParam("puntos").isEmpty()) {
+      oferta.setPuntosNecesarios(Double.parseDouble(app.formParam("puntos")));
+    }
+    if (app.formParam("rubro") != null && !app.formParam("rubro").isEmpty()) {
+      oferta.setRubro(giveRubroNotRepeted(app.formParam("rubro")));
+    }
+    if (app.formParam("producto") != null && !app.formParam("producto").isEmpty()) {
+      oferta.setProducto(giveProductoNotRepeted(app.formParam("producto"), oferta.getProducto().getDescripcion()));
+    }
+    if (app.formParam("descripcion") != null && !app.formParam("descripcion").isEmpty()) {
+      oferta.setProducto(giveProductoNotRepeted(oferta.getProducto().getNombre(), app.formParam("descripcion")));
+    }
+    if (app.formParam("imagen") != null && !app.formParam("imagen").isEmpty()) {
+      oferta.setImagen(app.formParam("imagen"));
+    }
+
+
+    repositorio.actualizar(oferta);
+
+    model.put("ofertaId", app.pathParam("oferta_id"));
 
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
@@ -216,7 +226,6 @@ public class OfertasController {
     for(Oferta oferta : ofertas){
       OfertaDTO ofertaDTO = new OfertaDTO(oferta);
       ofertasDTO.add(ofertaDTO);
-      Logger.info("Nombre producto: %s - %s", oferta.getProducto().getNombre(), ofertaDTO.getProductoNombre());
     }
     return ofertasDTO;
   }
@@ -227,5 +236,34 @@ public class OfertasController {
     return ptsColab;
   }
 
+  private Rubro giveRubroNotRepeted (String nombre) {
+    List<Rubro> rubros = (List<Rubro>) repositorio.obtenerTodos(Rubro.class);
+    Rubro newRubro = null;
+    for (Rubro rubro : rubros) {
+      if (Objects.equals(rubro.getNombre(), nombre)) {
+        newRubro = rubro;
+      }
+    }
+    if (Objects.isNull(newRubro)) {
+      repositorio.guardar(newRubro);
+      newRubro = new Rubro(nombre);
+    }
+    return newRubro;
+  }
+
+  private Producto giveProductoNotRepeted (String nombre, String descripcion) {
+    List<Producto> productos = (List<Producto>) repositorio.obtenerTodos(Producto.class);
+    Producto newProducto = null;
+    for (Producto producto: productos) {
+      if (Objects.equals(producto.getNombre(), nombre) && Objects.equals(producto.getDescripcion(), descripcion)) {
+        newProducto = producto;
+      }
+    }
+    if (Objects.isNull(newProducto)) {
+      repositorio.guardar(newProducto);
+      newProducto = new Producto(nombre, descripcion);
+    }
+    return newProducto;
+  }
 
 }

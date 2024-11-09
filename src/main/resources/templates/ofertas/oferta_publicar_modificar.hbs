@@ -37,26 +37,26 @@
     <form id="miFormulario" method="POST" action="publicar">
     {{else}}
         <h2 class="titulo"><strong>Modificar Oferta</strong></h2>
-    <form id="miFormulario" method="POST" action="ofertas/misOfertas/{{ofertaId}}/modificar">
+    <form id="miFormulario" method="POST" action="modificar">
     {{/if}}
         <div class="form-group">
             <label for="nombre">*Nombre:</label>
-            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" {{required}}>
 
             <label for="rubro">*Rubro:</label>
-            <input type="text" class="form-control" name="rubro" placeholder="Rubros" required>
+            <input type="text" class="form-control" name="rubro" placeholder="Rubros" {{required}}>
 
             <label for="puntos">*Puntos Requeridos:</label>
-            <input type="number" class="form-control" name="puntos" placeholder="xxxx" required>
+            <input type="number" class="form-control" name="puntos" placeholder="xxxx" {{required}}>
 
             <label for="productoNombre">*Nombre del producto:</label>
-            <input type="text" class="form-control" name="productoNombre" placeholder="productoNombre" required>
+            <input type="text" class="form-control" name="productoNombre" placeholder="productoNombre" {{required}}>
 
             <label for="descripcion">*Descripcion:</label>
-            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" required>
+            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" {{required}}>
 
             <label for="imagen">Cargar Imagen:</label>
-            <input type="file" class="form-control-file" name="imagen" required>
+            <input type="file" class="form-control-file" name="imagen" {{required}}>
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-success mt-3 mb-3">Aceptar</button>
