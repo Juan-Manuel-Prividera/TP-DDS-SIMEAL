@@ -1,14 +1,18 @@
 package ar.edu.utn.frba.dds.simeal;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
@@ -234,18 +238,34 @@ public class InitPersistence {
         Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
         modeloRepo.guardar(modeloHeladera);
 
-        Colaborador colaborador0 = new Colaborador(new Documento(TipoDocumento.DNI,"12345678"),"Juan","Perez", new Contacto("541198765432", new WhatsApp(null)));
+        Colaborador colaborador0 = new Colaborador("UTN-BA", new Rubro("Educación"), TipoJuridico.INSTITUCION, new Contacto("uni@gmail.com", MedioDeContactoFactory.crearMedioDeContacto("email")));
         colaborador0.sumarPuntosReconocimiento(200);
+        List<Rol> roles = (List<Rol>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Rol.class);
+        Rol rolJuridico = null;
+        for (Rol rol : roles) {
+            if (rol.getTipo().equals(TipoRol.JURIDICO)) {
+                rolJuridico = rol;
+                break;
+            }
+        }
 
+        Usuario usuario = new Usuario("utnba",PasswordHasher.hashPassword("utnba"),List.of(rolJuridico));
+        colaborador0.setUsuario(usuario);
         Repositorio repositorioColabs = ServiceLocator.getRepository(Repositorio.class);
+
         repositorioColabs.guardar(colaborador0);
 
-        Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
         Heladera heladera1 = new Heladera("Heladera Medrano",ubicacion1, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
         Heladera heladera2 = new Heladera("Heladera Campus",ubicacion2, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
 
+        Sensor sensor = new Sensor(heladera,null);
+        Sensor sensor1 = new Sensor(heladera1,null);
+        Sensor sensor2 = new Sensor(heladera2,null);
+        Sensor sensor3 = new Sensor(heladera3,null);
+        Sensor sensor4 = new Sensor(heladera4,null);
 
         Repositorio repositorioHeladera = ServiceLocator.getRepository(Repositorio.class);
         repositorioHeladera.guardar(heladera);
@@ -254,8 +274,15 @@ public class InitPersistence {
         repositorioHeladera.guardar(heladera3);
         repositorioHeladera.guardar(heladera4);
 
+        SensorRepository sensorRepository = (SensorRepository) ServiceLocator.getRepository(SensorRepository.class);
+        sensorRepository.guardar(sensor);
+        sensorRepository.guardar(sensor1);
+        sensorRepository.guardar(sensor2);
+        sensorRepository.guardar(sensor3);
+        sensorRepository.guardar(sensor4);
 
     }
+
     //TODO: Agregar las imagenes
     private static void initOfertas(){
         Repositorio modeloRepo = ServiceLocator.getRepository(OfertaRepository.class);

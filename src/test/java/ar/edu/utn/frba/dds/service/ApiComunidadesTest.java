@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.service.broker;
+package ar.edu.utn.frba.dds.service;
 
 import ar.edu.utn.frba.dds.simeal.service.RecomendacionDonacionAPIExterna.AdapterRecomendadorComunidad;
 import ar.edu.utn.frba.dds.simeal.service.RecomendacionDonacionAPIExterna.Comunidad;

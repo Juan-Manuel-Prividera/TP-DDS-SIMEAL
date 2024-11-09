@@ -44,7 +44,7 @@
         <ul class="list-group"  style="width: 100%">
             {{#if visitas.length}}
             {{#each visitas}}
-                <li class="list-group-item mb-3">
+                <li class="list-group-item mb-3" onclick="toggleDescripcion({{@index}})">
                     <div>
                         <strong>{{this.nombreHeladera}}</strong><br>
                         <small>{{this.fechaHora}}</small><br>

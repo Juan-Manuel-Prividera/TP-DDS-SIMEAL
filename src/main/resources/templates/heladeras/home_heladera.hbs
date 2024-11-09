@@ -1,4 +1,7 @@
 {{> templates/navbar}}
+{{#if popup_title}}
+    {{> templates/popup}}
+{{/if}}
 <div class="linear-container">
     {{> templates/heladeras/mapa_heladera}}
 <div class="form-heladeras">
@@ -9,9 +12,9 @@
         <label for="ubicacionHeladera">Ubicación</label>
         <input id="ubicacionHeladera" type="text" class="form-control mb-5" placeholder="Ubicación">
 
-        <a class="btn btn-dark btn-seleccionar rounded m-auto" id="inputHeladera" type="button">Seleccionar</a>
+        <a class="btn btn-dark btn-seleccionar rounded mb-3" id="inputHeladera" type="button">Seleccionar</a>
         {{#if esHumano}}
-        <a class="btn btn-dark btn-info btn-seleccionar rounded m-auto" id="suscripciones" type="button" href="/suscripciones">Mis Suscripciones</a>
+        <a class="btn btn-dark btn-info btn-seleccionar rounded mb-3" id="suscripciones" type="button" href="/suscripciones">Mis Suscripciones</a>
         {{/if}}
     </form>
 </div>

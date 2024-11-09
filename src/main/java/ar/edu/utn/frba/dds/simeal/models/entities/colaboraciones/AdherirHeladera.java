@@ -29,8 +29,10 @@ public class AdherirHeladera extends Persistente implements ColaboracionPuntuabl
   @JoinColumn(name = "heladera_id", referencedColumnName = "id")
   private Heladera heladera;
 
-  @Column(name = "fechaRealizacion")
+  @Column(name = "fecha_realizacion")
   private final LocalDate fechaDeRealizacion;
+
+
 
   @Builder.Default
   @Transient
@@ -45,12 +47,13 @@ public class AdherirHeladera extends Persistente implements ColaboracionPuntuabl
 
   @Override
   public double calcularReconocimientoParcial() {
-    Period periodoEnFuncionamiento = Period.between(this.fechaDeRealizacion, LocalDate.now());
+    Period periodoEnFuncionamientoSinGastar;
+    periodoEnFuncionamientoSinGastar = Period.between(this.fechaDeRealizacion, LocalDate.now());
 
     double cantMeses =
-        periodoEnFuncionamiento.getYears() * 12
+        periodoEnFuncionamientoSinGastar.getYears() * 12
           +
-        periodoEnFuncionamiento.getMonths();
+        periodoEnFuncionamientoSinGastar.getMonths();
     return cantMeses * this.factorDeReconocimiento;
   }
 }

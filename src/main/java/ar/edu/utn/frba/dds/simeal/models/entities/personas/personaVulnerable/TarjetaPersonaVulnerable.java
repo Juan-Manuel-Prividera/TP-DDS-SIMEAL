@@ -1,11 +1,13 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Getter
@@ -43,7 +45,8 @@ public class TarjetaPersonaVulnerable extends Persistente {
   }
 
   public int calcularLimiteDeUso() {
-    return limiteDeUsoDiario + this.personaVulnerable.cantHijosMenores();
+    Logger.debug("La persona tiene: " + this.personaVulnerable.cantHijosMenores() + " hijos menores");
+    return limiteDeUsoDiario + (this.personaVulnerable.cantHijosMenores() * retirosAdicionalesPorMenores);
   }
 
   public void resetearUsos() {

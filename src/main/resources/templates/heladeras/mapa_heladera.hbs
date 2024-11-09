@@ -1,5 +1,19 @@
 <div class="mapa-container">
     <div class="m-3 mt-5 redondeado sombreado" id="mapid"></div>
+
+{{#if mostrarHeladerasJur}}
+        <div class="legend">
+            <div class="legend-item">
+                <div class="color-box my-fridges"></div>
+                <span>Tus heladeras</span>
+            </div>
+            <div class="legend-item">
+                <div class="color-box other-fridges"></div>
+                <span>El resto de heladeras</span>
+            </div>
+        </div>
+
+{{/if}}
 </div>
 
 <script type="module" src="/js/mapa.js"></script>

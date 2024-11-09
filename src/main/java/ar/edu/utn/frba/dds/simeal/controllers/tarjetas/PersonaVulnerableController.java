@@ -7,11 +7,9 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Per
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Permiso;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +29,14 @@ public class PersonaVulnerableController {
         .build();
 
       if (app.formParam("documentoNro") != null && app.formParam("documentoTipo") != null) {
+        Logger.debug("Documento nro: " + app.formParam("documentoNro"));
         personaVulnerable.setDocumento(
           new Documento(TipoDocumento.valueOf(app.formParam("documentoTipo").toUpperCase()), app.formParam("documentoNro")));
       }
 
       // Puede tener o no domicilio por consigna
-      if (app.formParam("calle_nombre") != null) {
+      if (app.formParam("calle_nombre") != null && app.formParam("provincia") != null) {
+        Logger.debug("Intenta setear calle: " + app.formParam("calle_nombre"));
         personaVulnerable.setDomilicio(new Ubicacion(
           app.formParam("calle_nombre"), Integer.parseInt(app.formParam("calle_altura")),
           Provincia.valueOf(app.formParam("provincia")), Integer.parseInt(app.formParam("codigo_postal"))));
@@ -47,7 +47,7 @@ public class PersonaVulnerableController {
       if (!app.formParams("nombreHijo").get(0).isEmpty()) {
         List<String> nombresHijos = app.formParams("nombreHijo");
         List<String> apellidosHijos = app.formParams("apellidoHijo");
-        List<String> documentoTIpoHijos = app.formParams("documentoTipoHijo");
+        List<String> documentoTipoHijos = app.formParams("documentoTipoHijo");
         List<String> documentoNroHijos = app.formParams("documentoNroHijo");
         List<String> nacimientoHijos = app.formParams("nacimientoHijo");
         Logger.debug("Cantidad de hijos: "+ nombresHijos.size());
@@ -58,11 +58,14 @@ public class PersonaVulnerableController {
               .apellido(apellidosHijos.get(i))
               .fechaNacimiento(LocalDate.parse(nacimientoHijos.get(i)))
               .build();
-
+          Logger.debug("Hijo creado");
           // La persona puede o no tene documento... por consigna
-          if (documentoNroHijos.get(i) != null && documentoTIpoHijos.get(i) != null) {
-              persona.setDocumento((new Documento(TipoDocumento.valueOf(documentoTIpoHijos.get(i).toUpperCase()), documentoNroHijos.get(i))));
+          if (!documentoNroHijos.get(i).isEmpty() && !documentoTipoHijos.get(i).isEmpty()) {
+            Logger.debug("Intenta setear documento al hijo");
+              persona.setDocumento((new Documento(TipoDocumento.valueOf(documentoTipoHijos.get(i).toUpperCase()), documentoNroHijos.get(i))));
           }
+          persona.calcularEdad();
+          personasVulnerable.add(persona);
         }
 
         personaVulnerable.setHijos(personasVulnerable);
@@ -71,7 +74,6 @@ public class PersonaVulnerableController {
       ServiceLocator.getRepository(Repositorio.class).guardar(personaVulnerable);
       ServiceLocator.getRepository(Repositorio.class).refresh(personaVulnerable);
       ServiceLocator.getController(TarjetasController.class).create(personaVulnerable, app);
-
       app.redirect("/tarjeta/new?failed=false&action=createPersona");
     } catch (Exception e) {
       app.redirect("/tarjeta/new?failed=true&action=createPersona");
@@ -90,7 +92,7 @@ public class PersonaVulnerableController {
     if (!Objects.equals(newApellido, personaVulnerable.getApellido())) {
       personaVulnerable.setApellido(newApellido);
     }
-    if (!Objects.equals(newDni, personaVulnerable.getDocumento().getNroDocumento())) {
+    if (!Objects.equals(newDni, "") && !Objects.equals(newDni, personaVulnerable.getDocumento().getNroDocumento())) {
       personaVulnerable.getDocumento().setNroDocumento(newDni);
     }
     if (!Objects.equals(Integer.parseInt(newEdad), personaVulnerable.getEdad())) {

@@ -35,16 +35,14 @@
 
              <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
 
-             <div class="icon-text ml-auto">
+             <div class="icon-text ml-auto" style="display: flex; align-items: center;">
                  <a href="/logout">
-                     <button class = "btn btn-dark rounded" id="logout-btn">Cerrar sesión</button>
+                     <button class = "btn btn-dark rounded" id="logout-btn" style="width: 100% !important;">Cerrar sesión</button>
                  </a>
 
-                 <span class="m-3">{{username}}</span>
+                 <span class="m-3 mb-4">{{username}}</span>
                  <i class="bi bi-person mr-3"></i>
              </div>
-
-
 
              {{else}}
              <img src = "/img/heladera.png"

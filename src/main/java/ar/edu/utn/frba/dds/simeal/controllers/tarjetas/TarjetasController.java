@@ -28,11 +28,13 @@ public class TarjetasController {
   private PersonaVulnerableController personaVulnerableController;
   private TarjetaPersonaVulnerableRepository repository;
   private TarjetaColaboradorRepository tarjetaColaboradorRepository;
+  private ColaboracionRepository colaboracionRepository;
 
   public TarjetasController(PersonaVulnerableController personaVulnerableController, TarjetaPersonaVulnerableRepository repository,
-                            TarjetaColaboradorRepository tarjetaColaboradorRepository) {
+                            TarjetaColaboradorRepository tarjetaColaboradorRepository, ColaboracionRepository colaboracionRepository) {
     this.personaVulnerableController = personaVulnerableController;
     this.repository = repository;
+    this.colaboracionRepository = colaboracionRepository;
     this.tarjetaColaboradorRepository = tarjetaColaboradorRepository;
   }
 
@@ -44,9 +46,7 @@ public class TarjetasController {
     setTarjetasPersonasVulnerables(model, app);
 
     // Invalidamos cache de navegador para que no mueste datos desactualizados :|
-    app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
-    app.header("Pragma", "no-cache");
-    app.header("Expires", "0");
+    invalidarCacheNavegador(app);
 
     app.render("tarjetas/tarjetas_entregadas.hbs", model);
   }
@@ -56,6 +56,7 @@ public class TarjetasController {
     model.put("titulo", "Crear nueva tarjeta");
     setNavBar(model, app);
     setTarjetaPersonal(model, app);
+    invalidarCacheNavegador(app);
 
     String failed = app.queryParam("failed");
     String action = app.queryParam("action");
@@ -76,6 +77,7 @@ public class TarjetasController {
     setNavBar(model, app);
     setTarjetasPersonasVulnerables(model, app);
     setTarjetaPersonal(model, app);
+    invalidarCacheNavegador(app);
     String failed = app.queryParam("failed");
     String action = app.queryParam("action");
 
@@ -93,6 +95,7 @@ public class TarjetasController {
     setNavBar(model, app);
     setTarjetasPersonasVulnerables(model, app);
     setTarjetaPersonal(model, app);
+    invalidarCacheNavegador(app);
 
     String failed = app.queryParam("failed");
     String action = app.queryParam("action");
@@ -143,6 +146,10 @@ public class TarjetasController {
   }
 
   private boolean validarInput(String nombre,String apellido,String dni,String edad) {
+    if (Objects.equals(dni, "")) {
+      return ValidadorDeInputs.soloNumero(edad) &&
+        ValidadorDeInputs.soloLetras(nombre) && ValidadorDeInputs.soloLetras(apellido);
+    }
     return ValidadorDeInputs.soloNumero(dni) && ValidadorDeInputs.soloNumero(edad) &&
            ValidadorDeInputs.soloLetras(nombre) && ValidadorDeInputs.soloLetras(apellido);
   }
@@ -154,7 +161,7 @@ public class TarjetasController {
       GeneradorNrosTarjeta.generarCodigo(),
       personaVulnerable
     );
-
+    Logger.debug("Se crea tarjeta con limite de uso: " + tarjetaPersonaVulnerable.calcularLimiteDeUso());
     repository.guardar(tarjetaPersonaVulnerable);
     repository.refresh(tarjetaPersonaVulnerable);
     ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable, app);
@@ -202,8 +209,7 @@ public class TarjetasController {
   }
 
   private void setTarjetasPersonasVulnerables(HashMap<String, Object> model, Context app) {
-    ColaboracionRepository repository = (ColaboracionRepository) ServiceLocator.getRepository(ColaboracionRepository.class);
-    List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) repository
+    List<DarDeAltaPersonaVulnerable> personas = (List<DarDeAltaPersonaVulnerable>) colaboracionRepository
       .getPorColaborador((app.sessionAttribute("colaborador_id")), DarDeAltaPersonaVulnerable.class);
 
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
@@ -213,7 +219,7 @@ public class TarjetasController {
       if (persona.getTarjeta().getActivo()) {
         tarjetaPersonaVulnerableDTOS.add(TarjetaPersonaVulnerableDTO.builder()
           .numero(persona.getTarjeta().getCodigo())
-          .dniPropietario(persona.getPersonaVulnerable().getDocumento().getNroDocumento())
+        //  .dniPropietario(persona.getPersonaVulnerable().getDocumento().getNroDocumento())
           .edadPropietario(String.valueOf(persona.getPersonaVulnerable().getEdad()))
           .nombrePropietario(persona.getPersonaVulnerable().getNombre())
           .apellidoPropietario(persona.getPersonaVulnerable().getApellido())
@@ -223,5 +229,11 @@ public class TarjetasController {
     }
 
     model.put("tarjetasEntregadas", tarjetaPersonaVulnerableDTOS);
+  }
+
+  private void invalidarCacheNavegador(Context app) {
+    app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    app.header("Pragma", "no-cache");
+    app.header("Expires", "0");
   }
 }
