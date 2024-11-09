@@ -1,27 +1,15 @@
 {{#partial "ofertas"}}
     <div class="container-inferior">
         {{#each ofertas}}
-            <a class="offer-card" href="misOfertas/{{this.id}}" data-point="{{this.puntosNecesarios}}" data-rubro="{{this.rubro.id}}">
+            <a class="offer-card" href="misOfertas/{{this.id}}" data-point="{{this.puntosNecesarios}}" data-rubro="{{this.rubroId}}">
                 <img src="{{this.imagen}}" alt="Descripción de la oferta" class="offer-image-short">
                 <p class="offer-title">{{this.nombre}}</p>
                 <p class="offer-update">Coste: {{this.puntosNecesarios}} pts</p>
-                <p class="offer-update">Rubro: {{this.rubro.nombre}}</p>
+                <p class="offer-update">Rubro: {{this.rubroNombre}}</p>
                 <p class="offer-update">Fecha de publicación: {{this.fechaDeRealizacion}}</p>
             </a>
         {{/each}}
     </div>
-    {{!--
-    <!-- Sección de Detalles -->
-    <div class="container-inferior-derecho">
-        <img src="{{oferta.imagen}}" alt="Producto">
-        <h2><b>{{oferta.nombre}}</b></h2>
-        <div class="texto-izquierda">
-            <p>Puntos necesarios: {{oferta.puntosNecesarios}}</p>
-            <!-- OFERTA NO TIENE DESCRIPCIÓN, QUE HAGO? <p class="descripcion">Descripción del producto...</p> -->
-        </div>
-    </div>
-    --}}
-
 {{/partial}}
 {{> templates/ofertas/oferta_upperBox}}
 

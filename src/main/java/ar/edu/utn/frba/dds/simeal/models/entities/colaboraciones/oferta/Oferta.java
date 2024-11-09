@@ -57,16 +57,17 @@ public class Oferta extends Persistente {
   }
 
   //Usado en OfertasController
-  public static Oferta create(Colaborador colaborador, String nombre, LocalDate fechaDeRealizacion, double puntosNecesarios, Rubro rubro, Producto producto) {
+  public static Oferta create(Colaborador colaborador, String nombre, LocalDate fechaDeRealizacion, double puntosNecesarios, Rubro rubro, String imagen, Producto producto) {
     return Oferta.builder()
             .colaborador(colaborador)
+            .nombre(nombre)
             .fechaDeRealizacion(fechaDeRealizacion)
             .puntosNecesarios(puntosNecesarios)
             .rubro(rubro)
+            .imagen(imagen)
             .producto(producto)
             .build();
   }
-
   // La validacion de si puede canjearla se haria antes de ejecutar este metodo
   public void canjear(Colaborador colaborador) {
     colaborador.gastarPuntos(this.puntosNecesarios);

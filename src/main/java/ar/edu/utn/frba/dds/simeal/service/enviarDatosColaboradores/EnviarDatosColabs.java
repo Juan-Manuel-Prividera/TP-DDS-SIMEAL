@@ -103,8 +103,7 @@ public class EnviarDatosColabs {
                     cantDonaciones++;
             }
             Logger.debug("El colaborador: " + colaborador.getId() + " tiene: " + cantDonaciones +" donaciones de vianda");
-            List<AdherirHeladera> colabsExtra = obtenerColbasExtra(colaborador);
-            double puntos = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador,colabsExtra);
+            double puntos = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador);
 
             ColaboradorEnviado colabEnviar = new ColaboradorEnviado(colaborador, cantDonaciones, puntos);
             colaboradoresEnviados.add(colabEnviar);

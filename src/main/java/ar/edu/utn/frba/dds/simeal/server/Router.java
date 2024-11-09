@@ -85,9 +85,12 @@ public class Router {
     app.get("ofertas", ServiceLocator.getController(OfertasController.class)::index);
     app.get("ofertas/misOfertas", ServiceLocator.getController(OfertasController.class)::selfOffers);
     app.get("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::publicar);
+    app.post("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::persistOferta);
     app.get("ofertas/misOfertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::selfOffersSelected);
     //TODO: Como checkear que oferta_id es una oferta suya?
+    //TODO: Usar UUID
     app.get("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::modificar);
+    app.post("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::updateOferta);
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     // **************** Usuarios *****************

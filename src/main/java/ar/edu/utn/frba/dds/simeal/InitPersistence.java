@@ -164,9 +164,15 @@ public class InitPersistence {
         TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaboradorHumano, LocalDate.now());
         ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
 
+        List<Rubro> rubros = (List<Rubro>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Rubro.class);
+        Rubro alimentos = null;
+        for(Rubro rubro : rubros){
+            if(rubro.getNombre() == "Alimentos") alimentos = rubro;
+        }
+
         Colaborador colaboradorJuridico = new Colaborador(
                 "Arcos dorados",
-                new Rubro()
+                new Rubro("fastFood", alimentos)
         );
 
         colaboradorJuridico.setUsuario(usuarioJuridico);
@@ -283,6 +289,7 @@ public class InitPersistence {
                 LocalDate.of(2024, 1, day),
                 (double) (day+10),
                 rubro,
+                null,
                 producto);
         repositorio.guardar(oferta);
     }

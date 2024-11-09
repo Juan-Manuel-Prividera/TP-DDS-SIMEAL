@@ -34,31 +34,49 @@
 <div class="container-general">
     {{#if agregarOferta}}
         <h2 class="titulo"><strong>Agregar Oferta</strong></h2>
+    <form id="miFormulario" method="POST" action="publicar">
     {{else}}
         <h2 class="titulo"><strong>Modificar Oferta</strong></h2>
+    <form id="miFormulario" method="POST" action="ofertas/misOfertas/{{ofertaId}}/modificar">
     {{/if}}
-    <form>
         <div class="form-group">
+            <label for="nombre">*Nombre:</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+
             <label for="rubro">*Rubro:</label>
-            <input type="text" class="form-control" id="rubro" placeholder="Rubros">
-        </div>
-        <div class="form-group">
+            <input type="text" class="form-control" name="rubro" placeholder="Rubros" required>
+
             <label for="puntos">*Puntos Requeridos:</label>
-            <input type="number" class="form-control" id="puntos" placeholder="xxxx">
-        </div>
-        <div class="form-group">
+            <input type="number" class="form-control" name="puntos" placeholder="xxxx" required>
+
+            <label for="productoNombre">*Nombre del producto:</label>
+            <input type="text" class="form-control" name="productoNombre" placeholder="productoNombre" required>
+
+            <label for="descripcion">*Descripcion:</label>
+            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" required>
+
             <label for="imagen">Cargar Imagen:</label>
-            <input type="file" class="form-control-file" id="imagen">
+            <input type="file" class="form-control-file" name="imagen" required>
         </div>
         <div class="text-center">
-            <a type="submit" class="btn btn-success mt-3 mb-3" href="j20.html">Aceptar</a>
-            <a type="button" class="btn btn-danger" href="j20.html">Cancelar</a>
+            <button type="submit" class="btn btn-success mt-3 mb-3">Aceptar</button>
+            <a type="button" class="btn btn-danger" href="../">Cancelar</a>
         </div>
     </form>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
 
+<script>
+    document.getElementById('miFormulario').addEventListener('submit', function(event) {
+        // Obtener los campos del formulario
+        const rubro = document.getElementsByName('rubro').value;
+        const puntos = document.getElementsByName('puntos').value;
+        const productoNombre = document.getElementsByName('productoNombre').value;
+        const descripcion = document.getElementsByName('descripcion').value;
+        const imagen= document.getElementsByName('img').value;
+    });
+</script>
 </body>

@@ -28,17 +28,17 @@
             <p><b> Disponibles </b></p>
         </div>
         <div class="value-points">
-            <b>{{puntosDisponibles}}</b>
+            <b>{{ptsColab}}</b>
         </div>
     {{else}}
     {{#if esJuridico}}
         {{#if agregarOferta}}
             <div class="agregar-oferta">
-                <a class="dark-btn" href="misOfertas/publicar">Publicar Oferta</a>
+                <a class="dark-btn" href="/{{directorio}}misOfertas/publicar">Publicar Oferta</a>
             </div>
         {{else}}
         <div class="agregar-oferta">
-            <a class="dark-btn" href="{{directorio}}ofertas/misOfertas">Tus Ofertas</a>
+            <a class="dark-btn" href="/{{directorio}}ofertas/misOfertas">Tus Ofertas</a>
         </div>
         {{/if}}
     {{/if}}

@@ -36,10 +36,8 @@ public class Canje extends Persistente {
   // TODO: Falta el acceso a persistencia para conseguir las colaboraciones de un colaborador especifico
   public void realizar() {
     // Concretamente falta esto
-    List<AdherirHeladera> colaboracionesDeHeladera = null;
-
     if (beneficiario.puedeCanjear(this.oferta, CalculadorDeReconocimientos
-        .calcularReconocimientoTotal(beneficiario, colaboracionesDeHeladera))) {
+        .calcularReconocimientoTotal(beneficiario))) {
       beneficiario.gastarPuntos(oferta.getPuntosNecesarios());
     }
   }
