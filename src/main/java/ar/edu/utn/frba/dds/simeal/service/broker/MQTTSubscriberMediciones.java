@@ -6,10 +6,7 @@ import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import org.eclipse.paho.client.mqttv3.*;
 
-import javax.net.ssl.SSLSocketFactory;
-import java.util.concurrent.CountDownLatch;
-
-public class MQTTSubscriber {
+public class MQTTSubscriberMediciones {
   private static final ConfigReader configReader = new ConfigReader();
   public static void main(String[] args) {
     String broker = configReader.getProperty("broker");
@@ -57,7 +54,7 @@ public class MQTTSubscriber {
         String heladeraId = partes[0].split(":")[1].strip();
         String tipoMedicion = partes[1].strip();
         String medicion = partes[2].strip();
-
+        Logger.debug(heladeraId + ":" + tipoMedicion + ":" + medicion);
         ServiceLocator.getController(MedicionController.class).crearMedicion(heladeraId, tipoMedicion, medicion);
       }
 

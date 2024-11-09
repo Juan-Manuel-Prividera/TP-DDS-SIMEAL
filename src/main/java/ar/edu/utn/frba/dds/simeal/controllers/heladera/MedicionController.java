@@ -23,20 +23,23 @@ public class MedicionController {
 
   public void crearMedicion(String heladeraId, String tipoMedicion, String medicion) {
     Medicion medicionRecibida = MedicionFactory.crearMedicion(tipoMedicion,medicion);
+    Logger.debug("Se crea una medicion");
     if (medicionRecibida == null) {
       Logger.error("La medicion recibida es nula :(");
       return;
     }
 
-    Sensor sensor = sensorRepository.buscarPorHeladera(Long.valueOf(heladeraId));
+    Sensor sensor = sensorRepository.buscarPorHeladera(Long.parseLong(heladeraId));
     medicionRecibida.setSensor(sensor);
     medicionRecibida.setFechaHora(LocalDateTime.now());
     repositorio.guardar(medicionRecibida);
+    Logger.debug("Medicion persistida");
     // El procesamiento de cada tipo de medicion, desactivar la heladera,...
     Alerta alerta = sensor.recibir(medicionRecibida);
 
     // Si la alerta es null esta todo bien en la medicion no hacemos nada (NO es un Incidente)
     if (alerta != null) {
+      Logger.debug("La medicion genero una alerta!!");
       // Crear incidente y avisar a tenico
       incidenteController.create(alerta);
     }

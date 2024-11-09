@@ -4,11 +4,12 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 
 public class SensorRepository extends Repositorio {
   public Sensor buscarPorHeladera(Long id) {
-    Sensor sensores;
+    Sensor sensor;
     beginTransaction();
-    sensores = (Sensor) entityManager()
-      .createQuery("FROM " + Sensor.class.getName() + " WHERE heladera_id =:id")
-      .setParameter("id", id);
+    sensor = (Sensor) entityManager()
+      .createQuery("FROM " + Sensor.class.getName() + " WHERE heladera_id = :id")
+      .setParameter("id", id)
+      .getSingleResult();  // Se asegura de obtener solo un resultado
     commitTransaction();
-    return sensores;
+    return sensor;
   }}
