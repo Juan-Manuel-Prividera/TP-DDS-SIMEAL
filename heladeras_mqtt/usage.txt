@@ -11,3 +11,7 @@ Ingreso
 
 Retiro
 ./heladera_publicar_operacion.py 1234 RETIRO
+
+# Solicitudes
+./heladera_suscribir_solicitudes.py 1234
+

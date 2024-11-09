@@ -16,7 +16,7 @@ password = "simeal"
 
 heladera_id = "1234"
 temperatura = random.gauss(4.5, .75)
-medicion = f"{temperatura:.3}°C"
+medicion = f"{temperatura:.3}"
 tipo_medicion = "TEMPERATURA"
 
 def on_connect(client, userdata, flags, rc):
