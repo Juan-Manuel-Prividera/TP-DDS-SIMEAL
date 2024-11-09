@@ -77,7 +77,8 @@ public class HeladeraController {
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
 
     if (ctx.sessionAttribute("user_type").equals("JURIDICO") &&
-      (heladera.getColaboradorACargo() == null || !heladera.getColaboradorACargo().getId().equals(colaborador.getId()))){
+      (heladera.getColaboradorACargo() == null || !heladera.getColaboradorACargo().getId().equals(colaborador.getId())) ||
+        ctx.sessionAttribute("user_type").equals("HUMANO")){
       model.put("puedeVerOpciones", "");
     } else {
       model.put("puedeVerOpciones", "true");
