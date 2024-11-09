@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "tipo_medicion")
 public abstract class Medicion extends Persistente {
   @Getter
+  @Setter
   @Column(name = "fecha_hora")
   private LocalDateTime fechaHora;
   @Setter
@@ -32,6 +34,6 @@ public abstract class Medicion extends Persistente {
   @JoinColumn(name = "sensor_id", referencedColumnName = "id")
   private Sensor sensor;
 
-  abstract void procesar(Heladera heladera);
+  abstract Alerta procesar(Heladera heladera);
   abstract boolean esDeTemperatura();
 }

@@ -41,7 +41,8 @@ public class Reporte {
 
 
     String directorioProyecto = System.getProperty("user.dir");
-    String pdfPath = directorioProyecto + File.separator + "Reportes_generados" + File.separator + "reporte_generado_" + fechaActual + ".pdf";
+//    String pdfPath = directorioProyecto + File.separator + "Reportes_generados" + File.separator + "reporte_generado_" + fechaActual + ".pdf";
+    String pdfPath = "src/main/resources/reportes/reporte_generado_" + fechaActual + ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 
@@ -110,7 +111,7 @@ public class Reporte {
       for (Incidente incidente : incidentes) {
         Heladera heladera = incidente.getHeladera();
         int incidentes = incidentesPorHeladera.getOrDefault(heladera, 0);
-        tablaIncidentesxheladera.addCell(String.valueOf(heladera));
+        tablaIncidentesxheladera.addCell(heladera.getNombre());
         tablaIncidentesxheladera.addCell(String.valueOf(incidentes));
       }
       documento.add(tablaIncidentesxheladera);

@@ -1,21 +1,49 @@
 {{> templates/navbar}}
+<div style="display: flex;flex-direction: row; width: 100%; align-items: center; justify-content: space-evenly;">
 <div class="reportes">
-    <div class="reporte mt-5">
-       <h1>Reporte de la semana</h1>
-    </div>
-    <div class="reporte mt-5">
-    <a href="https://guarani.frba.utn.edu.ar/autogestion/grado/acceso">
-        <h2 class="rounded">Reporte04072024</h2>
-    </a>
-    </div>
     <div class="reporte">
-    <a href="https://guarani.frba.utn.edu.ar/autogestion/grado/acceso">
-        <h2 class="rounded">Reporte28062024</h2>
-    </a>
+       <h1>Reportes semanales</h1>
     </div>
-    <div class="reporte">
-    <a href="https://guarani.frba.utn.edu.ar/autogestion/grado/acceso">
-        <h2 class="rounded">Reporte21062024 </h2>
+    {{#each reportes}}
+    <div class="reporte mt-5">
+    <a href={{this.reporte}}>
+        <h2 class="rounded">{{this.nombre}}</h2>
     </a>
-    </div>
+    {{/each}}
 </div>
+</div>
+
+<div class="col-md-6 overflow-auto p-3" style="display: flex; flex-direction: column; align-items: center;">
+    <h2 class="mb-4">Visitas Técnicas</h2>
+    <ul class="list-group"  style="width: 100%">
+        {{#if visitas.length}}
+            {{#each visitas}}
+                <li class="list-group-item mb-3" onclick="toggleDescripcion({{@index}})">
+                    <div>
+                        <strong>{{this.nombreHeladera}}</strong><br>
+                        <small>{{this.fechaHora}}</small><br>
+                        <p><strong>Exitosa:</strong> {{#if this.exitosa}}Sí{{else}}No{{/if}}</p>
+                            {{#if this.imagen}}
+                                <img src="{{this.imagen}}" alt="Imagen de visita" class="img-fluid mt-2" style="max-width: 200px;">
+                            {{/if}}
+<!--                         Descripción desplegable -->
+                        <div id="descripcion-{{@index}}" class="mt-2" style="display: none;">
+                            <p>{{this.descripcion}}</p>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        {{else}}
+            <h3 class="mt-5">Aún no hay visitas registradas</h3>
+            <p style="font-size: 20px"><strong>A laburar loco!!</strong></p>
+        {{/if}}
+    </ul>
+</div>
+</div>
+
+<script>
+    function toggleDescripcion(index) {
+        const descripcionElement = document.getElementById(`descripcion-${index}`);
+        descripcionElement.style.display = descripcionElement.style.display === 'none' ? 'block' : 'none';
+    }
+</script>

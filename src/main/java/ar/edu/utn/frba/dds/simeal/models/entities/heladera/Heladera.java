@@ -83,9 +83,9 @@ public class Heladera extends Persistente {
   }
 
   public void reportarIncidente(Incidente incidente) {
+    // Esto es solamente para las suscripciones de colaboradores humanos
     EventoFactory.crearEvento(this, TipoEvento.INCIDENTE);
 
-    // Podria llamarse en el controller cuando crea un nuevo estado
     this.desactivar();
 
     Mensaje mensaje = generarMensaje(incidente);

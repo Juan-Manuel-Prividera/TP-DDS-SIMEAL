@@ -1,7 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.controllers.*;
+import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
+import ar.edu.utn.frba.dds.simeal.controllers.RecomendacionColabsController;
+import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;

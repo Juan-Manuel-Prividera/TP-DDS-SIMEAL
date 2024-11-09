@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.models.creacionales;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.*;
-import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.telegram.EnviadorTelegram;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.whatsapp.EnviadorDeWpp;

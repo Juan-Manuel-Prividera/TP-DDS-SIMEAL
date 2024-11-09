@@ -14,13 +14,14 @@ import javax.persistence.Entity;
 public class MedicionMovimiento extends Medicion {
 
   @Override
-  public void procesar(Heladera heladera) {
+  public Alerta procesar(Heladera heladera) {
     Alerta alerta = new Alerta(
         heladera,
         "Se detectó movimiento con la heladera cerrada.",
         TipoAlerta.ALERTA_FRAUDE
     );
     heladera.reportarIncidente(alerta);
+    return alerta;
   }
 
   @Override

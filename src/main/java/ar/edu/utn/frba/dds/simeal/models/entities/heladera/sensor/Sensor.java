@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,12 @@ public class Sensor extends Persistente {
   MedicionTemperatura ultimaTemperaturaRegistrada = null;
 
 
-  public void recibir(Medicion medicion) {
+  public Alerta recibir(Medicion medicion) {
     if (medicion.esDeTemperatura()) ultimaTemperaturaRegistrada = (MedicionTemperatura) medicion;
     medicion.procesar(heladera);
     medicion.setSensor(this);
+
+    return medicion.procesar(heladera);
   }
 
 }

@@ -4,7 +4,6 @@ import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.MessageCreator;
 import lombok.Setter;
 
 

@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

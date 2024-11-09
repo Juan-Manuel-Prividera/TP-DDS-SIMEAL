@@ -2,7 +2,6 @@ package ar.edu.utn.frba.dds.simeal.controllers.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.Frecuencia;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;

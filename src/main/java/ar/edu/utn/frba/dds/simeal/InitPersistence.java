@@ -7,7 +7,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
-import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -21,13 +20,11 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
-import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
-import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 

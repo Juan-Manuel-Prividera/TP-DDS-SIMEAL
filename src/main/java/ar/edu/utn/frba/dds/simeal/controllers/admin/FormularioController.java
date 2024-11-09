@@ -9,7 +9,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.repositories.FormularioRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import com.twilio.http.HttpMethod;
 import io.javalin.http.Context;
 
 import java.util.ArrayList;

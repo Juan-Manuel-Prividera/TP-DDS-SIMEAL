@@ -28,8 +28,8 @@ public class EventoFactory {
 
     private static HuboUnDesperfecto crearHuboUnDesperfecto(Heladera heladera) {
        HuboUnDesperfecto huboUnDesperfecto = new HuboUnDesperfecto();
-        huboUnDesperfecto.setSugerenciaHeladeras(new SugerenciaHeladeras(heladera.getUbicacion(), heladera.getHeladerasCercanas()));
-        return huboUnDesperfecto;
+       huboUnDesperfecto.setSugerenciaHeladeras(new SugerenciaHeladeras(heladera.getUbicacion(), heladera.getHeladerasCercanas()));
+       return huboUnDesperfecto;
     }
     public static AdministradorDeEventos crearAdministrador() {
         return new AdministradorDeEventos();

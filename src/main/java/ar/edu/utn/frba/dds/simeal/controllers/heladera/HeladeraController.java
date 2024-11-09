@@ -9,7 +9,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecni
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
@@ -17,7 +16,10 @@ import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 public class HeladeraController {
   private Repositorio repositorio;
@@ -53,8 +55,8 @@ public class HeladeraController {
 
     // TODO: PROBAR ESTO CUANDO TENGAMSO EL BROKER OK
     for (Heladera heladera : heladeras) {
-      List<Sensor> sensores= sensorRepository.buscarPorHeladera(heladera.getId());
-      MedicionTemperatura ultimaMedicion = sensores.get(0).getUltimaTemperaturaRegistrada();
+      Sensor sensor = sensorRepository.buscarPorHeladera(heladera.getId());
+      MedicionTemperatura ultimaMedicion = sensor.getUltimaTemperaturaRegistrada();
       if(ultimaMedicion == null) {
         heladerasDTOS.add(new HeladeraDTO(heladera, 0D,colaborador));
       } else {
@@ -85,7 +87,7 @@ public class HeladeraController {
     }
 
 
-    MedicionTemperatura ultimaMedicion = sensorRepository.buscarPorHeladera(heladera.getId()).get(0).getUltimaTemperaturaRegistrada();
+    MedicionTemperatura ultimaMedicion = sensorRepository.buscarPorHeladera(heladera.getId()).getUltimaTemperaturaRegistrada();
 
     HeladeraDTO heladeraDTO;
     if (ultimaMedicion != null) {

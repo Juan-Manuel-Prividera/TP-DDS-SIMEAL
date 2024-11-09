@@ -55,3 +55,5 @@ src/main/resources/META-INF/persistence.xml
 
 # Ignore locks
 *.lck
+
+*.pdf

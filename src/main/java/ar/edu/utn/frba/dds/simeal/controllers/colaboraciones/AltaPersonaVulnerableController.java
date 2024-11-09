@@ -9,7 +9,6 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.Per
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.TarjetaPersonaVulnerable;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
-import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
@@ -20,7 +19,7 @@ public class AltaPersonaVulnerableController {
     Colaborador colaborador = (Colaborador) ServiceLocator
       .getRepository(Repositorio.class)
       .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
-    
+
     // Usamos el Builder porque nos setea los puntos de reconocimiento
     DarDeAltaPersonaVulnerable darDeAltaPersonaVulnerable = (DarDeAltaPersonaVulnerable) ColaboracionBuilder
       .crearColaboracion(TipoColaboracion.ENTREGA_TARJETA, LocalDate.now(),colaborador,1);

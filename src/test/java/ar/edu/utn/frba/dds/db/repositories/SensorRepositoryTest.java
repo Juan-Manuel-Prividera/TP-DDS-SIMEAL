@@ -24,7 +24,7 @@ public class SensorRepositoryTest  {
     repositorio.guardar(heladera);
     sensorRepository.guardar(sensor);
 
-    List<Sensor> sensorBuscado = sensorRepository.buscarPorHeladera(heladera.getId());
+    List<Sensor> sensorBuscado = (List<Sensor>) sensorRepository.buscarPorHeladera(heladera.getId());
     assertEquals(sensor.getId(), sensorBuscado.get(0).getId());
 
   }
