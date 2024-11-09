@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.dtos.VisitaTecnicaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.EncargoTecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.repositories.EncargoTecnicoRepostiry;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
@@ -18,10 +19,12 @@ import java.util.List;
 public class VisitaController {
   private VisitaTecnicaRepository visitaTecnicaRepository;
   private EncargoTecnicoRepostiry encargoTecnicoRepostiry;
+  private Repositorio repositorio;
 
-  public VisitaController(VisitaTecnicaRepository visitaTecnicaRepository, EncargoTecnicoRepostiry encargoTecnicoRepostiry)  {
+  public VisitaController(VisitaTecnicaRepository visitaTecnicaRepository, EncargoTecnicoRepostiry encargoTecnicoRepostiry, Repositorio repositorio)  {
     this.visitaTecnicaRepository = visitaTecnicaRepository;
     this.encargoTecnicoRepostiry = encargoTecnicoRepostiry;
+    this.repositorio = repositorio;
   }
 
   // Este index es como el home del tecnico asi que tambien tiene los encargos
@@ -35,6 +38,7 @@ public class VisitaController {
 
     setModel(model, ctx);
     setVisitasEncargos(model,ctx);
+    invalidarCacheNavegador(ctx);
 
     if (failed && action.equals("RegistrarVisita")) {
       model.put("popup_title", "Error al registrar visita");
@@ -66,6 +70,7 @@ public class VisitaController {
     EncargoTecnico encargo = (EncargoTecnico) encargoTecnicoRepostiry
       .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
 
+    invalidarCacheNavegador(ctx);
     setModel(model, ctx);
     setVisitasEncargos(model,ctx);
 
@@ -103,9 +108,11 @@ public class VisitaController {
       // Y la heladera ya estaria reparada asi que la activamos
       encargo.getIncidente().getHeladera().activar();
     }
+
     encargo.incrementVisitasHechas();
     encargoTecnicoRepostiry.actualizar(encargo);
     encargoTecnicoRepostiry.refresh(encargo);
+    repositorio.actualizar(encargo.getIncidente().getHeladera());
 
     model.put("popup_title", "Visita registrada");
     model.put("popup_message", "Visita registrada correctamente");
@@ -141,5 +148,10 @@ public class VisitaController {
 
     model.put("visitas", visitasDTO);
     model.put("encargos", encargosDTO);
+  }
+  private void invalidarCacheNavegador(Context app) {
+    app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    app.header("Pragma", "no-cache");
+    app.header("Expires", "0");
   }
 }

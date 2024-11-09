@@ -73,6 +73,7 @@ public class Router {
     app.get("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::indexReporteFallo);
     app.post("heladera/reportar/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::reportarFallo);
     app.get("heladera/incidentes/{heladera_id}", ServiceLocator.getController(IncidenteController.class)::index);
+    app.get("heladera/visitas/{heladera_id}", ServiceLocator.getController(HeladeraController.class)::getVisitas);
 
     app.get("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::index);
     app.post("heladera/suscribirse/{heladera_id}", ServiceLocator.getController(SuscripcionController.class)::altaSuscripcion);

@@ -36,7 +36,7 @@ public class SuscripcionController {
       .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
 
 
-    model.put("heladera", new HeladeraDTO(heladera,0D));
+    model.put("heladera", new HeladeraDTO(heladera,0D, colaborador));
     ctx.render("/heladeras/suscripcion_heladera.hbs",model);
   }
 

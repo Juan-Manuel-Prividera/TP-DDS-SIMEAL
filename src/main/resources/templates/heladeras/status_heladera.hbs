@@ -4,16 +4,28 @@
 
     <div class="status-container">
         <div class="info-heladera">
-            <img src="/img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
+            {{#if puedeVerOpciones}}
+                <img src="/img/heladeraMapa.png" alt="icon" class="logo-peque ml-3 mr-5">
+            {{else}}
+                <img src="/img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
+            {{/if}}
             <div>
                 <p>Nombre: {{heladera.nombre}}</p>
                 <p>Ubicacion: {{heladera.nombreCalle}} {{heladera.altura}}</p>
             </div>
         </div>
+        {{#if heladera.estaActiva}}
         <div class="status-heladera">
             <p class="mt-3 ml-3">Estado: {{heladera.activa}}</p>
             <p class="mb-3 ml-3">Ultima temperatura registrada: {{heladera.ultimaTempRegistrada}}°C</p>
         </div>
+        {{else}}
+        <div class="status-heladera-bad">
+            <p class="mt-3 ml-3">Estado: {{heladera.activa}}</p>
+            <p class="mb-3 ml-3">Ultima temperatura registrada: {{heladera.ultimaTempRegistrada}}°C</p>
+        </div>
+        {{/if}}
+        {{#if puedeVerOpciones}}
         <div class="status-buttons">
             <a href="/heladera/reportar/{{heladera.id}}">
                 <button class="btn btn-reportar btn-dark  mb-3" >Reportar fallo</button>
@@ -26,6 +38,12 @@
             <a href="/heladera/incidentes/{{heladera.id}}">
                 <button class="btn btn-custom btn-dark mb-3">Alertas recientes</button>
             </a>
+            {{#if esJuridico}}
+            <a href="/heladera/visitas/{{heladera.id}}">
+                <button class="btn btn-custom btn-dark mb-3">Visitas técnicas</button>
+            </a>
+            {{/if}}
         </div>
+        {{/if}}
     </div>
 </div>

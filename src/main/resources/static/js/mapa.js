@@ -1,18 +1,18 @@
-// Cuando el html termina de cargar ejecuta cargarMapa()
 let map;
-class Heladera {
-    constructor(id, nombre, latitud, longitud,activa,altura,nombreCalle) {
-        this.id = id;
-        this.nombre = nombre;
-        this.latitud = latitud;
-        this.longitud = longitud;
-        this.activa = activa;
-        this.altura = altura;
-        this.nombreCalle = nombreCalle;
+// class Heladera {
+//     constructor(id, nombre, latitud, longitud,activa,altura,nombreCalle) {
+//         this.id = id;
+//         this.nombre = nombre;
+//         this.latitud = latitud;
+//         this.longitud = longitud;
+//         this.activa = activa;
+//         this.altura = altura;
+//         this.nombreCalle = nombreCalle;
+//
+//     }
+// }
 
-    }
-}
-
+// Cuando el html termina de cargar ejecuta cargarMapa()
 $(document).ready(function() {
     cargarMapa();
     buscarHeladeraMapa()
@@ -27,10 +27,8 @@ function cargarMapa(){
 
     // La L es un objeto de leaflet
     // Seteamos el icono de la heladera
-    const heladeraIcon = L.icon({
-        iconUrl: '/img/heladera.png',
-        iconSize: [20, 40]
-    });
+
+
 
 
     // Inicializar el mapa y establecer su punto central y el nivel de zoom
@@ -47,15 +45,35 @@ function cargarMapa(){
     // Añadir las heladeras al mapa
     obtenerHeladeras().then(heladeras => {
         heladeras.forEach(heladera => {
-            agregarHeladera(heladera,map,heladeraIcon)
+            agregarHeladera(heladera,map);
         })
     })
 }
 
-function agregarHeladera(heladera,map, heladeraIcon){
+function agregarHeladera(heladera,map){
     // Creamos el punto con los datos del back y lo ponemos
-    var marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
-    marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+    let marker
+    let heladeraIcon
+    if (heladera.esElEncargado === "true") {
+        console.log("En el if esElEncargado= "+ heladera.esElEncargado)
+        heladeraIcon = L.icon({
+            iconUrl: '/img/heladeraMapa.png',
+            iconSize: [25, 45]
+        });
+        marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
+        marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+    } else {
+        console.log("En el else esElEncargado= "+ heladera.esElEncargado)
+        heladeraIcon = L.icon({
+            iconUrl: '/img/heladera.png',
+            iconSize: [20, 40]
+        });
+        marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
+        marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+    }
+
+
+
     // Evento para que cuando se clickee sobre una heladera muestre sus datos en el formulario de seleccion
     marker.on('click', function(){
         document.getElementById("nombreHeladera").value = heladera.nombre

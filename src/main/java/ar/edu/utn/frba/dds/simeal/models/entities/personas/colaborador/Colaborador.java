@@ -97,7 +97,13 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
     this.razonSocial = razonSocial;
     this.rubro = rubro;
   }
-
+  public Colaborador(String razonSocial, Rubro rubro, TipoJuridico tipoJuridico, Contacto contacto){
+    this.razonSocial = razonSocial;
+    this.rubro = rubro;
+    this.tipoJuridico = tipoJuridico;
+    this.contactoPreferido = contacto;
+    this.contactos.add(contacto);
+  }
   public Colaborador(Documento documento, String nombre, String apellido, Contacto contacto) {
     this.documento = documento;
     this.nombre = nombre;

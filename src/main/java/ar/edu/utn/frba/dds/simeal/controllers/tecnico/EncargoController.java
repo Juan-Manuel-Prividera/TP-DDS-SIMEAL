@@ -38,7 +38,7 @@ public class EncargoController {
   public void aceptarEncargo(Context ctx) {
     EncargoTecnico encargoTecnico = (EncargoTecnico) repoEncargo
       .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
-
+    invalidarCacheNavegador(ctx);
     if (encargoTecnico.getAceptado() == null|| !encargoTecnico.getAceptado()) {
       encargoTecnico.setAceptado(true);
       repoEncargo.actualizar(encargoTecnico);
@@ -97,5 +97,11 @@ public class EncargoController {
     model.put("esTecnico", true);
     model.put("username", ctx.sessionAttribute("user_name"));
     model.put("user_type", ctx.sessionAttribute("user_type"));
+    invalidarCacheNavegador(ctx);
+  }
+  private void invalidarCacheNavegador(Context app) {
+    app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    app.header("Pragma", "no-cache");
+    app.header("Expires", "0");
   }
 }

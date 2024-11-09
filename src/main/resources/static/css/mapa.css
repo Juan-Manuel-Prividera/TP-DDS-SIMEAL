@@ -7,8 +7,31 @@
 
 .mapa-container{
     display: flex;
-    flex:1;
+    flex-direction: column;
     justify-content: left;
     align-items: center;
-    height: 60vh;
+    height: 70vh;
+}
+
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: Arial, sans-serif;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+.my-fridges {
+    background-color: #4ca3af; /* Color para "Tus heladeras" */
+}
+.other-fridges {
+    background-color: var(--verde)  /* Color para "El resto de heladeras" */
 }

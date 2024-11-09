@@ -16,6 +16,7 @@ public class VisitaTecnicaDTO {
   private String descripcion;
   private String fechaHora;
   private Boolean exitosa;
+  private String imagen;
 
   public VisitaTecnicaDTO(VisitaTecnica visitaTecnica) {
     this.id = visitaTecnica.getId();
@@ -24,5 +25,6 @@ public class VisitaTecnicaDTO {
     this.descripcion = visitaTecnica.getDescripcion();
     this.fechaHora = visitaTecnica.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     this.exitosa = visitaTecnica.getExitosa();
+    this.imagen = visitaTecnica.getImagen();
   }
 }
