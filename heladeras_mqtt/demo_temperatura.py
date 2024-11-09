@@ -1,5 +1,10 @@
 #!/bin/python
 import paho.mqtt.client as mqtt
+import random
+
+
+# -- Este script simula una heladera mandando su temperatura --
+
 
 broker_address = "50b513bcf4654e66b3f4c22d14623e5c.s1.eu.hivemq.cloud"
 broker_port = 8883
@@ -10,7 +15,8 @@ username = "simeal"
 password = "simeal"
 
 heladera_id = "1234"
-medicion = "23°C"
+temperatura = random.gauss(4.5, .75)
+medicion = f"{temperatura:.3}°C"
 tipo_medicion = "TEMPERATURA"
 
 def on_connect(client, userdata, flags, rc):
@@ -27,7 +33,7 @@ def send_message(client):
 
 client = mqtt.Client(heladera_id)
 client.username_pw_set(username, password)
-client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)  # Set TLS version for secure connection
+client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)
 client.on_connect = on_connect
 
 client.connect(broker_address, broker_port, 60)
