@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class ColaboracionesController {
 
-  private ColaboracionRepository colaboracionRepository;
+  private final ColaboracionRepository colaboracionRepository;
 
   public ColaboracionesController(ColaboracionRepository colaboracionRepository) {
     this.colaboracionRepository = colaboracionRepository;

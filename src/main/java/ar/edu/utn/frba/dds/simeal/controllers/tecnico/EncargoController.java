@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class EncargoController {
-  private EncargoTecnicoRepostiry repoEncargo;
-  private Repositorio repositorio;
+  private final EncargoTecnicoRepostiry repoEncargo;
+  private final Repositorio repositorio;
 
   public EncargoController(EncargoTecnicoRepostiry repoEncargo, Repositorio repositorio) {
     this.repoEncargo = repoEncargo;

@@ -110,7 +110,5 @@ public class Logger {
       throw new RuntimeException(e);
     }
 
-    return;
-
   }
 }

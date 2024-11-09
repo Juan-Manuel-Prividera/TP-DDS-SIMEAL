@@ -24,13 +24,13 @@ public class IncidenteDTO {
     this.descripcion = alerta.getDescripcion();
     this.fecha = String.valueOf(alerta.getFechaHora().toLocalDate());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    this.hora = String.valueOf(alerta.getFechaHora().toLocalTime().format(formatter));
+    this.hora = alerta.getFechaHora().toLocalTime().format(formatter);
   }
   public IncidenteDTO(FallaTecnica fallaTecnica) {
     this.tipoIncidente = "FallaTecnica";
     this.descripcion = fallaTecnica.getDescripcion();
     this.fecha = String.valueOf(fallaTecnica.getFechaHora().toLocalDate());
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    this.hora = String.valueOf(fallaTecnica.getFechaHora().toLocalTime().format(formatter));
+    this.hora = fallaTecnica.getFechaHora().toLocalTime().format(formatter);
   }
 }

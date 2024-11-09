@@ -10,7 +10,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,10 +18,10 @@ import java.util.List;
 
 public class Reporte {
 
-  private List<Heladera> heladeras;
-  private List<Incidente> incidentes;
-  private List<Vianda> viandas;
-  private List<DistribuirVianda> distribuciones;
+  private final List<Heladera> heladeras;
+  private final List<Incidente> incidentes;
+  private final List<Vianda> viandas;
+  private final List<DistribuirVianda> distribuciones;
 
 
   public Reporte(List<Heladera> heladeras, List<Incidente> incidentes, List<Vianda> viandas, List<DistribuirVianda> distribuciones) {

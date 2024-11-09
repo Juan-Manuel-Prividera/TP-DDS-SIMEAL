@@ -5,7 +5,6 @@ import ar.edu.utn.frba.dds.simeal.models.dtos.ReporteDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.VisitaTecnicaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
-import ar.edu.utn.frba.dds.simeal.utils.reporte.Reporte;
 import io.javalin.http.Context;
 
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ReportesController {
   public void reportes(Context app) throws IOException {

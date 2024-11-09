@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 
 public class Server {
   private static Javalin app = null;
-  private static ConfigReader configReader = new ConfigReader();
+  private static final ConfigReader configReader = new ConfigReader();
 
   public static Javalin app() {
     if (app == null)

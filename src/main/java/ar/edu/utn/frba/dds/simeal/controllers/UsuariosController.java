@@ -19,8 +19,8 @@ import io.javalin.http.Context;
 import java.util.List;
 
 public class UsuariosController {
-    private ColaboradorController colaboradorController;
-    private Repositorio repo;
+    private final ColaboradorController colaboradorController;
+    private final Repositorio repo;
     public UsuariosController(ColaboradorController cc, Repositorio repo) {
         this.colaboradorController = cc;
         this.repo = repo;
@@ -101,7 +101,6 @@ public class UsuariosController {
 
         if (!password.equals(passwordRepeat)){
             fail(context, "Passwords do not match");
-            return;
         }
     }
     private void fail(Context context, String reason){

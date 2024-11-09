@@ -1,18 +1,19 @@
 package ar.edu.utn.frba.dds.simeal.service.broker;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.MedicionController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.OperacionHeladeraController;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import org.eclipse.paho.client.mqttv3.*;
 
-public class MQTTSubscriberMediciones {
+public class MQTTSubscriberOperaciones {
   private static final ConfigReader configReader = new ConfigReader();
   public static void main(String[] args) {
     String broker = configReader.getProperty("broker");
     String username = configReader.getProperty("broker.user");
     String password = configReader.getProperty("broker.pass");
-    String topic = "heladera/medicion";
+    String topic = "heladera/operacion";
     String clientId = "JavaSubscriber";
 
     //CountDownLatch latch = new CountDownLatch(1);
@@ -52,13 +53,10 @@ public class MQTTSubscriberMediciones {
         Logger.debug("Message received:\nTopic: " + topic + "\nMessage: " + new String(message.getPayload()));
         String[] partes = message.toString().split(" ");
         String heladeraId = partes[0].split(":")[1].replace(" ", "");
-        String tipoMedicion = partes[1].replace(" ", "");
-        String medicion = "";
-        if (partes.length == 3) {
-          medicion = partes[2].replace(" ", "");
-        }
-        Logger.debug(heladeraId + ":" + tipoMedicion + ":" + medicion);
-        ServiceLocator.getController(MedicionController.class).crearMedicion(heladeraId, tipoMedicion, medicion);
+        String tipoOperacion = partes[1].replace(" ", "");
+        String tarjetaColaboradorId = partes[2].replace(" ", "");
+        ServiceLocator.getController(OperacionHeladeraController.class)
+          .create(Long.parseLong(heladeraId), TipoOperacion.valueOf(tipoOperacion), Long.parseLong(tarjetaColaboradorId));
       }
 
       @Override

@@ -116,7 +116,7 @@ public class FormularioController {
     } else if (Objects.equals(failed, "false") && Objects.equals(action, "delete")) {
       model.put("popup_title", "Pregunta borrada exitosamente");
       Logger.debug("PONE EL POPUP DE PREGUNTA BORRADA...");
-      Logger.debug("Estado del model: " + model.toString());
+      Logger.debug("Estado del model: " + model);
     }
     ctx.render("admin/creacion_preguntas.hbs", model);
   }

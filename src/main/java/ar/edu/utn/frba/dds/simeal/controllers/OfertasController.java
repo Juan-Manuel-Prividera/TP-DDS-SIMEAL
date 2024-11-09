@@ -21,8 +21,8 @@ import java.util.Objects;
 
 public class OfertasController {
   //TODO: VER DE NO USAR ESTE MÉTODO PARA CONSEGUIR LOS REPOSITORY
-  private OfertaRepository ofertaRepository = (OfertaRepository) ServiceLocator.getRepository(OfertaRepository.class);
-  private Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+  private final OfertaRepository ofertaRepository = (OfertaRepository) ServiceLocator.getRepository(OfertaRepository.class);
+  private final Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
 
   public void index(Context app){
     HashMap<String, Object> model = new HashMap<>();

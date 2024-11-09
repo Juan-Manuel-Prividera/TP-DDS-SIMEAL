@@ -18,6 +18,7 @@ if len(sys.argv) < 3:
 
 heladera_id = sys.argv[1]
 operacion = sys.argv[2]
+tarjeta_colaborador_id = sys.argv[3]
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -27,7 +28,7 @@ def on_connect(client, userdata, flags, rc):
         print("No se pudo conectar al broker :( - ", rc)
 
 def send_message(client):
-    payload = f"id:{heladera_id} {operacion}"
+    payload = f"id:{heladera_id} {operacion} {tarjeta_colaborador_id}"
     print(f"Mensaje enviado: '{payload}'")
     client.publish(topic, payload)
 

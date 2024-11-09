@@ -11,9 +11,9 @@ import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import java.time.LocalDateTime;
 
 public class MedicionController {
-  private SensorRepository sensorRepository;
-  private IncidenteController incidenteController;
-  private Repositorio repositorio;
+  private final SensorRepository sensorRepository;
+  private final IncidenteController incidenteController;
+  private final Repositorio repositorio;
 
   public MedicionController(SensorRepository sensorRepository, IncidenteController incidenteController, Repositorio repositorio) {
     this.sensorRepository = sensorRepository;

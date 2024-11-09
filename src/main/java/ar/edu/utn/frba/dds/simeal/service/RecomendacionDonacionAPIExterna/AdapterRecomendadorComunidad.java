@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import java.io.IOException;
 
 public class AdapterRecomendadorComunidad {
-    private ComunidadesApi comunidadesApi;
+    private final ComunidadesApi comunidadesApi;
     private Retrofit retrofit = null;
     String urlApi;
     ConfigReader configReader;

@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class HeladeraController {
-  private Repositorio repositorio;
-  private SensorRepository sensorRepository;
-  private VisitaTecnicaRepository visitaRepository;
+  private final Repositorio repositorio;
+  private final SensorRepository sensorRepository;
+  private final VisitaTecnicaRepository visitaRepository;
 
   public HeladeraController(Repositorio repositorio, SensorRepository sensorRepository, VisitaTecnicaRepository visitaRepository) {
     this.repositorio = repositorio;

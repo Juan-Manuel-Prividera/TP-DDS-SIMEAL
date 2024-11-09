@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RegistroHandler {
 
-    private Repositorio repo;
+    private final Repositorio repo;
     public RegistroHandler(Repositorio repositorio) {
         repo = repositorio;
     }

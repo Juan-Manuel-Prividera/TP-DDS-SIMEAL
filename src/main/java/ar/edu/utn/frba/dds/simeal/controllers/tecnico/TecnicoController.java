@@ -24,9 +24,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class TecnicoController {
-  private Repositorio repositorio;
-  private EncargoTecnicoRepostiry encargoTecnicoRepostiry;
-  private UsuariosController usuariosController;
+  private final Repositorio repositorio;
+  private final EncargoTecnicoRepostiry encargoTecnicoRepostiry;
+  private final UsuariosController usuariosController;
 
   public TecnicoController(Repositorio repositorio, EncargoTecnicoRepostiry encargoTecnicoRepostiry, UsuariosController usuariosController) {
     this.repositorio = repositorio;

@@ -17,9 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class VisitaController {
-  private VisitaTecnicaRepository visitaTecnicaRepository;
-  private EncargoTecnicoRepostiry encargoTecnicoRepostiry;
-  private Repositorio repositorio;
+  private final VisitaTecnicaRepository visitaTecnicaRepository;
+  private final EncargoTecnicoRepostiry encargoTecnicoRepostiry;
+  private final Repositorio repositorio;
 
   public VisitaController(VisitaTecnicaRepository visitaTecnicaRepository, EncargoTecnicoRepostiry encargoTecnicoRepostiry, Repositorio repositorio)  {
     this.visitaTecnicaRepository = visitaTecnicaRepository;

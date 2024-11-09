@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RecomendacionComunidad {
 
-    private AdapterRecomendadorComunidad adapter;
+    private final AdapterRecomendadorComunidad adapter;
 
     public RecomendacionComunidad(AdapterRecomendadorComunidad adapter) {
         this.adapter = adapter;

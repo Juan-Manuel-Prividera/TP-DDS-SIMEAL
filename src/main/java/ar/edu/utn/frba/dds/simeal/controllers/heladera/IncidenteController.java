@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class IncidenteController {
-  private Repositorio repositorio;
-  private IncidenteRepository incidenteRepository;
-  private EncargoController encargoController;
+  private final Repositorio repositorio;
+  private final IncidenteRepository incidenteRepository;
+  private final EncargoController encargoController;
 
   public IncidenteController(Repositorio repositorio, IncidenteRepository incidenteRepository, EncargoController encargoController) {
     this.repositorio = repositorio;
@@ -53,7 +53,7 @@ public class IncidenteController {
   }
 
   public void create(Incidente incidente) {
-    repositorio.guardar((Persistente) incidente);
+    repositorio.guardar(incidente);
 
     // Avisar a tecnico mas cercano
     Tecnico tecnicoMasCercano = obtenerTecnicoMasCercano(incidente);

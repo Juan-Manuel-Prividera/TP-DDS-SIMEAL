@@ -311,7 +311,7 @@ public class InitPersistence {
         Oferta oferta = Oferta.create(colaborador,
                 "Pollo del:" + Integer.valueOf(day).toString(),
                 LocalDate.of(2024, 1, day),
-                (double) (day+10),
+          day+10,
                 rubro,
                 null,
                 producto);

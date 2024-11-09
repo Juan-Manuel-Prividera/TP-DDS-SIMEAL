@@ -1,11 +1,13 @@
-package ar.edu.utn.frba.dds.simeal.controllers.tarjetas;
+package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
+import ar.edu.utn.frba.dds.simeal.service.broker.MQTTPublisherSolicitudes;
 import io.javalin.http.Context;
 
 import java.time.LocalDateTime;
@@ -14,11 +16,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class SolicitudHeladeraController {
-  private Repositorio repositorio;
-  private TarjetaColaboradorRepository tarjetaColaboradorRepository;
-
-  public SolicitudHeladeraController(Repositorio repositorio, TarjetaColaboradorRepository tarjetaColaboradorRepository) {
+  private final Repositorio repositorio;
+  private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
+  private final  SolicitudOperacionRepository solicitudOperacionRepository;
+  public SolicitudHeladeraController(Repositorio repositorio, TarjetaColaboradorRepository tarjetaColaboradorRepository, SolicitudOperacionRepository solicitudOperacionRepository) {
     this.repositorio = repositorio;
+    this.solicitudOperacionRepository = solicitudOperacionRepository;
     this.tarjetaColaboradorRepository = tarjetaColaboradorRepository;
   }
   // GET /solicitud/{tarjeta_personal_id}
@@ -33,7 +36,7 @@ public class SolicitudHeladeraController {
       model.put("popup_ruta", "/tarjeta");
     } else if (Objects.equals(failed,"true") && Objects.equals(action,"create")){
       model.put("popup_title", "Error al realizar la solicitud");
-      model.put("popup_message", "Por favor revise los campos y vuelva a intentarlo");
+      model.put("popup_message", "Ya tiene una solicitud pendiente de esa heladera o los campos ingresados no son validos");
       model.put("popup_ruta", "/solicitud/" + ctx.pathParam("tarjeta_personal_id"));
     }
 
@@ -56,6 +59,15 @@ public class SolicitudHeladeraController {
         .tarjetaColaborador(tarjetaColaborador)
         .build();
 
+      List<SolicitudOperacionHeladera> solicitudesExistentes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaId);
+      for (SolicitudOperacionHeladera s : solicitudesExistentes) {
+        if (s.getActivo() && s.getTipoOperacion().equals(solicitudOperacionHeladera.getTipoOperacion()) &&
+          s.getHeladera().getId().equals(solicitudOperacionHeladera.getHeladera().getId())) {
+          // Ya hay una solicitud de ese tipo para esa healdera
+          throw new RuntimeException("Se quizo realizar una solicitud ya existente");
+        }
+      }
+      MQTTPublisherSolicitudes.realizarSolicitud(solicitudOperacionHeladera);
       repositorio.guardar(solicitudOperacionHeladera);
       ctx.redirect("/solicitud/" + tarjetaId + "/?failed=false&action=create");
     } catch (Exception e) {

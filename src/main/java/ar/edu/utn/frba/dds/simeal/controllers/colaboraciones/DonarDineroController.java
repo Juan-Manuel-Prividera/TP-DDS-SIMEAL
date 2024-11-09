@@ -5,6 +5,5 @@ import io.javalin.http.Context;
 public class DonarDineroController {
     void create(Context context) {
         context.result("xd");
-        return;
     }
 }

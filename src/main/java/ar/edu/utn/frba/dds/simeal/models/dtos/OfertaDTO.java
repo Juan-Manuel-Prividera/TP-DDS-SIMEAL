@@ -8,16 +8,16 @@ import java.time.LocalDate;
 
 @Getter
 public class OfertaDTO {
-  private Long id;
-  private Colaborador colaborador;
-  private LocalDate fechaDeRealizacion;
-  private String nombre;
-  private double puntosNecesarios;
-  private String rubroNombre;
-  private Long rubroId;
-  private String imagen;
-  private String productoNombre;
-  private String productoDes;
+  private final Long id;
+  private final Colaborador colaborador;
+  private final LocalDate fechaDeRealizacion;
+  private final String nombre;
+  private final double puntosNecesarios;
+  private final String rubroNombre;
+  private final Long rubroId;
+  private final String imagen;
+  private final String productoNombre;
+  private final String productoDes;
 
   public OfertaDTO(Oferta oferta) {
     this.id = oferta.getId();

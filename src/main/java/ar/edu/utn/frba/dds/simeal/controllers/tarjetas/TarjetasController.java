@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class TarjetasController {
-  private PersonaVulnerableController personaVulnerableController;
-  private TarjetaPersonaVulnerableRepository repository;
-  private TarjetaColaboradorRepository tarjetaColaboradorRepository;
-  private ColaboracionRepository colaboracionRepository;
+  private final PersonaVulnerableController personaVulnerableController;
+  private final TarjetaPersonaVulnerableRepository repository;
+  private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
+  private final ColaboracionRepository colaboracionRepository;
 
   public TarjetasController(PersonaVulnerableController personaVulnerableController, TarjetaPersonaVulnerableRepository repository,
                             TarjetaColaboradorRepository tarjetaColaboradorRepository, ColaboracionRepository colaboracionRepository) {
@@ -201,7 +201,7 @@ public class TarjetasController {
         SolicitudOperacionDTO.builder()
           .nombre(solicitud.getHeladera().getNombre())
           .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
-          .horaFin(String.valueOf(dateTimeFormatter.format(solicitud.getHoraDeRealizacion().plusHours(solicitud.getHorasParaEjecutarse()))))
+          .horaFin(dateTimeFormatter.format(solicitud.getHoraDeRealizacion().plusHours(solicitud.getHorasParaEjecutarse())))
           .build()
       );
     }

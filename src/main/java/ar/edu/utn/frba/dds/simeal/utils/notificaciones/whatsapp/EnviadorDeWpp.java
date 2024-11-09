@@ -40,7 +40,7 @@ public class EnviadorDeWpp {
   public void enviar(String destinatario, Mensaje mensaje) {
     try {
       myMessageCreator.getMessageCreator(destinatario, numeroWpp, mensaje).create();
-      Logger.debug("Mensaje de WPP enviado: " + mensaje.toString());
+      Logger.debug("Mensaje de WPP enviado: " + mensaje);
     } catch (Exception e) {
       System.err.println("Error al enviar el mensaje: " + e.getMessage());
     }

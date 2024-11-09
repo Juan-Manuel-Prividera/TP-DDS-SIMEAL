@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "operacion_heladera")
 public class OperacionHeladera extends Persistente {
   @OneToOne

@@ -13,7 +13,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
 import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.PersonaVulnerableController;
-import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.SolicitudHeladeraController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.SolicitudHeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.TarjetasController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
