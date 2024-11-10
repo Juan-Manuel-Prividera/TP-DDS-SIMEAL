@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Rol;
 import ar.edu.utn.frba.dds.simeal.models.usuario.TipoRol;
@@ -108,6 +109,24 @@ public class UsuariosController {
         Logger.info("La ip '" + context.ip() + "' está toqueteando el sistema, mandemos la policía");
         context.status(418);
         context.render("impostor_among_us.hbs");
+    }
+
+
+    public void crearUsuarioDeMigracion(Colaborador colaborador) {
+      List<Rol> roles = (List<Rol>) repo.obtenerTodos(Rol.class);
+      Rol rolHumano = null;
+      for (Rol rol : roles) {
+          if (rol.getTipo().equals(TipoRol.HUMANO)) {
+              rolHumano = rol;
+              break;
+          }
+      }
+      String password = PasswordGenerator.generar(10);
+      colaborador.setUsuario(new Usuario(colaborador.getNombre(),PasswordHasher.hashPassword(password), List.of(rolHumano)));
+      Notificador.notificar(colaborador,new Mensaje( "Credenciales de acceso Simeal",
+        "Tus credenciales de acceso al nuevo sistema Simeal son:" +
+          "\nUsuario: " + colaborador.getNombre() +
+          "\nContraseña: " + password));
     }
 }
 

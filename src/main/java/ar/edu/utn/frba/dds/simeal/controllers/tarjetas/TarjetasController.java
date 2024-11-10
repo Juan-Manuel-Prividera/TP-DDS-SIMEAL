@@ -216,7 +216,7 @@ public class TarjetasController {
 
     for (DarDeAltaPersonaVulnerable persona : personas) {
       TarjetaPersonaVulnerableDTO tarjetaPersonaVulnerableDTO;
-      if (persona.getTarjeta().getActivo()) {
+      if (persona.getTarjeta() != null && persona.getTarjeta().getActivo()) {
         tarjetaPersonaVulnerableDTOS.add(TarjetaPersonaVulnerableDTO.builder()
           .numero(persona.getTarjeta().getCodigo())
         //  .dniPropietario(persona.getPersonaVulnerable().getDocumento().getNroDocumento())

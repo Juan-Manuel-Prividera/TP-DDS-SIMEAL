@@ -1,13 +1,18 @@
 package ar.edu.utn.frba.dds.simeal.utils.cargadordatos;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.ColaboradorController;
+import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.ColaboracionBuilder;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.TipoColaboracion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.ValidadorDeInputs;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
@@ -35,6 +40,7 @@ public class LectorCsv {
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
   public List<ColaboracionPuntuable> leerColaboradores(String csvFile) throws IOException, CsvException {
     List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
+    List<Colaborador> colaboradores = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     CSVReader lector = new CSVReaderBuilder(
@@ -62,16 +68,18 @@ public class LectorCsv {
       LocalDate fechaColaboracion = LocalDate.parse(line[5], formatter);
       TipoColaboracion tipoColaboracion = TipoColaboracion.valueOf(line[6]);
       int cantidad = Integer.parseInt(line[7]);
-      System.out.println(nombre);
 
       Colaborador colaborador =
-          validarSiExisteElColaboradorEnLista(numeroDocumento, listadoColaboracionesPuntuable);
+          validarSiExisteElColaboradorEnLista(nombre, numeroDocumento, colaboradores);
 
       if (colaborador == null) {
         Documento documento = new Documento(tipoDocumento, numeroDocumento);
-        Contacto contacto = new Contacto(mail, MedioDeContactoFactory.crearMedioDeContacto(mail));
+        Contacto contacto = new Contacto(mail, MedioDeContactoFactory.crearMedioDeContactoDeString("email"));
         colaborador = new Colaborador(documento, nombre, apellido);
         colaborador.setContactoPreferido(contacto);
+        colaborador.addContacto(contacto);
+        colaboradores.add(colaborador);
+        Logger.debug("Agrego nuevo colab a la lista de colaboradores");
       }
       ColaboracionPuntuable colaboracionPuntuable = ColaboracionBuilder
           .crearColaboracion(tipoColaboracion, fechaColaboracion, colaborador, cantidad);
@@ -81,26 +89,28 @@ public class LectorCsv {
 
     }
     // Esta comentado para no mandar un mail cada vez que se ejecuta :)
-    //enviarCredencialesDeAcceso(listadoColaboracionesPuntuable.stream().map(ColaboracionPuntuable::getColaborador).toList());
+    enviarCredencialesDeAcceso(colaboradores);
     return listadoColaboracionesPuntuable;
   }
 
-  private Colaborador validarSiExisteElColaboradorEnLista(String numeroDocumento,
-                                               List<ColaboracionPuntuable> colaboraciones) {
-    for (ColaboracionPuntuable colaboracion : colaboraciones) {
-      String nro = colaboracion.getColaborador().getDocumento().getNroDocumento();
-      if (numeroDocumento.equals(nro)) {
+  private Colaborador validarSiExisteElColaboradorEnLista(String nombre, String numeroDocumento, List<Colaborador> colaboradores) {
+    for (Colaborador colab : colaboradores) {
+      String nro = colab.getDocumento().getNroDocumento();
+      String nombreC = colab.getNombre();
+      if (numeroDocumento.equals(nro) && nombre.equals(nombreC)) {
         Logger.debug("Colab Repetido");
-        return colaboracion.getColaborador();
+        return colab;
       }
     }
+    Logger.debug("No se repitio colab");
     return null;
   }
 
   private void enviarCredencialesDeAcceso(List<Colaborador> colaboradores) {
     for (Colaborador colaborador : colaboradores) {
-      colaborador.setUsuario(new Usuario(colaborador.getNombre(),"1234", null));
-      Notificador.notificar(colaborador,new Mensaje(("Tus credenciales de acceso son: tu nombre y la contraseña 1234")));
+      ServiceLocator.getController(UsuariosController.class).crearUsuarioDeMigracion(colaborador);
+      TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaborador,LocalDate.now());
+      ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
     }
   }
 

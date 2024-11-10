@@ -2,7 +2,9 @@ package ar.edu.utn.frba.dds.simeal.controllers.admin;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.cargadordatos.LectorCsv;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
@@ -15,6 +17,7 @@ import io.javalin.http.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class MigracionController {
@@ -82,7 +85,6 @@ public class MigracionController {
       Logger.debug("Hay: " + colaboraciones.size() + " colaboraciones en el csv");
 
       colaboracionRepository.guardar(colaboraciones);
-
       notificarAdmin();
       Logger.info("Migracion de colaboraciones completada exitosamente");
     } else {

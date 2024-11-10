@@ -6,7 +6,6 @@ import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import org.eclipse.paho.client.mqttv3.*;
 
 public class MQTTPublisherSolicitudes {
-  // TODO: Testear esto... confio en que anda igual
   private static final ConfigReader configReader = new ConfigReader();
   public static void realizarSolicitud(SolicitudOperacionHeladera solicitudOperacionHeladera) {
     String broker = configReader.getProperty("broker");

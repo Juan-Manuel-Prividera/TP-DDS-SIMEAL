@@ -182,6 +182,10 @@ public class ColaboradorController {
 
     }
 
+
+
+
+
     private void fail(Context context, String reason){
         Logger.error("No se pudo crear el usuario - " + reason);
         Logger.info("La ip '" + context.ip() + "' está toqueteando el sistema, mandemos la policía");
