@@ -6,7 +6,9 @@ _Sistema de Mejora Alimentaria_
 
 > Lo que no se persiste, no existe -Anónimo
 
-> "Siempre volvemos a lo mismo, roles y permisos" -Desconocido
+> Siempre volvemos a lo mismo, roles y permisos -Desconocido
+
+> Che, estoy contento de vivir en un mundo en el que java existe, no sé -Anónimo
 
 # java-base-project
 
