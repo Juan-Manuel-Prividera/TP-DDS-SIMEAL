@@ -1,4 +1,7 @@
 {{> templates/navbar}}
+{{#if popup_message}}
+    {{> templates/popup}}
+{{/if}}
 <div class="container-superior" id="ofertas_body">
     <div class="filters">
         <label for="rubro"><b>Rubro:</b></label>

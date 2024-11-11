@@ -94,6 +94,7 @@ public class Router {
     //TODO: Usar UUID
     app.get("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::modificar);
     app.post("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::updateOferta);
+    app.post("ofertas/comprar", ServiceLocator.getController(OfertasController.class)::comprar);
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     // **************** Usuarios *****************

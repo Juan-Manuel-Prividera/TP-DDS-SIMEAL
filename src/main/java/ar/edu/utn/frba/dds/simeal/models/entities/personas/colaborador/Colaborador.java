@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documen
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
+import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.ReceptorDeNotificaciones;
 import lombok.AllArgsConstructor;
@@ -127,8 +128,8 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   }
 
   // Le tienen que llegar los puntos que le aporta las heladeras, cuando tengamos persistencia
-  public boolean puedeCanjear(Oferta oferta, double puntosPorHeladeras) {
-    return this.puntosDeReconocimientoParcial + puntosPorHeladeras >= oferta.getPuntosNecesarios();
+  public boolean puedeCanjear(Oferta oferta) {
+    return CalculadorDeReconocimientos.calcularReconocimientoTotal(this) >= oferta.getPuntosNecesarios();
   }
 
   @Override

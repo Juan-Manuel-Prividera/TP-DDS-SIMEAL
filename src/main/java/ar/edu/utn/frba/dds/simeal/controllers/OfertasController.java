@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.dtos.OfertaDTO;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Canje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
@@ -12,8 +13,10 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +34,49 @@ public class OfertasController {
     setOfertas(model,app);
     setUpperBox(model,app);
 
+    //Para mostrar confirmación/error al comprar una oferta
+    if(app.sessionAttribute("resultado_compra") != null){
+      if(app.sessionAttribute(("resultado_compra")).equals("confirmado")){
+        model.put("popup_title", "Compra confirmada");
+        model.put("popup_message", "La compra se ha concretado satisfactoriamente");
+        app.sessionAttribute("resultado_compra", null);
+        Logger.info("Se confirmó la compra");
+      }
+      else if(app.sessionAttribute(("resultado_compra")).equals("rechazado")){
+        model.put("popup_title", "Compra rechazada");
+        model.put("popup_message", "No se ha podido concretar la compra");
+        app.sessionAttribute("resultado_compra", null);
+        Logger.info("Se rechazó la compra");
+      }
+    }
+
     app.render("ofertas/oferta_all.hbs", model);
   }
+
+  public void comprar(Context app) {
+    HashMap<String, Object> model = new HashMap<>();
+    Logger.info("Comprar oferta controller");
+
+    long ofertaId = Long.parseLong(app.body());
+    Long colaboradorId = app.sessionAttribute("colaborador_id");
+
+    Logger.info("El colaboradorId: %s, pretende comprar la ofertaId: %s", colaboradorId.toString(), Long.toString(ofertaId));
+
+    Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colaboradorId, Colaborador.class);
+    Oferta oferta = (Oferta) repositorio.buscarPorId(ofertaId, Oferta.class);
+
+    //Checkeo que la oferta exista y que tenga los puntos suficientes
+    if (oferta != null && colaborador.puedeCanjear(oferta)) {
+      oferta.canjear(colaborador);
+      Canje canje = new Canje(oferta, colaborador, LocalDateTime.now(), oferta.getPuntosNecesarios());
+      repositorio.guardar(canje);
+      repositorio.actualizar(colaborador); //Actualizo los puntos del colaborador
+      app.sessionAttribute("resultado_compra", "confirmado");
+    }
+    else
+        app.sessionAttribute("resultado_compra", "rechazado");
+  }
+
 
   public void show(Context app){
     HashMap<String, Object> model = new HashMap<>();
@@ -149,6 +193,7 @@ public class OfertasController {
   }
 
 
+
 // *********************************************
 // ****************** HELPERS ******************
 // *********************************************
@@ -213,7 +258,6 @@ public class OfertasController {
 
 
 
-
 // ************************************************************
 // ****************** HELPERS de los HELPERS ******************
 // ************************************************************
@@ -230,8 +274,7 @@ public class OfertasController {
 
   private double calcularPts(Context ctx) {
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
-    double ptsColab = CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador);
-    return ptsColab;
+    return CalculadorDeReconocimientos.calcularReconocimientoTotal(colaborador);
   }
 
   private Rubro giveRubroNotRepeted (String nombre) {

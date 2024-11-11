@@ -30,12 +30,13 @@
         <div class="confirmation-box" id="confirmacionDisplay">
             <p class="confirmation-text"><b>¿Desea confirmar la compra?</b></p>
             <div class="confirmation-buttons">
-                <a class="btn btn-success confirm-btn" id="confirmarBtn">Confirmar</a>
+                <a class="btn btn-success confirm-btn" id="confirmarBtn" data-ofertaId="{{oferta.id}}">Confirmar</a>
                 <a class="btn btn-danger cancel-btn" id="cancelarBtn">Cancelar</a>
             </div>
         </div>
 
 <script src="/js/displayConfirmarCompraOferta.js"></script>
+<script src="/js/btnComprarOferta.js"></script>
 {{/partial}}
 {{> templates/ofertas/oferta_upperBox}}
 

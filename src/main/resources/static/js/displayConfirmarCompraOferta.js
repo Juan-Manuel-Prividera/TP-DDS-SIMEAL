@@ -8,7 +8,9 @@ document.getElementById("cancelarBtn").addEventListener("click", function() {
     miDiv.style.display = "none";
 })
 
+/*
 document.getElementById("confirmarBtn").addEventListener("click", function() {
     const miDiv = document.getElementById("confirmacionDisplay");
     miDiv.style.display = "none";
 })
+ */

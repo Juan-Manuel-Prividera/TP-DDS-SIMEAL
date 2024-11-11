@@ -12,6 +12,7 @@ public class CalculadorDeReconocimientos {
   public static double calcularReconocimientoTotal(Colaborador colaborador) {
     double reconocimiento =  colaborador.getPuntosDeReconocimientoParcial();
 
+    //Está bien que calculadora se conecte con el repositorio?
     List<AdherirHeladera> adherirHeladeras = (List<AdherirHeladera>) ((ColaboracionRepository) ServiceLocator
         .getRepository(ColaboracionRepository.class))
         .getPorColaborador(colaborador.getId(), AdherirHeladera.class);

@@ -25,6 +25,6 @@ public class ColaboradorTest {
   @Test
   public void puedeCanjearTest(){
     colaborador.setPuntosDeReconocimientoParcial(100);
-    Assertions.assertTrue(colaborador.puedeCanjear(oferta,2000)); // Le quedan 900 puntos al colab
+    Assertions.assertTrue(colaborador.puedeCanjear(oferta)); // Le quedan 900 puntos al colab
   }
 }
