@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthorizedException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import com.mysql.cj.log.Log;
 import io.javalin.Javalin;
 
 public class AuthorizedMiddleware {
@@ -49,23 +50,24 @@ public class AuthorizedMiddleware {
 
                     Long userID = ctx.sessionAttribute("user_id");
                     if (userID == null) {
-                        System.out.println("NO user_id");
+                        Logger.error("El usuario no tiene un id asociado => no está autorizado para nada");
                         throw new NotAuthenticatedException();
                     }
 
                     Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
                     Usuario usuario = (Usuario) repositorio.buscarPorId(userID, Usuario.class);
 
-                    Logger.debug("Se hizo:" + ctx.path());
-
                     for (Rol r : usuario.getRoles()){
                         if (r.tienePermisoPara(
                                 ctx.path(),
-                                ctx.method()))
-                          return;
+                                ctx.method())) {
+                            Logger.trace("'" + ctx.ip() + "' está autorizado para acceder a ", ctx.path());
+                            return;
+                        }
                     }
 
                     throw new NotAuthorizedException();
+
 
                 });
     }

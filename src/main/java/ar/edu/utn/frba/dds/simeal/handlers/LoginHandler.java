@@ -45,7 +45,7 @@ public class LoginHandler {
         }
 
         if (!PasswordHasher.checkPassword(password, usuario.getHash())) {
-            Logger.debug("Incorrect login attempt");
+            Logger.info("Incorrect login attempt");
             fail(context);
         } else {
             Logger.info("Login successful, welcome " + username);

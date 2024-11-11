@@ -27,7 +27,7 @@ public class AuthenticatedMiddleware {
                 }
             }
 
-            Logger.debug("Se trato de hacer: " + ctx.path());
+            Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
             // TODO : Arreglar
             if(ctx.path().startsWith("/heladera") ||
               ctx.path().startsWith("/suscripcion/") ||
@@ -40,7 +40,7 @@ public class AuthenticatedMiddleware {
             }
             for (var endpoint : openEndpoints) {
                 if (ctx.path().equals(endpoint)) {
-                    System.out.println("Returning " + ctx.path());
+                    Logger.trace("'"+ctx.path()+"' es un endpoint abierto, no necesita estar autenticado.");
                     return;
                 }
             }
@@ -52,7 +52,7 @@ public class AuthenticatedMiddleware {
             String userType = ctx.sessionAttribute("user_type");
 
             if (userType == null){
-                System.out.println("User type NULL");
+                //System.out.println("User type NULL");
                 throw new NotAuthenticatedException();
             }
 
@@ -66,7 +66,7 @@ public class AuthenticatedMiddleware {
                     throw new NotAuthenticatedException();
                 }
             }
-            Logger.debug("Puede pasar a: " + ctx.path());
+            Logger.trace("'"+ctx.ip()+"' está autenticado");
 
             });
     }
