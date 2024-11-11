@@ -9,6 +9,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DonarDineroController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
@@ -111,8 +112,8 @@ public class Router {
 
     // ****************** Colaboraciones ******************
     app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
-    app.get("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionDinero);
-    app.post("colaboraciones/donarDinero", ServiceLocator.getController(ColaboracionesController.class)::donarDinero);
+    app.get("colaboraciones/donarDinero", ServiceLocator.getController(DonarDineroController.class)::index);
+    app.post("colaboraciones/donarDinero", ServiceLocator.getController(DonarDineroController.class)::create);
     app.get("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
     app.post("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
     app.get("colaboraciones/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);

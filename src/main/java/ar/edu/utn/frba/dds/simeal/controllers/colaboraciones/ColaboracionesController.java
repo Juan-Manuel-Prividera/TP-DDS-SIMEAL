@@ -40,53 +40,6 @@ public class ColaboracionesController {
     }
   }
 
-  public void mostrarFormularioDonacionDinero(Context app) {
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("titulo", "Donar Dinero");
-    setNavBar(model, app);
-
-    app.render("/colaboraciones/donarDinero.hbs", model);
-  }
-
-  public void donarDinero(Context app) {
-    String metodoPago = app.formParam("metodoPago");
-    String monto = app.formParam("monto");
-
-    if (metodoPago == null || monto == null) {
-      app.render("impostor_among_us.hbs");
-      return;
-    }
-
-
-    Integer montoParsed = Integer.parseInt(monto);
-
-    if (montoParsed <= 0) {
-      HashMap<String, Object> model = new HashMap<>();
-      model.put("popup_title", "La concha de tu madre");
-      model.put("popup_message", "Gracias por tu donación de " + monto + " AR$ \uD83D\uDC80");
-      setNavBar(model, app);
-
-      app.render("/colaboraciones/donarDinero.hbs", model);
-      return;
-
-    }
-
-    Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
-    Colaborador colaborador = (Colaborador) repo.buscarPorId(app.sessionAttribute("colaborador_id"), Colaborador.class);
-
-    DonarDinero donacion = DonarDinero.create(colaborador, LocalDate.now(), montoParsed);
-    repo.guardar(donacion);
-
-    // Crear un modelo para pasar a la vista
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("popup_title", "Donación realizada ❤");
-    model.put("popup_message", "Gracias por tu donación de " + monto + " ARS usando " + metodoPago);
-    setNavBar(model, app);
-
-    app.render("/colaboraciones/donarDinero.hbs", model);
-
-  }
-
   public void mostrarFormularioDonacionVianda(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Vianda");
