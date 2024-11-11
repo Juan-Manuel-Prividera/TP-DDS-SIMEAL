@@ -13,7 +13,7 @@ public class IndexHandler {
 
         Boolean fail = Boolean.valueOf(context.queryParam("failed"));
         String tipoUsuarioString = context.sessionAttribute("user_type");
-        Logger.debug("El tipo de usuario es: " + tipoUsuarioString);
+        Logger.trace("El tipo de usuario es: " + tipoUsuarioString);
         if (tipoUsuarioString == null) {
             context.render("login.hbs", Map.of("loginFailed", fail,
                     "popup_message", "Credenciales no válidas",

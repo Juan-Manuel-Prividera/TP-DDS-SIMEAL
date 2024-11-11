@@ -19,7 +19,12 @@ import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.VisitaController;
 import ar.edu.utn.frba.dds.simeal.handlers.*;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.Javalin;
+import io.javalin.http.HttpStatus;
+import javassist.NotFoundException;
+
+import java.nio.charset.StandardCharsets;
 
 public class Router {
   public static void init(Javalin app) {
@@ -121,6 +126,10 @@ public class Router {
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);
+
+    // *************** Not found *****************
+    app.error(404, ctx -> {throw new NotFoundException("Page not found"); });
+    app.after(ctx -> { if (ctx.status() == HttpStatus.OK) Logger.debug("La ip '"+ctx.ip()+"' accedió a "+ java.net.URLDecoder.decode(ctx.url(), StandardCharsets.UTF_8));});
 
   }
 
