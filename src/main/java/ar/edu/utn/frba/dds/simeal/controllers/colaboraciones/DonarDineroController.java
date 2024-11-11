@@ -65,7 +65,7 @@ public class DonarDineroController {
         else if (app.sessionAttribute("user_type") == "JURIDICO")
             model.put("esJuridico","true");
 
-        model.put("username", app.sessionAttribute("username"));
+        model.put("username", app.sessionAttribute("user_name"));
     }
 
 }
