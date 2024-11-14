@@ -12,26 +12,34 @@
     <link rel="stylesheet" href="/css/colaboraciones.css">
 </head>
 <body>
-
 {{> templates/navbar}}
 <div class="container-supremo">
     <div class="colaboracion-personal-container">
         <div class="tarjeta-btns ml-auto mr-auto">
-            <a href="colaboraciones/donarDinero"><button class="btn btn-dark mt-5 mb-3">Donar dinero</button></a>
-            <a href="colaboraciones/donarVianda"><button class="btn btn-dark mb-3">Donar vianda</button></a>
-            <a href="colaboraciones/distribucionVianda"><button class="btn btn-dark mb-3">Distribuir vianda</button></a>
+            <a href="colaboracion/donarDinero"><button class="btn btn-dark mt-5 mb-3">Donar dinero</button></a>
+            {{#if esHumano}}
+                <a href="colaboracion/donarVianda"><button class="btn btn-dark mb-3">Donar vianda</button></a>
+                <a href="colaboracion/distribucionVianda"><button class="btn btn-dark mb-3">Distribuir vianda</button></a>
+            {{else}}
+                <a href="colaboracion/adherirHeladera"><button class="btn btn-dark mb-3">Adherir heladera</button></a>
+            {{/if}}
         </div>
         <div class="colab-btns-inf-izq">
             <a href="#"><button class="btn btn-dark mt-5 mb-3"><b>Configurar colaboraciones</b></button></a>
         </div>
     </div>
-
     <div class="container-frase-btn">
-        <div class="texto-motivacional">Todo esto es posible<br>gracias a nuestros colaboradores</div>
+        <div class="texto-motivacional">
+            Todo esto es posible<br>gracias a nuestros colaboradores
+        </div>
         <div class="colab-btns-inf-der">
             <a href="#"><button class="btn btn-dark mt-5 mb-3"><b>Historial colaboraciones</b></button></a>
         </div>
     </div>
 </div>
 
-<footer class="bg-dark text-white text-center py-3 mt-auto"></footer>
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <p>&copy; Sistema de Mejora Alimentaria</p>
+</footer>
+</body>
+</html>
