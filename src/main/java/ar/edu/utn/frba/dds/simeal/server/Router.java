@@ -3,11 +3,13 @@ package ar.edu.utn.frba.dds.simeal.server;
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
 import ar.edu.utn.frba.dds.simeal.controllers.RecomendacionColabsController;
+import ar.edu.utn.frba.dds.simeal.controllers.RecomendacionUbicacionController;
 import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.AdherirHeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DonarDineroController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
@@ -59,6 +61,7 @@ public class Router {
     app.get("{encargo_id}/visita", ServiceLocator.getController(VisitaController.class)::indexRegistroVisita);
     app.post("{encargo_id}/visita", ServiceLocator.getController(VisitaController.class)::registrar);
 
+    // TODO: Arreglar estas rutas
     // ***************  Tarjetas   ***************
     app.get("tarjeta", ServiceLocator.getController(TarjetasController.class)::index);
     app.get("tarjeta/new", ServiceLocator.getController(TarjetasController.class)::indexNewTarjeta);
@@ -112,18 +115,25 @@ public class Router {
 
     // ****************** Colaboraciones ******************
     app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
-    app.get("colaboraciones/donarDinero", ServiceLocator.getController(DonarDineroController.class)::index);
-    app.post("colaboraciones/donarDinero", ServiceLocator.getController(DonarDineroController.class)::create);
-    app.get("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
-    app.post("colaboraciones/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
-    app.get("colaboraciones/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);
-    app.post("colaboraciones/distribuirVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
-    app.get("colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioAdherirHeladera);
-    app.post("colaboraciones/adherirHeladera", ServiceLocator.getController(ColaboracionesController.class)::adherirHeladera);
+    app.get("colaboraciones/historial", ServiceLocator.getController(ColaboracionesController.class)::indexHistorial);
 
+    app.get("colaboracion/donarDinero", ServiceLocator.getController(DonarDineroController.class)::index);
+    app.post("colaboracion/donarDinero", ServiceLocator.getController(DonarDineroController.class)::create);
+
+    app.get("colaboracion/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
+    app.post("colaboracion/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::donarVianda);
+
+    app.get("colaboracion/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);
+    app.post("colaboracion/distribuirVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
+
+    app.get("colaboracion/adherirHeladera", ServiceLocator.getController(AdherirHeladeraController.class)::index);
+    app.post("colaboracion/adherirHeladera", ServiceLocator.getController(AdherirHeladeraController.class)::create);
 
     // ****************** Recomendacion de Colaboradores ******************
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
+
+    // ****************** Recomendacion de Puntos de colocacion ******************
+    app.get("recomendacion/ubicaciones", ServiceLocator.getController(RecomendacionColabsController.class)::index);
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);

@@ -70,13 +70,15 @@ public class InitPersistence {
 
 
         Permiso getColaboraciones = new Permiso("colaboraciones", TipoMetodoHttp.GET);
-        Permiso postDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.POST);
-        Permiso getDonarDinero = new Permiso("colaboraciones/donarDinero", TipoMetodoHttp.GET);
-        Permiso getDonarVianda = new Permiso("colaboraciones/donarVianda", TipoMetodoHttp.GET);
-        Permiso postDonarVianda = new Permiso("colaboraciones/donarVianda", TipoMetodoHttp.POST);
-        Permiso getAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.GET);
-        Permiso postAdherirHeladera = new Permiso("colaboraciones/adherirHeladera", TipoMetodoHttp.POST);
-        Permiso getDistribucionVianda = new Permiso("colaboraciones/distribucionVianda", TipoMetodoHttp.GET);
+        Permiso postDonarDinero = new Permiso("colaboracion/donarDinero", TipoMetodoHttp.POST);
+        Permiso getDonarDinero = new Permiso("colaboracion/donarDinero", TipoMetodoHttp.GET);
+        Permiso getDonarVianda = new Permiso("colaboracion/donarVianda", TipoMetodoHttp.GET);
+        Permiso postDonarVianda = new Permiso("colaboracion/donarVianda", TipoMetodoHttp.POST);
+        Permiso getAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.GET);
+        Permiso postAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.POST);
+        Permiso getDistribucionVianda = new Permiso("colaboracion/distribucionVianda", TipoMetodoHttp.GET);
+
+        Permiso getHistorialColaboraciones = new Permiso("colaboraciones/historial", TipoMetodoHttp.GET);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
         Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
@@ -115,14 +117,14 @@ public class InitPersistence {
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
                 getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-                getDistribucionVianda
+                getDistribucionVianda, getHistorialColaboraciones
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
                 getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
                 getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
-                getAdherirHeladera, postAdherirHeladera, getRecomendacion
+                getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones
         );
         Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
 
@@ -177,6 +179,9 @@ public class InitPersistence {
         );
 
         colaboradorJuridico.setUsuario(usuarioJuridico);
+        Ubicacion ubicacion0 = new Ubicacion("Av. Corrientes", 3966,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1179);
+        Ubicacion ubicacion1 = new Ubicacion("Av. Cordoba",3821 ,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1188);
+        colaboradorJuridico.setUbicaciones(List.of(ubicacion0, ubicacion1));
         repo.guardar(colaboradorJuridico);
 
         Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia()));
@@ -231,9 +236,15 @@ public class InitPersistence {
         Ubicacion ubicacion2 = new Ubicacion("Mozart", 2300, -34.65946430376541, -58.46797562733076);
         Ubicacion ubicacion3 = new Ubicacion("Santa Fe", 1860, -34.59266250613197, -58.39405684357533);
         Ubicacion ubicacion4 = new Ubicacion("Gorriti", 900, -34.60679445485131, -58.36548827958108);
-        ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo1",2,3,4);
+        ModeloHeladera modeloHeladera0 = new ModeloHeladera("Super Heladera 3000",4,2,20);
+        ModeloHeladera modeloHeladera1 = new ModeloHeladera("Gran Heladera 2500",4,2,15);
+        ModeloHeladera modeloHeladera2 = new ModeloHeladera("Heladereitor 2000",4,2,10);
+        ModeloHeladera modeloHeladera3 = new ModeloHeladera("Heladerita 1000",5,1,5);
         Repositorio modeloRepo = ServiceLocator.getRepository(ModeloHeladeraRepository.class);
-        modeloRepo.guardar(modeloHeladera);
+        modeloRepo.guardar(modeloHeladera0);
+        modeloRepo.guardar(modeloHeladera1);
+        modeloRepo.guardar(modeloHeladera2);
+        modeloRepo.guardar(modeloHeladera3);
 
         Colaborador colaborador0 = new Colaborador("UTN-BA", new Rubro("Educación"), TipoJuridico.INSTITUCION, new Contacto("uni@gmail.com", MedioDeContactoFactory.crearMedioDeContacto("email")));
         colaborador0.sumarPuntosReconocimiento(200);
@@ -252,11 +263,11 @@ public class InitPersistence {
 
         repositorioColabs.guardar(colaborador0);
 
-        Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera1 = new Heladera("Heladera Medrano",ubicacion1, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera2 = new Heladera("Heladera Campus",ubicacion2, LocalDate.now(),colaborador0,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
-        Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),null,modeloHeladera,true,new ArrayList<>());
+        Heladera heladera = new Heladera("Heladera Plaza Italia",ubicacion, LocalDate.now(),null,modeloHeladera0,true,new ArrayList<>());
+        Heladera heladera1 = new Heladera("Heladera Medrano",ubicacion1, LocalDate.now(),colaborador0,modeloHeladera0,true,new ArrayList<>());
+        Heladera heladera2 = new Heladera("Heladera Campus",ubicacion2, LocalDate.now(),colaborador0,modeloHeladera1,true,new ArrayList<>());
+        Heladera heladera3 = new Heladera("Heladera el Ateneo",ubicacion3, LocalDate.now(),null,modeloHeladera1,true,new ArrayList<>());
+        Heladera heladera4 = new Heladera("Heladera Puerto Madero",ubicacion4, LocalDate.now(),null,modeloHeladera1,true,new ArrayList<>());
 
         Sensor sensor = new Sensor(heladera,null);
         Sensor sensor1 = new Sensor(heladera1,null);

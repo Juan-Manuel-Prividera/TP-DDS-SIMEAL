@@ -123,10 +123,10 @@ public class UsuariosController {
       }
       String password = PasswordGenerator.generar(10);
       colaborador.setUsuario(new Usuario(colaborador.getNombre(),PasswordHasher.hashPassword(password), List.of(rolHumano)));
-      Notificador.notificar(colaborador,new Mensaje( "Credenciales de acceso Simeal",
+      Notificador.notificar(colaborador,new Mensaje(
         "Tus credenciales de acceso al nuevo sistema Simeal son:" +
           "\nUsuario: " + colaborador.getNombre() +
-          "\nContraseña: " + password));
+          "\nContraseña: " + password, "Credenciales de acceso Simeal"));
     }
 }
 

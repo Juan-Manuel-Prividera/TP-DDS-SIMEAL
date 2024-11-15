@@ -17,12 +17,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Entity
+@Getter
 @Table(name = "donar_dinero")
 public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Getter
   @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   @ManyToOne
-  @JoinColumn(name = "colaborador", referencedColumnName = "id")
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
   private Colaborador colaborador;
 
   @Column(name = "frecuencia")
@@ -54,5 +55,10 @@ public class DonarDinero extends Persistente implements ColaboracionPuntuable {
   @Override
   public double calcularReconocimientoParcial() {
     return cantidadDinero * this.factorDeReconocimiento;
+  }
+
+  @Override
+  public String getCantidad() {
+    return "$" + cantidadDinero;
   }
 }

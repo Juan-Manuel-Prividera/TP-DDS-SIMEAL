@@ -16,6 +16,7 @@ import java.time.Period;
 @AllArgsConstructor
 @Builder
 @Entity
+@Getter
 @NoArgsConstructor(force = true)
 @Table(name = "adherir_heladera")
 public class AdherirHeladera extends Persistente implements ColaboracionPuntuable {
@@ -55,5 +56,10 @@ public class AdherirHeladera extends Persistente implements ColaboracionPuntuabl
           +
         periodoEnFuncionamientoSinGastar.getMonths();
     return cantMeses * this.factorDeReconocimiento;
+  }
+
+  @Override
+  public String getCantidad() {
+    return null;
   }
 }

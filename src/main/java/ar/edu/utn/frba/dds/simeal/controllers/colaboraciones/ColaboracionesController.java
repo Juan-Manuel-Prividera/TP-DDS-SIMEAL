@@ -1,14 +1,19 @@
 package ar.edu.utn.frba.dds.simeal.controllers.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.dtos.ColaboracionDTO;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import io.javalin.http.Context;
+import org.checkerframework.checker.units.qual.C;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class ColaboracionesController {
@@ -30,16 +35,13 @@ public class ColaboracionesController {
     String usrType = app.sessionAttribute("user_type");
     System.out.println(usrType);
     // Renderizar la vista correspondiente según el tipo de usuario
-    if (usrType.equals("JURIDICO")) {
-      app.render("/colaboraciones/colaboracion_juridico.hbs", model);
-    } else if (usrType.equals("HUMANO")) {
-      app.render("/colaboraciones/colaboraciones_personal.hbs", model);
-    } else {
-      // TODO: Qué pasa si el admin quiere ver esta página ? -> no puede
-      app.status(404).result("Tipo de usuario no válido");
+    if (usrType.equals("HUMANO")) {
+      model.put("esHumano", true);
     }
-  }
 
+    app.render("/colaboraciones/colaboraciones.hbs", model);
+  }
+  // TODO: Sacar de aca
   public void mostrarFormularioDonacionVianda(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Donar Vianda");
@@ -47,7 +49,7 @@ public class ColaboracionesController {
 
     app.render("/colaboraciones/donarVianda.hbs", model);
   }
-
+  // TODO: Sacar de aca
   public void donarVianda(Context app) {
     // Obtener los datos del formulario
     String nombreHeladera = app.formParam("nombre_heladera");
@@ -64,6 +66,7 @@ public class ColaboracionesController {
     app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
+  // TODO: Sacar de aca
   public void mostrarFormularioDistribucionVianda(Context app) {
     HashMap<String, Object> model = new HashMap<>();
     model.put("titulo", "Distribuir Vianda");
@@ -71,7 +74,7 @@ public class ColaboracionesController {
 
     app.render("/colaboraciones/distribuirVianda.hbs", model);
   }
-
+  // TODO: Sacar de aca
   public void distribuirVianda(Context ctx) {
     // Procesar datos del formulario
     String heladeraOrigen = ctx.formParam("heladeraOrigen");
@@ -92,30 +95,18 @@ public class ColaboracionesController {
     ctx.render("templates/confirmacion_Distribucion.hbs");
   }
 
-  public void mostrarFormularioAdherirHeladera(Context app) {
+  public void indexHistorial(Context ctx) {
+    List<ColaboracionPuntuable> colaboraciones = (List<ColaboracionPuntuable>) colaboracionRepository
+      .getAllPorColaborador(ctx.sessionAttribute("colaborador_id"));
+    List<ColaboracionDTO> colaboracionDTOS = new ArrayList<>();
+    for(ColaboracionPuntuable colaboracionPuntuable : colaboraciones) {
+        colaboracionDTOS.add(new ColaboracionDTO(colaboracionPuntuable));
+    }
     HashMap<String, Object> model = new HashMap<>();
-    model.put("titulo", "Adherir Heladera");
-    setNavBar(model, app);
+    setNavBar(model, ctx);
+    model.put("historial", colaboracionDTOS);
 
-    app.render("/colaboraciones/adherirHeladera.hbs", model);
-  }
-
-  public void adherirHeladera(Context app) {
-    // Obtener los datos del formulario
-    String nombreHeladera = app.formParam("nombreHeladera");
-    String ubicacionHeladera = app.formParam("ubicacionHeladera");
-    String modeloHeladera = app.formParam("modeloHeladera");
-
-    // Lógica para registrar la nueva heladera
-    // Aquí puedes agregar la heladera a la base de datos o repositorio
-
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("nombreHeladera", nombreHeladera);
-    model.put("ubicacionHeladera", ubicacionHeladera);
-    model.put("modeloHeladera", modeloHeladera);
-    model.put("mensaje", "La heladera " + nombreHeladera + " ha sido adherida exitosamente.");
-    setNavBar(model, app);
-    app.render("/colaboraciones/confirmacion_adherencia.hbs", model);
+    ctx.render("/colaboraciones/historial.hbs", model);
   }
 
   public void setNavBar(HashMap<String, Object> model, Context app) {

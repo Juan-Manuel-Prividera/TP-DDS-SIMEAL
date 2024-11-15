@@ -60,6 +60,11 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   private Ubicacion ubicacion;
 
+  @OneToMany
+  @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
+  @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
+  private List<Ubicacion> ubicaciones;
+
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name="colaborador_id", referencedColumnName = "id")
   private final List<Contacto> contactos = new ArrayList<>();
@@ -112,9 +117,20 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
     this.contactoPreferido = contacto;
   }
   public Colaborador(Ubicacion ubicacion) {
+    if (ubicaciones == null) {
+      ubicaciones = new ArrayList<>();
+    }
+    this.ubicaciones.add(ubicacion);
+    this.ubicacion = ubicacion;
+
+  }
+  public void setUbicacion(Ubicacion ubicacion) {
+    if (ubicaciones == null) {
+      ubicaciones = new ArrayList<>();
+    }
+    this.ubicaciones.add(ubicacion);
     this.ubicacion = ubicacion;
   }
-
   public void addContacto(Contacto contacto) {
     contactos.add(contacto);
   }

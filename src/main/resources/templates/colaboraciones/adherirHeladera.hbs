@@ -1,11 +1,12 @@
 {{> templates/navbar}}
 
 <div class="linear-container">
-    <!-- Mapa interactivo para seleccionar la ubicación de la heladera -->
-    {{> templates/heladeras/mapa_heladera}}
 
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
     <div class="form-heladeras">
-        <form class="form-group-heladeras" action="/{{user_type}}/colaboraciones/adherirHeladera" method="POST">
+        <form class="form-group-heladeras" action="/colaboracion/adherirHeladera" method="POST">
             <h3 class="mb-5 mt-5">Adherir nueva heladera</h3>
 
             <!-- Campo para ingresar el nombre de la heladera -->
@@ -14,22 +15,30 @@
 
             <!-- Campo para ingresar Modelo de la heladera -->
             <label for="modeloHeladera">Modelo de heladera</label>
-            <input id="modeloHeladera" name="modeloHeladera" type="text" class="form-control mb-5" placeholder="Modelo de heladera">
-
+<!--            <input id="modeloHeladera" name="modeloHeladera" type="text" class="form-control mb-5" placeholder="Modelo de heladera">-->
+            <select class="form-control" name="modeloHeladera" id="modeloHeladera">
+                {{#each modelosHeladera}}
+                    <option value={{this.id}}>{{this.nombre}}</option>
+                {{/each}}
+            </select>
             <!-- Campo para ingresar la ubicación de la heladera -->
             <label for="ubicacionHeladera">Ubicación</label>
-            <input id="ubicacionHeladera" name="ubicacionHeladera" type="text" class="form-control mb-5" placeholder="Ubicación de heladera" required>
-
+<!--            <input id="ubicacionHeladera" name="ubicacionHeladera" type="text" class="form-control mb-5" placeholder="Ubicación de heladera" required>-->
+            <select class="form-control" name="ubicacionHeladera" id="ubicacionHeladera">
+                {{#each ubicacionesPosibles}}
+                    <option value={{this.id}}>{{this.direccion}}</option>
+                {{/each}}
+            </select>
 
             <!-- Botón de aceptación -->
             <button class="btn btn-success rounded" type="submit">Adherir Heladera</button>
-            <a class="btn btn-danger rounded" href="/{{user_type}}/colaboraciones">Cancelar</a>
+            <a class="btn btn-danger rounded" href="/colaboraciones">Cancelar</a>
+            <a class="btn btn-info rounded" href="/recomendacion/ubicaciones">Recomendacion de ubicaciones</a>
         </form>
     </div>
 </div>
 
 <!-- Scripts para el mapa -->
-<script type="module" src="/js/mapa.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script type="module" src="/js/recibirInputHeladera.js"></script>
