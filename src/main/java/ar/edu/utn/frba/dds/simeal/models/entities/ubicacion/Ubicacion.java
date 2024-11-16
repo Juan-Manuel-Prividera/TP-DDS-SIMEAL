@@ -42,6 +42,7 @@ public class Ubicacion extends Persistente {
     this.altura = altura;
     this.provincia = provincia;
     this.codigoPostal = codigoPostal;
+    this.coordenada = CalculadorCoordenadas.calcular(this);
   }
 
   public Ubicacion(String nombreCalle, int altura, double longitud, double latitud) {
@@ -57,10 +58,6 @@ public class Ubicacion extends Persistente {
 
 
   public double distanciaA(Ubicacion ubicacion) {
-    if (getCoordenada() == null) {
-      coordenada = CalculadorCoordenadas.calcular(this);
-    }
-
     double lat1 = this.getCoordenada().getLatitud();
     double lon1 = this.getCoordenada().getLongitud();
     double lat2 = ubicacion.getCoordenada().getLatitud();

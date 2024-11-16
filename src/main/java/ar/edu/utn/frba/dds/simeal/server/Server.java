@@ -52,6 +52,7 @@ public class Server {
         staticFiles.directory = "/static";
       });
 
+
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {
         Handlebars handlebars = new Handlebars();
         Template template = null;

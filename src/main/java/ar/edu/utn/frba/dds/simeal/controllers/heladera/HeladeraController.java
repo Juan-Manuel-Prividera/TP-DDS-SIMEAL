@@ -4,17 +4,21 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.dtos.HeladeraDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.VisitaTecnicaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +51,26 @@ public class HeladeraController {
 
     app.render("/heladeras/home_heladera.hbs",model);
   }
+
+  public void create(Context ctx,String nombre, ModeloHeladera modelo, Ubicacion ubicacion) {
+    ConfigReader configReader = new ConfigReader();
+    Long colabId = ctx.sessionAttribute("colaborador_id");
+    Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colabId, Colaborador.class);
+    List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
+    // TODO: Si tenemos muchas heladeras esto va a tardar una banda...
+    List<Heladera> heladerasCercanas = new ArrayList<>();
+    for (Heladera heladera : heladeras) {
+      if (heladera.getUbicacion().estaCercaDe(ubicacion,Integer.parseInt(configReader.getProperty("cond.cercania"))))
+        heladerasCercanas.add(heladera);
+    }
+
+    Heladera heladera = new Heladera(nombre,ubicacion, LocalDate.now(),colaborador,modelo,true,heladerasCercanas);
+    Sensor sensor = new Sensor(heladera,null);
+    repositorio.guardar(heladera);
+    repositorio.guardar(sensor);
+  }
+
+
   // GET /heladeras
   public void getAll(Context app) {
     List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);

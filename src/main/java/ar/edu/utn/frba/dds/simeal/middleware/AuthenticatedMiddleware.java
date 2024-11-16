@@ -16,7 +16,7 @@ public class AuthenticatedMiddleware {
             "/user/create/humano",
             "/user/create/juridico",
     };
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".map", ".gif"};
+    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".map", ".gif", ".ico"};
 
     public static void apply(Javalin app) {
         app.beforeMatched(
@@ -28,13 +28,12 @@ public class AuthenticatedMiddleware {
             }
 
             Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
-            // TODO : Arreglar
             if(ctx.path().startsWith("/heladera") ||
               ctx.path().startsWith("/suscripcion/") ||
               ctx.path().startsWith("/suscripciones") ||
               ctx.path().startsWith("/heladera/suscribirse/") ||
-              ctx.path().startsWith("/setuser/") ||
-              ctx.path().startsWith("/formulario/")  )
+              ctx.path().startsWith("/setuser/") )
+              //ctx.path().startsWith("/formulario/")  )
             {
                 return;
             }

@@ -55,4 +55,9 @@ public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   public double calcularReconocimientoParcial() {
     return this.factorDeReconocimiento;
   }
+
+  @Override
+  public String getCantidad() {
+    return "1";
+  }
 }

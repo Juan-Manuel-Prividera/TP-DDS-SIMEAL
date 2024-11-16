@@ -62,4 +62,9 @@ public class DarDeAltaPersonaVulnerable extends Persistente implements Colaborac
   public double calcularReconocimientoParcial() {
     return this.factorDeReconocimiento;
   }
+
+  @Override
+  public String getCantidad() {
+    return null;
+  }
 }

@@ -69,4 +69,9 @@ public class DistribuirVianda extends Persistente implements ColaboracionPuntuab
     return this.cantidadViandasMover * factorDeReconocimiento;
   }
 
+  @Override
+  public String getCantidad() {
+    return cantidadViandasMover + "";
+  }
+
 }

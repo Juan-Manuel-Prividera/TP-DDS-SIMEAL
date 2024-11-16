@@ -12,6 +12,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaCo
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
 import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.utils.ValidadorDeInputs;
@@ -37,8 +38,11 @@ import java.util.Objects;
 public class LectorCsv {
   private double cantTotalColaboraciones = 0;
   private double cantLeidas = 0;
+  private List<Colaborador> colaboradoresActualesEnSistema = new ArrayList<>();
   // tipoDoc, NroDoc, Nombre, Apellido, Mail, FechaColab, FormaColab, Cantidad
   public List<ColaboracionPuntuable> leerColaboradores(String csvFile) throws IOException, CsvException {
+    colaboradoresActualesEnSistema = (List<Colaborador>) ServiceLocator.getRepository(ColaboracionRepository.class)
+      .obtenerTodos(Colaborador.class);
     List<ColaboracionPuntuable> listadoColaboracionesPuntuable = new ArrayList<>();
     List<Colaborador> colaboradores = new ArrayList<>();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -88,12 +92,23 @@ public class LectorCsv {
       cantLeidas ++;
 
     }
-    // Esta comentado para no mandar un mail cada vez que se ejecuta :)
+
     enviarCredencialesDeAcceso(colaboradores);
     return listadoColaboracionesPuntuable;
   }
 
   private Colaborador validarSiExisteElColaboradorEnLista(String nombre, String numeroDocumento, List<Colaborador> colaboradores) {
+    // TODO: Chequear esto por las dudas...
+    if (!colaboradoresActualesEnSistema.isEmpty()) {
+      for (Colaborador colab : colaboradoresActualesEnSistema) {
+        String nro = colab.getDocumento().getNroDocumento();
+        String nombreC = colab.getNombre();
+        if (numeroDocumento.equals(nro) && nombre.equals(nombreC)) {
+          Logger.debug("Colab Repetido");
+          return colab;
+        }
+      }
+    }
     for (Colaborador colab : colaboradores) {
       String nro = colab.getDocumento().getNroDocumento();
       String nombreC = colab.getNombre();

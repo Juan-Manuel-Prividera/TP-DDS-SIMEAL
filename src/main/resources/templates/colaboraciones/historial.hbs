@@ -1,0 +1,21 @@
+{{> templates/navbar}}
+
+{{#each historial}}
+    <li class="list-group-item mb-3">
+        <!-- Información principal de la colaboración -->
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{this.tipo}}</strong><br>
+                <p>Fecha: {{this.fechaRealizacion}}</p>
+                {{#if this.cantidad}}
+                    <p>Cantidad: {{this.cantidad}}</p>
+                {{/if}}
+            </div>
+        </div>
+
+<!--        &lt;!&ndash; Información detallada desplegable &ndash;&gt;-->
+<!--        <div id="detalles-colaboracion-{{@index}}" class="mt-2" style="display: none;">-->
+<!--            <p><strong>Descripción adicional:</strong> Aquí puedes agregar más detalles específicos de la colaboración si los tienes disponibles.</p>-->
+<!--        </div>-->
+    </li>
+{{/each}}
