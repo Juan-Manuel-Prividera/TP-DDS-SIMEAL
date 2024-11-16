@@ -2,12 +2,14 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.dtos.CanjeDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.OfertaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Canje;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Oferta;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Producto;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.repositories.CanjeRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.OfertaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
@@ -26,6 +28,7 @@ public class OfertasController {
   //TODO: VER DE NO USAR ESTE MÉTODO PARA CONSEGUIR LOS REPOSITORY
   private final OfertaRepository ofertaRepository = (OfertaRepository) ServiceLocator.getRepository(OfertaRepository.class);
   private final Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+  private final CanjeRepository canjeRepository = (CanjeRepository) ServiceLocator.getRepository(CanjeRepository.class);
 
   public void index(Context app){
     HashMap<String, Object> model = new HashMap<>();
@@ -184,7 +187,6 @@ public class OfertasController {
       oferta.setImagen(app.formParam("imagen"));
     }
 
-
     repositorio.actualizar(oferta);
 
     model.put("ofertaId", app.pathParam("oferta_id"));
@@ -192,6 +194,14 @@ public class OfertasController {
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
+  public void canjes(Context app) {
+    HashMap<String, Object> model = new HashMap<>();
+    setNavBar(model,app);
+    model.put("Ofertas", null);
+    List<Canje> canjes = canjeRepository.getPorColaborador(app.sessionAttribute("colaborador_id"));
+    model.put("canjes", convertToCanjeDTO(canjes));
+    app.render("ofertas/oferta_canjes.hbs", model);
+  }
 
 
 // *********************************************
@@ -263,6 +273,7 @@ public class OfertasController {
 // ************************************************************
 
 
+  //TODO: HACER TODO EN UN MISMO MÉTODO
   private List<OfertaDTO> converToDTO(List<Oferta> ofertas){
     List<OfertaDTO> ofertasDTO = new ArrayList<>();
     for(Oferta oferta : ofertas){
@@ -270,6 +281,15 @@ public class OfertasController {
       ofertasDTO.add(ofertaDTO);
     }
     return ofertasDTO;
+  }
+
+  private List<CanjeDTO> convertToCanjeDTO(List<Canje> canjes){
+    List<CanjeDTO> canjesDTO = new ArrayList<>();
+    for(Canje canje : canjes){
+      CanjeDTO canjeDTO = new CanjeDTO(canje);
+      canjesDTO.add(canjeDTO);
+    }
+    return canjesDTO;
   }
 
   private double calcularPts(Context ctx) {

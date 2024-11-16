@@ -16,5 +16,7 @@ public class OfertaRepository extends Repositorio{
       .getResultList();
     commitTransaction();
     return colaboraciones;
-  }}
+  }
+}
+
 

@@ -91,6 +91,7 @@ public class Router {
 
     // ***************  Ofertas  ***************
     app.get("ofertas", ServiceLocator.getController(OfertasController.class)::index);
+    app.get("ofertas/misCanjes", ServiceLocator.getController(OfertasController.class)::canjes);
     app.get("ofertas/misOfertas", ServiceLocator.getController(OfertasController.class)::selfOffers);
     app.get("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::publicar);
     app.post("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::persistOferta);
@@ -100,6 +101,7 @@ public class Router {
     app.get("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::modificar);
     app.post("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::updateOferta);
     app.post("ofertas/comprar", ServiceLocator.getController(OfertasController.class)::comprar);
+
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
     // **************** Usuarios *****************
