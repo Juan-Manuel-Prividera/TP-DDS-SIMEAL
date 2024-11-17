@@ -3,22 +3,34 @@
 <div class="linear-container">
     <!-- Mapa interactivo para seleccionar la heladera -->
     {{> templates/heladeras/mapa_heladera}}
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
 
     <div class="form-heladeras">
-        <form class="form-group-heladeras" action="/{{user_type}}/colaboraciones/donarVianda" method="POST">
+        <form class="form-group-heladeras" action="/colaboracion/donarVianda" method="POST">
             <h3 class="mb-5 mt-5">¿En qué heladera irá la vianda?</h3>
-
             <!-- Campo para ingresar el nombre de la heladera -->
-            <label for="nombreHeladera">Nombre de la heladera</label>
-            <input id="nombreHeladera" name="nombreHeladera" type="text" class="form-control mb-4" placeholder="Nombre de heladera" required>
-
+            <label for="nombre_heladera">Nombre de la heladera</label>
+            <input id="nombre_heladera" name="nombre_heladera" type="text" class="form-control mb-4" placeholder="Nombre de heladera" required>
             <!-- Campo para ingresar la ubicación de la heladera -->
-            <label for="ubicacionHeladera">Ubicación</label>
-            <input id="ubicacionHeladera" name="ubicacionHeladera" type="text" class="form-control mb-5" placeholder="Ubicación de heladera" required>
+            <label for="ubicacion_heladera">Ubicación</label>
+            <input id="ubicacion_heladera" name="ubicacion_heladera" type="text" class="form-control mb-5" placeholder="Ubicación de heladera" required>
+            <!-- TODO: Vulnerabilidad IDOR, fix! -->
+            <input id="id_heladera" hidden="hidden" name="id_heladera" type="text" class="form-control mb-5" required>
+
+            <label for="tipo_comida">Tipo de comida</label>
+            <input id="tipo_comida" name="tipo_comida" type="text" class="form-control mb-5" placeholder="Tipo de comida" required>
+
+            <label for="fecha_caducidad">Fecha de caducidad</label>
+            <input id="fecha_caducidad" name="fecha_caducidad" type="date" class="form-control mb-5" placeholder="03/22/2014" required>
+
+            <label for="calorias">Calorías</label>
+            <input id="calorias" name="calorias" type="number" class="form-control mb-5" placeholder="10000" required>
 
             <!-- Botón de aceptación -->
             <button class="btn btn-success rounded" type="submit">Aceptar</button>
-            <a class="btn btn-danger rounded" href="/{{user_type}}/colaboraciones">Cancelar</a>
+            <a class="btn btn-danger rounded" href="/colaboraciones">Cancelar</a>
         </form>
     </div>
 </div>
