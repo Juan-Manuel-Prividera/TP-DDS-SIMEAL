@@ -52,7 +52,6 @@ public class AuthenticatedMiddleware {
             String userType = ctx.sessionAttribute("user_type");
 
             if (userType == null){
-                //System.out.println("User type NULL");
                 throw new NotAuthenticatedException();
             }
 
@@ -61,7 +60,7 @@ public class AuthenticatedMiddleware {
                     throw new NotAuthenticatedException();
                 }
             }
-            if (!userType.equals("ADMIN") && !userType.equals("HUMANO") && !userType.equals("JURIDICO")){
+            if (userType.equals("TECNICO")){
                 if (userID == null || tecnicoId == null || username == null) {
                     throw new NotAuthenticatedException();
                 }
