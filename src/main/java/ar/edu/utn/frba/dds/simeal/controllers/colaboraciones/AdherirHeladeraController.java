@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.models.dtos.ModeloHeladeraDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.UbicacionDTO;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.ModeloHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
@@ -43,6 +44,10 @@ public class AdherirHeladeraController {
       } else if (failed.equals("false") && action.equals("create")) {
         model.put("popup_title", "Heladera adherida correctamente");
         model.put("popup_ruta", "/colaboraciones");
+      } else if (failed.equals("true") && action.equals("repeat")) {
+        model.put("popup_title", "No se pudo adherir la heladera");
+        model.put("popup_message", "Ya hay una heladera en esa ubicación, selecciona otra ubicación");
+        model.put("popup_ruta", "/colaboracion/adherirHeladera");
       }
     }
     ctx.render("colaboraciones/adherirHeladera.hbs", model);
@@ -54,11 +59,22 @@ public class AdherirHeladeraController {
       Long modeloId = Long.valueOf(ctx.formParam("modeloHeladera"));
       Long ubicacionId = Long.valueOf(ctx.formParam("ubicacionHeladera"));
 
+      Colaborador colaborador = (Colaborador) repositorio
+        .buscarPorId(ctx.sessionAttribute("colaborador_id"),Colaborador.class);
       ModeloHeladera modelo = (ModeloHeladera) repositorio.buscarPorId(modeloId, ModeloHeladera.class);
       Ubicacion ubicacion = (Ubicacion) repositorio.buscarPorId(ubicacionId, Ubicacion.class);
+      List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
+      for (Heladera heladera : heladeras) {
+        if (heladera.getUbicacion().equals(ubicacion)) {
+          ctx.redirect("/colaboracion/adherirHeladera?failed=true&action=repeat");
+          return;
+        }
+      }
 
-      ServiceLocator.getController(HeladeraController.class).create(ctx, nombre, modelo, ubicacion);
+      Heladera heladera = ServiceLocator.getController(HeladeraController.class).create(ctx, nombre, modelo, ubicacion);
+      AdherirHeladera adherirHeladera = new AdherirHeladera(colaborador,heladera,LocalDate.now());
 
+      repositorio.guardar(adherirHeladera);
       ctx.redirect("/colaboracion/adherirHeladera?failed=false&action=create");
     }catch (Exception e){
       ctx.redirect("/colaboracion/adherirHeladera?failed=true&action=create");

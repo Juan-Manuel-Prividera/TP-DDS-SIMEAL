@@ -39,6 +39,7 @@ public class InitPersistence {
         initFormularios();
         initHeladeras();
         initOfertas();
+        initUbicacionesRecomendadas();
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -314,7 +315,14 @@ public class InitPersistence {
         }
 
     }
-
+    private static void initUbicacionesRecomendadas() {
+      Ubicacion u1 = new Ubicacion("Av. Acoyte", 467, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1405);
+      Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405);
+      Ubicacion u2 =  new Ubicacion("Franklin", 629,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405);
+      ServiceLocator.getRepository(Repositorio.class).guardar(u1);
+      ServiceLocator.getRepository(Repositorio.class).guardar(u2);
+      ServiceLocator.getRepository(Repositorio.class).guardar(u3);
+    }
     private static void ignorarEstaFuncion(int day, Colaborador colaborador, Repositorio repositorio, Rubro rubro) {
         Producto producto = new Producto("nombre", "Descripción");
         repositorio.guardar(producto);

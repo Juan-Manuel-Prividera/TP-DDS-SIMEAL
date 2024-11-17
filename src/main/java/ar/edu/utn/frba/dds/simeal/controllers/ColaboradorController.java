@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.controllers;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TipoJuridico;
@@ -58,15 +59,15 @@ public class ColaboradorController {
 
             case JURIDICO -> {
                 String razonSocial = context.formParam("razon_social");
-                String rubroString = context.formParam("rubro");
+                Long rubroId = Long.parseLong(context.formParam("rubro"));
                 String tipoJuridicoString = context.formParam("tipo_juridico");
 
-                if (razonSocial == null || rubroString == null || tipoJuridicoString == null) {
+                if (razonSocial == null || rubroId == null || tipoJuridicoString == null) {
                     fail(context, "El usuario no proporcionó suficientes datos");
                     return;
                 }
-
-                // TODO: Set rubro
+                Rubro rubro = (Rubro) ServiceLocator.getRepository(Repositorio.class).buscarPorId(rubroId,Rubro.class);
+                colaborador.setRubro(rubro);
                 colaborador.setRazonSocial(razonSocial);
                 TipoJuridico tipoJuridico = TipoJuridico.valueOf(tipoJuridicoString.toUpperCase());
                 colaborador.setTipoJuridico(tipoJuridico);

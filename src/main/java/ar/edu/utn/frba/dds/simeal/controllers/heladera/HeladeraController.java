@@ -52,7 +52,7 @@ public class HeladeraController {
     app.render("/heladeras/home_heladera.hbs",model);
   }
 
-  public void create(Context ctx,String nombre, ModeloHeladera modelo, Ubicacion ubicacion) {
+  public Heladera create(Context ctx,String nombre, ModeloHeladera modelo, Ubicacion ubicacion) {
     ConfigReader configReader = new ConfigReader();
     Long colabId = ctx.sessionAttribute("colaborador_id");
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colabId, Colaborador.class);
@@ -68,6 +68,8 @@ public class HeladeraController {
     Sensor sensor = new Sensor(heladera,null);
     repositorio.guardar(heladera);
     repositorio.guardar(sensor);
+
+    return heladera;
   }
 
 

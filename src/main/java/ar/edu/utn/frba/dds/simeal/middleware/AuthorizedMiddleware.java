@@ -44,7 +44,9 @@ public class AuthorizedMiddleware {
                       ctx.path().startsWith("/heladera/suscribirse/") ||
                       ctx.path().startsWith("/setuser/") ||
                       ctx.path().startsWith("/formulario/") ||
-                      ctx.path().startsWith("/ofertas/")) {
+                      ctx.path().startsWith("/ofertas/") ||
+                      ctx.path().startsWith("/recomendacion/"))
+                     {
                       return;
                     }
 

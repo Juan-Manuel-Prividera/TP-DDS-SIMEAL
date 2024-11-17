@@ -1,7 +1,9 @@
 package ar.edu.utn.frba.dds.simeal.handlers;
 
+import ar.edu.utn.frba.dds.simeal.models.dtos.RubroDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.formulario.OpcionDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.formulario.PreguntaDTO;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.oferta.Rubro;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Formulario;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Opcion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulario.Pregunta;
@@ -62,6 +64,12 @@ public class RegistroHandler {
         } else if (context.pathParam("rol").equals("juridico")) {
             map.put("juridico", "true");
             map.put("rol", "juridico");
+            List<Rubro> rubros = (List<Rubro>) repo.obtenerTodos(Rubro.class);
+            List<RubroDTO> rubroDTOS = new ArrayList<>();
+            for (Rubro r : rubros) {
+                rubroDTOS.add(new RubroDTO(r));
+            }
+            map.put("rubros", rubroDTOS);
         }
 
         // TODO: Revisar como pasar esta info de alguna otra forma que no sea query param

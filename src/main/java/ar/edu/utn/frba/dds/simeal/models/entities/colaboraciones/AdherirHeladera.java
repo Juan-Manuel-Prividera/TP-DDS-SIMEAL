@@ -37,7 +37,14 @@ public class AdherirHeladera extends Persistente implements ColaboracionPuntuabl
 
   @Builder.Default
   @Transient
-  private final double factorDeReconocimiento = 5;
+  private double factorDeReconocimiento = 5;
+
+  public AdherirHeladera(Colaborador colaborador, Heladera heladera, LocalDate fechaDeRealizacion) {
+    this.colaborador  = colaborador;
+    this.heladera = heladera;
+    this.fechaDeRealizacion = fechaDeRealizacion;
+    this.factorDeReconocimiento = 5;
+  }
 
   public static AdherirHeladera create(Colaborador colaborador, LocalDate fecha) {
     return AdherirHeladera.builder()

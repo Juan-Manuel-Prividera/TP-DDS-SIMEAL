@@ -135,7 +135,7 @@ public class Router {
     app.get("recomendacion", ServiceLocator.getController(RecomendacionColabsController.class)::index);
 
     // ****************** Recomendacion de Puntos de colocacion ******************
-    app.get("recomendacion/ubicaciones", ServiceLocator.getController(RecomendacionColabsController.class)::index);
+    app.get("recomendacion/ubicaciones", ServiceLocator.getController(RecomendacionUbicacionController.class)::index);
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);
