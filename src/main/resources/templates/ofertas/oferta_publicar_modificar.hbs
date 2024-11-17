@@ -33,11 +33,11 @@
 
 <div class="container-general">
     {{#if agregarOferta}}
-        <h2 class="titulo"><strong>Agregar Oferta</strong></h2>
-    <form id="miFormulario" method="POST" action="publicar">
+    <h2 class="titulo"><strong>Agregar Oferta</strong></h2>
+    <form id="miFormulario" method="POST" action="publicar" enctype="multipart/form-data">
     {{else}}
-        <h2 class="titulo"><strong>Modificar Oferta</strong></h2>
-    <form id="miFormulario" method="POST" action="modificar">
+    <h2 class="titulo"><strong>Modificar Oferta</strong></h2>
+    <form id="miFormulario" method="POST" action="/ofertas/misOfertas/{{ofertaId}}/modificar" enctype="multipart/form-data">
     {{/if}}
         <div class="form-group">
             <label for="nombre">*Nombre:</label>
@@ -55,7 +55,7 @@
             <label for="descripcion">*Descripcion:</label>
             <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" {{required}}>
 
-            <label for="imagen">Cargar Imagen:</label>
+            <label for="imagen">*Cargar Imagen:</label>
             <input type="file" class="form-control-file" name="imagen" {{required}}>
         </div>
         <div class="text-center">
@@ -72,11 +72,37 @@
 <script>
     document.getElementById('miFormulario').addEventListener('submit', function(event) {
         // Obtener los campos del formulario
-        const rubro = document.getElementsByName('rubro').value;
-        const puntos = document.getElementsByName('puntos').value;
-        const productoNombre = document.getElementsByName('productoNombre').value;
-        const descripcion = document.getElementsByName('descripcion').value;
-        const imagen= document.getElementsByName('img').value;
+        //const rubro = document.getElementsByName('rubro').value;
+        //const puntos = document.getElementsByName('puntos').value;
+        //const productoNombre = document.getElementsByName('productoNombre').value;
+        //const descripcion = document.getElementsByName('descripcion').value;
+        //const imagen= document.getElementsByName('img').value;
+
+        const formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+        })
     });
 </script>
+
+<script>
+    const form = document.getElementById('miFormulario');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        const fileInput = document.getElementById('imagen');
+        formData.append('imagen', fileInput.files[0]);
+
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+        console.log(result);
+    });
+</script>
+
 </body>

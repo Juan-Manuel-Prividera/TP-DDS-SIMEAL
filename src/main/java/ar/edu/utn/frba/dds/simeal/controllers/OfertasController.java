@@ -306,8 +306,8 @@ public class OfertasController {
       }
     }
     if (Objects.isNull(newRubro)) {
-      repositorio.guardar(newRubro);
       newRubro = new Rubro(nombre);
+      repositorio.guardar(newRubro);
     }
     return newRubro;
   }
