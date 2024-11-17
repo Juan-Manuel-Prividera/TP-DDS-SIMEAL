@@ -16,16 +16,24 @@
 <div class="container-supremo">
     <div class="colaboracion-personal-container">
         <div class="tarjeta-btns ml-auto mr-auto">
+            {{#if donarDinero}}
             <a href="colaboracion/donarDinero"><button class="btn btn-dark mt-5 mb-3">Donar dinero</button></a>
+            {{/if}}
             {{#if esHumano}}
+                {{#if donarVianda}}
                 <a href="colaboracion/donarVianda"><button class="btn btn-dark mb-3">Donar vianda</button></a>
+                {{/if}}
+                {{#if distribuirVianda}}
                 <a href="colaboracion/distribucionVianda"><button class="btn btn-dark mb-3">Distribuir vianda</button></a>
+                {{/if}}
             {{else}}
+                {{#if adherirHeladera}}
                 <a href="colaboracion/adherirHeladera"><button class="btn btn-dark mb-3">Adherir heladera</button></a>
+                {{/if}}
             {{/if}}
         </div>
         <div class="colab-btns-inf-izq">
-            <a href="#"><button class="btn btn-dark mt-5 mb-3"><b>Configurar colaboraciones</b></button></a>
+            <a href="colaboraciones/configuracion"><button class="btn btn-dark mt-5 mb-3"><b>Configurar colaboraciones</b></button></a>
         </div>
     </div>
     <div class="container-frase-btn">

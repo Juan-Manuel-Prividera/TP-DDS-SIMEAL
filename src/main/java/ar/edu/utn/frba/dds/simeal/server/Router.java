@@ -118,6 +118,8 @@ public class Router {
     // ****************** Colaboraciones ******************
     app.get("colaboraciones", ServiceLocator.getController(ColaboracionesController.class)::index);
     app.get("colaboraciones/historial", ServiceLocator.getController(ColaboracionesController.class)::indexHistorial);
+    app.get("colaboraciones/configuracion", ServiceLocator.getController(ColaboracionesController.class)::indexConfiguracion);
+    app.post("colaboraciones/configuracion", ServiceLocator.getController(ColaboracionesController.class)::configurarPreferencias);
 
     app.get("colaboracion/donarDinero", ServiceLocator.getController(DonarDineroController.class)::index);
     app.post("colaboracion/donarDinero", ServiceLocator.getController(DonarDineroController.class)::create);
@@ -136,6 +138,7 @@ public class Router {
 
     // ****************** Recomendacion de Puntos de colocacion ******************
     app.get("recomendacion/ubicaciones", ServiceLocator.getController(RecomendacionUbicacionController.class)::index);
+
 
     // ****************** Index ******************
     app.get("/", new IndexHandler()::handle);

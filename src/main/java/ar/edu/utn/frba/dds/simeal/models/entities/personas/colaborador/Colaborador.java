@@ -81,7 +81,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @ElementCollection(targetClass = TipoColaboracion.class)
   @CollectionTable(name = "colaborador_tipo_colaboracion", joinColumns = @JoinColumn(name = "colaborador_id"))
   @Enumerated(EnumType.STRING)
-  private final List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
+  private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
   @OneToOne
   @JoinColumn(name="usuario_id", referencedColumnName = "id")

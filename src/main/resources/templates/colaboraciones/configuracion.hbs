@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{titulo}}</title>
+    <link rel="stylesheet" href="/css/navbar-style.css">
+    <link rel="stylesheet" href="/css/containers.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/tarjetas.css">
+    <link rel="stylesheet" href="/css/colaboraciones.css">
+</head>
+<body>
+{{> templates/navbar}}
+<div class="container-supremo">
+    <div class="colaboracion-personal-container">
+        <form method="POST" action="/colaboraciones/configuracion" class="tarjeta-btns ml-auto mr-auto">
+            <div style="display: flex; flex-direction: row; align-items: center; width: 100%; justify-content: space-around;">
+                <a href="colaboracion/donarDinero"><button class="btn btn-dark mt-5 mb-3">Donar dinero</button></a>
+                <input type="checkbox" name="donarDinero" value="DINERO" style="margin-left: -15%; margin-top: 5%; transform: scale(1.5);">
+            </div>
+            {{#if esHumano}}
+                <div style="display: flex; flex-direction: row; align-items: center; width: 100%; justify-content: space-around;">
+                    <a href="colaboracion/donarVianda"><button class="btn btn-dark mb-3">Donar vianda</button></a>
+                    <input type="checkbox" name="donarVianda" value="DONACION_VIANDA" style="margin-left: -15%; transform: scale(1.5);">
+                </div>
+                <div style="display: flex; flex-direction: row; align-items: center; width: 100%; justify-content: space-around;">
+                    <a href="colaboracion/distribucionVianda"><button class="btn btn-dark mb-3">Distribuir vianda</button></a>
+                    <input type="checkbox" name="distribucionVianda" value="REDISTRIBUCION_VIANDA" style="margin-left: -15%; transform: scale(1.5);">
+                </div>
+            {{else}}
+                <div style="display: flex; flex-direction: row; align-items: center; width: 100%; justify-content: space-around;">
+                    <a href="colaboracion/adherirHeladera"><button class="btn btn-dark mb-3">Adherir heladera</button></a>
+                    <input type="checkbox" name="adherirHeladera" value="ADHERIR_HELADERA" style="margin-left: -15%; transform: scale(1.5);">
+                </div>
+            {{/if}}
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10%; width: 30%; ">Confirmar cambios</button>
+        </form>
+    </div>
+    <div class="container-frase-btn">
+        <div class="texto-motivacional">
+            Todo esto es posible<br>gracias a nuestros colaboradores
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

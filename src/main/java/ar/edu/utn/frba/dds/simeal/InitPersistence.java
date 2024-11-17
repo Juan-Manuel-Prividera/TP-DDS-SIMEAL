@@ -80,6 +80,8 @@ public class InitPersistence {
         Permiso getDistribucionVianda = new Permiso("colaboracion/distribucionVianda", TipoMetodoHttp.GET);
 
         Permiso getHistorialColaboraciones = new Permiso("colaboraciones/historial", TipoMetodoHttp.GET);
+        Permiso getConfiguracionColaboraciones = new Permiso("colaboraciones/configuracion", TipoMetodoHttp.GET);
+        Permiso postConfiguracionColaboraciones = new Permiso("colaboraciones/configuracion", TipoMetodoHttp.POST);
 
         Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
         Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
@@ -118,14 +120,15 @@ public class InitPersistence {
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
                 getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-                getDistribucionVianda, getHistorialColaboraciones
+                getDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
         List<Permiso> permisosJuridico = List.of(
                 getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
                 getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
-                getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones
+                getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
+                getConfiguracionColaboraciones, postConfiguracionColaboraciones
         );
         Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
 
