@@ -12,10 +12,10 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class CalculadorCoordenadasAdapter {
-  public Coordenada calcularCoordenadas(String calle, int altura, int cp, String provincia) {
+  public Coordenada calcularCoordenadas(String calle, int altura, int cp, String provincia, String localidad) {
     Coordenada coordenada = null;
     try {
-      String direccion = "Argentina," + provincia + "," + altura + " "+ calle + "," + cp;
+      String direccion = "Argentina," + provincia + "," + localidad + ","+ altura + " "+ calle + "," + cp;
 
       String direccionCodificada = URLEncoder.encode(direccion, StandardCharsets.UTF_8);
       String url = "https://nominatim.openstreetmap.org/search?q=" + direccionCodificada + "&format=json&limit=1";

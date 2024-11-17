@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.personaVulnerable.PersonaVulnerable;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
@@ -39,7 +40,8 @@ public class PersonaVulnerableController {
         Logger.debug("Intenta setear calle: " + app.formParam("calle_nombre"));
         personaVulnerable.setDomilicio(new Ubicacion(
           app.formParam("calle_nombre"), Integer.parseInt(app.formParam("calle_altura")),
-          Provincia.valueOf(app.formParam("provincia")), Integer.parseInt(app.formParam("codigo_postal"))));
+          Provincia.valueOf(app.formParam("provincia")), Integer.parseInt(app.formParam("codigo_postal")),
+          (Localidad) ServiceLocator.getRepository(Repositorio.class).buscarPorId(Long.valueOf(app.formParam("localidad")), Localidad.class)));
       }
 
       personaVulnerable.calcularEdad();

@@ -21,6 +21,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDoc
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Email;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
@@ -35,11 +36,11 @@ import java.util.List;
 // Este archivo mete en la BD algunos datos hardcodeados, como los tipos de roles, los formularios, etc...
 public class InitPersistence {
     public static void main(String[] args){
+        initUbicacionesRecomendadas();
         initPermisosRolesYUsuarios();
         initFormularios();
         initHeladeras();
         initOfertas();
-        initUbicacionesRecomendadas();
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -181,16 +182,17 @@ public class InitPersistence {
                 "Arcos dorados",
                 new Rubro("fastFood", alimentos)
         );
-
+        LocalidadRepository localidadRepository = (LocalidadRepository) ServiceLocator.getRepository(LocalidadRepository.class);
+        Localidad localidad = localidadRepository.buscarPorNombre("Almagro");
         colaboradorJuridico.setUsuario(usuarioJuridico);
-        Ubicacion ubicacion0 = new Ubicacion("Av. Corrientes", 3966,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1179);
-        Ubicacion ubicacion1 = new Ubicacion("Av. Cordoba",3821 ,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1188);
+        Ubicacion ubicacion0 = new Ubicacion("Av. Corrientes", 3966,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1179, localidad);
+        Ubicacion ubicacion1 = new Ubicacion("Av. Cordoba",3821 ,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1188, localidad);
         colaboradorJuridico.setUbicaciones(List.of(ubicacion0, ubicacion1));
         repo.guardar(colaboradorJuridico);
 
         Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia()));
         AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
-          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179), 10000.0);
+          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179, localidad), 10000.0);
         Tecnico tecnico = new Tecnico("Tomas", "Pauza",
           new Documento(TipoDocumento.DNI, "1234556677"),
             "2012334556599", List.of(contactoTecnico), contactoTecnico, areaDeCobertura
@@ -319,9 +321,36 @@ public class InitPersistence {
 
     }
     private static void initUbicacionesRecomendadas() {
-      Ubicacion u1 = new Ubicacion("Av. Acoyte", 467, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1405);
-      Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405);
-      Ubicacion u2 =  new Ubicacion("Franklin", 629,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405);
+        List<Localidad> localidades = new ArrayList<>();
+        localidades.add(new Localidad("La Plata", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Mar del Plata", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Bahía Blanca", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Tandil", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("San Nicolás", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("San Fernando", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Avellaneda", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Quilmes", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Tigre", Provincia.Buenos_Aires));
+        localidades.add(new Localidad("Adrogué", Provincia.Buenos_Aires));
+
+        // Localidades de Ciudad Autónoma de Buenos Aires (CABA)
+        localidades.add(new Localidad("Palermo", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Recoleta", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Belgrano", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Almagro", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Caballito", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Villa Urquiza", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Flores", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Villa Lugano", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+        localidades.add(new Localidad("Almagro", Provincia.Ciudad_Autonoma_De_Buenos_Aires));
+
+        for (Localidad l : localidades) {
+            ServiceLocator.getRepository(Repositorio.class).guardar(l);
+        }
+
+      Ubicacion u1 = new Ubicacion("Av. Acoyte", 467, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1405, localidades.get(18));
+      Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405,localidades.get(18));
+      Ubicacion u2 =  new Ubicacion("Franklin", 629,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405, localidades.get(18));
       ServiceLocator.getRepository(Repositorio.class).guardar(u1);
       ServiceLocator.getRepository(Repositorio.class).guardar(u2);
       ServiceLocator.getRepository(Repositorio.class).guardar(u3);

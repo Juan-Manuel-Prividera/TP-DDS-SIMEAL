@@ -33,7 +33,8 @@ public class AuthenticatedMiddleware {
               ctx.path().startsWith("/suscripciones") ||
               ctx.path().startsWith("/heladera/suscribirse/") ||
               ctx.path().startsWith("/setuser/") ||
-              ctx.path().startsWith("/recomendacion/"))
+              ctx.path().startsWith("/recomendacion/") ||
+              ctx.path().startsWith("/localidades") )
               //ctx.path().startsWith("/formulario/")  )
             {
                 return;

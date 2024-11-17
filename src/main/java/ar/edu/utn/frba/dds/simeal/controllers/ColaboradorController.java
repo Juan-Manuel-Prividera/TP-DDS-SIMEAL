@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.formulari
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.Documento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.documentacion.TipoDocumento;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contacto;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
@@ -43,13 +44,22 @@ public class ColaboradorController {
                 String apellido = context.formParam("apellido");
                 String tipoDocumentoString = context.formParam("tipo_documento");
                 String numeroDocumento = context.formParam("numero_documento");
-
+                String calleNombre = context.formParam("calle_nombre");
+                String calleAltura = context.formParam("calle_altura");
+                String localidadId = context.formParam("localidad");
+                Provincia provincia = Provincia.valueOf(context.formParam("provincia"));
+                String codigoPostal = context.formParam("codigo_postal");
                 // Si es humano, t0do esto tiene que estar sí o sí
-                if (nombre == null || apellido == null || tipoDocumentoString == null || numeroDocumento == null) {
+                if (nombre == null || apellido == null || tipoDocumentoString == null || numeroDocumento == null ||
+                  calleAltura == null || calleNombre == null || provincia == null || codigoPostal == null || localidadId == null) {
                     fail(context, "El usuario no proporcionó suficientes datos");
                     return;
                 }
-
+                Localidad localidad = (Localidad) ServiceLocator.getRepository(Repositorio.class)
+                  .buscarPorId(Long.valueOf(localidadId),Localidad.class);
+              int altura = Integer.parseInt(calleAltura);
+                Ubicacion ubicacion = new Ubicacion(calleNombre, altura, provincia,Integer.parseInt(codigoPostal),localidad);
+                colaborador.setUbicacion(ubicacion);
                 colaborador.setNombre(nombre);
                 colaborador.setApellido(apellido);
 
@@ -61,11 +71,32 @@ public class ColaboradorController {
                 String razonSocial = context.formParam("razon_social");
                 Long rubroId = Long.parseLong(context.formParam("rubro"));
                 String tipoJuridicoString = context.formParam("tipo_juridico");
-
                 if (razonSocial == null || rubroId == null || tipoJuridicoString == null) {
                     fail(context, "El usuario no proporcionó suficientes datos");
                     return;
                 }
+
+                if (!context.formParams("calle_nombre").isEmpty()) {
+                    List<String> calle = context.formParams("calle_nombre");
+                    List<String> altura = context.formParams("calle_altura");
+                    List<String> codigoPostal = context.formParams("codigo_postal");
+                    List<String> provincia = context.formParams("provincia");
+                    List<String> localidadId = context.formParams("localidad");
+
+
+                    List<Ubicacion> ubicaciones = new ArrayList<>();
+                    for (int i=0; i<calle.size(); i++){
+                        Localidad localidad = (Localidad) ServiceLocator.getRepository(Repositorio.class)
+                          .buscarPorId(Long.parseLong(localidadId.get(i)), Localidad.class);
+
+                        ubicaciones.add(new Ubicacion(calle.get(i), Integer.parseInt(altura.get(i)),
+                          Provincia.valueOf(provincia.get(i)), Integer.parseInt(codigoPostal.get(i)), localidad)
+                        );
+                    }
+                    colaborador.setUbicaciones(ubicaciones);
+                    colaborador.setUbicacion(ubicaciones.get(0));
+                }
+
                 Rubro rubro = (Rubro) ServiceLocator.getRepository(Repositorio.class).buscarPorId(rubroId,Rubro.class);
                 colaborador.setRubro(rubro);
                 colaborador.setRazonSocial(razonSocial);
@@ -75,21 +106,15 @@ public class ColaboradorController {
         }
 
         // Otros, no dependen
-        String calleNombre = context.formParam("calle_nombre");
-        String calleAltura = context.formParam("calle_altura");
         String medioContacto = context.formParam("medio_contacto");
         String infoContacto = context.formParam("info_contacto");
-        Provincia provincia = Provincia.valueOf(context.formParam("provincia"));
-        String codigoPostal = context.formParam("codigo_postal");
 
-        if (calleNombre == null || calleAltura == null || infoContacto == null || medioContacto == null) {
+        if (infoContacto == null || medioContacto == null) {
             fail(context, "El usuario no dio suficientes datos");
             return;
         }
 
-        int altura = Integer.parseInt(calleAltura);
-        Ubicacion ubicacion = new Ubicacion(calleNombre, altura, provincia,Integer.parseInt(codigoPostal));
-        colaborador.setUbicacion(ubicacion);
+
 
         // TODO: Setear medio de contacto
         Contacto contacto = new Contacto();

@@ -18,13 +18,14 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "vianda")
 public class Vianda extends Persistente {
-  @Embedded
+  @Column(name = "tipo_comida")
+  @Enumerated(EnumType.STRING)
   private TipoDeComida tipoDeComida;
 
-  @Column (name = "fechaCaducidad")
+  @Column (name = "fecha_caducidad")
   private LocalDate fechaCaducidad;
 
-  @Column (name = "fechaDonacion")
+  @Column (name = "fecha_donacion")
   private LocalDate fechaDonacion;
 
   @ManyToOne

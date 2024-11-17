@@ -58,7 +58,7 @@
            required="required">
 
     <label for="provincia" class="form-label">Provincia de Cobertura</label>
-    <select id="provincia" name="provincia" class="form-control" style="width: 30%; height: 5vh" required>
+    <select id="provincia" name="provincia" class="form-control" style="width: 30%; height: 5vh" onchange="actualizarLocalidades()" required>
             <option value="" disabled selected hidden>Provincias</option>
             <option value="Buenos_Aires">Buenos Aires</option>
             <option value="Ciudad_Autonoma_De_Buenos_Aires">Ciudad Autónoma de Buenos Aires</option>
@@ -86,6 +86,10 @@
             <option value="Tucuman">Tucumán</option>
     </select>
 
+    <label for="localidad" class="form-label">Localidad</label>
+    <select id="localidad" name="localidad" class="form-control mb-4" style="width: 30%; height: 5vh" required>
+        <option value="" disabled selected hidden>Localidades</option>
+    </select>
     <!-- Radio de Cobertura -->
         <label for="radioCobertura">Radio de Cobertura (en km)</label>
         <input type="number" id="radioCobertura" name="radioCobertura" required placeholder="Ej. 10" min="0" step="0.1" />
@@ -93,3 +97,31 @@
     <!-- Botón de envío -->
     <button class="btn-success mb-5 mt-5" type="submit">Registrar Técnico</button>
 </form>
+
+<script>
+    function actualizarLocalidades() {
+        const provinciaSeleccionada = document.getElementById("provincia").value;
+        const localidadSelect = document.getElementById("localidad");
+
+        // Limpiar las opciones actuales de localidad
+        localidadSelect.innerHTML = '<option value="">Selecciona una localidad</option>';
+
+        // Si hay una provincia seleccionada, hacer una solicitud al servidor
+        if (provinciaSeleccionada) {
+            fetch(`/localidades?provincia=${encodeURIComponent(provinciaSeleccionada)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // Añadir las localidades al desplegable
+                        data.forEach(localidad => {
+                            console.log(localidad)
+                            const option = document.createElement("option");
+                            option.value = localidad.id;
+                            option.text = localidad.nombre;
+                            localidadSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error al obtener localidades:', error));
+        }
+    }
+</script>

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers.tecnico;
 
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedioDeContactoFactory;
 import ar.edu.utn.frba.dds.simeal.models.dtos.TecnicoDTO;
@@ -11,9 +12,11 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.Contact
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.MedioContacto;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.mediocontacto.WhatsApp;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
+import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.EncargoTecnicoRepostiry;
+import ar.edu.utn.frba.dds.simeal.models.repositories.LocalidadRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
@@ -113,7 +116,8 @@ public class TecnicoController {
             ctx.formParam("calleCobertura"),
             Integer.parseInt(ctx.formParam("alturaCobertura")),
             Provincia.valueOf(ctx.formParam("provincia")),
-            Integer.parseInt(ctx.formParam("codigo_postal"))),
+            Integer.parseInt(ctx.formParam("codigo_postal")),
+            (Localidad) repositorio.buscarPorId(Long.valueOf(ctx.formParam("localidad")),Localidad.class)),
             Double.parseDouble(ctx.formParam("radioCobertura")
           )
         ))

@@ -1,10 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.server;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
-import ar.edu.utn.frba.dds.simeal.controllers.OfertasController;
-import ar.edu.utn.frba.dds.simeal.controllers.RecomendacionColabsController;
-import ar.edu.utn.frba.dds.simeal.controllers.RecomendacionUbicacionController;
-import ar.edu.utn.frba.dds.simeal.controllers.UsuariosController;
+import ar.edu.utn.frba.dds.simeal.controllers.*;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.CambioModoController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
@@ -107,6 +104,9 @@ public class Router {
     app.post("ofertas/comprar", ServiceLocator.getController(OfertasController.class)::comprar);
 
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
+
+
+    app.get("localidades", ServiceLocator.getController(UbicacionController.class)::getLocalidades);
 
     // **************** Usuarios *****************
     app.post("login", new LoginHandler()::handle);

@@ -45,7 +45,8 @@ public class AuthorizedMiddleware {
                       ctx.path().startsWith("/setuser/") ||
                       ctx.path().startsWith("/formulario/") ||
                       ctx.path().startsWith("/ofertas/") ||
-                      ctx.path().startsWith("/recomendacion/"))
+                      ctx.path().startsWith("/recomendacion/") ||
+                      ctx.path().startsWith("/localidades"))
                      {
                       return;
                     }

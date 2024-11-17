@@ -78,6 +78,7 @@ public class RegistroHandler {
             map.put("popup_message", context.queryParam("error"));
             map.put("popup_title", "Error");
             map.put("popup_button", "Reintentar");
+            map.put("popup_ruta", "/registro/" + context.pathParam("rol"));
         }
 
         Logger.trace("Saliendo de registro handler");

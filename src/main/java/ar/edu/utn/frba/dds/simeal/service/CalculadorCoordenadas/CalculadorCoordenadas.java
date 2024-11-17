@@ -8,6 +8,6 @@ public class CalculadorCoordenadas {
   public static Coordenada calcular(Ubicacion ubicacion) {
     String provincia = ubicacion.getProvincia().toString().replace("_", " ");
     return calculadorCoordenadasAdapter
-      .calcularCoordenadas(ubicacion.getNombreCalle(), ubicacion.getAltura(), ubicacion.getCodigoPostal(), provincia);
+      .calcularCoordenadas(ubicacion.getNombreCalle(), ubicacion.getAltura(), ubicacion.getCodigoPostal(), provincia, ubicacion.getLocalidad().getNombre());
   }
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.geotools.referencing.GeodeticCalculator;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -30,6 +31,11 @@ public class Ubicacion extends Persistente {
   @Column(name = "codigo_postal")
   private int codigoPostal;
 
+  @ManyToOne
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
+  @JoinColumn(name = "localidad_id", referencedColumnName = "id")
+  private Localidad localidad;
+
   @Embedded
   private Coordenada coordenada;
 
@@ -37,11 +43,12 @@ public class Ubicacion extends Persistente {
     this.coordenada = new Coordenada(longitud, latitud);
   }
 
-  public Ubicacion(String nombreCalle, int altura, Provincia provincia, int codigoPostal) {
+  public Ubicacion(String nombreCalle, int altura, Provincia provincia, int codigoPostal, Localidad localidad) {
     this.nombreCalle = nombreCalle;
     this.altura = altura;
     this.provincia = provincia;
     this.codigoPostal = codigoPostal;
+    this.localidad = localidad;
     this.coordenada = CalculadorCoordenadas.calcular(this);
   }
 

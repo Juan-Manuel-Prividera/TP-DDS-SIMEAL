@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/css/styles.css">
 
 </head>
-<body style="height: 180vh;">
+<body>
 <header>
     <div class="container-fluid">
         <div class="header-container">
@@ -29,8 +29,8 @@
 </script>
 
 <div class="container-supremo" style="overflow-y:auto">
-    <h1 style="margin-top: 0;">Registro</h1>
-    <form action="/user/create/{{rol}}" method="post" class="form-group" style="width: 80%; overflow-y: hidden; height: 100%" onsubmit="return validateFields()">
+    <form action="/user/create/{{rol}}" method="post" class="form-group" style="display:flex; flex-direction: column; width: 80%;" onsubmit="return validateFields()">
+        <h1 style="margin-top: 0;">Registro</h1>
         <div style="display: flex; flex-direction: row; width: 100%; justify-content: space-evenly;">
         <div style="width: 40%;">
             <!-- Usuario -->
@@ -56,6 +56,7 @@
                 </span>
             </div>
                 <!-- Requeridos para ambos, humano y jurídico -->
+            <div class="ubicacionContainer">
                 <label for="calle_nombre">Ubicación: nombre de calle</label>
                 <input type="text"
                        class="form-control mb-4"
@@ -83,7 +84,7 @@
                        min=0>
 
                 <label for="provincia" class="form-label">Selecciona Provincias</label>
-                <select id="provincia" name="provincia" class="form-control mb-4" required>
+                <select id="provincia" name="provincia" class="form-control mb-4" onchange="actualizarLocalidades()" required>
                     <option value="" disabled selected hidden>Provincias</option>
                     <option value="Buenos_Aires">Buenos Aires</option>
                     <option value="Ciudad_Autonoma_De_Buenos_Aires">Ciudad Autónoma de Buenos Aires</option>
@@ -111,22 +112,16 @@
                     <option value="Tucuman">Tucumán</option>
                 </select>
 
-                <label for="medio_contacto">Medio de contacto</label>
-                <select class="form-control mb-4" name="medio_contacto" id="medio_contacto">
-                    <option value="" disabled selected hidden>...</option>
-                    <option value="email">Email</option>
-                    <option value="telefono">Teléfono</option>
-                    <option value="wpp">Whatsapp</option>
-                    <option value="telegram">Telegram</option>
+                <label for="localidad" class="form-label">Localidad</label>
+                <select id="localidad" name="localidad" class="form-control mb-4" required>
+                    <option value="" disabled selected hidden>Localidades</option>
                 </select>
-
-                <label for="info_contacto">Información de contacto</label>
-                <input type="text"
-                       class="form-control mb-4"
-                       name="info_contacto"
-                       id="info_contacto"
-                       placeholder=""
-                       required="required">
+            </div>
+            {{#if juridico}}
+                <div style="margin-left: 40%;" class="agregar-hijo" id="agregar-ubicacion-btn">
+                    <img alt="Agregar ubicacion" class="plus-img" src="/img/plus-icon.png">
+                </div>
+            {{/if}}
         </div>
         <div style="width: 40%">
             {{#if humano}}
@@ -163,8 +158,10 @@
                            name="numero_documento" id="numero_documento"
                            placeholder="Numero de documento">
             </div>
+
             {{else juridico}}
                 <!-- Requeridos para jurídico -->
+
                 <!-- Rubro -->
                 <label for="rubro">*Rubro</label>
                 <select class="form-control mb-4" name="rubro" id="rubro">
@@ -196,7 +193,22 @@
             {{else}}
                 <!-- TODO: Qué pasó que que no entró en las otras ramas mmmm sus AMONGUS-->
             {{/if}}
+            <label for="medio_contacto">Medio de contacto</label>
+            <select class="form-control mb-4" name="medio_contacto" id="medio_contacto">
+                <option value="" disabled selected hidden>...</option>
+                <option value="email">Email</option>
+                <option value="telefono">Teléfono</option>
+                <option value="wpp">Whatsapp</option>
+                <option value="telegram">Telegram</option>
+            </select>
 
+            <label for="info_contacto">Información de contacto</label>
+            <input type="text"
+                   class="form-control mb-4"
+                   name="info_contacto"
+                   id="info_contacto"
+                   placeholder=""
+                   required="required">
 
 
             <!-- Campos dinámicos -->
@@ -238,6 +250,50 @@
 {{/if}}
 
 </body>
+<script>
+    document.getElementById('agregar-ubicacion-btn').addEventListener('click', function() {
+        // Find the container to duplicate
+        const ubicacionContainer = document.querySelector('.ubicacionContainer');
+        // Clone the container
+        const newUbicacionContainer = ubicacionContainer.cloneNode(true);
+        // Insert the clone after the last hijo-container
+        ubicacionContainer.parentNode.insertBefore(newUbicacionContainer, ubicacionContainer.nextSibling);
+    });
+
+    // Obtener la fecha actual
+    const today = new Date().toISOString().split('T')[0];
+
+    // Seleccionar todos los inputs con la clase 'fecha' y establecer el valor máximo
+    document.querySelectorAll('.fecha').forEach(input => {
+        input.setAttribute('max', today);
+    });
+
+    function actualizarLocalidades() {
+        const provinciaSeleccionada = document.getElementById("provincia").value;
+        const localidadSelect = document.getElementById("localidad");
+
+        // Limpiar las opciones actuales de localidad
+        localidadSelect.innerHTML = '<option value="">Selecciona una localidad</option>';
+
+        // Si hay una provincia seleccionada, hacer una solicitud al servidor
+        if (provinciaSeleccionada) {
+            fetch(`/localidades?provincia=${encodeURIComponent(provinciaSeleccionada)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        // Añadir las localidades al desplegable
+                        data.forEach(localidad => {
+                            console.log(localidad)
+                            const option = document.createElement("option");
+                            option.value = localidad.id;
+                            option.text = localidad.nombre;
+                            localidadSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error al obtener localidades:', error));
+        }
+    }
+</script>
 <script src="/js/ocultarPassword.js"></script>
 <script src="/js/validateFields.js"></script>
 </html>
