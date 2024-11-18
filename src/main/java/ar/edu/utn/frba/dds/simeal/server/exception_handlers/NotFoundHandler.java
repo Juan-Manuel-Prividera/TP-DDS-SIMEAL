@@ -1,7 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.server.exception_handlers;
 
 import io.javalin.Javalin;
-import javassist.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 
 import java.nio.charset.StandardCharsets;

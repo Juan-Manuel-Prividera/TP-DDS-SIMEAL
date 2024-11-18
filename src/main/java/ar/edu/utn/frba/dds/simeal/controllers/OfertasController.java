@@ -12,6 +12,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.models.repositories.CanjeRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.OfertaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
@@ -86,7 +87,7 @@ public class OfertasController {
   }
 
 
-  public void show(Context app){
+  public void show(Context app) throws NotFoundException {
     HashMap<String, Object> model = new HashMap<>();
 
     setNavBar(model,app);
@@ -95,6 +96,7 @@ public class OfertasController {
 
     setOferta(model,app);
 
+    //TODO: SACAR ESTO
     model.put("directorio", "../");
 
     app.render("ofertas/oferta_selected.hbs", model);
@@ -111,7 +113,7 @@ public class OfertasController {
     app.render("ofertas/oferta_self.hbs",model);
   }
 
-  public void selfOffersSelected(Context app) {
+  public void selfOffersSelected(Context app) throws NotFoundException{
     HashMap<String, Object> model = new HashMap<>();
 
     setNavBar(model,app);
@@ -263,8 +265,14 @@ public class OfertasController {
   }
 
   //Setea la oferta que seleccionó el usuario
-  private void setOferta(HashMap<String, Object> model, Context ctx) {
+  private void setOferta(HashMap<String, Object> model, Context ctx) throws NotFoundException {
     //TODO: NO USAR PATHPARAMS
+    try{
+      Long id = Long.valueOf(ctx.pathParam("oferta_id"));
+    }catch (NumberFormatException e){
+      Logger.error("Oferta id invalido");
+      throw new NotFoundException();
+    }
     Oferta oferta = (Oferta) ofertaRepository.buscarPorId(Long.valueOf(ctx.pathParam("oferta_id")), Oferta.class);
     OfertaDTO ofertaDTO = new OfertaDTO(oferta);
     model.put("oferta", ofertaDTO);
