@@ -12,6 +12,7 @@ import com.github.jknack.handlebars.Template;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.staticfiles.Location;
 
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -51,7 +52,6 @@ public class Server {
         staticFiles.hostedPath = "/";
         staticFiles.directory = "/static";
       });
-
 
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {
         Handlebars handlebars = new Handlebars();

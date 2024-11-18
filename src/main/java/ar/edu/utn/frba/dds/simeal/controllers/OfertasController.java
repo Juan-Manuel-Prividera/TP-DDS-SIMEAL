@@ -15,8 +15,13 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
+import io.javalin.http.HttpStatus;
+import io.javalin.http.UploadedFile;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -123,9 +128,21 @@ public class OfertasController {
   public void publicar(Context app) {
     HashMap<String, Object> model = new HashMap<>();
 
+    if(app.queryParam("error") != null){
+    if(app.queryParam("error") == "true"){
+     model.put("popup_title", "Publicación Confirmada");
+     model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
+   }
+    else if(app.queryParam("error") == "false"){
+     model.put("popup_title", "ERROR");
+     model.put("popup_message", "No se pudo realizan la publicación");
+    }
+    }
+
     setNavBar(model,app);
-    model.put("publicar_modificar", "publicar");
-    model.put("agregarOferta", "true");
+    model.put("publicar_modificar", "publicar"); //para mostrar bien el titulo del form
+    model.put("agregarOferta", "true"); //Para realizar bien el form (que mande bien el post
+    model.put("required", "required"); //Settea que los campos del form son obligatorios
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
@@ -142,23 +159,34 @@ public class OfertasController {
         LocalDate.now(),
         Double.parseDouble(app.formParam("puntos")),
         newRubro,
-        app.formParam("imagen"),
+        saveImage(app),
         producto
     );
-    Logger.info("Info formulario: %s", oferta.toString());
-    repositorio.guardar(oferta);
 
-    setNavBar(model,app);
-    model.put("publicar_modificar", "publicar");
-    model.put("agregarOferta", "true");
-    model.put("required", "required");
-    app.render("ofertas/oferta_publicar_modificar.hbs", model);
+    try{
+      repositorio.guardar(oferta);
+    }catch(Exception e){
+      Logger.error("Error al persistir una nuevo oferta - %s", e);
+      app.redirect("/ofertas/misOfertas/publicar?error=true");
+    }
+    Logger.info("Nueva oferta persistida - Nombre: %s, Costo: %s", oferta.getNombre(), oferta.getPuntosNecesarios());
+    app.redirect("/ofertas/misOfertas/publicar?error=false");
   }
 
   public void modificar(Context app){
     HashMap<String, Object> model = new HashMap<>();
 
-    model.put("ofertaId", app.pathParam("oferta_id"));
+    if(app.queryParam("error") != null){
+    if(app.queryParam("error") == "true"){
+      model.put("popup_title", "Cambios Realizados");
+      model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
+    }
+    else if(app.queryParam("error") == "false"){
+      model.put("popup_title", "ERROR");
+      model.put("popup_message", "No se pudo actualizar la publicación");
+    }
+    }
+    model.put("ofertaId", app.pathParam("oferta_id")); //Para setter la url del post del form
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
@@ -184,14 +212,19 @@ public class OfertasController {
       oferta.setProducto(giveProductoNotRepeted(oferta.getProducto().getNombre(), app.formParam("descripcion")));
     }
     if (app.formParam("imagen") != null && !app.formParam("imagen").isEmpty()) {
-      oferta.setImagen(app.formParam("imagen"));
+      oferta.setImagen(saveImage(app));
     }
 
-    repositorio.actualizar(oferta);
-
-    model.put("ofertaId", app.pathParam("oferta_id"));
-
-    app.render("ofertas/oferta_publicar_modificar.hbs", model);
+    String url = "/ofertas/misOfertas" + oferta.getId() + "/modificar";
+    try{
+      repositorio.actualizar(oferta);
+    }catch(Exception e){
+      Logger.error("Error al actualizar la oferta - %s", e);
+      url += "?error=true";
+      app.redirect(url);
+    }
+    url += "?error=false";
+    app.redirect(url);
   }
 
   public void canjes(Context app) {
@@ -266,7 +299,42 @@ public class OfertasController {
     model.put("ofertas", converToDTO(ofertas));
   }
 
+  private String saveImage(Context ctx){
+    UploadedFile uploadedFile = ctx.uploadedFile("imagen");
 
+
+    if (uploadedFile == null) {
+      Logger.error("No se recibió ningún archivo");
+      return null;
+    }
+
+    // Validar el tipo de archivo (opcional)
+    if (!uploadedFile.contentType().startsWith("image/")) {
+      Logger.error("El archivo no es una imagen válida");
+      return null;
+    }
+
+    // Crear el directorio de destino si no existe
+    String uploadDir = "src/main/resources/static/img/ofertas/";
+    File directory = new File(uploadDir);
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
+
+
+    // Guardar el archivo
+    File file = new File(uploadDir + uploadedFile.filename());
+    try (FileOutputStream fos = new FileOutputStream(file)) {
+      fos.write(uploadedFile.content().readAllBytes());
+    } catch (IOException e) {
+      Logger.error("Error al guardar el archivo - %s", e);
+      return null;
+    }
+
+    String path = "/img/ofertas/" + uploadedFile.filename();
+    Logger.info("Se guardo el archivo correctamente");
+    return path;
+  }
 
 // ************************************************************
 // ****************** HELPERS de los HELPERS ******************

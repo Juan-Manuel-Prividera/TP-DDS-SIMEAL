@@ -32,6 +32,10 @@
 </header>
 
 <div class="container-general">
+    {{#if popup_title}}
+        {{> templates/popup}}
+    {{/if}}
+
     {{#if agregarOferta}}
     <h2 class="titulo"><strong>Agregar Oferta</strong></h2>
     <form id="miFormulario" method="POST" action="publicar" enctype="multipart/form-data">
@@ -55,8 +59,12 @@
             <label for="descripcion">*Descripcion:</label>
             <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" {{required}}>
 
+            <label for="image">*Cargar Imagen</label>
+            <input type="file" class="form-control-file" name="imagen" accept="imagen/*" {{required}}>
+            <!--
             <label for="imagen">*Cargar Imagen:</label>
             <input type="file" class="form-control-file" name="imagen" {{required}}>
+            -->
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-success mt-3 mb-3">Aceptar</button>
@@ -71,13 +79,7 @@
 
 <script>
     document.getElementById('miFormulario').addEventListener('submit', function(event) {
-        // Obtener los campos del formulario
-        //const rubro = document.getElementsByName('rubro').value;
-        //const puntos = document.getElementsByName('puntos').value;
-        //const productoNombre = document.getElementsByName('productoNombre').value;
-        //const descripcion = document.getElementsByName('descripcion').value;
-        //const imagen= document.getElementsByName('img').value;
-
+        event.preventDefault();
         const formData = new FormData(this);
         fetch(this.action, {
             method: 'POST',
@@ -85,24 +87,4 @@
         })
     });
 </script>
-
-<script>
-    const form = document.getElementById('miFormulario');
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const formData = new FormData();
-        const fileInput = document.getElementById('imagen');
-        formData.append('imagen', fileInput.files[0]);
-
-        const response = await fetch('/upload', {
-            method: 'POST',
-            body: formData,
-        });
-
-        const result = await response.json();
-        console.log(result);
-    });
-</script>
-
 </body>
