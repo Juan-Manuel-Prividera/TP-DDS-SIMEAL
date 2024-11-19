@@ -1,5 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DonarViandaController;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
@@ -10,7 +12,6 @@ import io.javalin.http.Context;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ViandaController {
     public void create(Context context){
@@ -26,15 +27,19 @@ public class ViandaController {
             Integer calorias = Integer.parseInt(context.formParam("calorias"));
             Long heladeraId = Long.parseLong(context.formParam("id_heladera"));
 
+
             Repositorio repositorio = new Repositorio();
+            Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colaboradorId, Colaborador.class);
             Vianda vianda = new Vianda(tipoDeComida,
                     fechaCaducidad,
                     LocalDate.now(),
-                    (Colaborador) repositorio.buscarPorId(colaboradorId, Colaborador.class),
+                    colaborador,
                     calorias,
                     (Heladera) repositorio.buscarPorId(heladeraId, Heladera.class),
                     false);
             repositorio.guardar(vianda);
+            DonarViandaController donarViandasController =  ServiceLocator.getController(DonarViandaController.class);
+            donarViandasController.create(colaborador, vianda);
 
             HashMap<String, Object> model = new HashMap<>();
             model.put("popup_title", "Gracias! ❤\uFE0F");
@@ -52,7 +57,6 @@ public class ViandaController {
             model.put("popup_button", "Reintentar");
 
             context.render("/colaboraciones/donarVianda.hbs", model);
-
         }
     }
 

@@ -1,13 +1,16 @@
 package ar.edu.utn.frba.dds.simeal.controllers.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
-import io.javalin.http.Context;
+import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
+import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+
+import java.time.LocalDate;
 
 public class DonarViandaController {
-    public void create(Context context) {
-        DonarVianda donarVianda = new DonarVianda();
-
-
-
+    public void create(Colaborador colaborador, Vianda vianda) {
+        DonarVianda donarVianda = new DonarVianda(colaborador, LocalDate.now(), vianda);
+        Repositorio repositorio = new Repositorio();
+        repositorio.guardar(donarVianda);
     }
 }
