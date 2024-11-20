@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.AdherirHeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.ColaboracionesController;
+import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DistribuirViandaController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DonarDineroController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
@@ -19,6 +20,7 @@ import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.VisitaController;
 import ar.edu.utn.frba.dds.simeal.handlers.*;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.Javalin;
@@ -128,6 +130,7 @@ public class Router {
     app.post("colaboracion/donarVianda", ServiceLocator.getController(ViandaController.class)::create);
 
     app.get("colaboracion/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);
+    app.get("colaboracion/distribucionVianda/elegir", ServiceLocator.getController(DistribuirViandaController.class)::elegirVianda);
     app.post("colaboracion/distribuirVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
 
     app.get("colaboracion/adherirHeladera", ServiceLocator.getController(AdherirHeladeraController.class)::index);

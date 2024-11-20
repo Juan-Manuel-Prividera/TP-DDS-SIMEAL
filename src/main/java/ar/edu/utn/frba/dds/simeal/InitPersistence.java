@@ -79,6 +79,7 @@ public class InitPersistence {
         Permiso getAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.GET);
         Permiso postAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.POST);
         Permiso getDistribucionVianda = new Permiso("colaboracion/distribucionVianda", TipoMetodoHttp.GET);
+        Permiso getDistribucionViandaElegir = new Permiso("colaboracion/distribucionVianda/elegir", TipoMetodoHttp.GET);
 
         Permiso getHistorialColaboraciones = new Permiso("colaboraciones/historial", TipoMetodoHttp.GET);
         Permiso getConfiguracionColaboraciones = new Permiso("colaboraciones/configuracion", TipoMetodoHttp.GET);
@@ -121,7 +122,7 @@ public class InitPersistence {
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
                 getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-                getDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
+                getDistribucionVianda, getDistribucionViandaElegir, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
@@ -140,7 +141,7 @@ public class InitPersistence {
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda
+                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, getDistribucionViandaElegir
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
