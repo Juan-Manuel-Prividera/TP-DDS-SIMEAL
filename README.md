@@ -10,6 +10,8 @@ _Sistema de Mejora Alimentaria_
 
 > Che, estoy contento de vivir en un mundo en el que java existe, no sé -Anónimo
 
+> permanecer + existir = persistir
+
 # java-base-project
 
 Esta es una plantilla de proyecto diseñada para: 
