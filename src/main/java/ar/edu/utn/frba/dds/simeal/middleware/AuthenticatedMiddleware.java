@@ -53,16 +53,22 @@ public class AuthenticatedMiddleware {
             String userType = ctx.sessionAttribute("user_type");
 
             if (userType == null){
+                ctx.sessionAttribute("redirect", ctx.path());
+                Logger.trace("Redirect set");
                 throw new NotAuthenticatedException();
             }
 
             if (!userType.equals("ADMIN") && !userType.equals("TECNICO")){
                 if (userID == null || colaboradorId == null || username == null) {
+                    ctx.sessionAttribute("redirect", ctx.path());
+                    Logger.trace("Redirect set");
                     throw new NotAuthenticatedException();
                 }
             }
             if (userType.equals("TECNICO")){
                 if (userID == null || tecnicoId == null || username == null) {
+                    ctx.sessionAttribute("redirect", ctx.path());
+                    Logger.trace("Redirect set");
                     throw new NotAuthenticatedException();
                 }
             }

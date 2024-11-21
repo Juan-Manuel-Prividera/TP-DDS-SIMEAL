@@ -49,8 +49,9 @@ public class LoginHandler {
             fail(context);
         } else {
             Logger.info("Login successful, welcome " + username);
-
-
+            String redirect = context.sessionAttribute("redirect");
+            Logger.trace("Redirect: " + redirect);
+            context.sessionAttribute("redirect", null);
 
             // Guardamos los datos que necesitemos en la sesión
             context.req().getSession().setMaxInactiveInterval(
@@ -64,7 +65,8 @@ public class LoginHandler {
                 switch (r.getTipo()) {
                 case ADMIN:
                     context.sessionAttribute("user_type", r.getTipo().toString());
-                    context.redirect("/formularios");
+                    if (redirect == null) redirect ="/formularios";
+                    context.redirect(redirect);
                     break;
 
                 case JURIDICO, HUMANO:
@@ -78,7 +80,8 @@ public class LoginHandler {
                         context.sessionAttribute("colaborador_id", colaboradorID);
 
                     context.sessionAttribute("user_type", r.getTipo().toString());
-                    context.redirect("/home");
+                    if (redirect == null) redirect ="/home";
+                    context.redirect(redirect);
                     break;
 
                 case TECNICO:
@@ -91,8 +94,9 @@ public class LoginHandler {
                     else context.sessionAttribute("tecnico_id", tecnicoId);
 
                     context.sessionAttribute("user_type", r.getTipo().toString());
-                    Logger.debug("Redirigiendo tecncio a /tecnico/home  ...");
-                    context.redirect("/tecnico/home");
+                    Logger.debug("Redirigiendo tenico...");
+                    if (redirect == null) redirect ="/tecnico/home";
+                    context.redirect(redirect);
                 default:
                         context.result("xd");
                     break;

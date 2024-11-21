@@ -10,9 +10,6 @@ public class NotAuthenticatedHandler implements IHandler {
     public void setHandler(Javalin app) {
         app.exception(NotAuthenticatedException.class, (e, ctx) -> {
             Logger.warn("La ip '"+ctx.ip()+"' trató de acceder a un recurso sin auntenticarse ("+ctx.url()+").");
-            // Si por alguna razón de la vida tiene una sesión asociada, sacásela.
-            HttpSession session = ctx.req().getSession(false);
-            if (session != null) session.invalidate();
             ctx.status(401);
             ctx.redirect("/");
         });

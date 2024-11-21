@@ -84,7 +84,7 @@ function agregarHeladera(heladera,map){
         let destinoId = document.getElementById("destino_id");
         let destinoDireccion = document.getElementById("destino_direccion");
 
-        if (!origenNombre.textContent.trim() && !origenId.value.trim() && !origenDireccion.textContent.trim()){
+        if (origenNombre.textContent === "" || origenId.value === "" || origenDireccion.textContent === ""){
             origenNombre.textContent = heladera.nombre;
             origenDireccion.textContent = heladera.nombreCalle + " " + heladera.altura;
             origenId.value = heladera.id;
