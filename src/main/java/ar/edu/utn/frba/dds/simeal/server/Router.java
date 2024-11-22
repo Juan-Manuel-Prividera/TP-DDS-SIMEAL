@@ -129,9 +129,8 @@ public class Router {
     app.get("colaboracion/donarVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDonacionVianda);
     app.post("colaboracion/donarVianda", ServiceLocator.getController(ViandaController.class)::create);
 
-    app.get("colaboracion/distribucionVianda", ServiceLocator.getController(ColaboracionesController.class)::mostrarFormularioDistribucionVianda);
-    app.get("colaboracion/distribucionVianda/elegir", ServiceLocator.getController(DistribuirViandaController.class)::elegirVianda);
-    app.post("colaboracion/distribuirVianda", ServiceLocator.getController(ColaboracionesController.class)::distribuirVianda);
+    app.get("colaboracion/distribucionVianda", ServiceLocator.getController(DistribuirViandaController.class)::index);
+    app.post("colaboracion/distribucionVianda", ServiceLocator.getController(DistribuirViandaController.class)::create);
 
     app.get("colaboracion/adherirHeladera", ServiceLocator.getController(AdherirHeladeraController.class)::index);
     app.post("colaboracion/adherirHeladera", ServiceLocator.getController(AdherirHeladeraController.class)::create);

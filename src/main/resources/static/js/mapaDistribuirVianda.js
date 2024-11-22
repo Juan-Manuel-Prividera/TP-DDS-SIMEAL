@@ -15,7 +15,7 @@ let map;
 // Cuando el html termina de cargar ejecuta cargarMapa()
 $(document).ready(function() {
     cargarMapa();
-    buscarHeladeraMapa()
+    buscarHeladeraMapa();
 });
 
 
@@ -27,8 +27,6 @@ function cargarMapa(){
 
     // La L es un objeto de leaflet
     // Seteamos el icono de la heladera
-
-
 
 
     // Inicializar el mapa y establecer su punto central y el nivel de zoom
@@ -84,7 +82,7 @@ function agregarHeladera(heladera,map){
         let destinoId = document.getElementById("destino_id");
         let destinoDireccion = document.getElementById("destino_direccion");
 
-        if (origenNombre.textContent === "" || origenId.value === "" || origenDireccion.textContent === ""){
+        if (!origenNombre.textContent || !origenId.value || !origenDireccion.textContent){
             origenNombre.textContent = heladera.nombre;
             origenDireccion.textContent = heladera.nombreCalle + " " + heladera.altura;
             origenId.value = heladera.id;
@@ -93,7 +91,6 @@ function agregarHeladera(heladera,map){
             destinoDireccion.textContent = heladera.nombreCalle + " " + heladera.altura;
             destinoId.value = heladera.id;
         }
-
     })
 
 }
@@ -125,44 +122,4 @@ function obtenerHeladeras() {
             }
             return response.json()
         });
-
-}
-// Cuando se selecciona una heladera por el formulario la centramos en el mapa
-function buscarHeladeraMapa() {
-    document.getElementById("inputHeladera").addEventListener('click', function () {
-        // Leemos los inputs del formulario
-        const nombreHeladera = document.getElementById("nombreHeladera").value;
-        const ubicacionHeladera = document.getElementById("ubicacionHeladera").value;
-        obtenerHeladeras().then(heladeras => {
-            var encontrada = false
-            heladeras.forEach(heladera => {
-                // Nos fijamos que coincidan nombre y ubicación de la heladera
-                // No es una identificacion univoca pero son los datos que tenemos y seria raro mismo nombre y misma ubi
-                if (heladera.nombre == nombreHeladera && (heladera.nombreCalle + " " + heladera.altura) == ubicacionHeladera) {
-                    encontrada = true
-                    map.flyTo([heladera.latitud, heladera.longitud], 13);
-                    setTimeout(() => {
-                        // Hacemos la request que nos lleva a ver el estado de esa heladera
-                        // Si no entra al if la heladera que pidio no existe asi que no hacemos la request
-                        fetch("http://localhost:8080/heladera/" + heladera.id)
-                            .then(response => {
-                                console.log("ejecuto la request: /heladera/" + heladera.id)
-                                console.log(response.statusText)
-                                if (!response.ok)
-                                    throw new Error("Error al hacer get sobre heladera seleccionada")
-
-                                window.location.href = "http://localhost:8080/heladera/" + heladera.id;
-                            })
-                            .catch(error => {
-                                console.error(error)
-                            })
-                    }, 1)
-                }
-            })
-            if (!encontrada) {
-                alert("No existe heladera con ese nombre y ubicación")
-            }
-        })
-
-    })
 }

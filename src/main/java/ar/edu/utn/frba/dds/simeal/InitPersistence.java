@@ -24,12 +24,15 @@ import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.AreaDeCobertura;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Localidad;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Provincia;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
+import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +82,7 @@ public class InitPersistence {
         Permiso getAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.GET);
         Permiso postAdherirHeladera = new Permiso("colaboracion/adherirHeladera", TipoMetodoHttp.POST);
         Permiso getDistribucionVianda = new Permiso("colaboracion/distribucionVianda", TipoMetodoHttp.GET);
-        Permiso getDistribucionViandaElegir = new Permiso("colaboracion/distribucionVianda/elegir", TipoMetodoHttp.GET);
+        Permiso postDistribucionVianda = new Permiso("colaboracion/distribucionVianda", TipoMetodoHttp.POST);
 
         Permiso getHistorialColaboraciones = new Permiso("colaboraciones/historial", TipoMetodoHttp.GET);
         Permiso getConfiguracionColaboraciones = new Permiso("colaboraciones/configuracion", TipoMetodoHttp.GET);
@@ -122,7 +125,7 @@ public class InitPersistence {
                 getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
                 getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
                 getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-                getDistribucionVianda, getDistribucionViandaElegir, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
+                getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
@@ -141,7 +144,7 @@ public class InitPersistence {
                 postDonarDinero,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, getDistribucionViandaElegir
+                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
@@ -295,6 +298,18 @@ public class InitPersistence {
         sensorRepository.guardar(sensor2);
         sensorRepository.guardar(sensor3);
         sensorRepository.guardar(sensor4);
+
+        // ***** Viandas ******
+        Vianda vianda = new Vianda(new TipoDeComida("Saludable"), LocalDate.now().plusYears(3), LocalDate.now(), colaborador0, 12000, heladera, true);
+        Vianda vianda1 = new Vianda(new TipoDeComida("Carne"), LocalDate.now().plusYears(3), LocalDate.now(), colaborador0, 5000, heladera1, true);
+        Vianda vianda2 = new Vianda(new TipoDeComida("Pescado"), LocalDate.now().plusYears(3), LocalDate.now(), colaborador0, 7600, heladera2, true);
+        Vianda vianda3 = new Vianda(new TipoDeComida("Vegetales"), LocalDate.now().plusYears(3), LocalDate.now(), colaborador0, 23000, heladera3, true);
+        Vianda vianda4 = new Vianda(new TipoDeComida("Helado"), LocalDate.now().plusYears(3), LocalDate.now(), colaborador0, 3250, heladera4, true);
+        modeloRepo.guardar(vianda);
+        modeloRepo.guardar(vianda1);
+        modeloRepo.guardar(vianda2);
+        modeloRepo.guardar(vianda3);
+        modeloRepo.guardar(vianda4);
 
     }
 

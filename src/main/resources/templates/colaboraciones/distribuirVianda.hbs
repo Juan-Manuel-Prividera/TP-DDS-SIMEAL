@@ -1,8 +1,9 @@
+
 <!-- *** DESDE ACÁ LA NAVBAR *** -->
 <!-- Por qué la copie y pegué en vez de importarla?? porque la navbar incluye aprox. mil archivos css y es imposible
     arreglar el front si t0do el tiempo estoy viendo propiedades fantasmas que salen de archivos re oscuros importados por la navbar -->
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{titulo}}</title>
     <link rel="stylesheet" href="/css/navbar-style.css">
@@ -24,6 +25,10 @@
         <link rel="stylesheet" href="/css/oferta.css">
     {{/if}}
 </head>
+
+{{#if popup_message}}
+    {{> templates/popup}}
+{{/if}}
 
 <body>
 <header>
@@ -137,16 +142,16 @@
     </div>
 
     <div class="form-distribucion">
-        <form class="" action="/colaboracion/distribucionVianda/elegir" method="get">
+        <form class="" action="/colaboracion/distribucionVianda" method="post">
             <div class="row">
                 <!-- Heladera origen -->
                 <div class="col-md-6 mb-4">
                     <label for="origen_nombre">Heladera Origen</label>
-                    <label readonly id="origen_nombre" name="origen_nombre" type="text" class="form-control" placeholder="Heladera Origen" required>
+                    <label readonly id="origen_nombre" name="origen_nombre" type="text" class="form-control" placeholder="Heladera Origen" required></label>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="origen_direccion">Dirección Origen</label>
-                    <label readonly id="origen_direccion" name="origen_direccion" type="text" class="form-control" placeholder="Dirección Origen" required>
+                    <label readonly id="origen_direccion" name="origen_direccion" type="text" class="form-control" placeholder="Dirección Origen" required></label>
                 </div>
             </div>
             <input id="origen_id" name="origen_id" type="text" hidden="hidden" required>
@@ -154,11 +159,11 @@
                 <!-- Heladera destino -->
                 <div class="col-md-6 mb-4">
                     <label for="destino_nombre">Heladera Destino</label>
-                    <label readonly  id="destino_nombre" name="destino_nombre" type="text" class="form-control" placeholder="Heladera Destino" required>
+                    <label readonly  id="destino_nombre" name="destino_nombre" type="text" class="form-control" placeholder="Heladera Destino" required></label>
                 </div>
                 <div class="col-md-6 mb-4">
                     <label for="destino_direccion">Dirección Destino</label>
-                    <label readonly  id="destino_direccion" name="destino_direccion" type="text" class="form-control" placeholder="Dirección Destino" required>
+                    <label readonly  id="destino_direccion" name="destino_direccion" type="text" class="form-control" placeholder="Dirección Destino" required></label>
                 </div>
             </div>
             <input id="destino_id" name="destino_id" type="text" hidden="hidden" required>
@@ -166,6 +171,7 @@
         </form>
     </div>
 </div>
+
 
 <script type="module" src="/js/mapaDistribuirVianda.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>

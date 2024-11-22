@@ -66,34 +66,6 @@ public class ColaboracionesController {
     app.render("/colaboraciones/confirmacion_donacion.hbs", model);
   }
 
-  // TODO: Sacar de aca
-  public void mostrarFormularioDistribucionVianda(Context app) {
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("titulo", "Distribuir Vianda");
-    setNavBar(model, app);
-
-    app.render("/colaboraciones/distribuirVianda.hbs", model);
-  }
-  // TODO: Sacar de aca
-  public void distribuirVianda(Context ctx) {
-    // Procesar datos del formulario
-    String heladeraOrigen = ctx.formParam("heladeraOrigen");
-    String direccionOrigen = ctx.formParam("direccionOrigen");
-    String heladeraDestino = ctx.formParam("heladeraDestino");
-    String direccionDestino = ctx.formParam("direccionDestino");
-
-    // Aquí guardas los datos en tu clase Repositorio
-
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("heladeraOrigen", heladeraOrigen);
-    model.put("heladeraDestino", heladeraDestino);
-    model.put("direccionOrigen", direccionOrigen);
-    model.put("direccionDestino", direccionDestino);
-    model.put("mensaje", "Gracias por tu distribucion de la heladera " + heladeraOrigen + " ubicada en " + direccionOrigen + "a la heladera " + heladeraDestino + " ubicada en " + direccionDestino);
-    setNavBar(model, ctx);
-
-    ctx.render("templates/confirmacion_Distribucion.hbs");
-  }
 
   public void indexHistorial(Context ctx) {
     List<ColaboracionPuntuable> colaboraciones = (List<ColaboracionPuntuable>) colaboracionRepository

@@ -8,10 +8,10 @@ import java.util.Arrays;
 // Dudo que alguien más quiera usar esto, pero si por alguna razón quieren handlear una excepción, se declara acá
 public class AppHandlers {
     private final IHandler[] handlers = new IHandler[]{
+            new ServerErrorHandler(),
             new NotAuthenticatedHandler(),
             new NotAuthorizedHandler(),
-            new NotFoundHandler(),
-            new ServerErrorHandler()
+            new NotFoundHandler()
     };
 
     public static void applyHandlers(Javalin app){
