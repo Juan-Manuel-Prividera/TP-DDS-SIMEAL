@@ -14,10 +14,12 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.OfertaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
+import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.UploadedFile;
+import org.geotools.referencing.factory.wms.OGCAPICRSFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -31,10 +33,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class OfertasController {
-  //TODO: VER DE NO USAR ESTE MÉTODO PARA CONSEGUIR LOS REPOSITORY
-  private final OfertaRepository ofertaRepository = (OfertaRepository) ServiceLocator.getRepository(OfertaRepository.class);
-  private final Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
-  private final CanjeRepository canjeRepository = (CanjeRepository) ServiceLocator.getRepository(CanjeRepository.class);
+  private final OfertaRepository ofertaRepository;
+  private final Repositorio repositorio;
+  private final CanjeRepository canjeRepository;
+
+  public OfertasController(OfertaRepository ofertaRepository, Repositorio repositorio, CanjeRepository canjeRepository) {
+    this.canjeRepository = canjeRepository;
+    this.ofertaRepository = ofertaRepository;
+    this.repositorio = repositorio;
+  }
 
   public void index(Context app){
     HashMap<String, Object> model = new HashMap<>();
@@ -81,6 +88,8 @@ public class OfertasController {
       repositorio.guardar(canje);
       repositorio.actualizar(colaborador); //Actualizo los puntos del colaborador
       app.sessionAttribute("resultado_compra", "confirmado");
+
+      DDMetricsUtils.getInstance().getOfertasCanjeadas().incrementAndGet();
     }
     else
         app.sessionAttribute("resultado_compra", "rechazado");

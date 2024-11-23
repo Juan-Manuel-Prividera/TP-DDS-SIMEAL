@@ -216,12 +216,32 @@
       <version>4.4.0</version>
     </dependency>
 
+
     <dependency>
       <groupId>io.javalin</groupId>
       <artifactId>javalin-rendering</artifactId>
       <version>6.3.0</version>
     </dependency>
-
+    <dependency>
+      <groupId>io.javalin</groupId>
+      <artifactId>javalin-micrometer</artifactId>
+      <version>6.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>1.14.1</version>
+    </dependency>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-datadog</artifactId>
+      <version>1.14.1</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.12</version> <!-- O la versión más reciente -->
+    </dependency>
   </dependencies>
   <build>
     <resources>

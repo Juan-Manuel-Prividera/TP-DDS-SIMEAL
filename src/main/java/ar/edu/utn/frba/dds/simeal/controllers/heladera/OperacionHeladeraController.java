@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.Sol
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionRepository;
+import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 
 import java.time.LocalDateTime;
@@ -38,5 +39,7 @@ public class OperacionHeladeraController {
     } else {
       Logger.error("No se pudo persistir la operacion");
     }
+
+    DDMetricsUtils.getInstance().getAccesoHeladera().incrementAndGet();
   }
 }

@@ -27,7 +27,6 @@ public class AuthenticatedMiddleware {
                     return;
                 }
             }
-
             Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
             if(
               // TODO: Suscripcion/numero

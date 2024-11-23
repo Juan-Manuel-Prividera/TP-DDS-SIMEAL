@@ -3,9 +3,7 @@ package ar.edu.utn.frba.dds.simeal.server;
 import ar.edu.utn.frba.dds.simeal.middleware.AuthenticatedMiddleware;
 import ar.edu.utn.frba.dds.simeal.middleware.AuthorizedMiddleware;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.AppHandlers;
-import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
-import ar.edu.utn.frba.dds.simeal.utils.Initializer;
-import ar.edu.utn.frba.dds.simeal.utils.JavalinRenderer;
+import ar.edu.utn.frba.dds.simeal.utils.*;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;
@@ -13,8 +11,11 @@ import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
+import io.javalin.micrometer.MicrometerPlugin;
 
 import java.io.IOException;
+import java.rmi.MarshalException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 public class Server {
@@ -35,6 +36,8 @@ public class Server {
       AuthenticatedMiddleware.apply(app);
       AuthorizedMiddleware.apply(app);
 
+
+
       // Apply our custom interruption handlers
       AppHandlers.applyHandlers(app);
       Router.init(app);
@@ -52,6 +55,27 @@ public class Server {
         staticFiles.hostedPath = "/";
         staticFiles.directory = "/static";
       });
+      final var metricsUtils = DDMetricsUtils.getInstance();
+      final var registry = metricsUtils.getRegistry();
+
+      // Config
+      final var micrometerPlugin = new MicrometerPlugin(cfg -> {cfg.registry = registry;});
+      config.registerPlugin(micrometerPlugin);
+
+      // Metricas
+      final var acceso = registry.gauge("simeal.acceso", new AtomicInteger(0));
+      final var dineroDonado = registry.gauge("simeal.dineroDonado", new AtomicInteger(0));
+      final var accesoHeladera = registry.gauge("simeal.accesoHeladera", new AtomicInteger(0));
+      final var viandasDonadas = registry.gauge("simeal.viandasDonadas", new AtomicInteger(0));
+      final var incidenteOcurrido = registry.gauge("simeal.incidentes", new AtomicInteger(0));
+      final var ofertasCanjeadas = registry.gauge("simeal.ofertasCanjeadas", new AtomicInteger(0));
+
+      metricsUtils.setOfertasCanjeadas(ofertasCanjeadas);
+      metricsUtils.setIncidentesReportados(incidenteOcurrido);
+      metricsUtils.setViandasDonadas(viandasDonadas);
+      metricsUtils.setAccesoHeladera(accesoHeladera);
+      metricsUtils.setDineroDonado(dineroDonado);
+      metricsUtils.setAcceso(acceso);
 
       config.fileRenderer(new JavalinRenderer().register("hbs", (path, model, context) -> {
         Handlebars handlebars = new Handlebars();
@@ -66,6 +90,10 @@ public class Server {
           return "No se encuentra la página indicada...";
         }
       }));
+
+
     };
   }
+
+
 }

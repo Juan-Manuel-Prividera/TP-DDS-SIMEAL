@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 
 import java.time.LocalDate;
 
@@ -13,5 +14,7 @@ public class DonarViandaController {
         DonarVianda donarVianda = new DonarVianda(colaborador, LocalDate.now(), vianda);
         Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
         repositorio.guardar(donarVianda);
+
+        DDMetricsUtils.getInstance().getViandasDonadas().incrementAndGet();
     }
 }

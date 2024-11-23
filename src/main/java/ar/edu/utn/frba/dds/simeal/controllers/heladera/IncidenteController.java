@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.IncidenteRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Notificador;
@@ -54,6 +55,8 @@ public class IncidenteController {
 
   public void create(Incidente incidente) {
     repositorio.guardar(incidente);
+
+    DDMetricsUtils.getInstance().getIncidentesReportados().incrementAndGet();
 
     // Avisar a tecnico mas cercano
     Tecnico tecnicoMasCercano = obtenerTecnicoMasCercano(incidente);

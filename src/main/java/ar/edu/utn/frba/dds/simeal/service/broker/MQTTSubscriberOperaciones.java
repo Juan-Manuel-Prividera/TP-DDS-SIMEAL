@@ -9,12 +9,12 @@ import org.eclipse.paho.client.mqttv3.*;
 
 public class MQTTSubscriberOperaciones {
   private static final ConfigReader configReader = new ConfigReader();
-  public static void main(String[] args) {
+  public static void suscribe()  {
     String broker = configReader.getProperty("broker");
     String username = configReader.getProperty("broker.user");
     String password = configReader.getProperty("broker.pass");
     String topic = "heladera/operacion";
-    String clientId = "JavaSubscriber";
+    String clientId = "JavaSubscriber-Operaciones";
 
     //CountDownLatch latch = new CountDownLatch(1);
 

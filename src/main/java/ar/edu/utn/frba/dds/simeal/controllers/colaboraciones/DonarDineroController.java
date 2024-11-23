@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
+import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import io.javalin.http.Context;
 
 import java.time.LocalDate;
@@ -31,6 +32,8 @@ public class DonarDineroController {
 
         Integer montoParsed = Integer.parseInt(monto);
 
+
+
         if (montoParsed <= 0) {
             HashMap<String, Object> model = new HashMap<>();
             model.put("popup_title", "La concha de tu madre");
@@ -41,6 +44,8 @@ public class DonarDineroController {
             return;
 
         }
+
+        DDMetricsUtils.getInstance().getDineroDonado().addAndGet(montoParsed);
 
         Repositorio repo = ServiceLocator.getRepository(Repositorio.class);
         Colaborador colaborador = (Colaborador) repo.buscarPorId(app.sessionAttribute("colaborador_id"), Colaborador.class);
