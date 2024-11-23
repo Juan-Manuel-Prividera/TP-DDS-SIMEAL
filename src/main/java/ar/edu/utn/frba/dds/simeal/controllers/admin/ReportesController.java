@@ -7,6 +7,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import io.javalin.http.Context;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +25,12 @@ public class ReportesController {
     model.put("username", app.sessionAttribute("user_name"));
     model.put("titulo", "Reportes");
 
+    String directoryPath = "src/main/resources/reportes";
+
+    File directory = new File(directoryPath);
+
+    if (!directory.exists())
+        directory.mkdirs();
     List<Path> filePaths = Files.walk(Path.of("src/main/resources/reportes"))
       .filter(Files::isRegularFile) // Filtrar solo archivos
       .toList(); // Guardar en una lista

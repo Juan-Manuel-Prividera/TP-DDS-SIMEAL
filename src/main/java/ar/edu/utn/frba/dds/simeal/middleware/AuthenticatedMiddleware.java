@@ -15,6 +15,7 @@ public class AuthenticatedMiddleware {
             Pattern.compile("/user/create.*"),
             Pattern.compile("/heladeras"),
             Pattern.compile(".*\\.(css|jpg|png|js|map|gif|ico)"),
+            Pattern.compile("")
     };
 
     public static boolean isOpenEndpoint(String input) {
@@ -30,7 +31,8 @@ public class AuthenticatedMiddleware {
         app.beforeMatched(
         ctx -> {
             Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
-            /*if(ctx.path().startsWith("/heladera") ||
+            /*
+            if(ctx.path().startsWith("/heladera") ||
               ctx.path().startsWith("/suscripcion/") ||
               ctx.path().startsWith("/suscripciones") ||
               ctx.path().startsWith("/heladera/suscribirse/") ||
