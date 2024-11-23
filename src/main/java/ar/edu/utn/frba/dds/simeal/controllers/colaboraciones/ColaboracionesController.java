@@ -26,7 +26,6 @@ public class ColaboracionesController {
     this.repositorio = repositorio;
   }
 
-
   public void index(Context app) {
     HashMap<String, Object> model = new HashMap<>();
 
@@ -41,6 +40,7 @@ public class ColaboracionesController {
 
     app.render("/colaboraciones/colaboraciones.hbs", model);
   }
+
   // TODO: Sacar de aca
   public void mostrarFormularioDonacionVianda(Context app) {
     HashMap<String, Object> model = new HashMap<>();

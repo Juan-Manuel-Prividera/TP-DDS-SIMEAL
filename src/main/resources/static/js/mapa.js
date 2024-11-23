@@ -98,8 +98,8 @@ function obtenerHeladeras() {
 function buscarHeladeraMapa() {
     document.getElementById("inputHeladera").addEventListener('click', function () {
         // Leemos los inputs del formulario
-        const nombreHeladera = document.getElementById("nombreHeladera").value;
-        const ubicacionHeladera = document.getElementById("ubicacionHeladera").value;
+        const nombreHeladera = document.getElementById("nombre_heladera").value;
+        const ubicacionHeladera = document.getElementById("ubicacion_heladera").value;
         obtenerHeladeras().then(heladeras => {
             var encontrada = false
             heladeras.forEach(heladera => {

@@ -15,6 +15,7 @@ public class AuthenticatedMiddleware {
             "/registro/juridico",
             "/user/create/humano",
             "/user/create/juridico",
+            "/heladeras"
     };
     private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".map", ".gif", ".ico"};
 
@@ -28,7 +29,8 @@ public class AuthenticatedMiddleware {
             }
 
             Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
-            if(ctx.path().startsWith("/heladera") ||
+            if(
+              // TODO: Suscripcion/numero
               ctx.path().startsWith("/suscripcion/") ||
               ctx.path().startsWith("/suscripciones") ||
               ctx.path().startsWith("/heladera/suscribirse/") ||

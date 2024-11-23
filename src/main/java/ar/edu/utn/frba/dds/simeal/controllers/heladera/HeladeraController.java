@@ -13,6 +13,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborad
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
@@ -29,11 +30,13 @@ public class HeladeraController {
   private final Repositorio repositorio;
   private final SensorRepository sensorRepository;
   private final VisitaTecnicaRepository visitaRepository;
-
-  public HeladeraController(Repositorio repositorio, SensorRepository sensorRepository, VisitaTecnicaRepository visitaRepository) {
+  private ViandaRepository viandaRepository;
+  public HeladeraController(Repositorio repositorio, SensorRepository sensorRepository,
+                            VisitaTecnicaRepository visitaRepository, ViandaRepository viandaRepository) {
     this.repositorio = repositorio;
     this.sensorRepository = sensorRepository;
     this.visitaRepository = visitaRepository;
+    this.viandaRepository = viandaRepository;
   }
 
   // GET /heladera
@@ -81,12 +84,14 @@ public class HeladeraController {
 
     // TODO: PROBAR ESTO CUANDO TENGAMSO EL BROKER OK
     for (Heladera heladera : heladeras) {
+
       Sensor sensor = sensorRepository.buscarPorHeladera(heladera.getId());
       MedicionTemperatura ultimaMedicion = sensor.getUltimaTemperaturaRegistrada();
+      int cantViandas = viandaRepository.buscarPorHeladera(heladera).size();
       if(ultimaMedicion == null) {
-        heladerasDTOS.add(new HeladeraDTO(heladera, 0D,colaborador));
+        heladerasDTOS.add(new HeladeraDTO(heladera, 0D,colaborador,cantViandas));
       } else {
-        heladerasDTOS.add(new HeladeraDTO(heladera, ultimaMedicion.getTemperaturaMedida(),colaborador));
+        heladerasDTOS.add(new HeladeraDTO(heladera, ultimaMedicion.getTemperaturaMedida(),colaborador,cantViandas));
       }
     }
 
@@ -114,12 +119,12 @@ public class HeladeraController {
 
 
     MedicionTemperatura ultimaMedicion = sensorRepository.buscarPorHeladera(heladera.getId()).getUltimaTemperaturaRegistrada();
-
+    int cantViandas = viandaRepository.buscarPorHeladera(heladera).size();
     HeladeraDTO heladeraDTO;
     if (ultimaMedicion != null) {
-      heladeraDTO = new HeladeraDTO(heladera, ultimaMedicion.getTemperaturaMedida(),colaborador);
+      heladeraDTO = new HeladeraDTO(heladera, ultimaMedicion.getTemperaturaMedida(),colaborador,cantViandas);
     } else {
-      heladeraDTO = new HeladeraDTO(heladera, 0D, colaborador);
+      heladeraDTO = new HeladeraDTO(heladera, 0D, colaborador,cantViandas);
     }
     model.put("heladera", heladeraDTO);
 
@@ -132,10 +137,11 @@ public class HeladeraController {
     Heladera heladera = (Heladera) repositorio
       .buscarPorId(Long.valueOf(ctx.pathParam("heladera_id")), Heladera.class);
 
+    int cantViandas = viandaRepository.buscarPorHeladera(heladera).size();
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
     setNavBar(model,ctx);
     model.put("titulo", "Reportar Fallo");
-    HeladeraDTO heladeraDTO = new HeladeraDTO(heladera, 0D,colaborador);
+    HeladeraDTO heladeraDTO = new HeladeraDTO(heladera, 0D,colaborador,cantViandas);
     model.put("heladera", heladeraDTO);
 
     ctx.render("/heladeras/reportar_fallo.hbs", model);

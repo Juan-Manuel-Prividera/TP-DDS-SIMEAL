@@ -15,6 +15,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DistribuirViandaController {
+    private Repositorio repositorio;
+    private ViandaRepository viandaRepository;
+
+    public DistribuirViandaController (Repositorio repositorio, ViandaRepository viandaRepository) {
+        this.repositorio = repositorio;
+        this.viandaRepository = viandaRepository;
+    }
     public void index(Context ctx) {
         HashMap<String, Object> model = new HashMap<>();
         model.put("titulo", "Distribuir Vianda");
@@ -30,7 +37,6 @@ public class DistribuirViandaController {
             return;
         }
 
-        Repositorio repositorio = new Repositorio();
         Colaborador colaborador = (Colaborador) repositorio.buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
         Heladera origen = (Heladera) repositorio.buscarPorId(Long.valueOf(ctx.formParam("origen_id")), Heladera.class);
         Heladera destino = (Heladera) repositorio.buscarPorId(Long.valueOf(ctx.formParam("destino_id")), Heladera.class);
@@ -44,7 +50,6 @@ public class DistribuirViandaController {
                 .build();
 
         Vianda viandaADistribuir;
-        ViandaRepository viandaRepository = new ViandaRepository();
         List<Vianda> viandas = viandaRepository.buscarPorHeladera(origen);
         if (viandas.isEmpty()) {
             HashMap<String, Object> model = new HashMap<>();

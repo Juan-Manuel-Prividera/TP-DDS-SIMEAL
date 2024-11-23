@@ -23,8 +23,9 @@ public class HeladeraDTO {
   private String ultimaTempRegistrada;
   private Boolean estaActiva;
   private String esElEncargado;
+  private int cantidadViandas;
 
-  public HeladeraDTO(Heladera heladera, Double ultimaTempRegistrada, Colaborador colaborador) {
+  public HeladeraDTO(Heladera heladera, Double ultimaTempRegistrada, Colaborador colaborador, int cantidadViandas) {
     this.id = heladera.getId().toString();
     this.nombre = heladera.getNombre();
     this.latitud = heladera.getUbicacion().getCoordenada().getLatitud();
@@ -45,5 +46,6 @@ public class HeladeraDTO {
       this.esElEncargado = "null";
     }
     this.ultimaTempRegistrada = ultimaTempRegistrada.toString();
+    this.cantidadViandas = cantidadViandas;
   }
 }
