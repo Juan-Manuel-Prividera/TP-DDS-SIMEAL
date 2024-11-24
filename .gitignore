@@ -2,7 +2,7 @@
 *.class
 
 # Imagenes ofertas
-src/main/resources/static/img/ofertas/
+#src/main/resources/static/img/ofertas/
 
 # Log file
 *.log
