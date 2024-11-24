@@ -88,7 +88,6 @@ public class OfertasController {
     }
     else
       app.status(404);
-    return;
   }
 
 
@@ -256,8 +255,9 @@ public class OfertasController {
     else
       model.put("esJuridico", "true");
 
+    model.put("ofertas_select", "seleccionado");
     model.put("username", ctx.sessionAttribute("user_name"));
-    model.put("Ofertas", "true");
+    model.put("esOfertas", "true");
     model.put("titulo", "Simeal - Lista de ofertas");
   }
 

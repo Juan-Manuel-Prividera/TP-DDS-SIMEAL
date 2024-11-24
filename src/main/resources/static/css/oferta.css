@@ -19,7 +19,7 @@ body {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--verde); /* Fondo verde */
+    background-color: white;
     padding: 20px;
     max-height: 15%;
 }

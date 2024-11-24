@@ -1,15 +1,14 @@
-{{> templates/header}}
-
+{{> templates/navbar}}
 <div class="d-flex vh-100">
     <!-- Sección de Encargos -->
-    <div class="col-md-6 overflow-auto border-end p-3" style="display: flex; flex-direction: column; align-items: center;">
-        <h2 class="mb-4">Canjes Realizados</h2>
+    <div class="overflow-auto border-end p-3" style="display: flex; flex-direction: column; align-items: center; min-width:100%">
+    <h2 class="mb-4">Canjes Realizados</h2>
         <ul class="list-group" style="width: 100%">
             {{#if canjes.length}}
                 {{#each canjes}}
                     <li class="list-group-item mb-3">
                         <!-- Encargo principal -->
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="justify-content-between align-items-center">
                             <div>
                                 <strong>Nombre:{{this.ofertaNombre}}</strong><br>
                                 <p>Coste: {{this.coste}}</p>
@@ -28,7 +27,6 @@
                 <h3 class="mt-5">No ha realizado ningun canje</h3>
             {{/if}}
         </ul>
-        <a class="btn btn-dark btn-info btn-seleccionar rounded mb-3" type="button" href="/ofertas">Volver</a>
     </div>
 </div>
 

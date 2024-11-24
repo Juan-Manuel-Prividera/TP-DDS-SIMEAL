@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Producto extends Persistente {
   @Column
   private String nombre;
-  @Column
+  @Column(columnDefinition = "TEXT")
   private String descripcion;
   @Embedded
   private Categoria categoria;
