@@ -12,16 +12,11 @@ document.getElementById("confirmarBtn").addEventListener("click", function() {
         body: ofertaId
     })
         .then(response => {
-            if (response.ok) {
-                console.log("Compra procesada, redirigiendo...");
-                // Redirigir a la ruta de ofertas después de procesar el POST
-                window.location.href = "/ofertas";  // Redirige al usuario a la página de ofertas
+            if (response.status === 400) {
+                window.location.href = "/ofertas?confirmacionCompra=true";  // Redirigir al cliente
             } else {
-                console.error("Error en la compra");
+                window.location.href = "/ofertas?confirmacionCompra=false";  // Redirigir al cliente
             }
         })
-        .catch(error => {
-            console.error("Error en la solicitud:", error);
-        });
-    console.log("Después del fetch");
+        .catch(error => console.error("Error en la solicitud:", error));
 });

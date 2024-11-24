@@ -1,7 +1,4 @@
 {{> templates/navbar}}
-{{#if popup_message}}
-    {{> templates/popup}}
-{{/if}}
 <div class="container-superior" id="ofertas_body">
     <div class="filters">
         <label for="rubro"><b>Rubro:</b></label>
@@ -50,8 +47,35 @@
     {{/if}}
     {{/if}}
 </div>
+{{#if popup_message}}
+    <div id="overlay">
+        <div id="overlayContent">
+            <h6 class="black-text">{{popup_title}}</h6>
+            <p class="black-text">{{popup_message}}</p>
+            <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('{{popup_ruta}}')">
+                {{#if popup_button}}{{popup_button}}{{else}}Ok{{/if}}
+            </button>
+        </div>
+    </div>
+{{/if}}
 <div id="ofertas_body">
     {{#block "ofertas"}}{{/block}}
 </div>
-
 <script src="/js/busquedaOfertas.js"></script>
+<script>
+    // Function to show the overlay
+    function showOverlay() {
+        document.getElementById("overlay").classList.add("show");
+    }
+
+    // Function to hide the overlay
+    function hideOverlay(ruta) {
+        document.getElementById("overlay").classList.remove("show");
+        if (ruta != null) {
+            window.location.href = ruta;
+        }
+    }
+
+    // Show the overlay when the page loads
+    window.onload = showOverlay;
+</script>

@@ -50,22 +50,18 @@ public class OfertasController {
     setOfertas(model,app);
     setUpperBox(model,app);
 
-    //Para mostrar confirmación/error al comprar una oferta
-    if(app.sessionAttribute("resultado_compra") != null){
-      if(app.sessionAttribute(("resultado_compra")).equals("confirmado")){
+    //Verifico si tengo que mostrar mensaje de confirmación por compra de oferta
+    if(app.queryParam("confirmacionCompra") != null){
+      if(app.queryParam("confirmacionCompra").equals("true")){
         model.put("popup_title", "Compra confirmada");
-        model.put("popup_message", "La compra se ha concretado satisfactoriamente");
-        app.sessionAttribute("resultado_compra", null);
-        Logger.info("Se confirmó la compra");
+        model.put("popup_message", "Re ha realizado la compra correctamente");
       }
-      else if(app.sessionAttribute(("resultado_compra")).equals("rechazado")){
+      else if(app.queryParam("confirmacionCompra").equals("false")){
         model.put("popup_title", "Compra rechazada");
-        model.put("popup_message", "No se ha podido concretar la compra");
-        app.sessionAttribute("resultado_compra", null);
-        Logger.info("Se rechazó la compra");
+        model.put("popup_message", "No se ha podido realizar la compra");
       }
     }
-
+    model.put("popup_ruta", "/ofertas");
     app.render("ofertas/oferta_all.hbs", model);
   }
 
@@ -87,12 +83,12 @@ public class OfertasController {
       Canje canje = new Canje(oferta, colaborador, LocalDateTime.now(), oferta.getPuntosNecesarios());
       repositorio.guardar(canje);
       repositorio.actualizar(colaborador); //Actualizo los puntos del colaborador
-      app.sessionAttribute("resultado_compra", "confirmado");
-
       DDMetricsUtils.getInstance().getOfertasCanjeadas().incrementAndGet();
+      app.status(400);
     }
     else
-        app.sessionAttribute("resultado_compra", "rechazado");
+      app.status(404);
+    return;
   }
 
 

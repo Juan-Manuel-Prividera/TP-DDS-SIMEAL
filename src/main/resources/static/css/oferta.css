@@ -21,15 +21,15 @@ body {
     align-items: center;
     background-color: var(--verde); /* Fondo verde */
     padding: 20px;
-    margin-top: 20px;
     max-height: 15%;
 }
 
 .agregar-oferta{
     margin-top: 4%;
+    margin-left: 4%;
     display: flex;
     width: 20% !important;
-    height: 100%;
+    height: 100px;
     align-items: center;
     justify-content: center;
 
@@ -222,7 +222,6 @@ input[type="number"] {
 /* Contenedor Inferior derecho */
 
 .container-inferior-derecho {
-    flex: 1; /* Ocupa 1/3 del espacio disponible */
     padding: 20px;
     background-color: #f1f1f1; /* Fondo claro para los detalles */
     color: #333;
@@ -232,6 +231,8 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     position: relative;
+    width: 100%;
+    max-width: 1500px;
 }
 
 .container-inferior-derecho h2 {
@@ -272,13 +273,9 @@ input[type="number"] {
     border-radius: 20px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para darle profundidad */
     text-align: center;
-    width: 60%;
-    height: 30%;
-    position: absolute;
+    width: auto;
+    height: auto;
     flex-direction:row;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 10; /* Asegura que el recuadro esté sobre los demás elementos */
 }
 
@@ -336,8 +333,9 @@ a:hover{
     background-color: #333333;
     color: #ffffff;
     border: none;
-    width: 30% !important;
+    width: 50% !important;
     height: 5vh;
+    min-height: 60px;
     border-radius: 5px;
     text-align: center;
     align-content: center;
