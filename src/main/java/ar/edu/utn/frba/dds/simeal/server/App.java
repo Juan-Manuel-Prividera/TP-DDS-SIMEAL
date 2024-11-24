@@ -7,7 +7,7 @@ public class App {
 
   public static void main(String[] args) {
     Server.init();
-    new Thread(() -> MQTTSubscriberOperaciones.suscribe()).start();
-    new Thread(() -> MQTTSubscriberMediciones.suscribe()).start();
+    //new Thread(() -> MQTTSubscriberOperaciones.suscribe()).start();
+    //new Thread(() -> MQTTSubscriberMediciones.suscribe()).start();
   }
 }

@@ -4,13 +4,15 @@ _Sistema de Mejora Alimentaria_
     <img src="https://github.com/dds-utn/2024-tpa-ma-ma-grupo-11/blob/main/src/main/resources/static/img/heladera.png?raw=true" width="30%">
 </p>
 
-> Lo que no se persiste, no existe -Anónimo
+> Lo que no se persiste, no existe
 
-> Siempre volvemos a lo mismo, roles y permisos -Desconocido
+> Siempre volvemos a lo mismo, roles y permisos
 
-> Che, estoy contento de vivir en un mundo en el que java existe, no sé -Anónimo
+> Che, estoy contento de vivir en un mundo en el que java existe, no sé
 
 > permanecer + existir = persistir
+
+> Pensé que era un setter sin compromiso y al final me tengo que poner a debuggear hasta abajo del todo >:(.
 
 # java-base-project
 
