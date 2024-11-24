@@ -27,6 +27,7 @@ public class PersonaVulnerableController {
         .nombre(app.formParam("nombre"))
         .apellido(app.formParam("apellido"))
         .fechaNacimiento(LocalDate.parse(app.formParam("nacimiento")))
+        .fechaRegistro(LocalDate.now())
         .build();
 
       if (app.formParam("documentoNro") != null && app.formParam("documentoTipo") != null) {
@@ -59,6 +60,7 @@ public class PersonaVulnerableController {
               .nombre(nombresHijos.get(i))
               .apellido(apellidosHijos.get(i))
               .fechaNacimiento(LocalDate.parse(nacimientoHijos.get(i)))
+              .fechaRegistro(LocalDate.now())
               .build();
           Logger.debug("Hijo creado");
           // La persona puede o no tene documento... por consigna

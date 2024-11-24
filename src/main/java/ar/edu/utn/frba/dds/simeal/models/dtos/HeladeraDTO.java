@@ -43,7 +43,7 @@ public class HeladeraDTO {
       Logger.debug("Es el encargado de: " + heladera.getNombre());
       this.esElEncargado = "true";
     } else {
-      this.esElEncargado = "null";
+      this.esElEncargado = null;
     }
     this.ultimaTempRegistrada = ultimaTempRegistrada.toString();
     this.cantidadViandas = cantidadViandas;

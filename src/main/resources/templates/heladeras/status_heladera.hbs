@@ -4,11 +4,15 @@
 
     <div class="status-container">
         <div class="info-heladera">
-            {{#if puedeVerOpciones}}
-                <img src="/img/heladeraMapa.png" alt="icon" class="logo-peque ml-3 mr-5">
+            {{#unless heladera.estaActiva}}
+                <img src="/img/heladeraTriste.png" alt="icon" class="logo-peque ml-3 mr-5">
             {{else}}
-                <img src="/img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
-            {{/if}}
+                {{#if heladera.esElEncargado}}
+                    <img src="/img/heladeraVioleta.png" alt="icon" class="logo-peque ml-3 mr-5">
+                {{else}}
+                    <img src="/img/heladera.png" alt="icon" class="logo-peque ml-3 mr-5">
+                {{/if}}
+            {{/unless}}
             <div>
                 <p>Nombre: {{heladera.nombre}}</p>
                 <p>Ubicacion: {{heladera.nombreCalle}} {{heladera.altura}}</p>
@@ -18,13 +22,13 @@
         <div class="status-heladera">
             <p class="mt-3 ml-3">Estado: {{heladera.activa}}</p>
             <p class="mb-3 ml-3">Ultima temperatura registrada: {{heladera.ultimaTempRegistrada}}°C</p>
-            <p class="mb-3 ml-3">Cantidad de viandas: {{heladera.cantViandas}}</p>
+            <p class="mb-3 ml-3">Cantidad de viandas: {{heladera.cantidadViandas}}</p>
         </div>
         {{else}}
         <div class="status-heladera-bad">
             <p class="mt-3 ml-3">Estado: {{heladera.activa}}</p>
             <p class="mb-3 ml-3">Ultima temperatura registrada: {{heladera.ultimaTempRegistrada}}°C</p>
-            <p class="mb-3 ml-3">Cantidad de viandas: {{heladera.cantViandas}}</p>
+            <p class="mb-3 ml-3">Cantidad de viandas: {{heladera.cantidadViandas}}</p>
         </div>
         {{/if}}
         {{#if puedeVerOpciones}}

@@ -30,8 +30,12 @@
     border-radius: 4px;
 }
 .my-fridges {
-    background-color: #4ca3af; /* Color para "Tus heladeras" */
+    background-color: #4e3d9b; /* Color para "Tus heladeras" */
 }
 .other-fridges {
     background-color: var(--verde)  /* Color para "El resto de heladeras" */
+}
+
+.heladeraTriste {
+    background-color: #af2323;
 }

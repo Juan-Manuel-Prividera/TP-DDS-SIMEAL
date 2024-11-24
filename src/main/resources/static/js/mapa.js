@@ -54,10 +54,18 @@ function agregarHeladera(heladera,map){
     // Creamos el punto con los datos del back y lo ponemos
     let marker
     let heladeraIcon
-    if (heladera.esElEncargado === "true") {
+    if (!heladera.estaActiva === true) {
+        heladeraIcon = L.icon({
+            iconUrl: '/img/heladeraTriste.png',
+            iconSize: [20, 40]
+        });
+        marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);
+        marker.bindPopup("<b>"+heladera.nombre+"</b>").openPopup();
+
+    } else if (heladera.esElEncargado === "true") {
         console.log("En el if esElEncargado= "+ heladera.esElEncargado)
         heladeraIcon = L.icon({
-            iconUrl: '/img/heladeraMapa.png',
+            iconUrl: '/img/heladeraVioleta.png',
             iconSize: [25, 45]
         });
         marker = L.marker([heladera.latitud, heladera.longitud], {icon: heladeraIcon}).addTo(map);

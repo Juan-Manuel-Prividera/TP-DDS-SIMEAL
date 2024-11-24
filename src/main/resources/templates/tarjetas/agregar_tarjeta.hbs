@@ -48,7 +48,7 @@
                        placeholder="Código postal">
 
                 <label for="provincia" class="form-label">Selecciona Provincias</label>
-                <select id="provincia" name="provincia" class="form-control" style="width: 100%;">
+                <select id="provincia" name="provincia" class="form-control" style="width: 100%;" onchange="actualizarLocalidades()" >
                     <option value="" disabled selected hidden>Provincias</option>
                     <option value="Buenos_Aires">Buenos Aires</option>
                     <option value="Ciudad_Autonoma_De_Buenos_Aires">Ciudad Autónoma de Buenos Aires</option>
@@ -75,7 +75,13 @@
                     <option value="Tierra_del_Fuego">Tierra del Fuego</option>
                     <option value="Tucuman">Tucumán</option>
                 </select>
+
+                <label for="localidad" class="form-label">Localidad</label>
+                <select id="localidad" name="localidad" class="form-control mb-4" style="width: 100%;">
+                    <option value="" disabled selected hidden>Localidades</option>
+                </select>
             </div>
+
             <div class="right">
                 <h2>Menores a cargo</h2>
                 <div class="hijo-container">
@@ -124,6 +130,34 @@
         input.setAttribute('max', today);
     });
 </script>
+    <script>
+        function actualizarLocalidades() {
+            const provinciaSeleccionada = document.getElementById("provincia").value;
+            const localidadSelect = document.getElementById("localidad");
+
+            // Limpiar las opciones actuales de localidad
+            localidadSelect.innerHTML = '<option value="">Selecciona una localidad</option>';
+
+            // Si hay una provincia seleccionada, hacer una solicitud al servidor
+            if (provinciaSeleccionada) {
+                fetch(`/localidades?provincia=${encodeURIComponent(provinciaSeleccionada)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data)
+                            // Añadir las localidades al desplegable
+                            data.forEach(localidad => {
+                                console.log(localidad)
+                                const option = document.createElement("option");
+                                option.value = localidad.id;
+                                option.text = localidad.nombre;
+                                localidadSelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error('Error al obtener localidades:', error));
+            }
+        }
+    </script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

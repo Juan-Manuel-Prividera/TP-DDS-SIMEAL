@@ -12,7 +12,7 @@ public class MQTTSubscriberMediciones {
     String broker = configReader.getProperty("broker");
     String username = configReader.getProperty("broker.user");
     String password = configReader.getProperty("broker.pass");
-    String topic = "heladera/medicion";
+    String topic = configReader.getProperty("broker.medicion.topic");
     String clientId = "JavaSubscriber-Mediciones";
 
     //CountDownLatch latch = new CountDownLatch(1);

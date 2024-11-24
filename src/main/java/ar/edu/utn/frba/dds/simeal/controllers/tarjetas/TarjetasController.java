@@ -215,17 +215,21 @@ public class TarjetasController {
     List<TarjetaPersonaVulnerableDTO> tarjetaPersonaVulnerableDTOS = new ArrayList<>();
 
     for (DarDeAltaPersonaVulnerable persona : personas) {
-      TarjetaPersonaVulnerableDTO tarjetaPersonaVulnerableDTO;
       if (persona.getTarjeta() != null && persona.getTarjeta().getActivo()) {
-        tarjetaPersonaVulnerableDTOS.add(TarjetaPersonaVulnerableDTO.builder()
+        TarjetaPersonaVulnerableDTO tarjetaPersonaVulnerableDTO;
+        tarjetaPersonaVulnerableDTO = TarjetaPersonaVulnerableDTO.builder()
           .numero(persona.getTarjeta().getCodigo())
-        //  .dniPropietario(persona.getPersonaVulnerable().getDocumento().getNroDocumento())
           .edadPropietario(String.valueOf(persona.getPersonaVulnerable().getEdad()))
           .nombrePropietario(persona.getPersonaVulnerable().getNombre())
           .apellidoPropietario(persona.getPersonaVulnerable().getApellido())
           .usosDisponibles(String.valueOf(persona.getTarjeta().usosRestantes()))
-          .build());
+          .build();
+        if (persona.getPersonaVulnerable().getDocumento() != null) {
+          tarjetaPersonaVulnerableDTO.setDniPropietario(persona.getPersonaVulnerable().getDocumento().getNroDocumento());
+        }
+        tarjetaPersonaVulnerableDTOS.add(tarjetaPersonaVulnerableDTO);
       }
+
     }
 
     model.put("tarjetasEntregadas", tarjetaPersonaVulnerableDTOS);
