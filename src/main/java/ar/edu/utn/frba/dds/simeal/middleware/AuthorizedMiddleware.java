@@ -16,7 +16,7 @@ public class AuthorizedMiddleware {
     // Algunos endpoints están abiertos a todos.
     private static final Pattern[] openEndpoints = new Pattern[]{
             Pattern.compile("/"),
-            Pattern.compile("/(index|login)"),
+            Pattern.compile("/(index|login|logout)"),
             Pattern.compile("/registro(/(humano|juridico))?"),
             Pattern.compile("/user/create.*"),
             Pattern.compile("/heladeras"),
