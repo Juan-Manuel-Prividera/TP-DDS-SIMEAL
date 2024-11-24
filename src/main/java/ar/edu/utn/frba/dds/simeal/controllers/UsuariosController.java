@@ -17,6 +17,7 @@ import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.NoEnBlackList;
 import ar.edu.utn.frba.dds.simeal.utils.passwordvalidator.PasswordValidator;
 import io.javalin.http.Context;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UsuariosController {
@@ -28,7 +29,6 @@ public class UsuariosController {
     }
 
     public void create(Context context){
-        // TODO: Chequear que el nombre no exista ya
         Logger.info("Creando usuario");
         // -- TRATAMOS DE CREAR EL USUARIO --
         // Estos son los básicos que necesitamos, lo demás en negociable
@@ -38,6 +38,19 @@ public class UsuariosController {
         String passwordRepeat = context.formParam("passwordRepeat");
 
         validarInputs(username,password,passwordRepeat,context);
+
+        List<Usuario> usuarios = (List<Usuario>) this.repo.obtenerTodos(Usuario.class);
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username)) {
+                HashMap<String, Object> model = new HashMap<>();
+                model.put("error", "ya existe");
+                model.put("popup_title", "Usuario repetido");
+                model.put("popup_message", "El usuario ingresado ya existe!");
+                context.render("/registroFormulario.hbs", model);
+                Logger.warn("El usuario ya existe");
+                return;
+            }
+        }
 
         List<Condicion> condiciones = List.of(
           new NoEnBlackList("src/main/resources/blacklist.txt"),

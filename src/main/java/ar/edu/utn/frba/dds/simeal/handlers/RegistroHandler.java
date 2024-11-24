@@ -72,7 +72,6 @@ public class RegistroHandler {
             map.put("rubros", rubroDTOS);
         }
 
-        // TODO: Revisar como pasar esta info de alguna otra forma que no sea query param
         if (context.queryParam("error") != null) {
             map.put("error", context.queryParam("error"));
             map.put("popup_message", context.queryParam("error"));

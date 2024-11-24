@@ -30,14 +30,4 @@ public class Canje extends Persistente {
   @Column(name="coste")
   private Double coste;
 
-  /* Esto ya no hace falta que este acá
-  // Esto se va a pasar a controller proximanete :)
-  // TODO: Falta el acceso a persistencia para conseguir las colaboraciones de un colaborador especifico
-  public void realizar() {
-    // Concretamente falta esto
-    if (beneficiario.puedeCanjear(this.oferta)) {
-      beneficiario.gastarPuntos(oferta.getPuntosNecesarios());
-    }
-  }
- */
 }

@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.simeal.controllers;
+package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.DonarViandaController;

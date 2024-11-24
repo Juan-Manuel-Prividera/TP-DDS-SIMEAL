@@ -82,7 +82,7 @@
 }
 
 #listaPreguntas .list-group-item {
-    flex-direction: column; /* Asegura que todo esté alineado en columnas */
+    flex-direction: column; /* Asegura que t0do esté alineado en columnas */
 }
 
 #listaPreguntas .list-group-item .d-flex {

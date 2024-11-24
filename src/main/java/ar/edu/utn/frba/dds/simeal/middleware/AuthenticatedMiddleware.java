@@ -31,19 +31,6 @@ public class AuthenticatedMiddleware {
         app.beforeMatched(
         ctx -> {
             Logger.trace("'"+ctx.ip()+"' trató de acceder a " + ctx.path());
-            /*
-            if(ctx.path().startsWith("/heladera") ||
-              ctx.path().startsWith("/suscripcion/") ||
-              ctx.path().startsWith("/suscripciones") ||
-              ctx.path().startsWith("/heladera/suscribirse/") ||
-              ctx.path().startsWith("/setuser/") ||
-              ctx.path().startsWith("/recomendacion/") ||
-              ctx.path().startsWith("/localidades") )
-              //ctx.path().startsWith("/formulario/")  )
-            {
-                return;
-            }
-             */
             if (isOpenEndpoint(ctx.path())){
                 Logger.trace("'"+ctx.path()+"' es un endpoint abierto, no necesita estar autenticado.");
                 return;

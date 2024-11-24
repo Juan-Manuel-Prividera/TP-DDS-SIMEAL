@@ -60,7 +60,6 @@ public class HeladeraController {
     Long colabId = ctx.sessionAttribute("colaborador_id");
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colabId, Colaborador.class);
     List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
-    // TODO: Si tenemos muchas heladeras esto va a tardar una banda...
     List<Heladera> heladerasCercanas = new ArrayList<>();
     for (Heladera heladera : heladeras) {
       if (heladera.getUbicacion().estaCercaDe(ubicacion,Integer.parseInt(configReader.getProperty("cond.cercania"))))
@@ -82,14 +81,12 @@ public class HeladeraController {
     List<HeladeraDTO> heladerasDTOS = new ArrayList<>();
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(app.sessionAttribute("colaborador_id"), Colaborador.class);
 
-    // TODO: PROBAR ESTO CUANDO TENGAMSO EL BROKER OK
     for (Heladera heladera : heladeras) {
-
       Sensor sensor = sensorRepository.buscarPorHeladera(heladera.getId());
       MedicionTemperatura ultimaMedicion = sensor.getUltimaTemperaturaRegistrada();
       int cantViandas = viandaRepository.buscarPorHeladera(heladera).size();
       if(ultimaMedicion == null) {
-        heladerasDTOS.add(new HeladeraDTO(heladera, 0D,colaborador,cantViandas));
+        heladerasDTOS.add(new HeladeraDTO(heladera, 0d,colaborador,cantViandas));
       } else {
         heladerasDTOS.add(new HeladeraDTO(heladera, ultimaMedicion.getTemperaturaMedida(),colaborador,cantViandas));
       }

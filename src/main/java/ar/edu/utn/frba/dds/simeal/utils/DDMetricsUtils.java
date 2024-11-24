@@ -82,7 +82,7 @@ public class DDMetricsUtils {
   }
 
   private void initInfraMonitoring() {
-    // agregamos a nuestro reigstro de métricas todo lo relacionado a infra/tech
+    // agregamos a nuestro reigstro de métricas t0do lo relacionado a infra/tech
     // de la instancia y JVM
     try (var jvmGcMetrics = new JvmGcMetrics(); var jvmHeapPressureMetrics = new JvmHeapPressureMetrics()) {
       jvmGcMetrics.bindTo(registry);

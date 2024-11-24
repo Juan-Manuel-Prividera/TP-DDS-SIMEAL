@@ -116,7 +116,6 @@ public class ColaboradorController {
 
 
 
-        // TODO: Setear medio de contacto
         Contacto contacto = new Contacto();
         contacto.setInfoDeContacto(infoContacto);
         contacto.setMedioContacto(MedioDeContactoFactory.crearMedioDeContactoDeString(medioContacto));

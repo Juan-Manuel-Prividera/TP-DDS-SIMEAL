@@ -40,28 +40,4 @@ public class HomeHandler {
         hbMap.put("titulo", "Simeal - Home");
         context.render("home.hbs", hbMap);
     }
-    // TODO: No anda
-    public void setUserType(Context context) {
-        System.out.println("setUserType");
-        String userType = context.pathParam("user_type");
-        System.out.println(userType);
-        HashMap<String, Object> model = new HashMap<>();
-        if (userType.equals("HUMANO")) {
-            model.put("esHumano", true);
-            model.put("user_type", "humano");
-        } else if (userType.equals("JURIDICO")) {
-            model.put("esJuridico", true);
-            model.put("user_type", "juridico");
-
-        }
-        // Establecer el tipo de usuario en la sesión
-        context.sessionAttribute("user_type", userType);
-
-        // Responder con un mensaje de éxito
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Tipo de usuario establecido a " + userType);
-        context.status(200);
-
-        context.render("home.hbs", model);
-    }
 }

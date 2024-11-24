@@ -27,7 +27,7 @@ public class ServiceLocator {
 
   // Metodo para obtener Controllers manteniendo Singleton
   public static <T> T getController(Class<T> controllerClass) {
-    // Toda esta magia oscura se va a ejecutar una vez por controlador gracias a que guardamos todo en el MAP  :)
+    // Toda esta magia oscura se va a ejecutar una vez por controlador gracias a que guardamos t0do en el MAP  :)
     String controllerName = controllerClass.getName();
     // Si el controller ya esta en el map lo devolvemos
     if (!controllers.containsKey(controllerName)) {
@@ -51,7 +51,7 @@ public class ServiceLocator {
           if (Repositorio.class.isAssignableFrom(parameterTypes[i])) {
             constructorArgs[i] = getRepository((Class<? extends Repositorio>) parameterTypes[i]);
           } else {
-            // Es un metodo Recursivo pero mientras no tengamos parametros infinitos todo bien :)
+            // Es un metodo Recursivo pero mientras no tengamos parametros infinitos t0do bien :)
             constructorArgs[i] = getController(parameterTypes[i]);
           }
         }

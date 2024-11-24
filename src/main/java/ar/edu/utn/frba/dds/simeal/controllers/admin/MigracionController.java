@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorReposito
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.cargadordatos.LectorCsv;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.Mensaje;
 import com.opencsv.exceptions.CsvException;
 import io.javalin.http.Context;
@@ -97,7 +98,6 @@ public class MigracionController {
     ConfigReader configReader = new ConfigReader();
     String email = configReader.getProperty("admin.email");
     Mensaje mensaje = new Mensaje("La migración de datos se ha completado", "Migración de datos");
-    // TODO: DESCOMENTAR PROXIMAMENTE
-//    ServiceLocator.getService(EnviadorDeMails.class).enviar(email,mensaje);
+    ServiceLocator.getService(EnviadorDeMails.class).enviar(email,mensaje);
   }
 }

@@ -1,4 +1,3 @@
-// Todo chequear el resto de campos
 function validateFields() {
     const password = document.getElementById('password').value;
     const passwordRepeat = document.getElementById('passwordRepeat').value;

@@ -16,14 +16,18 @@
             <!-- Campo para ingresar la ubicación de la heladera -->
             <label for="ubicacion_heladera">Ubicación</label>
             <input id="ubicacion_heladera" name="ubicacion_heladera" type="text" class="form-control mb-5" placeholder="Ubicación de heladera" required>
-            <!-- TODO: Vulnerabilidad IDOR, fix! -->
+            <!-- Vulnerabilidad IDOR, fix! -->
             <input id="id_heladera" hidden="hidden" name="id_heladera" type="text" class="form-control mb-5" required>
 
             <label for="tipo_comida">Tipo de comida</label>
             <input id="tipo_comida" name="tipo_comida" type="text" class="form-control mb-5" placeholder="Tipo de comida" required>
 
-            <label for="fecha_caducidad">Fecha de caducidad</label>
+            <label for="fecha_caducidad">fecha de caducidad</label>
             <input id="fecha_caducidad" name="fecha_caducidad" type="date" class="form-control mb-5" placeholder="03/22/2014" required>
+            <script>
+                const today = new Date().toISOString().split("T")[0];
+                document.getElementById("fecha_caducidad").setAttribute("min", today);
+            </script>
 
             <label for="calorias">Calorías</label>
             <input id="calorias" name="calorias" type="number" class="form-control mb-5" placeholder="10000" required>

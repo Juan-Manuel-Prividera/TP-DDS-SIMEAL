@@ -6,6 +6,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -22,7 +24,9 @@ public class Sensor extends Persistente {
 
   // No interesa persistir este dato ya que se obtiene en ejecucion y se
   // actualiza constantemente
-  @Transient
+  @Setter
+  @OneToOne
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   MedicionTemperatura ultimaTemperaturaRegistrada = null;
 
 

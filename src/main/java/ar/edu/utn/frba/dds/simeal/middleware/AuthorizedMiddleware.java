@@ -10,45 +10,34 @@ import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import com.mysql.cj.log.Log;
 import io.javalin.Javalin;
 
+import java.util.regex.Pattern;
+
 public class AuthorizedMiddleware {
     // Algunos endpoints están abiertos a todos.
-    private static final String[] openEndpoints = new String[]{
-            "/login", "/", "/index", "/logout",
-            "/registro",
-            "/registro/humano",
-            "/registro/juridico",
-            "/user/create/humano",
-            "/user/create/juridico",
+    private static final Pattern[] openEndpoints = new Pattern[]{
+            Pattern.compile("/"),
+            Pattern.compile("/(index|login)"),
+            Pattern.compile("/registro(/(humano|juridico))?"),
+            Pattern.compile("/user/create.*"),
+            Pattern.compile("/heladeras"),
+            Pattern.compile(".*\\.(css|jpg|png|js|map|gif|ico)"),
+            Pattern.compile("/localidades.*")
     };
 
-    private static final String[] openFormats = new String[]{".css", ".jpg", ".png", ".js", ".hbs", ".map", ".gif", ".ico"};
+    public static boolean isOpenEndpoint(String input) {
+        for (Pattern pattern : openEndpoints) {
+            if (pattern.matcher(input).matches()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void apply(Javalin app) {
         app.beforeMatched(
                 ctx -> {
-                    for (var format : openFormats) {
-                        if (ctx.path().endsWith(format)) {
-                            return;
-                        }
-                    }
-
-                    for (var endpoint : openEndpoints) {
-                        if (ctx.path().equals(endpoint)) {
-                            return;
-                        }
-                    }
-                    // TODO : Arreglar
-                    if(ctx.path().startsWith("/heladera") ||
-                      ctx.path().startsWith("/suscripcion/") ||
-                      ctx.path().startsWith("/suscripciones") ||
-                      ctx.path().startsWith("/heladera/suscribirse/") ||
-                      ctx.path().startsWith("/setuser/") ||
-                      ctx.path().startsWith("/formulario/") ||
-                      ctx.path().startsWith("/ofertas/") ||
-                      ctx.path().startsWith("/recomendacion/") ||
-                      ctx.path().startsWith("/localidades"))
-                     {
-                      return;
+                    if (isOpenEndpoint(ctx.path())) {
+                        return;
                     }
 
                     Long userID = ctx.sessionAttribute("user_id");

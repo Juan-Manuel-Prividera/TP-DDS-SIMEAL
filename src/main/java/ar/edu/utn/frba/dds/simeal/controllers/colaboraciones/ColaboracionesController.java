@@ -41,9 +41,6 @@ public class ColaboracionesController {
     app.render("/colaboraciones/colaboraciones.hbs", model);
   }
 
-  // TODO: Sacar de aca
-
-
   public void indexHistorial(Context ctx) {
     List<ColaboracionPuntuable> colaboraciones = (List<ColaboracionPuntuable>) colaboracionRepository
       .getAllPorColaborador(ctx.sessionAttribute("colaborador_id"));

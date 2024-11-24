@@ -165,7 +165,7 @@ public class Reporte {
       // Creo un HashMap con key colaborador
       HashMap<Colaborador, Integer> viandasPorColaborador = new HashMap<>();
 
-      // Buscar hacer un método para bajar la lógica
+      // Buscar hacer un mét0do para bajar la lógica
       for (Vianda vianda : viandas) {
         Colaborador colaborador = vianda.getColaborador();
         if (viandasPorColaborador.containsKey(colaborador)) {

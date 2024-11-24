@@ -7,17 +7,13 @@ import ar.edu.utn.frba.dds.simeal.controllers.admin.FormularioController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.MigracionController;
 import ar.edu.utn.frba.dds.simeal.controllers.admin.ReportesController;
 import ar.edu.utn.frba.dds.simeal.controllers.colaboraciones.*;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.HeladeraController;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.IncidenteController;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.SuscripcionController;
+import ar.edu.utn.frba.dds.simeal.controllers.heladera.*;
 import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.PersonaVulnerableController;
-import ar.edu.utn.frba.dds.simeal.controllers.heladera.SolicitudHeladeraController;
 import ar.edu.utn.frba.dds.simeal.controllers.tarjetas.TarjetasController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.EncargoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.TecnicoController;
 import ar.edu.utn.frba.dds.simeal.controllers.tecnico.VisitaController;
 import ar.edu.utn.frba.dds.simeal.handlers.*;
-import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
@@ -25,13 +21,11 @@ import io.javalin.Javalin;
 import io.javalin.http.HttpStatus;
 
 import java.nio.charset.StandardCharsets;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Router {
   public static void init(Javalin app) {
     // ***************  HomePage   ***************
     app.get("home", ServiceLocator.getController(HomeHandler.class)::handle);
-    app.post("setuser/{user_type}",ServiceLocator.getController(HomeHandler.class)::setUserType);
 
     // ***************  Admin   ***************
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
@@ -99,7 +93,6 @@ public class Router {
     app.post("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::persistOferta);
     app.get("ofertas/misOfertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::selfOffersSelected);
     //TODO: Como checkear que oferta_id es una oferta suya?
-    //TODO: Usar UUID
     app.get("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::modificar);
     app.post("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::updateOferta);
     app.post("ofertas/comprar", ServiceLocator.getController(OfertasController.class)::comprar);

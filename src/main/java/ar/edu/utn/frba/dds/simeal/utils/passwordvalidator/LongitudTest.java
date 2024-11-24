@@ -15,7 +15,6 @@ public class LongitudTest implements Condicion {
 
   @Override
   public String mensaje() {
-    // TODO: El navegador no toma la ñ, no sé por qué. Linux...
     return "La contraseña debe tener al menos " + minimunLenght+" caracteres";
   }
 }

@@ -50,7 +50,7 @@
 
 .form-container-tarjeta .left input,
 .form-container-tarjeta .right input {
-    width: 100%; /* Hacer que los inputs ocupen todo el ancho dentro de su columna */
+    width: 100%; /* Hacer que los inputs ocupen t0do el ancho dentro de su columna */
     margin-bottom: 1.5vh; /* Margen inferior entre inputs */
 }
 .agregar-hijo {

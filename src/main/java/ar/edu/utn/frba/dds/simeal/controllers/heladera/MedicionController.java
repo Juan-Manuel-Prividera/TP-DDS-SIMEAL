@@ -3,6 +3,7 @@ package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 import ar.edu.utn.frba.dds.simeal.models.creacionales.MedicionFactory;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Alerta;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Medicion;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.MedicionTemperatura;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.sensor.Sensor;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
@@ -36,8 +37,9 @@ public class MedicionController {
     Logger.debug("Medicion persistida");
     // El procesamiento de cada tipo de medicion, desactivar la heladera,...
     Alerta alerta = sensor.recibir(medicionRecibida);
+    repositorio.actualizar(sensor);
 
-    // Si la alerta es null esta todo bien en la medicion no hacemos nada (NO es un Incidente)
+    // Si la alerta es null esta t0do bien en la medicion no hacemos nada (NO es un Incidente)
     if (alerta != null) {
       Logger.debug("La medicion genero una alerta!!");
       // Crear incidente y avisar a tenico

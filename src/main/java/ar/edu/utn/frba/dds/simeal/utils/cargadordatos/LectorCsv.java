@@ -98,7 +98,6 @@ public class LectorCsv {
   }
 
   private Colaborador validarSiExisteElColaboradorEnLista(String nombre, String numeroDocumento, List<Colaborador> colaboradores) {
-    // TODO: Chequear esto por las dudas...
     if (!colaboradoresActualesEnSistema.isEmpty()) {
       for (Colaborador colab : colaboradoresActualesEnSistema) {
         String nro = colab.getDocumento().getNroDocumento();
