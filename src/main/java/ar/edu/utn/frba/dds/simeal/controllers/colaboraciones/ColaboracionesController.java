@@ -42,29 +42,6 @@ public class ColaboracionesController {
   }
 
   // TODO: Sacar de aca
-  public void mostrarFormularioDonacionVianda(Context app) {
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("titulo", "Donar Vianda");
-    setNavBar(model, app);
-
-    app.render("/colaboraciones/donarVianda.hbs", model);
-  }
-  // TODO: Sacar de aca
-  public void donarVianda(Context app) {
-    // Obtener los datos del formulario
-    String nombreHeladera = app.formParam("nombre_heladera");
-    String direccionHeladera = app.formParam("direccion");
-
-    // Lógica para registrar la donación
-
-    HashMap<String, Object> model = new HashMap<>();
-    model.put("nombreHeladera", nombreHeladera);
-    model.put("direccionHeladera", direccionHeladera);
-    model.put("mensaje", "Gracias por tu donación a la heladera " + nombreHeladera + " ubicada en " + direccionHeladera);
-    setNavBar(model, app);
-
-    app.render("/colaboraciones/confirmacion_donacion.hbs", model);
-  }
 
 
   public void indexHistorial(Context ctx) {

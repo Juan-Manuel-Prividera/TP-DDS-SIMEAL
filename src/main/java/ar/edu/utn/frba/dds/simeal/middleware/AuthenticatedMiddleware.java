@@ -15,7 +15,7 @@ public class AuthenticatedMiddleware {
             Pattern.compile("/user/create.*"),
             Pattern.compile("/heladeras"),
             Pattern.compile(".*\\.(css|jpg|png|js|map|gif|ico)"),
-            Pattern.compile("")
+            Pattern.compile("/localidades.*")
     };
 
     public static boolean isOpenEndpoint(String input) {

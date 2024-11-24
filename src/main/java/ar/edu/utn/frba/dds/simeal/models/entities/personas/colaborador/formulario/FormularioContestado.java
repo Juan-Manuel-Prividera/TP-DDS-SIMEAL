@@ -28,6 +28,7 @@ public class FormularioContestado extends Persistente {
 
   public FormularioContestado(List<Respuesta> respuestas, Formulario formulario) {
     this.respuestas = respuestas;
+    this.formulario = formulario;
     fechaRespuesta = LocalDate.now();
   }
 }

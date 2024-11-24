@@ -167,6 +167,17 @@
                 </div>
             </div>
             <input id="destino_id" name="destino_id" type="text" hidden="hidden" required>
+
+            <label for="motivo">Motivo</label>
+            <select name="motivo" id="motivo" class="form-control mb-4" required>
+                <option disabled selected hidden="hidden" value="">Seleccione un motivo</option>
+                <option value="SOBREPASO_DE_CAPACIDAD">Sobrepaso de capacidad</option>
+                <option value="FALTA_DE_DISPONIBILIDAD">Falta de disponibilidad</option>
+                <option value="DESPERFECTO_EN_HELADERA">Desperfecto en heladera</option>
+                <option value="PARA_ESTIRAR_LAS_PIERNAS">Para estirar las piernas</option>
+                <option value="OTRO">Otro</option>
+            </select>
+
             <button type="submit" class="btn btn-dark rounded center">Siguiente</button>
         </form>
     </div>

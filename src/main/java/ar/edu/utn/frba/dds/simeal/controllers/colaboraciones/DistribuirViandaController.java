@@ -2,6 +2,7 @@ package ar.edu.utn.frba.dds.simeal.controllers.colaboraciones;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.Motivo;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
@@ -9,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
+import org.eclipse.emf.ecore.util.EContentAdapter;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -31,7 +33,7 @@ public class DistribuirViandaController {
     }
 
     public void create(Context ctx) {
-        if (ctx.formParam("origen_id") == null || ctx.formParam("destino_id") == null) {
+        if (ctx.formParam("origen_id") == null || ctx.formParam("destino_id") == null || ctx.formParam("motivo") == null) {
             Logger.warn("Impostor among us, halp!");
             ctx.render("impostor_among_us.hbs");
             return;
@@ -40,11 +42,13 @@ public class DistribuirViandaController {
         Colaborador colaborador = (Colaborador) repositorio.buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
         Heladera origen = (Heladera) repositorio.buscarPorId(Long.valueOf(ctx.formParam("origen_id")), Heladera.class);
         Heladera destino = (Heladera) repositorio.buscarPorId(Long.valueOf(ctx.formParam("destino_id")), Heladera.class);
+        Motivo motivo = Motivo.valueOf(ctx.formParam("motivo"));
 
         DistribuirVianda distribuirVianda = DistribuirVianda.builder()
                 .cantidadViandasMover(1)
                 .origen(origen)
                 .destino(destino)
+                .motivo(motivo)
                 .colaborador(colaborador)
                 .fechaDeRealizacion(LocalDate.now())
                 .build();
