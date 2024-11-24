@@ -35,7 +35,7 @@ button {
 }
 label {
     align-self: start;
-    margin-left: 35%;
+    /*margin-left: 35%;*/
 }
 button:focus {
     outline: none;

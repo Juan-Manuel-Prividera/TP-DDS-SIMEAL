@@ -171,8 +171,11 @@ public class InitPersistence {
                 new Documento(TipoDocumento.DNI, "13"),
                 "Friederich", "Gauss");
         colaboradorHumano.setUsuario(usuarioHumano);
-        repo.guardar(colaboradorHumano);
+        Contacto contactoHumano = new Contacto("emouesca@frba.utn.edu.ar", new Email(EnviadorDeMails.getInstancia()));
+        colaboradorHumano.setContactoPreferido(contactoHumano);
+        colaboradorHumano.addContacto(contactoHumano);
 
+        repo.guardar(colaboradorHumano);
         TarjetaColaborador tarjetaColaborador = new TarjetaColaborador(colaboradorHumano, LocalDate.now());
         ServiceLocator.getRepository(TarjetaColaboradorRepository.class).guardar(tarjetaColaborador);
 
@@ -192,6 +195,9 @@ public class InitPersistence {
         Ubicacion ubicacion0 = new Ubicacion("Av. Corrientes", 3966,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1179, localidad);
         Ubicacion ubicacion1 = new Ubicacion("Av. Cordoba",3821 ,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1188, localidad);
         colaboradorJuridico.setUbicaciones(List.of(ubicacion0, ubicacion1));
+        Contacto contactoJuridico = new Contacto("tpauza@frba.utn.edu.ar", new Email(EnviadorDeMails.getInstancia()));
+        colaboradorJuridico.setContactoPreferido(contactoJuridico);
+        colaboradorHumano.addContacto(contactoJuridico);
         repo.guardar(colaboradorJuridico);
 
         Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia()));
