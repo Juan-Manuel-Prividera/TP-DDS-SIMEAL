@@ -106,7 +106,7 @@ public class InitPersistence {
 
     Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
     Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
-    Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
+    Permiso getOferta = new Permiso("ofertas/\\d+", TipoMetodoHttp.GET);
 
     Permiso getTecnico = new Permiso("/tecnico", TipoMetodoHttp.GET);
     Permiso postTecnico = new Permiso("/tecnico", TipoMetodoHttp.POST);
@@ -361,8 +361,8 @@ public class InitPersistence {
     modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Programador JAVA Backend Jr.", rubro3, "/img/ofertas/programador_contento.jpg", "Programador JAVA Backend Jr.", "Programador sin experiencia buscando incursionar en el mundo laboral en una empresa desafiante que le permita ganar experiencia y enriquecer su red de contactos.", 45.));
     modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Misil termonuclear", rubro1, "/img/ofertas/misil.jgp", "Misil termonuclear",
         "Misil termonuclear traído directo desde China", 1000000.));
-    modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "TERRANATOR!!!!!", rubro1,"/img/ofertas/terranator.jpg1000000.", "Terrenator",
-        "Turbo Wheels a diseñado el radio control más moderno…! T E R R A N A T O R! El coche más poderoso que ofertas/terranator.jpg1000000.ah existido, con tracción 4 X 4 y dos TURBO motores! Este si es todo terreno, las calles son fáciles… Méteofertas/terranator.jpg1000000.lo al lodo, parte la nieve, pasa por el agua! T E R R A N A T O R! Es el más potente que haya ex1000000.istido! O ofertas/terr1000000.anator.jpgque prefiere1000000.s un coche para niñita1000000.s?! T E R R E N A T O 1000000.R! De Fotorama."
+    modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "TERRANATOR!!!!!", rubro1,"/img/ofertas/terranator.jpg", "Terrenator",
+        "Turbo Wheels a diseñado el radio control más moderno…! T E R R A N A T O R! El coche más poderoso que ha existido, con tracción 4 X 4 y dos TURBO motores! Este si es todo terreno, las calles son fáciles… Méteofertas/terranator.jpg1000000.lo al lodo, parte la nieve, pasa por el agua! T E R R A N A T O R! Es el más potente que haya ex1000000.istido! O ofertas/terr1000000.anator.jpgque prefiere1000000.s un coche para niñita1000000.s?! T E R R E N A T O 1000000.R! De Fotorama."
         , 999.));
   }
   private static Oferta crearOferta(LocalDate date, Colaborador colab, String nombre, Rubro rubro, String img, String prod_name, String prod_desc, Double costo){
