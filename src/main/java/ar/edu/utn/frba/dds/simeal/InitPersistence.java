@@ -92,14 +92,11 @@ public class InitPersistence {
     Permiso getHeladera = new Permiso("heladera", TipoMetodoHttp.GET);
     Permiso getHeladeraEspecifico = new Permiso("/heladera/(?!suscribirse/).*",
         TipoMetodoHttp.GET);
-    Permiso postHeladera = new Permiso("/heladera/(?!suscribirse/).*",
-        TipoMetodoHttp.POST);
 
-    Permiso getSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
-        TipoMetodoHttp.GET);
-    Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
-        TipoMetodoHttp.GET);
+    Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+", TipoMetodoHttp.POST);
+    Permiso getSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+", TipoMetodoHttp.GET);
     Permiso getSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.GET);
+    Permiso getMisSuscripciones = new Permiso("/suscripciones", TipoMetodoHttp.GET);
     Permiso deleteSuscripciones = new Permiso("/suscripcion/\\d+", TipoMetodoHttp.DELETE);
 
     Permiso getRecomendacion = new Permiso("/recomendacion", TipoMetodoHttp.GET);
@@ -124,15 +121,15 @@ public class InitPersistence {
     // Crear roles
     List<Permiso> permisosHumano = List.of(
         getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
-        getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
-        getHeladeras, getOfertas, getOferta, getOfertaCanjes, getSuscripciones, deleteSuscripciones,
+        getHeladera, getHeladeraEspecifico, postSuscribirHeladera, getSuscribirHeladera, postSuscribirHeladera,
+        getHeladeras, getOfertas, getOferta, getOfertaCanjes, getSuscripciones, getMisSuscripciones, deleteSuscripciones,
         getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
         getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
     );
     Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
     List<Permiso> permisosJuridico = List.of(
-        getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
+        getHome, getHeladera, postSuscribirHeladera, postDonarDinero, getColaboraciones,
         getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
         getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
         getConfiguracionColaboraciones, postConfiguracionColaboraciones
@@ -144,8 +141,8 @@ public class InitPersistence {
         getFormularios, getFormulario, postFormularios, postPregunta,
         deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
         postDonarDinero,
-        getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
-        getOferta, getOfertas, getOfertaCanjes, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
+        getHeladeraEspecifico, getHeladera, getHeladeras, postSuscribirHeladera, getSuscribirHeladera,
+        getOferta, getOfertas, getOfertaCanjes, postSuscribirHeladera, getSuscripciones, getMisSuscripciones, deleteSuscripciones,
         getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
     );
     Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);

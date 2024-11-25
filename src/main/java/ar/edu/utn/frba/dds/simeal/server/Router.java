@@ -38,7 +38,7 @@ public class Router {
     app.get("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::editarFormulario);
     app.post("formulario/{formulario_id}/pregunta", ServiceLocator.getController(FormularioController.class)::crearPregunta);
     app.post("formulario/{formulario_id}/pregunta/{pregunta_id}", ServiceLocator.getController(FormularioController.class)::borrarPregunta);
-    app.post("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
+    app.delete("formulario/{formulario_id}", ServiceLocator.getController(FormularioController.class)::borrarFormulario);
 
    // ***************  Tecnicos  ***************
     app.get("tecnico", ServiceLocator.getController(TecnicoController.class)::index);
