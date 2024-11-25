@@ -14,8 +14,9 @@
         </div>
     </div>
     <div class="form-group-reporte">
-        <form id="miFormulario" method="POST" action="/heladera/reportar/{{heladera.id}}">
-        <label for="fallo" style="margin-left: 0;">Descripción del fallo</label>
+        <form id="miFormulario" method="POST" action="/heladera/reportar/{{heladera.id}}" enctype="multipart/form-data">
+
+            <label for="fallo" style="margin-left: 0;">Descripción del fallo</label>
         <input name="descripcion" type="text" class="form-control mb-2" id="fallo" placeholder="Descripción">
         <label for="img" style="margin-left: 0;">Imagen</label>
         <input name="imagen" type="file" class="form-control custom-file-imput mb-1" id="img" placeholder="Inserte una imagen">
@@ -42,6 +43,14 @@
         if (descripcion === '' || imagen === '') {
             event.preventDefault(); // Evita que el formulario se envíe
             mensajeError.textContent = 'Por favor, completa todos los campos.';
+        } else {
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+            });
         }
     });
+
+
 </script>

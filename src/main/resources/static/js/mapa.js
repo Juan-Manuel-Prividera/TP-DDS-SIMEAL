@@ -85,8 +85,10 @@ function agregarHeladera(heladera,map){
     // Evento para que cuando se clickee sobre una heladera muestre sus datos en el formulario de seleccion
     marker.on('click', function(){
         document.getElementById("nombre_heladera").value = heladera.nombre
+        if (document.getElementById("id_heladera")) {
+            document.getElementById("id_heladera").value = heladera.id
+        }
         document.getElementById("ubicacion_heladera").value = heladera.nombreCalle + " " + heladera.altura
-        document.getElementById("id_heladera").value = heladera.id
     })
 
 }

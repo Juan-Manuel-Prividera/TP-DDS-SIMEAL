@@ -4,6 +4,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import lombok.*;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
 
@@ -28,6 +29,9 @@ public class EncargoTecnico extends Persistente {
 
   @Column(name = "visitas_hechas")
   private int visitasHechas;
+
+  @Column(name = "imagen")
+  private String imagen;
 
   public void incrementVisitasHechas() {
     visitasHechas++;

@@ -7,6 +7,7 @@
 
     <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" class="form-group"
     style="display: flex; flex-direction: column; justify-content: center; align-items: start; margin-left: 0; width: 80%"
+    enctype="multipart/form-data"
     >
     <!-- Campo de Descripción -->
         <label for="descripcion" style="margin-left: 0;">Descripción del Incidente:</label>
@@ -24,9 +25,20 @@
 
     <!-- Campo de Imagen (Opcional) -->
         <label for="imagen" style="margin-left: 0;">Imagen (opcional):</label>
-        <input type="file" id="imagen" name="imagen" style="width: 100%;" class="form-control" accept="image/*">
+        <input type="file" id="imagen" name="imagen" style="width: 100%;" class="form-control">
 
         <!-- Botón de Envío -->
         <button type="submit" class="btn btn-success w-70">Registrar Visita</button>
     </form>
 </div>
+
+<script>
+    // document.getElementById('registroVisitaForm').addEventListener('submit', function(event) {
+    //     event.preventDefault();
+    //     const formData = new FormData(this);
+    //     fetch(this.action, {
+    //         method: 'POST',
+    //         body: formData,
+    //     })
+    // });
+</script>

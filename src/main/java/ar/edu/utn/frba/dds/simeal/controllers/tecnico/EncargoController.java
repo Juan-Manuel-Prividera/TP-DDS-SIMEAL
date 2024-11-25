@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers.tecnico;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.EncargoTecnico;
+import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.FallaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.incidentes.Incidente;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.Tecnico;
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Ubicacion;
@@ -30,6 +31,10 @@ public class EncargoController {
       .incidente(incidente)
       .aceptado(null) // Trato el null como 'Pendiente'
       .build();
+
+    if (incidente instanceof FallaTecnica) {
+      encargoTecnico.setImagen(((FallaTecnica) incidente).getImagen());
+    }
 
     repoEncargo.guardar(encargoTecnico);
   }

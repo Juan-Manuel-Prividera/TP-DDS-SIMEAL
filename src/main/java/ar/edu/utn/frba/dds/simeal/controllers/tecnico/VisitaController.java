@@ -9,7 +9,11 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
+import io.javalin.http.UploadedFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,11 +34,9 @@ public class VisitaController {
   // Este index es como el home del tecnico asi que tambien tiene los encargos
   // Podria verse de acomodar de otra forma las cosas pero de momento queda
   public void index(Context ctx) {
-    Logger.debug("Home Tecnico");
     HashMap<String, Object> model = new HashMap<>();
     Boolean failed = Boolean.parseBoolean(ctx.queryParam("failed"));
     String action = ctx.queryParam("action");
-    Logger.debug("Failed: " + failed);
 
     setModel(model, ctx);
     setVisitasEncargos(model,ctx);
@@ -85,41 +87,50 @@ public class VisitaController {
   // POST /{encargo_id}/visita
   public void registrar(Context ctx) {
     HashMap<String, Object> model = new HashMap<>();
-    setModel(model, ctx);
-    model.put("encargo_id",ctx.pathParam("encargo_id"));
+    try {
+      setModel(model, ctx);
+      model.put("encargo_id", ctx.pathParam("encargo_id"));
 
-    EncargoTecnico encargo = (EncargoTecnico) encargoTecnicoRepostiry
-      .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
-    Logger.debug("Se comienza a registrar una visita al encargo de id: " + ctx.pathParam("encargo_id"));
-    VisitaTecnica visitaTecnica = VisitaTecnica.builder()
-      .descripcion(ctx.formParam("descripcion"))
-      .exitosa(Boolean.valueOf(ctx.formParam("exitosa")))
-      .fechaHora(LocalDateTime.parse(ctx.formParam("fechaHora")))
-      .imagen(ctx.formParam("imagen"))
-      .heladera(encargo.getIncidente().getHeladera())
-      .tecnico(encargo.getTecnico())
-      .build();
+      EncargoTecnico encargo = (EncargoTecnico) encargoTecnicoRepostiry
+        .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")), EncargoTecnico.class);
+      Logger.debug("Se comienza a registrar una visita al encargo de id: " + ctx.pathParam("encargo_id"));
+      VisitaTecnica visitaTecnica = VisitaTecnica.builder()
+        .descripcion(ctx.formParam("descripcion"))
+        .exitosa(Boolean.valueOf(ctx.formParam("exitosa")))
+        .fechaHora(LocalDateTime.parse(ctx.formParam("fechaHora")))
+        .imagen(saveImage(ctx))
+        .heladera(encargo.getIncidente().getHeladera())
+        .tecnico(encargo.getTecnico())
+        .build();
 
-    if (visitaTecnica.getExitosa()) {
-      Logger.debug("La visita fue exitosa => Se desactiva el encargo");
+      if (visitaTecnica.getExitosa()) {
+        Logger.debug("La visita fue exitosa => Se desactiva el encargo");
 
-      // Si la visita fue exitosa cumplio el encargo entonces lo desactivo
-      encargoTecnicoRepostiry.desactivar(encargo);
-      // Y la heladera ya estaria reparada asi que la activamos
-      encargo.getIncidente().getHeladera().activar();
+        // Si la visita fue exitosa cumplio el encargo entonces lo desactivo
+        encargoTecnicoRepostiry.desactivar(encargo);
+        // Y la heladera ya estaria reparada asi que la activamos
+        encargo.getIncidente().getHeladera().activar();
+      }
+
+      encargo.incrementVisitasHechas();
+      encargoTecnicoRepostiry.actualizar(encargo);
+      encargoTecnicoRepostiry.refresh(encargo);
+      repositorio.actualizar(encargo.getIncidente().getHeladera());
+
+      model.put("popup_title", "Visita registrada");
+      model.put("popup_message", "Visita registrada correctamente");
+      model.put("popup_ruta", "/tecnico/home");
+      model.put("popup_button", "Volver al inicio");
+      visitaTecnicaRepository.guardar(visitaTecnica);
+      ctx.render("tecnico/registro_visita.hbs", model);
+    } catch (Exception e) {
+      model.put("popup_title", "Error al registrar visita");
+      model.put("popup_message", "No se pudo registrar la visita");
+      model.put("popup_ruta", "/tecnico/home");
+      model.put("popup_button", "Volver al inicio");
+
+      ctx.render("tecnico/registro_visita.hbs", model);
     }
-
-    encargo.incrementVisitasHechas();
-    encargoTecnicoRepostiry.actualizar(encargo);
-    encargoTecnicoRepostiry.refresh(encargo);
-    repositorio.actualizar(encargo.getIncidente().getHeladera());
-
-    model.put("popup_title", "Visita registrada");
-    model.put("popup_message", "Visita registrada correctamente");
-    model.put("popup_ruta", "/tecnico/home");
-    model.put("popup_button", "Volver al inicio");
-    visitaTecnicaRepository.guardar(visitaTecnica);
-    ctx.render("tecnico/registro_visita.hbs", model);
   }
 
   private void setModel(HashMap<String, Object> model, Context ctx) {
@@ -153,5 +164,43 @@ public class VisitaController {
     app.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
     app.header("Pragma", "no-cache");
     app.header("Expires", "0");
+  }
+
+
+  private String saveImage(Context ctx){
+    UploadedFile uploadedFile = ctx.uploadedFile("imagen");
+
+
+    if (uploadedFile == null) {
+      Logger.error("No se recibió ningún archivo");
+      return null;
+    }
+
+    // Validar el tipo de archivo (opcional)
+//    if (!uploadedFile.contentType().startsWith("image/")) {
+//      Logger.error("El archivo no es una imagen válida");
+//      return null;
+//    }
+
+    // Crear el directorio de destino si no existe
+    String uploadDir = "src/main/resources/static/img/visitas/";
+    File directory = new File(uploadDir);
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
+
+
+    // Guardar el archivo
+    File file = new File(uploadDir + uploadedFile.filename());
+    try (FileOutputStream fos = new FileOutputStream(file)) {
+      fos.write(uploadedFile.content().readAllBytes());
+    } catch (IOException e) {
+      Logger.error("Error al guardar el archivo - %s", e);
+      return null;
+    }
+
+    String path = "/img/visitas/" + uploadedFile.filename();
+    Logger.info("Se guardo el archivo correctamente");
+    return path;
   }
 }

@@ -8,6 +8,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.suscripciones.eventos.TipoEven
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Setter
 @Table(name = "vianda")
 public class Vianda extends Persistente {
   @Column(name = "tipo_comida")

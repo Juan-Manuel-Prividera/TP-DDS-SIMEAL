@@ -15,6 +15,7 @@ public class EncargoTecnicoDTO {
   private String ubicacionHeladera;
   private String aceptado;
   private String fechaHora;
+  private String imagen;
 
   public EncargoTecnicoDTO(EncargoTecnico encargo) {
     this.id = encargo.getId();
@@ -26,5 +27,6 @@ public class EncargoTecnicoDTO {
     else this.aceptado = "Rechazado";
 
     this.fechaHora = encargo.getIncidente().getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    this.imagen = encargo.getImagen();
   }
 }

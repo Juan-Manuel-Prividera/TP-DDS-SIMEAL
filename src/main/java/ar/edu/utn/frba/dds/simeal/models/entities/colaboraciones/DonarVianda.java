@@ -26,6 +26,7 @@ public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   private LocalDate fechaDeRealizacion;
 
   @OneToOne(cascade = CascadeType.PERSIST)
+  @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   @JoinColumn(name = "vianda_id", referencedColumnName = "id")
   private Vianda vianda;
 

@@ -46,6 +46,8 @@ public class SuscripcionController {
     Colaborador colaborador = (Colaborador) repositorio
       .buscarPorId(ctx.sessionAttribute("colaborador_id"), Colaborador.class);
 
+    List<Suscripcion> suscripciones = suscripcionesRepository.buscarPor(colaborador);
+
     Boolean checkViandasInsuficientes = Objects.equals(ctx.formParam("checkViandasInsuficientes"), "true");
     Boolean checkMuchasViandas = Objects.equals(ctx.formParam("checkMuchasViandas"), "true");
     Boolean checkDesperfecto = Objects.equals(ctx.formParam("checkDesperfecto"), "true");
@@ -58,7 +60,14 @@ public class SuscripcionController {
         .cantidadViandasCriticas(Integer.parseInt(ctx.formParam("cantViandasInsuficientes")))
         .notificacion(new QuedanPocasViandas())
         .build();
+      for (Suscripcion s : suscripciones){
+        if (s.getNotificacion() instanceof QuedanPocasViandas) {
+          suscripcionesRepository.desactivar(s);
+        }
+      }
       suscripcionesRepository.guardar(suscripcion);
+
+
     }
     if (checkMuchasViandas){
       Suscripcion suscripcion = Suscripcion.builder()
@@ -68,6 +77,11 @@ public class SuscripcionController {
         .cantidadViandasCriticas(Integer.parseInt(ctx.formParam("cantMuchasViandas")))
         .notificacion(new HayMuchasViandas())
         .build();
+      for (Suscripcion s : suscripciones){
+        if (s.getNotificacion() instanceof HayMuchasViandas) {
+          suscripcionesRepository.desactivar(s);
+        }
+      }
       suscripcionesRepository.guardar(suscripcion);
     }
     if (checkDesperfecto) {
@@ -77,8 +91,17 @@ public class SuscripcionController {
         .cercaniaNecesaria(1000)
         .notificacion(new HuboUnDesperfecto())
         .build();
+
+      for (Suscripcion s : suscripciones){
+        if (s.getNotificacion() instanceof HuboUnDesperfecto) {
+          suscripcionesRepository.desactivar(s);
+        }
+      }
       suscripcionesRepository.guardar(suscripcion);
     }
+
+
+    ctx.redirect("/heladera/suscribirse/" + heladera.getId());
 
     HashMap<String, Object> model = new HashMap<>();
     model.put("popup_title", "Suscripto!");
@@ -113,7 +136,6 @@ public class SuscripcionController {
         .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")), Suscripcion.class);
       suscripcionesRepository.desactivar(suscripcion);
       suscripcionesRepository.refresh(suscripcion);
-      //ctx.redirect("/suscripciones?success=true");
       ctx.status(200);
     } catch (Exception e) {
       ctx.status(500);

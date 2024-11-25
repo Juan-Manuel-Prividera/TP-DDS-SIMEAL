@@ -18,7 +18,9 @@ public class RecomendacionUbicacionController {
   }
   public void index(Context ctx) {
     List<Ubicacion> ubicacionesRecomendadas = List.of(
-      (Ubicacion) repositorio.buscarPorId(143L, Ubicacion.class)
+      (Ubicacion) repositorio.buscarPorId(86L, Ubicacion.class),
+    (Ubicacion) repositorio.buscarPorId(87L, Ubicacion.class),
+    (Ubicacion) repositorio.buscarPorId(88L, Ubicacion.class)
     );
     List<UbicacionDTO> ubicaciones = new ArrayList<>();
     for(Ubicacion ubicacion : ubicacionesRecomendadas) {

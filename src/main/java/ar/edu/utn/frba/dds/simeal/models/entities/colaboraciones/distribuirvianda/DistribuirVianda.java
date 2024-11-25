@@ -5,10 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.Colaborador;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -20,6 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 @Getter
 @Entity
+@Setter
 @Table(name = "distribuir_vianda")
 public class DistribuirVianda extends Persistente implements ColaboracionPuntuable {
   @ManyToOne @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
@@ -48,6 +46,8 @@ public class DistribuirVianda extends Persistente implements ColaboracionPuntuab
   @Transient
   private final double factorDeReconocimiento = 1;
 
+  @Column(name = "realizada")
+  private boolean realizada;
 
   public static DistribuirVianda create(Colaborador colaborador,
                                         LocalDate fechaDeRealizacion, int cantidadViandasMover) {
@@ -59,9 +59,7 @@ public class DistribuirVianda extends Persistente implements ColaboracionPuntuab
     distribuirVianda.getColaborador()
         .sumarPuntosReconocimiento(distribuirVianda.calcularReconocimientoParcial());
 
-
     return distribuirVianda;
-
   }
 
   @Override

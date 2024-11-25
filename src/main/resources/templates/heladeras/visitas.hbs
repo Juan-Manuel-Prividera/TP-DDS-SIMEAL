@@ -9,12 +9,12 @@
                         <strong>{{this.nombreHeladera}}</strong><br>
                         <small>{{this.fechaHora}}</small><br>
                         <p><strong>Exitosa:</strong> {{#if this.exitosa}}Sí{{else}}No{{/if}}</p>
-                            <!--                        {{#if this.imagen}}-->
-                        <!--                            <img src="{{this.imagen}}" alt="Imagen de visita" class="img-fluid mt-2" style="max-width: 200px;">-->
-                            <!--                        {{/if}}-->
-                        <!-- Descripción desplegable -->
                         <div id="descripcion-{{@index}}" class="mt-2" style="display: none;">
                             <p>{{this.descripcion}}</p>
+
+                            {{#if this.imagen}}
+                                <img src="{{this.imagen}}" alt="Imagen de visita" class="img-fluid mt-2" style="max-width: 200px;">
+                            {{/if}}
                         </div>
                     </div>
                 </li>
@@ -28,7 +28,10 @@
 
 <script>
     function toggleDescripcion(index) {
+        console.log(`Buscando elemento con id descripcion-${index}`);
         const descripcionElement = document.getElementById(`descripcion-${index}`);
+        console.log("id :" + index)
+        console.log(descripcionElement)
         descripcionElement.style.display = descripcionElement.style.display === 'none' ? 'block' : 'none';
     }
 </script>

@@ -197,13 +197,15 @@ public class TarjetasController {
     List<SolicitudOperacionDTO> solicitudesDTOs = new ArrayList<>();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM  HH:mm:ss");
     for (SolicitudOperacionHeladera solicitud : solicitudes) {
-      solicitudesDTOs.add(
-        SolicitudOperacionDTO.builder()
-          .nombre(solicitud.getHeladera().getNombre())
-          .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
-          .horaFin(dateTimeFormatter.format(solicitud.getHoraDeRealizacion().plusHours(solicitud.getHorasParaEjecutarse())))
-          .build()
-      );
+      if(solicitud.getActivo()) {
+        solicitudesDTOs.add(
+          SolicitudOperacionDTO.builder()
+            .nombre(solicitud.getHeladera().getNombre())
+            .ubicacion(solicitud.getHeladera().getUbicacion().getStringUbi())
+            .horaFin(dateTimeFormatter.format(solicitud.getHoraDeRealizacion().plusHours(solicitud.getHorasParaEjecutarse())))
+            .build()
+        );
+      }
     }
     model.put("solicitudes", solicitudesDTOs);
   }

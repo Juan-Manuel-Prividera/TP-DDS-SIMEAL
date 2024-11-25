@@ -1,9 +1,13 @@
 package ar.edu.utn.frba.dds.simeal.controllers.heladera;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DonarVianda;
+import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirvianda.DistribuirVianda;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.Heladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.SolicitudOperacionHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.operacionHeladera.TipoOperacion;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
+import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SolicitudOperacionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.TarjetaColaboradorRepository;
@@ -19,6 +23,7 @@ public class SolicitudHeladeraController {
   private final Repositorio repositorio;
   private final TarjetaColaboradorRepository tarjetaColaboradorRepository;
   private final  SolicitudOperacionRepository solicitudOperacionRepository;
+
   public SolicitudHeladeraController(Repositorio repositorio, TarjetaColaboradorRepository tarjetaColaboradorRepository, SolicitudOperacionRepository solicitudOperacionRepository) {
     this.repositorio = repositorio;
     this.solicitudOperacionRepository = solicitudOperacionRepository;
@@ -52,12 +57,16 @@ public class SolicitudHeladeraController {
 
       SolicitudOperacionHeladera solicitudOperacionHeladera = SolicitudOperacionHeladera.builder()
         .tipoOperacion(TipoOperacion.valueOf(ctx.formParam("tipoOperacion")))
-        .heladera(buscarHeladeraPorNombre(ctx.formParam("heladera")))
+        .heladera((Heladera) repositorio.buscarPorId(Long.valueOf(ctx.formParam("id_heladera")), Heladera.class))
         .horaSolicitud(LocalDateTime.now())
         .horaDeRealizacion(LocalDateTime.parse(ctx.formParam("horario")))
         .cantViandas(Integer.valueOf(ctx.formParam("cantidadViandas")))
         .tarjetaColaborador(tarjetaColaborador)
         .build();
+
+      if (!tieneCosasParaHacer(tarjetaColaborador, solicitudOperacionHeladera.getTipoOperacion(), solicitudOperacionHeladera.getHeladera())) {
+        throw new Exception("No tiene nada que hacer en las heladeras :(");
+      }
 
       List<SolicitudOperacionHeladera> solicitudesExistentes = solicitudOperacionRepository.getPorTarjetaColaborador(tarjetaId);
       for (SolicitudOperacionHeladera s : solicitudesExistentes) {
@@ -67,6 +76,7 @@ public class SolicitudHeladeraController {
           throw new RuntimeException("Se quizo realizar una solicitud ya existente");
         }
       }
+
       MQTTPublisherSolicitudes.realizarSolicitud(solicitudOperacionHeladera);
       repositorio.guardar(solicitudOperacionHeladera);
       ctx.redirect("/solicitud/" + tarjetaId + "/?failed=false&action=create");
@@ -74,24 +84,43 @@ public class SolicitudHeladeraController {
       ctx.redirect("/solicitud/" + tarjetaId + "/?failed=true&action=create");
     }
   }
-  // TODO: Buscar forma de hacerlo por ID
-  private Heladera buscarHeladeraPorNombre(String heladeraNombre) {
-    List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
-    for (Heladera h : heladeras) {
-      if (h.getNombre().equals(heladeraNombre)) {
-        return h;
-      }
-    }
-    return null;
-  }
+
 
   private void setNavBar(HashMap<String, Object> model, Context ctx) {
     model.put("tarjetas", "seleccionado");
     model.put("user_type", ctx.sessionAttribute("user_type").toString().toLowerCase());
+
     if (ctx.sessionAttribute("user_type") == "HUMANO")
       model.put("esHumano","true");
 
     model.put("tarjeta_personal_id", ctx.pathParam("tarjeta_personal_id"));
-    model.put("username", ctx.sessionAttribute("username"));
+    model.put("username", ctx.sessionAttribute("user_name"));
+  }
+
+  private boolean tieneCosasParaHacer(TarjetaColaborador tarjetaColaborador, TipoOperacion tipoOperacion, Heladera heladera) {
+    ColaboracionRepository colaboracionRepository = (ColaboracionRepository) ServiceLocator
+      .getRepository(ColaboracionRepository.class);
+
+    List<DonarVianda> donacionesViandas = (List<DonarVianda>) colaboracionRepository
+      .getPorColaborador(tarjetaColaborador.getColaborador().getId(), DonarVianda.class);
+    List<DistribuirVianda> distribucionVianda = (List<DistribuirVianda>) colaboracionRepository
+      .getPorColaborador(tarjetaColaborador.getColaborador().getId(), DistribuirVianda.class);
+
+    for (DonarVianda d : donacionesViandas) {
+      if (d.getActivo() && !d.getVianda().getEntregada() && tipoOperacion.equals(TipoOperacion.INGRESO)) {
+        return true;
+      }
+    }
+
+    for (DistribuirVianda d : distribucionVianda) {
+      if (d.getActivo() && d.getOrigen().getId().equals(heladera.getId()) && tipoOperacion.equals(TipoOperacion.RETIRO)) {
+        return true;
+      }
+      if (d.getActivo() && d.getDestino().getId().equals(heladera.getId()) && tipoOperacion.equals(TipoOperacion.INGRESO)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

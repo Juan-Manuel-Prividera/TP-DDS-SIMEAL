@@ -51,6 +51,7 @@ public class DistribuirViandaController {
                 .motivo(motivo)
                 .colaborador(colaborador)
                 .fechaDeRealizacion(LocalDate.now())
+                .realizada(false)
                 .build();
 
         Vianda viandaADistribuir;
