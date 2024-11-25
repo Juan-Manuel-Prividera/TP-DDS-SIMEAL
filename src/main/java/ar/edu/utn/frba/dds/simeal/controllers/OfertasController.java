@@ -297,6 +297,9 @@ public class OfertasController {
     double ptsColab = calcularPts(ctx);
     Logger.debug("Puntos del colaborador: " + ptsColab);
     model.put("ptsColab", ptsColab);
+    ctx.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    ctx.header("Pragma", "no-cache");
+    ctx.header("Expires", "0");
   }
 
   //Setea los rubros almacenados en bd
