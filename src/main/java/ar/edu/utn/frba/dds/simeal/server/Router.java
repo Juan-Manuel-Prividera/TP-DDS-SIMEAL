@@ -99,7 +99,7 @@ public class Router {
 
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);
 
-
+    // **************** Localidades *****************
     app.get("localidades", ServiceLocator.getController(UbicacionController.class)::getLocalidades);
 
     // **************** Usuarios *****************

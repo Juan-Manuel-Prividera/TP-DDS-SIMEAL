@@ -105,38 +105,50 @@ public class InitPersistence {
         Permiso getRecomendacion = new Permiso("/recomendacion", TipoMetodoHttp.GET);
 
         Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
-        Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
-        Permiso getOferta = new Permiso("oferta/\\d+", TipoMetodoHttp.GET);
 
-        Permiso getTecnico = new Permiso("/tecnico", TipoMetodoHttp.GET);
-        Permiso postTecnico = new Permiso("/tecnico", TipoMetodoHttp.POST);
-        Permiso getRegistroTecnico = new Permiso("/registro/tecnico", TipoMetodoHttp.GET);
-        Permiso deleteTecnicos = new Permiso("tecnico/\\d+", TipoMetodoHttp.DELETE);
+    // PERMISOS OFERTAS (all)
+    Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
+    Permiso getOferta = new Permiso("ofertas/\\d+", TipoMetodoHttp.GET);
 
-        Permiso getEncargoAceptado = new Permiso("encargo/\\d+/aceptado", TipoMetodoHttp.GET);
-        Permiso getEncargoRechazado = new Permiso("encargo/\\d+/rechazado", TipoMetodoHttp.GET);
+    // PERMISOS OFERTAS (humano)
+    Permiso getComprarOferta = new Permiso("ofertas/comprar", TipoMetodoHttp.GET);
+    Permiso getOfertaCanjes = new Permiso("ofertas/misCanjes", TipoMetodoHttp.GET);
 
-        Permiso getTecnicoHome = new Permiso("/tecnico/home", TipoMetodoHttp.GET);
-        Permiso getEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.GET);
-        Permiso postEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.POST);
+    // PERMISOS OFERTAS (juridico)
+    Permiso getMisOfertas = new Permiso("ofertas/misOfertas", TipoMetodoHttp.GET);
+    Permiso getMiOferta = new Permiso("ofertas/misOfertas/\\d+", TipoMetodoHttp.GET);
+    Permiso getPublicarOferta = new Permiso("ofertas/misOfertas/publicar", TipoMetodoHttp.GET);
+    Permiso getModificarOferta = new Permiso("ofertas/misOfertas/\\d+/modificar", TipoMetodoHttp.GET);
 
-        // Crear roles
-        List<Permiso> permisosHumano = List.of(
-                getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
-                getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
-                getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
-                getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-                getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
-          );
-        Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
+    Permiso getTecnico = new Permiso("/tecnico", TipoMetodoHttp.GET);
+    Permiso postTecnico = new Permiso("/tecnico", TipoMetodoHttp.POST);
+    Permiso getRegistroTecnico = new Permiso("/registro/tecnico", TipoMetodoHttp.GET);
+    Permiso deleteTecnicos = new Permiso("tecnico/\\d+", TipoMetodoHttp.DELETE);
 
-        List<Permiso> permisosJuridico = List.of(
-                getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
-                getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
-                getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
-                getConfiguracionColaboraciones, postConfiguracionColaboraciones
-        );
-        Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
+    Permiso getEncargoAceptado = new Permiso("encargo/\\d+/aceptado", TipoMetodoHttp.GET);
+    Permiso getEncargoRechazado = new Permiso("encargo/\\d+/rechazado", TipoMetodoHttp.GET);
+
+    Permiso getTecnicoHome = new Permiso("/tecnico/home", TipoMetodoHttp.GET);
+    Permiso getEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.GET);
+    Permiso postEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.POST);
+
+    // Crear roles
+    List<Permiso> permisosHumano = List.of(
+        getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
+        getHeladera, getHeladeraEspecifico, postHeladera, postSuscribirHeladera, getSuscribirHeladera, postSuscribirHeladera,
+        getHeladeras, getOfertas, getOferta, getComprarOferta, getOfertaCanjes, getSuscripciones, deleteSuscripciones,
+        getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
+        getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
+    );
+    Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
+
+    List<Permiso> permisosJuridico = List.of(
+        getHome, getHeladera, postHeladera, postSuscribirHeladera, postDonarDinero, getColaboraciones,
+        getHeladeras, getOfertas, getOferta, getMisOfertas, getMiOferta, getPublicarOferta, getModificarOferta, getDonarDinero, postDonarDinero,
+        getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
+        getConfiguracionColaboraciones, postConfiguracionColaboraciones
+    );
+    Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
 
         List<Permiso> permisosAdmin = List.of(
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
@@ -478,27 +490,11 @@ public class InitPersistence {
             ServiceLocator.getRepository(Repositorio.class).guardar(l);
         }
 
-      Ubicacion u1 = new Ubicacion("Bogotá", 305, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1424, localidades.get(14));
-      Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405,localidades.get(14));
-      Ubicacion u2 = new Ubicacion("Leonardo Rosales", 1652,Provincia.Buenos_Aires, 1846,localidades.get(9));
-
-      ServiceLocator.getRepository(Repositorio.class).guardar(u1);
-      ServiceLocator.getRepository(Repositorio.class).guardar(u2);
-      ServiceLocator.getRepository(Repositorio.class).guardar(u3);
-    }
-
-
-    private static void ignorarEstaFuncion(int day, Colaborador colaborador, Repositorio repositorio, Rubro rubro) {
-        Producto producto = new Producto("nombre", "Descripción");
-        repositorio.guardar(producto);
-
-        Oferta oferta = Oferta.create(colaborador,
-                "Pollo del:" + Integer.valueOf(day).toString(),
-                LocalDate.of(2024, 1, day),
-          day+10,
-                rubro,
-                null,
-                producto);
-        repositorio.guardar(oferta);
-    }
+    Ubicacion u1 = new Ubicacion("Av. Acoyte", 467, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1405, localidades.get(18));
+    Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405,localidades.get(18));
+    Ubicacion u2 =  new Ubicacion("Franklin", 629,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405, localidades.get(18));
+    ServiceLocator.getRepository(Repositorio.class).guardar(u1);
+    ServiceLocator.getRepository(Repositorio.class).guardar(u2);
+    ServiceLocator.getRepository(Repositorio.class).guardar(u3);
+  }
 }
