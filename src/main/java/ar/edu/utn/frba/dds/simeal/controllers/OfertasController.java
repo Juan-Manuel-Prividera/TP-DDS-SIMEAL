@@ -100,9 +100,6 @@ public class OfertasController {
 
     setOferta(model,app);
 
-    //TODO: SACAR ESTO
-    model.put("directorio", "../");
-
     app.render("ofertas/oferta_selected.hbs", model);
   }
 
@@ -135,14 +132,14 @@ public class OfertasController {
     HashMap<String, Object> model = new HashMap<>();
 
     if(app.queryParam("error") != null){
-    if(app.queryParam("error") == "true"){
-     model.put("popup_title", "Publicación Confirmada");
-     model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
-   }
-    else if(app.queryParam("error") == "false"){
-     model.put("popup_title", "ERROR");
-     model.put("popup_message", "No se pudo realizan la publicación");
-    }
+      if(app.queryParam("error") == "true"){
+       model.put("popup_title", "Publicación Confirmada");
+       model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
+     }
+      else if(app.queryParam("error") == "false"){
+       model.put("popup_title", "ERROR");
+       model.put("popup_message", "No se pudo realizan la publicación");
+      }
     }
 
     setNavBar(model,app);
@@ -251,7 +248,6 @@ public class OfertasController {
   private void setNavBar(HashMap<String, Object> model, Context ctx) {
     if(ctx.sessionAttribute("user_type").equals("HUMANO"))
       model.put("esHumano", "true");
-    //TODO: Esta bien esto? O tambien puede ser admin?
     else
       model.put("esJuridico", "true");
 
@@ -271,7 +267,6 @@ public class OfertasController {
 
   //Setea la oferta que seleccionó el usuario
   private void setOferta(HashMap<String, Object> model, Context ctx) throws NotFoundException {
-    //TODO: NO USAR PATHPARAMS
     try{
       Long id = Long.valueOf(ctx.pathParam("oferta_id"));
     }catch (NumberFormatException e){
@@ -357,7 +352,6 @@ public class OfertasController {
 // ************************************************************
 
 
-  //TODO: HACER TODO EN UN MISMO MÉTODO
   private List<OfertaDTO> converToDTO(List<Oferta> ofertas){
     List<OfertaDTO> ofertasDTO = new ArrayList<>();
     for(Oferta oferta : ofertas){
