@@ -1,5 +1,5 @@
 {{> templates/navbar}}
-{{#if popup_message}}
+{{#if popup_title}}
     {{> templates/popup}}
 {{/if}}
 <body>
@@ -15,7 +15,7 @@
                 <a onclick="mostrarInput('inputInsuficientes')" >
                     <button type="button" class="btn btn-dark"> Haya Viandas Insuficientes</button>
                 </a>
-                <input name="checkViandasInsuficientes" id="check-viandas-insuficientes" type="checkbox" value="true" />
+                <input name="checkViandasInsuficientes" id="check-viandas-insuficientes" type="checkbox" value="true" style="height: 4.5vh;" />
                 </div>
                 <div class="input-suscripcion" id="inputInsuficientes" style="display: none;">
                     <input name="cantViandasInsuficientes" type="number" placeholder="Introduce la cantidad" />
@@ -26,7 +26,7 @@
                     <a onclick="mostrarInput('inputMuchas')">
                         <button type="button" class="btn btn-dark">Haya Muchas Viandas</button>
                     </a>
-                    <input name="checkMuchasViandas" id="check-muchas-viandas" type="checkbox" value="true" />
+                    <input name="checkMuchasViandas" id="check-muchas-viandas" type="checkbox" value="true"  style="height: 4.5vh;"/>
                 </div>
                 <div class="input-suscripcion" id="inputMuchas" style="display: none;">
                     <input  name="cantMuchasViandas" type="number" placeholder="Introduce la cantidad" />
@@ -37,7 +37,7 @@
                     <a>
                         <button type="button" class="btn btn-dark">Ocurra un Desperfecto</button>
                     </a>
-                    <input name="checkDesperfecto" id="check-desperfecto" type="checkbox" value="true" />
+                    <input name="checkDesperfecto" id="check-desperfecto" type="checkbox" value="true"  style="height: 4.5vh;"/>
                 </div>
             </div>
             <a class="a-btn">

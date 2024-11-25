@@ -232,6 +232,7 @@ public class FormularioController {
     for (Formulario f : formularios) {
       if (f.getRol().equals(formulario.getRol()) && !f.getNombre().equals(formulario.getNombre())) {
         f.setEnUso(false);
+        repositorio.actualizar(f);
       }
     }
   }

@@ -3,7 +3,7 @@
     <div id="overlayContent">
         <h6 class="black-text">Suscripción eliminada</h6>
         <p class="black-text">Suscripción eliminada correctamente.</p>
-        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('/suscripciones')">
+        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay()">
             Ok
         </button>
     </div>
@@ -14,12 +14,13 @@
         }
 
         // Function to hide the overlay
-        function hideOverlay(ruta) {
+        function hideOverlay() {
             document.getElementById("overlay").classList.remove("show");
-            if (ruta != null) {
-                window.location.href = ruta;
-            }
+            // if (ruta != null) {
+            //     window.location.href = ruta;
+            // }
         }
+
     </script>
 </div>
 <div class="container-suprem-suscripciones">

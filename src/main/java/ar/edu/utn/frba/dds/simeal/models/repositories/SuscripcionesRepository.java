@@ -13,7 +13,7 @@ public class SuscripcionesRepository extends Repositorio {
    List<Suscripcion> suscripciones = new ArrayList<>();
    beginTransaction();
    suscripciones = entityManager()
-     .createQuery("FROM " + Suscripcion.class.getName() + " WHERE heladera_id = :id")
+     .createQuery("FROM " + Suscripcion.class.getName() + " WHERE heladera_id = :id AND activo = true")
      .setParameter("id", heladera.getId())
      .getResultList();
    commitTransaction();
@@ -24,7 +24,7 @@ public class SuscripcionesRepository extends Repositorio {
     List<Suscripcion> suscripciones = new ArrayList<>();
     beginTransaction();
     suscripciones = entityManager()
-      .createQuery("FROM " + Suscripcion.class.getName() + " WHERE suscriptor_id = :id")
+      .createQuery("FROM " + Suscripcion.class.getName() + " WHERE suscriptor_id = :id AND activo = true")
       .setParameter("id", colaborador.getId())
       .getResultList();
     commitTransaction();
