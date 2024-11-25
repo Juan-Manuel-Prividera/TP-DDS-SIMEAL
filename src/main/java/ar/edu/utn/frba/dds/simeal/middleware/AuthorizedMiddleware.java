@@ -26,7 +26,7 @@ public class AuthorizedMiddleware {
             new Permiso("/localidades.*", TipoMetodoHttp.GET),
             new Permiso("/suscripciones", TipoMetodoHttp.GET),
             new Permiso("/suscripcion/\\d+", TipoMetodoHttp.DELETE),
-            new Permiso("/formulario/\\d+", TipoMetodoHttp.DELETE)
+            new Permiso("/formulario/\\d+", TipoMetodoHttp.DELETE),
     };
 
     public static boolean isOpenEndpoint(String input, TipoMetodoHttp metodo) {
