@@ -107,6 +107,7 @@ public class InitPersistence {
     Permiso getHeladeras = new Permiso("heladeras", TipoMetodoHttp.GET);
     Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
     Permiso getOferta = new Permiso("ofertas/\\d+", TipoMetodoHttp.GET);
+    Permiso getOfertaCanjes = new Permiso("ofertas/misCanjes", TipoMetodoHttp.GET);
 
     Permiso getTecnico = new Permiso("/tecnico", TipoMetodoHttp.GET);
     Permiso postTecnico = new Permiso("/tecnico", TipoMetodoHttp.POST);
@@ -124,7 +125,7 @@ public class InitPersistence {
     List<Permiso> permisosHumano = List.of(
         getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
         getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
-        getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
+        getHeladeras, getOfertas, getOferta, getOfertaCanjes, getSuscripciones, deleteSuscripciones,
         getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
         getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
     );
@@ -144,7 +145,7 @@ public class InitPersistence {
         deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
         postDonarDinero,
         getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
-        getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
+        getOferta, getOfertas, getOfertaCanjes, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
         getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
     );
     Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
@@ -359,7 +360,7 @@ public class InitPersistence {
     modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "La Patagonia Argentina", rubro3, "/img/ofertas/patagonia.jpg", "La Patagonia, Territorio Argentino",
         "Útil para sembrar y criar ganado", 200000.));
     modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Programador JAVA Backend Jr.", rubro3, "/img/ofertas/programador_contento.jpg", "Programador JAVA Backend Jr.", "Programador sin experiencia buscando incursionar en el mundo laboral en una empresa desafiante que le permita ganar experiencia y enriquecer su red de contactos.", 45.));
-    modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Misil termonuclear", rubro1, "/img/ofertas/misil.jgp", "Misil termonuclear",
+    modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Misil termonuclear", rubro1, "/img/ofertas/misil.jpg", "Misil termonuclear",
         "Misil termonuclear traído directo desde China", 1000000.));
     modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "TERRANATOR!!!!!", rubro1,"/img/ofertas/terranator.jpg", "Terrenator",
         "Turbo Wheels a diseñado el radio control más moderno…! T E R R A N A T O R! El coche más poderoso que ha existido, con tracción 4 X 4 y dos TURBO motores! Este si es todo terreno, las calles son fáciles… Méteofertas/terranator.jpg1000000.lo al lodo, parte la nieve, pasa por el agua! T E R R A N A T O R! Es el más potente que haya ex1000000.istido! O ofertas/terr1000000.anator.jpgque prefiere1000000.s un coche para niñita1000000.s?! T E R R E N A T O 1000000.R! De Fotorama."
