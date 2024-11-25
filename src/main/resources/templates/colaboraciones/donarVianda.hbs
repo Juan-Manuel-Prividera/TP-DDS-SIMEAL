@@ -32,12 +32,21 @@
             <label for="calorias">Calorías</label>
             <input id="calorias" name="calorias" type="number" class="form-control mb-5" placeholder="10000" required>
 
-            <!-- Botón de aceptación -->
-            <button class="btn btn-success rounded" type="submit">Aceptar</button>
-            <a class="btn btn-danger rounded" href="/colaboraciones">Cancelar</a>
+            <div id="botones">
+                <button class="btn btn-success rounded mb-2" type="submit">Aceptar</button>
+                <!--<a class="btn btn-danger rounded mb-2" href="/colaboraciones">Cancelar</a>-->
+            </div>
         </form>
     </div>
 </div>
+
+<style>
+    #botones{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 
 <!-- Scripts para el mapa -->
 <script type="module" src="/js/mapa.js"></script>

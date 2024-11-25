@@ -1,137 +1,26 @@
-
-<!-- *** DESDE ACÁ LA NAVBAR *** -->
-<!-- Por qué la copie y pegué en vez de importarla?? porque la navbar incluye aprox. mil archivos css y es imposible
-    arreglar el front si t0do el tiempo estoy viendo propiedades fantasmas que salen de archivos re oscuros importados por la navbar -->
+{{> templates/navbar_plain}}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{titulo}}</title>
-    <link rel="stylesheet" href="/css/navbar-style.css">
     <link rel="stylesheet" href="/css/mapa.css">
     <link rel="stylesheet" href="/css/containers.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/tarjetas.css">
-    <link rel="stylesheet" href="/css/heladeras.css">
-    <link rel="stylesheet" href="/css/formulario.css">
-    <link rel="stylesheet" href="/css/cargacolabs.css">
-    <link rel="stylesheet" href="/css/home.css">
-    <!--<link rel="stylesheet" href="/css/api.css">-->
-    <link rel="stylesheet" href="/css/distribuirViandas.css">
-    {{#if Ofertas}}
-        <link rel="stylesheet" href="/css/oferta.css">
-    {{/if}}
+        <link rel="stylesheet" href="/css/navbar-style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/tarjetas.css">
+        <link rel="stylesheet" href="/css/heladeras.css">
+        <link rel="stylesheet" href="/css/formulario.css">
+        <link rel="stylesheet" href="/css/cargacolabs.css">
+        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/distribuirViandas.css">
 </head>
 
 {{#if popup_message}}
     {{> templates/popup}}
 {{/if}}
 
-<body>
-<header>
-    <div class="container-fluid">
-        <div class="header-container">
-            {{#if esTecnico}}
-                <img src = "/img/heladera.png"
-                     alt="logo"
-                     id="heladera-img"
-                     class="logo mt-2 mb-2 ml-3 mr-3"
-                     onclick="window.location.href='/tecnico/home';">
-
-                <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
-
-                <div class="icon-text ml-auto" style="display: flex; align-items: center;">
-                    <a href="/logout">
-                        <button class = "btn btn-dark rounded" id="logout-btn" style="width: 100% !important;">Cerrar sesión</button>
-                    </a>
-
-                    <span class="m-3 mb-4">{{username}}</span>
-                    <i class="bi bi-person mr-3"></i>
-                </div>
-
-            {{else}}
-                <img src = "/img/heladera.png"
-                     alt="logo"
-                     id="heladera-img"
-                     class="logo mt-2 mb-2 ml-3 mr-3"
-                     onclick="window.location.href='/home';">
-
-                <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
-                <div class="icon-text ml-auto">
-                    <span class="m-3">{{username}}</span>
-                    <i class="bi bi-person mr-3"></i>
-                </div>
-            {{/if}}
-
-        </div>
-    </div>
-</header>
-</body>
-
-<div class="navbar-div">
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <!--                    Evalua como verdadero cualquier String no vacio, si es juridico enviar un String vacio :)-->
-                {{#if esAdmin}}
-                    <li class="nav-item mr-auto" id="tarjeta-btn">
-                        <a class="nav-link {{cargacsv}}" href="/migracion">Cargar CSV</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="reportes-btn">
-                        <a class="nav-link {{reporte}}" href="/reportes">Reportes</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="colaboracion-btn">
-                        <a class="nav-link {{cambiomodo}}" href="/cambiarmodo">Cambiar Modo</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="colaboracion-btn">
-                        <a class="nav-link {{formulario}}" href="/formularios">Formularios</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="colaboracion-btn">
-                        <a class="nav-link {{tecnico}}" href="/tecnico">Registrar Técnico</a>
-                    </li>
-                {{else}}
-                    {{#if esHumano}}
-                        <li class="nav-item mr-auto seleccionado" id="tarjeta-btn">
-                            <a class="nav-link {{tarjetas}}" href="/tarjeta">Tarjetas</a>
-                        </li>
-                    {{/if}}
-
-                    <li class="nav-item mr-auto" id="colaboracion-btn">
-                        <a class="nav-link {{colaboraciones}}" href="/colaboraciones">Colaboraciones</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="oferta-btn">
-                        <a class="nav-link {{ofertas}}" href="/ofertas">Ofertas</a>
-                    </li>
-                    <li class="nav-item mr-auto" id="heladera-btn">
-                        <a class="nav-link {{heladeras}}" href="/heladera">Heladeras</a>
-                    </li>
-                    {{#if esJuridico}}
-                        <li class="nav-item mr-auto seleccionado" id="tarjeta-btn">
-                            <a class="nav-link {{recomendacion}}" href="/recomendacion">Recomendaciones</a>
-                        </li>
-                    {{/if}}
-                {{/if}}
-                <li class="nav-item mr-auto ml-auto">
-                    <a href="/logout">
-                        <button class = "btn btn-dark rounded" id="logout-btn">Cerrar sesión</button>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- *** HASTA ACÁ LA NAVBAR *** -->
-
-
-
-<div class="container">
+<div class="container mt-4">
     <div id="titulo-subtitulo">
         <h2>Distribuir Vianda</h2>
         <p>Indique la heladera origen y destino para la distribución.</p>
@@ -178,11 +67,16 @@
                 <option value="OTRO">Otro</option>
             </select>
 
-            <button type="submit" class="btn btn-dark rounded center">Siguiente</button>
+            <button type="submit" class="btn btn-success rounded center" id="boton-aceptar">Confirmar</button>
         </form>
     </div>
 </div>
 
+<style>
+    #boton-aceptar {
+        width: 40%;
+    }
+</style>
 
 <script type="module" src="/js/mapaDistribuirVianda.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>

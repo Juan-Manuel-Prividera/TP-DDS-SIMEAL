@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Colaboraciones</title>
+    <link rel="stylesheet" href="../css/navbar-style.css">
+    <link rel="stylesheet" href="../css/containers.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/historial.css">
+
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="header-container">
+            <img src="../img/heladera.png" class="logo mt-2 mb-2 ml-3 mr-3" alt="logo">
+            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
+            <div class="icon-text ml-auto">
+                <span class="m-3">Nombre de organizacion</span>
+                <i class="bi bi-person mr-3"></i>
+            </div>
+        </div>
+    </div>
+    <div class="navbar-div">
+        <nav class="navbar navbar-expand-lg navbar-custom">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item mr-auto" id="colaboracion-btn">
+                        <a class="nav-link seleccionado" href="j10.html">Colaboraciones</a>
+                    </li>
+                    <li class="nav-item mr-auto" id="oferta-btn">
+                        <a class="nav-link" href="j20.html">Ofertas</a>
+                    </li>
+                    <li class="nav-item mr-auto" id="heladera-btn">
+                        <a class="nav-link" href="j30.html">Heladeras</a>
+                    </li>
+                    <li class="nav-item mr-auto ml-auto">
+                        <a href="j00.html">
+                            <button class = "btn btn-dark rounded" id="return-home-btn">Volver al inicio</button>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container-supremo">
+    <div class="centered-full-container">
+        <h1>Historial de colaboraciones</h1>
+    </div>
+
+    <div class="alerta">
+        <div class="alerta-header">
+            Donacion de dinero el 14/06/2022 a las 13:00hs
+            <button class="detalle-btn" onclick="toggleDetalle('detalle2')">detalle</button>
+        </div>
+        <ul id="detalle2" class="detalle-info" style="display: none;">
+            <li>Tipo de colaboracion: Donacion de dinero</li>
+            <li>Fecha: 14 de Junio de 2022</li>
+            <li>Hora: 13:00hs</li>
+            <li>Monto: 5 pesos</li>
+            <li>Metodo de pago: Tarjeta de debito</li>
+        </ul>
+    </div>
+</div>
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <p>Lo que querramos poner</p>
+</footer>
+<script src="../js/historialDisplay.js"></script>
+</body>
+</html>

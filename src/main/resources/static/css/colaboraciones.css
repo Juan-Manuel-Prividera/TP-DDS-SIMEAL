@@ -115,7 +115,7 @@
     font-weight: bold;
     font-size: 4vw;
     line-height: 1.2;
-    text-shadow: 2px 2px 1px rgba(0,0,0,0.7); /* Sombra */
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.7); /* Sombra */
     }
 
 .colaborar-monto {

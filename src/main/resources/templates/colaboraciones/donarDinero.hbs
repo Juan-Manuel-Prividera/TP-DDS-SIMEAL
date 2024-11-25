@@ -1,11 +1,14 @@
+<head>
+    <link rel="stylesheet" href="/css/containers.css">
+</head>
 {{> templates/navbar_plain}}
 {{#if popup_message}}
     {{> templates/popup}}
 {{/if}}
 <div class="linear-container">
     <div class="form-donacion-dinero">
-        <form action="/colaboracion/donarDinero" method="POST">
-            <h3 class="mb-5 mt-5">Complete su donación</h3>
+        <form class="mt-3" action="/colaboracion/donarDinero" method="POST">
+            <h3 class="mb-2 mt-2">Complete su donación</h3>
 
             <!-- Campo para ingresar el monto de la donación -->
             <label for="monto">Monto</label>
@@ -20,8 +23,24 @@
             </select>
 
             <!-- Botón de aceptar -->
-            <button class="btn btn-success rounded" type="submit">Donar</button>
-            <a class="btn btn-danger rounded" href="/colaboraciones">Cancelar</a>
+
+            <div id="botones">
+                <button class="btn btn-success rounded mb-2" type="submit">Donar</button>
+                <a class="btn btn-danger rounded mb-2" href="/colaboraciones">Cancelar</a>
+            </div>
         </form>
     </div>
 </div>
+
+<style>
+    form{
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3); /* X, Y, blur, spread, and color */
+        padding: 10%;
+        border-radius: .5rem !important;
+    }
+
+    #botones{
+        display: flex;
+        flex-direction: column;
+    }
+</style>

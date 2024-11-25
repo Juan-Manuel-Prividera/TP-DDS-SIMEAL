@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Heladera</title>
+    <link rel="stylesheet" href="../css/navbar-style.css">
+    <link rel="stylesheet" href="../css/mapa.css">
+    <link rel="stylesheet" href="../css/containers.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/oferta.css">
+</head>
+<body>
+
+<header>
+    <div class="container-fluid">
+        <div class="header-container">
+            <img src="../img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
+            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
+            <a class="btn-dark-return ml-auto" href="j00.html">Página Principal</a>
+        </div>
+    </div>
+</header>
+
+<div class="container-general">
+    <h2 class="titulo"><strong>Agregar Oferta</strong></h2>
+    <form>
+        <div class="form-group">
+            <label for="rubro">*Rubro:</label>
+            <input type="text" class="form-control" id="rubro" placeholder="Rubros">
+        </div>
+        <div class="form-group">
+            <label for="puntos">*Puntos Requeridos:</label>
+            <input type="number" class="form-control" id="puntos" placeholder="xxxx">
+        </div>
+        <div class="form-group">
+            <label for="imagen">Cargar Imagen:</label>
+            <input type="file" class="form-control-file" id="imagen">
+        </div>
+        <div class="text-center">
+            <a type="submit" class="btn btn-success mt-3 mb-3" href="j20.html">Aceptar</a>
+            <a type="button" class="btn btn-danger" href="j20.html">Cancelar</a>
+        </div>
+    </form>
+</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

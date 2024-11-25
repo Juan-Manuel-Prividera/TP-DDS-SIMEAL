@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../css/registro.css">
+    <link rel="stylesheet" href="../css/containers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="header-container">
+            <img src = "../img/heladera.png" alt="logo" class="logo mt-2 mb-2 ml-3 mr-3">
+            <h1 class="titulo ml-2">Sistema de Mejora Alimentaria</h1>
+
+        </div>
+    </div>
+</header>
+<div class="container-supremo">
+    <h1>Registro</h1>
+    <form action="/signup" method="post" class="form-group" onsubmit="return validateFields()">
+        <label for="nombre">*Nombre de la organización</label>
+        <input type="text" class="form-control mb-4" name="nombre" id="nombre" placeholder="Nombre" required>
+        <label for="apellido">*Razon social</label>
+        <input type="text" class="form-control mb-4" name="apellido" id="apellido" placeholder="Apellido" required>
+        <label for="rubro">*Rubro</label>
+        <select class="form-control mb-4" name="rubro" id="rubro">
+            <option value="" disabled selected hidden>...</option>
+            <option value="dni">Gastronomía</option>
+            <option value="pasaporte">Ingeniería</option>
+            <option value="libreta">Arte</option>
+        </select>
+        <label for="telefono">*Telefono</label>
+        <input type="tel" class="form-control mb-4" name="telefono" id="telefono" placeholder="Telefono" required>
+        <label for="direccion">Dirección</label>
+        <input type="text" class="form-control mb-4" name="direccion" id="direccion" placeholder="Dirección">
+        <label for="cp">Código Postal</label>
+        <input type="text" class="form-control mb-4" name="cp" id="cp" placeholder="Código Postal">
+
+        <div class="user-box">
+            <label for="password" class="form-label">*Contraseña</label>
+            <input type="password" placeholder="Contraseña" id="password" class="my-input form-control" required="">
+            <span class="password-toggle-icon" onclick="togglePw('password', this.querySelector('.password-toggle-icon i'))">
+                <i class="fas fa-eye-slash" ></i>
+            </span>
+        </div>
+
+        <div class="user-box">
+            <label for="passwordRepeat" class="form-label">*Repetir contraseña</label>
+            <input type="password" placeholder="Repetir contraseña" id="passwordRepeat" class="my-input form-control" required="">
+            <span class="password-toggle-icon" onclick="togglePw('passwordRepeat', this.querySelector('.password-toggle-icon i'))">
+                <i class="fas fa-eye-slash"></i>
+            </span>
+        </div>
+
+        <div class="terminos-condiciones">
+            <input type="checkbox" id="terminos-checkbox">
+            <a href="google.com">Acepto los <u> terminos y condiciones</u></a>
+        </div>
+
+        <button class="btn btn-dark" type="submit">Registrarse</button>
+
+    </form>
+
+</div>
+
+<script src="js/ocultarContraseña.js"></script>
+<script src="../js/validateFields.js"></script>
+</body>
+</html>
