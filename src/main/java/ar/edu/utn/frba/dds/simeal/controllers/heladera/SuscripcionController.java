@@ -79,7 +79,12 @@ public class SuscripcionController {
         .build();
       suscripcionesRepository.guardar(suscripcion);
     }
-    ctx.redirect("/heladera/suscribirse/" + heladera.getId());
+
+    HashMap<String, Object> model = new HashMap<>();
+    model.put("popup_title", "Suscripto!");
+    model.put("popup_message", "Suscripción exitosa");
+
+    ctx.render("/heladeras/suscripcion_heladera.hbs", model);
   }
 
   public void buscarSuscripciones(Context ctx) {
@@ -94,6 +99,9 @@ public class SuscripcionController {
     }
     model.put("colaborador_id", colaborador.getId());
     model.put("suscripciones", suscripcionesDTO);
+    ctx.header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    ctx.header("Pragma", "no-cache");
+    ctx.header("Expires", "0");
     ctx.render("/heladeras/suscripciones.hbs",model);
   }
 
@@ -105,6 +113,7 @@ public class SuscripcionController {
         .buscarPorId(Long.valueOf(ctx.pathParam("suscripcion_id")), Suscripcion.class);
       suscripcionesRepository.desactivar(suscripcion);
       suscripcionesRepository.refresh(suscripcion);
+      //ctx.redirect("/suscripciones?success=true");
       ctx.status(200);
     } catch (Exception e) {
       ctx.status(500);

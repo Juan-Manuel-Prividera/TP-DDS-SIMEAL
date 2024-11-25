@@ -19,7 +19,6 @@ public class AuthenticatedMiddleware {
             new Permiso("/heladeras", TipoMetodoHttp.GET),
             new Permiso(".*\\.(css|jpg|png|js|map|gif|ico)", TipoMetodoHttp.GET),
             new Permiso("/localidades.*", TipoMetodoHttp.GET),
-            new Permiso("/suscripciones", TipoMetodoHttp.GET),
     };
 
     public static boolean isOpenEndpoint(String input, TipoMetodoHttp metodo) {

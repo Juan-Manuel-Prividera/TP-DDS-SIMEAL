@@ -1,4 +1,27 @@
 {{> templates/navbar}}
+<div id="overlay">
+    <div id="overlayContent">
+        <h6 class="black-text">Suscripción eliminada</h6>
+        <p class="black-text">Suscripción eliminada correctamente.</p>
+        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('/suscripciones')">
+            Ok
+        </button>
+    </div>
+    <script>
+        // Function to show the overlay
+        function showOverlay() {
+            document.getElementById("overlay").classList.add("show");
+        }
+
+        // Function to hide the overlay
+        function hideOverlay(ruta) {
+            document.getElementById("overlay").classList.remove("show");
+            if (ruta != null) {
+                window.location.href = ruta;
+            }
+        }
+    </script>
+</div>
 <div class="container-suprem-suscripciones">
     <h1 class="mt-4">Suscripciones de Colaborador</h1>
 
@@ -38,10 +61,16 @@
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log("se respondio 200 ok")
-                        document.getElementById(`subscription-${subscriptionId}`).remove();
-                        console.log(`Suscripción con ID ${subscriptionId} eliminada.`);
-                        location.reload()
+                        function showOverlay() {
+                            document.getElementById("overlay").classList.add("show");
+                        }
+                        function hideOverlay(ruta) {
+                            document.getElementById("overlay").classList.remove("show");
+                            if (ruta != null) {
+                                window.location.href = ruta;
+                            }
+                        }
+                        showOverlay();
                     } else {
                         alert('Error al eliminar la suscripción.');
                     }
