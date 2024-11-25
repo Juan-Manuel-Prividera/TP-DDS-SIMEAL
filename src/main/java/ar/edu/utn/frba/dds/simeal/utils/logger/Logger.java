@@ -1,5 +1,8 @@
 package ar.edu.utn.frba.dds.simeal.utils.logger;
 
+import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -72,6 +75,11 @@ public class Logger {
   }
 
   private static void log(LogType type, String format, Object... args) {
+    ConfigReader configReader = new ConfigReader();
+
+    LogType currentLogLevel = LogType.valueOf(configReader.getProperty("logger.level"));
+    if(!shoudWrite(currentLogLevel, type)) return;
+
     LocalTime currentTime = LocalTime.now();
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -110,5 +118,17 @@ public class Logger {
       throw new RuntimeException(e);
     }
 
+  }
+
+  private static boolean shoudWrite(LogType level, LogType type){
+    switch(level){
+      case TRACE: return true;
+      case DEBUG: return !type.equals(LogType.TRACE);
+      case INFO: return !(type.equals(LogType.DEBUG) || type.equals(LogType.TRACE));
+      case WARN: return !(type.equals(LogType.DEBUG) || type.equals(LogType.TRACE) || type.equals(LogType.INFO));
+      case ERROR: return (type.equals(LogType.ERROR) || type.equals(LogType.FATAL));
+      case FATAL: return type.equals(LogType.FATAL);
+      default: return false;
+    }
   }
 }

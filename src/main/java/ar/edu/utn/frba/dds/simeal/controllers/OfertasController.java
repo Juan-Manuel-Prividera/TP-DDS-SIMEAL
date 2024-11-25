@@ -84,10 +84,13 @@ public class OfertasController {
       repositorio.guardar(canje);
       repositorio.actualizar(colaborador); //Actualizo los puntos del colaborador
       DDMetricsUtils.getInstance().getOfertasCanjeadas().incrementAndGet();
-      app.status(400);
+      Logger.info("Colaborador: %s - compró: %s", colaboradorId, ofertaId);
+      app.status(400).result("Compra realizada correctamente");
     }
-    else
-      app.status(404);
+    else {
+      Logger.warn("Colaborador: %s - no pudo comprar: %s", colaboradorId, ofertaId);
+      app.status(404).result("Compra rechazada exitosamente");
+    }
   }
 
 

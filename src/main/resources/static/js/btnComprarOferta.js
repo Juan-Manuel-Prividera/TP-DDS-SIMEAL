@@ -14,8 +14,10 @@ document.getElementById("confirmarBtn").addEventListener("click", function() {
         .then(response => {
             if (response.status === 400) {
                 window.location.href = "/ofertas?confirmacionCompra=true";  // Redirigir al cliente
-            } else {
+            } else if (response.status === 404){
                 window.location.href = "/ofertas?confirmacionCompra=false";  // Redirigir al cliente
+            } else{
+                window.location.href = "/";
             }
         })
         .catch(error => console.error("Error en la solicitud:", error));
