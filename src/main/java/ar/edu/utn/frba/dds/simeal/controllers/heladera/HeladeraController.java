@@ -15,8 +15,6 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
-import ar.edu.utn.frba.dds.simeal.models.usuario.Permiso;
-import ar.edu.utn.frba.dds.simeal.models.usuario.TipoMetodoHttp;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;

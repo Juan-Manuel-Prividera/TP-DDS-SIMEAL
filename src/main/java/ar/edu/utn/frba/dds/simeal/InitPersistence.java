@@ -32,9 +32,7 @@ import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 
-import java.security.Provider;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,7 +227,7 @@ public class InitPersistence {
         colaboradorHumano.addContacto(contactoJuridico);
         repo.guardar(colaboradorJuridico);
 
-        Contacto contactoTecnico = new Contacto("tpauza@gmail.com", new Email(EnviadorDeMails.getInstancia()));
+        Contacto contactoTecnico = new Contacto("jmprividera@gmail.com", new Email(EnviadorDeMails.getInstancia()));
         AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
           new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179, localidad), 10000.0);
         Tecnico tecnico = new Tecnico("Tomas", "Pauza",
@@ -348,25 +346,66 @@ public class InitPersistence {
 
     }
 
-    //TODO: Agregar las imagenes
     private static void initOfertas(){
         Repositorio modeloRepo = ServiceLocator.getRepository(OfertaRepository.class);
         Repositorio repoColaborador = ServiceLocator.getRepository(ColaboracionRepository.class);
         Repositorio repoRubro = ServiceLocator.getRepository(Repositorio.class);
-
         Colaborador colaborador= new Colaborador(
                 new Documento(TipoDocumento.DNI, "666"),
                 "Mr. Ofertas", "Monopoly");
-
         repoColaborador.guardar(colaborador);
-
         Rubro rubro = new Rubro("Alimentos");
         repoRubro.guardar(rubro);
-        Rubro rubro1 = new Rubro("Pollo en escabeche", rubro);
+        Rubro rubro1 = new Rubro("Juguetes");
         repoRubro.guardar(rubro1);
+        Rubro rubro2 = new Rubro("Otros");
+        repoRubro.guardar(rubro2);
+        Rubro rubro3 = new Rubro("Empresas");
+        repoRubro.guardar(rubro3);
 
 
+        // Day, Colaborador, Nombre, Rubro, Img, Nombre_prod, Desc_prod, costo)
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Güater", rubro, "/img/ofertas/agua.jpg", "Botella de agua",
+                "Este agua fue producida por los mejores ingenieros que el continente puede ofrecer, por eso está tan cara", 9999.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Asado con los pibes", rubro, "/img/ofertas/asado.jpg", "Asado",
+                "Un buen asado con los amigos de la vida, para disfrutar bien acompañado", 100.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Oveja - v1", rubro2, "/img/ofertas/oveja_blanca.jpg", "oveja_maicra",
+                "Si compras dos y cultivas un poco de trigo tenes ovejas infinitas", 100.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Oveja - v2", rubro2, "/img/ofertas/oveja_negra.jpg", "oveja_maicra",
+                "Un muy buen chiste fue desperdiciado, solo digo eso...", 100.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Simeal SRL", rubro3, "/img/ofertas/simeal.jpg", "Simeal SRL",
+                "Adquiriendo este producto será capaz de tomar completo control de la organización Simeal SRL, la cual cuanta con un total de 3 (tres) empleados infinitamente capaces", 100000000.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Pizza con piña \uD83D\uDC80 \uD83D\uDC80", rubro, "/img/ofertas/pizza.jpg", "\"Pizza\"",
+                "Considerado como un manjar por muchas personas", 0.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Titulo en Ingeniería", rubro2, "/img/ofertas/diploma.jpg", "Diploma de la UTN",
+                "Con esta compra llevas: Angustia, depresión y ansiedad social", 1000.));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Oracio", rubro3, "/img/ofertas/oracio.jpg", "Oracio", "Oracio.", 237.0));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "5min de caricias a la bebe", rubro2, "/img/ofertas/maga.jpg", "5m de caricias a la bebe", "La reina (maga) se va a dejar acariciar por un total de 5 minutos.", 180.));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "La Patagonia Argentina", rubro3, "/img/ofertas/patagonia.jpg", "La Patagonia, Territorio Argentino",
+                "Útil para sembrar y criar ganado", 200000.));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Programador JAVA Backend Jr.", rubro3, "/img/ofertas/programador_contento.jpg", "Programador JAVA Backend Jr.", "Programador sin experiencia buscando incursionar en el mundo laboral en una empresa desafiante que le permita ganar experiencia y enriquecer su red de contactos.", 45.));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "Misil termonuclear", rubro1, "/img/ofertas/misil.jpg", "Misil termonuclear",
+                "Misil termonuclear traído directo desde China", 1000000.));
+        modeloRepo.guardar(crearOferta(LocalDate.now(), colaborador, "TERRANATOR!!!!!", rubro1,"/img/ofertas/terranator.jpg", "Terrenator",
+                "Turbo Wheels a diseñado el radio control más moderno…! T E R R A N A T O R! El coche más poderoso que ha existido, con tracción 4 X 4 y dos TURBO motores! Este si es todo terreno, las calles son fáciles… Méteofertas/terranator.jpg1000000.lo al lodo, parte la nieve, pasa por el agua! T E R R A N A T O R! Es el más potente que haya ex1000000.istido! O ofertas/terr1000000.anator.jpgque prefiere1000000.s un coche para niñita1000000.s?! T E R R E N A T O 1000000.R! De Fotorama."
+                , 999.));
     }
+
+    private static Oferta crearOferta(LocalDate date, Colaborador colab, String nombre, Rubro rubro, String img, String prod_name, String prod_desc, Double costo){
+        Repositorio prodRepository = ServiceLocator.getRepository(Repositorio.class);
+        Producto prod = new Producto(prod_name, prod_desc);
+        prodRepository.guardar(prod);
+        return Oferta.create(
+                colab,
+                nombre,
+                date,
+                costo,
+                rubro,
+                img,
+                prod
+        );
+    }
+
     private static void initUbicacionesRecomendadas() {
         List<Localidad> localidades = new ArrayList<>();
         localidades.add(new Localidad("La Plata", Provincia.Buenos_Aires));

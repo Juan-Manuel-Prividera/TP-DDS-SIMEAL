@@ -16,7 +16,6 @@ import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import com.mysql.cj.log.Log;
 import io.javalin.http.Context;
 import io.javalin.http.UploadedFile;
 
@@ -202,9 +201,21 @@ public class OfertasController {
 
   public void modificar(Context app){
     HashMap<String, Object> model = new HashMap<>();
+
+    if(app.queryParam("error") != null){
+    if(app.queryParam("error") == "true"){
+      model.put("popup_title", "Cambios Realizados");
+      model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
+    }
+    else if(app.queryParam("error") == "false"){
+      model.put("popup_title", "ERROR");
+      model.put("popup_message", "No se pudo actualizar la publicación");
+    }
+    }
     model.put("ofertaId", app.pathParam("oferta_id")); //Para setter la url del post del form
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
+
 
   public void updateOferta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
@@ -371,8 +382,7 @@ public class OfertasController {
     }
 
     // Crear el directorio de destino si no existe
-    //TODO: Cambiar path
-    String uploadDir = "src/main/resources/static/img/ofertas/";
+    String uploadDir = "src/main/resources/dinamic/img/ofertas/";
     File directory = new File(uploadDir);
     if (!directory.exists()) {
       directory.mkdirs();
@@ -388,7 +398,6 @@ public class OfertasController {
       return null;
     }
 
-    //TODO: Cambiar tambien acá
     String path = "/img/ofertas/" + uploadedFile.filename();
     Logger.info("Se guardo el archivo correctamente");
     return path;

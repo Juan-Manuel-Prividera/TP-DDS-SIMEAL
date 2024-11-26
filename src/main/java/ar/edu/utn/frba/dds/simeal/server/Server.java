@@ -55,6 +55,13 @@ public class Server {
         staticFiles.hostedPath = "/";
         staticFiles.directory = "/static";
       });
+
+      config.staticFiles.add(staticFiles -> {
+        staticFiles.hostedPath = "/";
+        staticFiles.directory = "src/main/resources/dinamic";
+        staticFiles.location = Location.EXTERNAL;
+      });
+
       final var metricsUtils = DDMetricsUtils.getInstance();
       final var registry = metricsUtils.getRegistry();
 

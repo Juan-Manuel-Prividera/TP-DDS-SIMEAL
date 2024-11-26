@@ -6,8 +6,6 @@ import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedExce
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.Javalin;
 
-import java.util.regex.Pattern;
-
 // Middlewares are like questions, this' question is: are you authenticated?
 public class AuthenticatedMiddleware {
     private static final Permiso[] openEndpoints = new Permiso[]{
