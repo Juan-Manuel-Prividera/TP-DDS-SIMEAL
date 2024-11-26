@@ -71,7 +71,6 @@ public class VisitaController {
     HashMap<String, Object> model = new HashMap<>();
     EncargoTecnico encargo = (EncargoTecnico) encargoTecnicoRepostiry
       .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
-
     invalidarCacheNavegador(ctx);
     setModel(model, ctx);
     setVisitasEncargos(model,ctx);

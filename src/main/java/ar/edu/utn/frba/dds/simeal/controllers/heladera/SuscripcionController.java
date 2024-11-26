@@ -61,14 +61,18 @@ public class SuscripcionController {
         .notificacion(new QuedanPocasViandas())
         .build();
       for (Suscripcion s : suscripciones){
-        if (s.getNotificacion() instanceof QuedanPocasViandas) {
+        if (s.getActivo() &&
+          s.getNotificacion() instanceof QuedanPocasViandas &&
+          s.getHeladera().getId().equals(heladera.getId()))
+        {
           suscripcionesRepository.desactivar(s);
+          suscripcionesRepository.refresh(s);
         }
       }
       suscripcionesRepository.guardar(suscripcion);
-
-
+      suscripcionesRepository.refresh(suscripcion);
     }
+
     if (checkMuchasViandas){
       Suscripcion suscripcion = Suscripcion.builder()
         .suscriptor(colaborador)
@@ -78,12 +82,18 @@ public class SuscripcionController {
         .notificacion(new HayMuchasViandas())
         .build();
       for (Suscripcion s : suscripciones){
-        if (s.getNotificacion() instanceof HayMuchasViandas) {
+        if (s.getActivo() &&
+          s.getNotificacion() instanceof HayMuchasViandas &&
+          s.getHeladera().getId().equals(heladera.getId()))
+        {
           suscripcionesRepository.desactivar(s);
+          suscripcionesRepository.refresh(s);
         }
       }
       suscripcionesRepository.guardar(suscripcion);
+      suscripcionesRepository.refresh(suscripcion);
     }
+
     if (checkDesperfecto) {
       Suscripcion suscripcion = Suscripcion.builder()
         .suscriptor(colaborador)
@@ -93,15 +103,17 @@ public class SuscripcionController {
         .build();
 
       for (Suscripcion s : suscripciones){
-        if (s.getNotificacion() instanceof HuboUnDesperfecto) {
+        if (s.getActivo() &&
+          s.getNotificacion() instanceof HuboUnDesperfecto &&
+          s.getHeladera().getId().equals(heladera.getId()))
+        {
           suscripcionesRepository.desactivar(s);
+          suscripcionesRepository.refresh(s);
         }
       }
       suscripcionesRepository.guardar(suscripcion);
+      suscripcionesRepository.refresh(suscripcion);
     }
-
-
-    ctx.redirect("/heladera/suscribirse/" + heladera.getId());
 
     HashMap<String, Object> model = new HashMap<>();
     model.put("popup_title", "Suscripto!");

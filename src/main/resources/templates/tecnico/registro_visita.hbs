@@ -6,7 +6,7 @@
     <h2 class="text-center mb-4">Registrar Visita Técnica</h2>
 
     <form id="registroVisitaForm" method="POST" action="/{{encargo_id}}/visita" class="form-group"
-    style="display: flex; flex-direction: column; justify-content: center; align-items: start; margin-left: 0; width: 80%"
+    style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-left: 0; width: 80%"
     enctype="multipart/form-data"
     >
     <!-- Campo de Descripción -->
@@ -28,7 +28,7 @@
         <input type="file" id="imagen" name="imagen" style="width: 100%;" class="form-control">
 
         <!-- Botón de Envío -->
-        <button type="submit" class="btn btn-success w-70">Registrar Visita</button>
+        <button type="submit" class="btn btn-success w-70 mt-3">Registrar Visita</button>
     </form>
 </div>
 
@@ -41,4 +41,19 @@
     //         body: formData,
     //     })
     // });
+        // Obtén la fecha y hora actual
+        const now = new Date();
+
+        // Formatea la fecha y hora en el formato requerido por <input type="datetime-local">
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Mes empieza desde 0
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+
+        // Combina los valores en el formato esperado
+        const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+        // Asigna el valor al input
+        document.getElementById('fechaHora').value = formattedDateTime;
 </script>

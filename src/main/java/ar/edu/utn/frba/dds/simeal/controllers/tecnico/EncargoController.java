@@ -44,7 +44,7 @@ public class EncargoController {
     EncargoTecnico encargoTecnico = (EncargoTecnico) repoEncargo
       .buscarPorId(Long.valueOf(ctx.pathParam("encargo_id")),EncargoTecnico.class);
     invalidarCacheNavegador(ctx);
-    if (encargoTecnico.getAceptado() == null|| !encargoTecnico.getAceptado()) {
+    if (encargoTecnico.getAceptado() == null || !encargoTecnico.getAceptado()) {
       encargoTecnico.setAceptado(true);
       repoEncargo.actualizar(encargoTecnico);
       repoEncargo.refresh(encargoTecnico);

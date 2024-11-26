@@ -19,6 +19,7 @@ public class FormularioDTO {
   private String enUso;
   private String nombre;
   private String id;
+  private String fechaCreacion;
 
   public FormularioDTO(Formulario formulario) {
     preguntas = new ArrayList<>();
@@ -28,5 +29,6 @@ public class FormularioDTO {
     this.enUso = String.valueOf(formulario.getEnUso());
     this.nombre = formulario.getNombre();
     this.id = String.valueOf(formulario.getId());
+    this.fechaCreacion = formulario.getFechaAlta().toString();
   }
 }

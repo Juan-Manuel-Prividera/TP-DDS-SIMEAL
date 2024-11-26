@@ -15,7 +15,7 @@
             {{#each formularios}}
                 <li>
                     <a href="/formulario/{{this.id}}">{{this.nombre}}</a>
-                    <span> - Fecha Creación: {{this.fechaCreacion}}</span>
+                    <span> Fecha Creación {{this.fechaCreacion}}</span>
                     <button class="btn btn-danger ml-auto btn-sm" onclick="borrarFormulario({{this.id}})">Eliminar</button>
                 </li>
             {{/each}}

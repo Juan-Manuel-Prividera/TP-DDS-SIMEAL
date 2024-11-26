@@ -29,6 +29,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
 
 import java.security.Provider;
@@ -40,11 +41,17 @@ import java.util.List;
 // Este archivo mete en la BD algunos datos hardcodeados, como los tipos de roles, los formularios, etc...
 public class InitPersistence {
     public static void main(String[] args){
+        Logger.info("Iniciando carga de bd");
         initUbicacionesRecomendadas();
+        Logger.info("Ubicaciones cargadas");
         initPermisosRolesYUsuarios();
+        Logger.info("Roles y permisos cargados");
         initFormularios();
+        Logger.info("Formularios cargados");
         initHeladeras();
+        Logger.info("Heladeras cargadas");
         initOfertas();
+        Logger.info("Carga terminada :)");
     }
 
     private static void initPermisosRolesYUsuarios(){
@@ -98,9 +105,14 @@ public class InitPersistence {
         Permiso getSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
                 TipoMetodoHttp.GET);
         Permiso postSuscribirHeladera = new Permiso("/heladera/suscribirse/\\d+",
-                TipoMetodoHttp.GET);
+                TipoMetodoHttp.POST);
         Permiso getSuscripciones = new Permiso("/suscripciones/\\d+", TipoMetodoHttp.GET);
         Permiso deleteSuscripciones = new Permiso("/suscripcion/\\d+", TipoMetodoHttp.DELETE);
+
+        Permiso getVisitasHeladera = new Permiso("/heladera/visitas/\\d+", TipoMetodoHttp.GET);
+        Permiso getAlertasRecientes = new Permiso("/heladera/incidentes/\\d+", TipoMetodoHttp.GET);
+        Permiso getReportarFallo = new Permiso("/heladera/reportar/\\d+", TipoMetodoHttp.GET);
+        Permiso postReportarFallo = new Permiso("/heladera/reportar/\\d+", TipoMetodoHttp.POST);
 
         Permiso getRecomendacion = new Permiso("/recomendacion", TipoMetodoHttp.GET);
 
@@ -132,23 +144,27 @@ public class InitPersistence {
     Permiso getEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.GET);
     Permiso postEncargoVisita = new Permiso("/\\d+/visita", TipoMetodoHttp.POST);
 
-    // Crear roles
-    List<Permiso> permisosHumano = List.of(
-        getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
-        getHeladera, getHeladeraEspecifico, postHeladera, postSuscribirHeladera, getSuscribirHeladera, postSuscribirHeladera,
-        getHeladeras, getOfertas, getOferta, getComprarOferta, getOfertaCanjes, getSuscripciones, deleteSuscripciones,
-        getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
-        getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones, postConfiguracionColaboraciones
-    );
-    Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
-    List<Permiso> permisosJuridico = List.of(
-        getHome, getHeladera, postHeladera, postSuscribirHeladera, postDonarDinero, getColaboraciones,
-        getHeladeras, getOfertas, getOferta, getMisOfertas, getMiOferta, getPublicarOferta, getModificarOferta, getDonarDinero, postDonarDinero,
-        getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
-        getConfiguracionColaboraciones, postConfiguracionColaboraciones
-    );
-    Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
+        // Crear roles
+        List<Permiso> permisosHumano = List.of(
+                getHome, getTarjeta, getTarjetas, postTarjetas, postDonarDinero, getColaboraciones,
+                getHeladera, getHeladeraEspecifico, postHeladera, getSuscribirHeladera, postSuscribirHeladera,
+                getHeladeras, getOfertas, getOferta, getSuscripciones, deleteSuscripciones,
+                getSolicitud, postSolicitud, getDonarDinero, postDonarVianda, postDonarDinero, getDonarVianda,
+                getDistribucionVianda, postDistribucionVianda, getHistorialColaboraciones, getConfiguracionColaboraciones,
+                postConfiguracionColaboraciones, getAlertasRecientes, getReportarFallo, postReportarFallo,
+                getComprarOferta, getOfertaCanjes
+          );
+        Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
+
+        List<Permiso> permisosJuridico = List.of(
+                getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
+                getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
+                getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
+                getConfiguracionColaboraciones, postConfiguracionColaboraciones, getVisitasHeladera,
+                getAlertasRecientes, getReportarFallo, postReportarFallo, getMisOfertas, getMiOferta, getPublicarOferta, getModificarOferta
+        );
+        Rol juridico = new Rol(TipoRol.JURIDICO, permisosJuridico);
 
         List<Permiso> permisosAdmin = List.of(
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
@@ -490,11 +506,12 @@ public class InitPersistence {
             ServiceLocator.getRepository(Repositorio.class).guardar(l);
         }
 
-    Ubicacion u1 = new Ubicacion("Av. Acoyte", 467, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1405, localidades.get(18));
-    Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405,localidades.get(18));
-    Ubicacion u2 =  new Ubicacion("Franklin", 629,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405, localidades.get(18));
-    ServiceLocator.getRepository(Repositorio.class).guardar(u1);
-    ServiceLocator.getRepository(Repositorio.class).guardar(u2);
-    ServiceLocator.getRepository(Repositorio.class).guardar(u3);
-  }
+      Ubicacion u1 = new Ubicacion("Bogotá", 305, Provincia.Ciudad_Autonoma_De_Buenos_Aires,1424, localidades.get(14));
+      Ubicacion u3 = new Ubicacion("Otamendi", 477,Provincia.Ciudad_Autonoma_De_Buenos_Aires, 1405,localidades.get(14));
+      Ubicacion u2 = new Ubicacion("Leonardo Rosales", 1652,Provincia.Buenos_Aires, 1846,localidades.get(9));
+
+      ServiceLocator.getRepository(Repositorio.class).guardar(u1);
+      ServiceLocator.getRepository(Repositorio.class).guardar(u2);
+      ServiceLocator.getRepository(Repositorio.class).guardar(u3);
+    }
 }

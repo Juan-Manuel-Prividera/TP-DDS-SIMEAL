@@ -19,6 +19,7 @@ public class AuthorizedMiddleware {
             new Permiso("/registro(/(humano|juridico))?", TipoMetodoHttp.GET),
             new Permiso("/user/create/(humano|juridico)", TipoMetodoHttp.POST),
             new Permiso("/heladeras", TipoMetodoHttp.GET),
+            new Permiso("/heladera/\\d+", TipoMetodoHttp.GET),
             new Permiso(".*\\.(css|jpg|png|js|map|gif|ico)", TipoMetodoHttp.GET),
             new Permiso("/localidades.*", TipoMetodoHttp.GET),
             new Permiso("/suscripciones", TipoMetodoHttp.GET),
