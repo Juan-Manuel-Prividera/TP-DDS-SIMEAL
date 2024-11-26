@@ -1,26 +1,28 @@
-<div id="overlay">
-    <div id="overlayContent">
-        <h6 class="black-text">{{popup_title}}</h6>
-        <p class="black-text">{{popup_message}}</p>
-        <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('{{popup_ruta}}')">
-            {{#if popup_button}}{{popup_button}}{{else}}Ok{{/if}}
-        </button>
-    </div>
-    <script>
-        // Function to show the overlay
-        function showOverlay() {
-            document.getElementById("overlay").classList.add("show");
-        }
-
-        // Function to hide the overlay
-        function hideOverlay(ruta) {
-            document.getElementById("overlay").classList.remove("show");
-            if (ruta != null) {
-                window.location.href = ruta;
+{{#if popup_title}}
+    <div id="overlay">
+        <div id="overlayContent">
+            <h6 class="black-text">{{popup_title}}</h6>
+            <p class="black-text">{{popup_message}}</p>
+            <button class="btn btn-dark my-button redondeado" onclick="hideOverlay('{{popup_ruta}}')">
+                {{#if popup_button}}{{popup_button}}{{else}}Ok{{/if}}
+            </button>
+        </div>
+        <script>
+            // Function to show the overlay
+            function showOverlay() {
+                document.getElementById("overlay").classList.add("show");
             }
-        }
 
-        // Show the overlay when the page loads
-        window.onload = showOverlay;
-    </script>
-</div>
+            // Function to hide the overlay
+            function hideOverlay(ruta) {
+                document.getElementById("overlay").classList.remove("show");
+                if (ruta != null) {
+                    window.location.href = ruta;
+                }
+            }
+
+            // Show the overlay when the page loads
+            window.onload = showOverlay;
+        </script>
+    </div>
+{{/if}}

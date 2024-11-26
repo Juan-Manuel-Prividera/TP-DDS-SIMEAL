@@ -9,10 +9,7 @@ import ar.edu.utn.frba.dds.simeal.models.usuario.Usuario;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthenticatedException;
 import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotAuthorizedException;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
-import com.mysql.cj.log.Log;
 import io.javalin.Javalin;
-
-import java.util.regex.Pattern;
 
 public class AuthorizedMiddleware {
     private static final Permiso[] openEndpoints = new Permiso[]{
@@ -29,7 +26,8 @@ public class AuthorizedMiddleware {
             new Permiso("/formulario/\\d+", TipoMetodoHttp.DELETE),
             new Permiso("/ofertas/comprar", TipoMetodoHttp.POST),
             new Permiso("/ofertas/misOfertas/publicar", TipoMetodoHttp.POST),
-             new Permiso("/ofertas/misOfertas/\\d+/modificar", TipoMetodoHttp.POST)
+            new Permiso("/ofertas/misOfertas/\\d+/modificar", TipoMetodoHttp.POST),
+            new Permiso("/ofertas/misOfertas/\\d+/modificar", TipoMetodoHttp.DELETE)
     };
 
     public static boolean isOpenEndpoint(String input, TipoMetodoHttp metodo) {

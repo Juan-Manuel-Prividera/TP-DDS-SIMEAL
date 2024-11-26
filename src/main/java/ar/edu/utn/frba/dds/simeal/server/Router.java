@@ -90,11 +90,12 @@ public class Router {
     app.get("ofertas/misCanjes", ServiceLocator.getController(OfertasController.class)::canjes);
     app.get("ofertas/misOfertas", ServiceLocator.getController(OfertasController.class)::selfOffers);
     app.get("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::publicar);
-    app.post("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::persistOferta);
+    app.post("ofertas/misOfertas/publicar", ServiceLocator.getController(OfertasController.class)::create);
     app.get("ofertas/misOfertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::selfOffersSelected);
     //TODO: Como checkear que oferta_id es una oferta suya?
     app.get("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::modificar);
     app.post("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::updateOferta);
+    app.delete("ofertas/misOfertas/{oferta_id}/modificar", ServiceLocator.getController(OfertasController.class)::deleteOferta);
     app.post("ofertas/comprar", ServiceLocator.getController(OfertasController.class)::comprar);
 
     app.get("ofertas/{oferta_id}", ServiceLocator.getController(OfertasController.class)::show);

@@ -12,6 +12,8 @@
 </head>
 <body>
 
+{{> templates/popup}}
+
 <header>
     <div class="container-fluid">
         <div class="header-container">
@@ -31,7 +33,7 @@
 
 </header>
 
-<div class="container-general">
+<div class="container-general" style="margin-top:0">
     {{#if popup_title}}
         {{> templates/popup}}
     {{/if}}
@@ -60,17 +62,16 @@
             <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" {{required}}>
 
             <label for="image">*Cargar Imagen</label>
-            <input type="file" class="form-control-file" name="imagen" accept="imagen/*" {{required}}>
-            <!--
-            <label for="imagen">*Cargar Imagen:</label>
-            <input type="file" class="form-control-file" name="imagen" {{required}}>
-            -->
+            <input type="file" class="form-control-file" style="width:auto" name="imagen" accept="imagen/*" {{required}}>
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-success mt-3 mb-3">Aceptar</button>
-            <a type="button" class="btn btn-danger" href="../">Cancelar</a>
+            <a type="button" class="btn btn-danger" href="/ofertas/misOfertas">Cancelar</a>
         </div>
     </form>
+    <div class="text-center">
+        <button class="btn dark-btn mt-3 mb-3" style="margin-top:30px" id="eliminar">Eliminar</button>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -78,13 +79,22 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    document.getElementById('miFormulario').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-        fetch(this.action, {
-            method: 'POST',
-            body: formData,
-        })
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('eliminar').addEventListener('click', function () {
+            fetch("/ofertas/misOfertas/{{ofertaId}}/modificar", {
+                method: "DELETE"
+            })
+                .then(response => {
+                    if (response.status === 400) {
+                        window.location.href = "/ofertas/misOfertas?deleted=true";  // Redirigir al cliente
+                    } else if (response.status === 404) {
+                        window.location.href = "/ofertas/misOfertas?deleted=false";  // Redirigir al cliente
+                    } else {
+                        window.location.href = "/";
+                    }
+                })
+                .catch(error => console.error("Error en la solicitud:", error));
+        });
     });
 </script>
 </body>

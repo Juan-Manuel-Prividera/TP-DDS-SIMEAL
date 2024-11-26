@@ -16,15 +16,16 @@ import ar.edu.utn.frba.dds.simeal.server.exception_handlers.NotFoundException;
 import ar.edu.utn.frba.dds.simeal.utils.CalculadorDeReconocimientos;
 import ar.edu.utn.frba.dds.simeal.utils.DDMetricsUtils;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
+import com.mysql.cj.log.Log;
 import io.javalin.http.Context;
-import io.javalin.http.HttpStatus;
 import io.javalin.http.UploadedFile;
-import org.geotools.referencing.factory.wms.OGCAPICRSFactory;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -113,6 +114,19 @@ public class OfertasController {
     setUpperBox(model,app);
     setSelfOffers(model,app);
 
+    //Verifico si tengo que mostrar mensaje de confirmación por cambios en oferta
+    if(app.queryParam("deleted") != null){
+      if(app.queryParam("deleted").equals("true")){
+        model.put("popup_title", "Se borró la oferta");
+        model.put("popup_message", "y bueno, eso...");
+      }
+      else if(app.queryParam("deleted").equals("false")){
+        model.put("popup_title", "No se pudo borrar la oferta");
+        model.put("popup_message", "No se han podido realizan los cambios");
+      }
+    }
+    model.put("popup_ruta", "/ofertas/misOfertas");
+
     model.put("agregarOferta", "true");
     app.render("ofertas/oferta_self.hbs",model);
   }
@@ -126,7 +140,6 @@ public class OfertasController {
     setOferta(model,app);
 
     model.put("agregarOferta", "true");
-    model.put("directorio", "../");
 
     app.render("ofertas/oferta_self_selected.hbs", model);
   }
@@ -135,11 +148,11 @@ public class OfertasController {
     HashMap<String, Object> model = new HashMap<>();
 
     if(app.queryParam("error") != null){
-      if(app.queryParam("error") == "true"){
+      if(Objects.equals(app.queryParam("error"), "true")){
        model.put("popup_title", "Publicación Confirmada");
        model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
      }
-      else if(app.queryParam("error") == "false"){
+      else if(Objects.equals(app.queryParam("error"), "false")){
        model.put("popup_title", "ERROR");
        model.put("popup_message", "No se pudo realizan la publicación");
       }
@@ -152,12 +165,14 @@ public class OfertasController {
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
 
-  public void persistOferta(Context app){
-    HashMap<String, Object> model = new HashMap<>();
+  public void create(Context app){
     Producto producto = new Producto(app.formParam("productoNombre"), app.formParam("descripcion"));
     Colaborador colaborador = (Colaborador)  repositorio.buscarPorId(app.sessionAttribute("colaborador_id"), Colaborador.class);
     Rubro newRubro = giveRubroNotRepeted(app.formParam("rubro"));
     repositorio.guardar(producto);
+
+    Logger.info("Cant de puntos necesarios de la nueva oferta: %s, nombre: %s", app.formParam("puntos"), app.formParam("nombre"));
+
 
     Oferta oferta = Oferta.create(
         colaborador,
@@ -169,33 +184,27 @@ public class OfertasController {
         producto
     );
 
+    HashMap <String, Object> model = new HashMap<>();
+
     try{
       repositorio.guardar(oferta);
     }catch(Exception e){
       Logger.error("Error al persistir una nuevo oferta - %s", e);
-      app.redirect("/ofertas/misOfertas/publicar?error=true");
+      app.render("error.hbs");
+      return;
     }
+    model.put("popup_title", "Oferta publicada");
+    model.put("popup_message", "La oferta fue creada y guardada correctamente");
+    model.put("popup_ruta", "/ofertas/misOfertas");
     Logger.info("Nueva oferta persistida - Nombre: %s, Costo: %s", oferta.getNombre(), oferta.getPuntosNecesarios());
-    app.redirect("/ofertas/misOfertas/publicar?error=false");
+    app.render("ofertas/oferta_publicar_modificar.hbs",model);
   }
 
   public void modificar(Context app){
     HashMap<String, Object> model = new HashMap<>();
-
-    if(app.queryParam("error") != null){
-    if(app.queryParam("error") == "true"){
-      model.put("popup_title", "Cambios Realizados");
-      model.put("popup_message", "bueno nada, eso ^^^. Que más queres que te diga?");
-    }
-    else if(app.queryParam("error") == "false"){
-      model.put("popup_title", "ERROR");
-      model.put("popup_message", "No se pudo actualizar la publicación");
-    }
-    }
     model.put("ofertaId", app.pathParam("oferta_id")); //Para setter la url del post del form
     app.render("ofertas/oferta_publicar_modificar.hbs", model);
   }
-
 
   public void updateOferta(Context app) {
     HashMap<String, Object> model = new HashMap<>();
@@ -221,16 +230,48 @@ public class OfertasController {
       oferta.setImagen(saveImage(app));
     }
 
-    String url = "/ofertas/misOfertas" + oferta.getId() + "/modificar";
     try{
       repositorio.actualizar(oferta);
     }catch(Exception e){
       Logger.error("Error al actualizar la oferta - %s", e);
-      url += "?error=true";
-      app.redirect(url);
+      app.redirect("error.hbs");
     }
-    url += "?error=false";
-    app.redirect(url);
+    model.put("popup_title", "Oferta modificada");
+    model.put("popup_message", "La oferta fue modificada y guardada correctamente");
+    model.put("popup_ruta", "/ofertas/misOfertas");
+    app.render("ofertas/oferta_publicar_modificar.hbs",model);
+  }
+
+  public void deleteOferta(Context app){
+    Logger.info("Delete oferta controller");
+    String ofertaId = app.pathParam("oferta_id");
+    Logger.info("Se quiere borrar la oferta: %s", ofertaId);
+    Oferta oferta = (Oferta) ServiceLocator.getRepository(OfertaRepository.class).buscarPorId(Long.valueOf(ofertaId), Oferta.class);
+    Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+    if(oferta != null){
+      Logger.info("Se borró la oferta");
+      repositorio.desactivar(oferta);
+      repositorio.refresh(oferta);
+      borrarArchivo(oferta.getImagen());
+      app.status(400);
+    }
+    else{
+      Logger.warn("No se puede borrar la oferta");
+      app.status(404);
+    }
+  }
+
+  private static void borrarArchivo(String path) {
+    Path ruta = Paths.get(path); // Convertir el String a un Path
+    try {
+      if (Files.deleteIfExists(ruta)) { // Intentar eliminar el archivo
+        Logger.info("Archivo eliminado exitosamente: %s", path);
+      } else {
+        Logger.warn("El archivo no existe: %s ", path);
+      }
+    } catch (IOException e) {
+      Logger.error("Error al intentar eliminar el archivo: %s", e.getMessage());
+    }
   }
 
   public void canjes(Context app) {
@@ -310,6 +351,7 @@ public class OfertasController {
   private void setSelfOffers(HashMap<String, Object> model, Context ctx) {
     Long colabId = ctx.sessionAttribute("colaborador_id");
     List<Oferta> ofertas = ofertaRepository.getPorColaborador(colabId);
+    ofertas.removeIf(oferta -> !oferta.getActivo());
     model.put("ofertas", converToDTO(ofertas));
   }
 
@@ -329,6 +371,7 @@ public class OfertasController {
     }
 
     // Crear el directorio de destino si no existe
+    //TODO: Cambiar path
     String uploadDir = "src/main/resources/static/img/ofertas/";
     File directory = new File(uploadDir);
     if (!directory.exists()) {
@@ -345,6 +388,7 @@ public class OfertasController {
       return null;
     }
 
+    //TODO: Cambiar tambien acá
     String path = "/img/ofertas/" + uploadedFile.filename();
     Logger.info("Se guardo el archivo correctamente");
     return path;
