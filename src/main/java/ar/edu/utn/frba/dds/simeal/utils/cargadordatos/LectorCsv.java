@@ -100,11 +100,13 @@ public class LectorCsv {
   private Colaborador validarSiExisteElColaboradorEnLista(String nombre, String numeroDocumento, List<Colaborador> colaboradores) {
     if (!colaboradoresActualesEnSistema.isEmpty()) {
       for (Colaborador colab : colaboradoresActualesEnSistema) {
-        String nro = colab.getDocumento().getNroDocumento();
-        String nombreC = colab.getNombre();
-        if (numeroDocumento.equals(nro) && nombre.equals(nombreC)) {
-          Logger.debug("Colab Repetido");
-          return colab;
+        if (colab.getDocumento() != null) {
+          String nro = colab.getDocumento().getNroDocumento();
+          String nombreC = colab.getNombre();
+          if (numeroDocumento.equals(nro) && nombre.equals(nombreC)) {
+            Logger.debug("Colab Repetido");
+            return colab;
+          }
         }
       }
     }

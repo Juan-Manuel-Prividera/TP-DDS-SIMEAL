@@ -44,13 +44,13 @@ public class VisitaController {
 
     if (failed && action.equals("RegistrarVisita")) {
       model.put("popup_title", "Error al registrar visita");
-      model.put("popup_message","No puede registrar una visita si no acepto el encargo!!");
+      model.put("popup_message","No puede registrar una visita si no acepto el encargo");
       model.put("popup_ruta","/tecnico/home");
       ctx.render("tecnico/tecnico_home.hbs",model);
 
     } else if (failed && action != null) {
       model.put("popup_title","Error al " + action + " encargo");
-      model.put("popup_message","No se puede "+ action +" porque ya lo estaba!!");
+      model.put("popup_message","No se puede "+ action +" porque ya lo estaba");
       model.put("popup_ruta","/tecnico/home");
       ctx.render("tecnico/tecnico_home.hbs",model);
 
@@ -75,7 +75,7 @@ public class VisitaController {
     setModel(model, ctx);
     setVisitasEncargos(model,ctx);
 
-    if (!encargo.getAceptado()) {
+    if (encargo.getAceptado() == null || !encargo.getAceptado()) {
       ctx.redirect("/tecnico/home?failed=true&action=RegistrarVisita");
       return;
     }

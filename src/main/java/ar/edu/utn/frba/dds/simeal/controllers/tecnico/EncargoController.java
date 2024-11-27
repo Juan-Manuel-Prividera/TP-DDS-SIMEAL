@@ -69,6 +69,9 @@ public class EncargoController {
 
       // Como el tecnico mas cercano rechazo, hay que avisar al segundo mas cercano
       Tecnico tecnicoNuevo = remplazarTecnico(encargoTecnico.getTecnico(),encargoTecnico.getIncidente());
+      encargoTecnico.setAceptado(null);
+      encargoTecnico.setTecnico(tecnicoNuevo);
+      repoEncargo.actualizar(encargoTecnico);
       Mensaje mensaje = new Mensaje(
         encargoTecnico.getIncidente().getNotificacion(),
         "Aviso de Incidente en " + encargoTecnico.getIncidente().getHeladera().getUbicacion().getStringUbi() +
@@ -83,7 +86,7 @@ public class EncargoController {
     Ubicacion ubiIncidente = incidente.getHeladera().getUbicacion();
     Tecnico tecnicoMasCercano = null;
     for (Tecnico tecnico : tecnicos) {
-      if (tecnico.getAreaDeCobertura().cubreEstaUbicacion(ubiIncidente) && !tecnico.equals(tecnicoARemplazar)) {
+      if (tecnico.getAreaDeCobertura().cubreEstaUbicacion(ubiIncidente) && !tecnico.getId().equals(tecnicoARemplazar.getId())) {
         Ubicacion ubiTecnico = tecnico.getAreaDeCobertura().getUbicacion();
         if (tecnicoMasCercano == null ||
           ubiTecnico.distanciaA(ubiIncidente) < tecnicoMasCercano.getAreaDeCobertura().getUbicacion().distanciaA(ubiIncidente))
@@ -92,7 +95,7 @@ public class EncargoController {
     }
 
     if (tecnicoMasCercano == null) {
-      Logger.info("Se quizo remplazar a un tecnico pero no se encuentra a otro, asi que se le vuelve a asignar y que se joda");
+      Logger.warn("Se quizo remplazar a un tecnico pero no se encuentra a otro, asi que se le vuelve a asignar y que se joda");
       tecnicoMasCercano = tecnicoARemplazar;
     }
     return tecnicoMasCercano;

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.controllers.admin;
 
 import ar.edu.utn.frba.dds.simeal.config.ServiceLocator;
+import java.nio.file.*;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.personas.colaborador.TarjetaColaborador;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
@@ -18,8 +19,11 @@ import io.javalin.http.UploadedFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
+
 
 public class MigracionController {
   // GET /migracion
@@ -51,8 +55,15 @@ public class MigracionController {
   // POST migracion/upload
   public void migrarColaboraciones(Context app) throws IOException, CsvException {
     UploadedFile uploadedFile = app.uploadedFile("file");
+    Path path = Paths.get("src/main/resources/migration");
+
+    if (Files.notExists(path)){
+      Logger.info("Creating directory");
+      Files.createDirectory(path);
+    }
+
     if (uploadedFile != null) {
-      String filepath = "src/main/resources/migration/" + uploadedFile.filename();
+      String filepath = path.toString() + uploadedFile.filename();
       if (!uploadedFile.filename().endsWith(".csv")) {
         app.status(HttpStatus.FOUND);
         Logger.debug("No es un csv...");

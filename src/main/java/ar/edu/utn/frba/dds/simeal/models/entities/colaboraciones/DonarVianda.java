@@ -34,7 +34,7 @@ public class DonarVianda extends Persistente implements ColaboracionPuntuable {
   @Transient
   private double factorDeReconocimiento = 1.5;
 
-  public DonarVianda(Colaborador colaborador, LocalDate fecha, Vianda vianda) {
+  private DonarVianda(Colaborador colaborador, LocalDate fecha, Vianda vianda) {
    this.colaborador = colaborador;
    this.fechaDeRealizacion = fecha;
    this.vianda = vianda;

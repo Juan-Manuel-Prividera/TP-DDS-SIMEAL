@@ -7,10 +7,10 @@ Fraude
 
 # Operaciones
 Ingreso
-./heladera_publicar_operacion.py 1234 INGRESO
+./heladera_publicar_operacion.py 1234 INGRESO 123
 
 Retiro
-./heladera_publicar_operacion.py 1234 RETIRO
+./heladera_publicar_operacion.py 1234 RETIRO 123
 
 # Solicitudes
 ./heladera_suscribir_solicitudes.py 1234

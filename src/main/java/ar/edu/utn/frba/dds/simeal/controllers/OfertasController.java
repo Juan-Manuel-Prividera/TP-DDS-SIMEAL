@@ -89,6 +89,7 @@ public class OfertasController {
     }
     else {
       Logger.warn("Colaborador: %s - no pudo comprar: %s", colaboradorId, ofertaId);
+      Logger.debug("El colab tiene (puntos) : " + colaborador.getPuntosDeReconocimientoParcial());
       app.status(404).result("Compra rechazada exitosamente");
     }
   }

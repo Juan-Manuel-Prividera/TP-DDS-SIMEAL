@@ -76,8 +76,7 @@ public class LoginHandler {
                         fail(context);
                         return;
                     }
-                    else
-                        context.sessionAttribute("colaborador_id", colaboradorID);
+                    else context.sessionAttribute("colaborador_id", colaboradorID);
 
                     context.sessionAttribute("user_type", r.getTipo().toString());
                     if (redirect == null) redirect ="/home";

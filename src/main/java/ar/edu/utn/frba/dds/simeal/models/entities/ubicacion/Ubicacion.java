@@ -74,7 +74,7 @@ public class Ubicacion extends Persistente {
     calculator.setStartingGeographicPoint(lon1, lat1);
     calculator.setDestinationGeographicPoint(lon2, lat2);
 
-    return calculator.getOrthodromicDistance(); // In meters
+    return calculator.getOrthodromicDistance() / 1000.; // In meters / 1000 = Km
 
   }
 

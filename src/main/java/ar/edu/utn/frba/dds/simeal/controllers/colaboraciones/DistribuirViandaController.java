@@ -54,6 +54,8 @@ public class DistribuirViandaController {
                 .realizada(false)
                 .build();
 
+        distribuirVianda.getColaborador().sumarPuntosReconocimiento(distribuirVianda.calcularReconocimientoParcial());
+
         Vianda viandaADistribuir;
         List<Vianda> viandas = viandaRepository.buscarPorHeladera(origen);
         if (viandas.isEmpty()) {

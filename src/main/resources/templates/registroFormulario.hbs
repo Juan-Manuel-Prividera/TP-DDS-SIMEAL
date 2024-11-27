@@ -12,6 +12,9 @@
 
 </head>
 <body>
+{{#if error}}
+    {{> templates/popup}}
+{{/if}}
 <header>
     <div class="container-fluid">
         <div class="header-container">
@@ -245,9 +248,6 @@
 
 </div>
 
-{{#if error}}
-    {{> templates/popup}}
-{{/if}}
 
 </body>
 <script>

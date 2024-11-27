@@ -22,7 +22,8 @@ public class DonarViandaController {
     }
 
     public void create(Colaborador colaborador, Vianda vianda) {
-        DonarVianda donarVianda = new DonarVianda(colaborador, LocalDate.now(), vianda);
+        DonarVianda donarVianda = DonarVianda.create(colaborador, LocalDate.now());
+        donarVianda.setVianda(vianda);
         Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
         repositorio.guardar(donarVianda);
 
