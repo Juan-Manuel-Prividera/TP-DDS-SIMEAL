@@ -22,21 +22,19 @@
             <input type="number" id="puntos-max" value="XXX" min="0" step="10">
         </div>
     </div>
-    {{#if esHumano}}
-        <div class="available-points">
-            <p><b>Puntos</b> <p>
-            <p><b> Disponibles </b></p>
-        </div>
-        <div class="value-points">
-            <b>{{ptsColab}}</b>
-        </div>
-        <div class="agregar-oferta">
-            <a class="dark-btn" href="/ofertas/misCanjes">Mis Canjes</a>
-        </div>
-    {{else}}
+    <div class="available-points">
+        <p><b>Puntos</b> <p>
+        <p><b> Disponibles </b></p>
+    </div>
+    <div class="value-points">
+        <b>{{ptsColab}}</b>
+    </div>
+    <div class="agregar-oferta">
+        <a class="dark-btn" href="/ofertas/misCanjes">Mis Canjes</a>
+    </div>
     {{#if esJuridico}}
         {{#if agregarOferta}}
-            <div class="agregar-oferta">
+            <div class="agregar-oferta" style="margin-left:20px">
                 <a class="dark-btn" href="/ofertas/misOfertas/publicar">Publicar Oferta</a>
             </div>
         {{else}}
@@ -44,7 +42,6 @@
             <a class="dark-btn" href="/ofertas/misOfertas">Tus Ofertas</a>
         </div>
         {{/if}}
-    {{/if}}
     {{/if}}
 </div>
 {{#if popup_message}}
