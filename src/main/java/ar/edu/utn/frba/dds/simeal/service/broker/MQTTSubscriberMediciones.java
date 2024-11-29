@@ -6,6 +6,8 @@ import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import org.eclipse.paho.client.mqttv3.*;
 
+import java.util.concurrent.CountDownLatch;
+
 public class MQTTSubscriberMediciones {
   private static final ConfigReader configReader = new ConfigReader();
   public static void suscribe() {
@@ -15,7 +17,7 @@ public class MQTTSubscriberMediciones {
     String topic = configReader.getProperty("broker.medicion.topic");
     String clientId = "JavaSubscriber-Mediciones";
 
-    //CountDownLatch latch = new CountDownLatch(1);
+    CountDownLatch latch = new CountDownLatch(1);
 
     try {
       MqttClient client = new MqttClient(broker, clientId);
@@ -49,7 +51,7 @@ public class MQTTSubscriberMediciones {
 
       @Override
       public void messageArrived(String topic, MqttMessage message) {
-        Logger.debug("Message received:\nTopic: " + topic + "\nMessage: " + new String(message.getPayload()));
+        Logger.info("Message received:\nTopic: " + topic + "\nMessage: " + new String(message.getPayload()));
         String[] partes = message.toString().split(" ");
         String heladeraId = partes[0].split(":")[1].replace(" ", "");
         String tipoMedicion = partes[1].replace(" ", "");
@@ -68,7 +70,7 @@ public class MQTTSubscriberMediciones {
 
       });
 
-    //  latch.await();
+      latch.await();
       } catch (Exception e) {
         e.printStackTrace();
         Thread.currentThread().interrupt();

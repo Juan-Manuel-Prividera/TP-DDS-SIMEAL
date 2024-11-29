@@ -32,7 +32,6 @@ public class Rol extends Persistente {
   public Boolean tienePermisoPara(String endpoint, HandlerType metodo) throws Exception {
     if (!metodo.isHttpMethod()) throw new Exception("Metodo pasado no es un http method");
 
-    System.out.println(metodo.toString().toUpperCase());
     TipoMetodoHttp metodoHttp = TipoMetodoHttp.valueOf(metodo.toString().toUpperCase());
 
     for (Permiso p : this.permisos) {
