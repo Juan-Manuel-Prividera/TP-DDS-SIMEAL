@@ -116,17 +116,18 @@ pre {
 }
 .reporte {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
     text-align: center;
+    margin-top: 2%;
+    align-items: center;
+    align-content: center;
 
 }
 .reporte a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    text-align: center;
-    text-decoration: none;
+    width: 20%;
+    font-size: 25px;
+    height: 20%;
 }
 .reportes h2 {
     font-size: 4vh;

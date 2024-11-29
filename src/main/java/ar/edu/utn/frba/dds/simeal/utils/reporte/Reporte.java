@@ -41,7 +41,7 @@ public class Reporte {
 
     String directorioProyecto = System.getProperty("user.dir");
 //    String pdfPath = directorioProyecto + File.separator + "Reportes_generados" + File.separator + "reporte_generado_" + fechaActual + ".pdf";
-    String pdfPath = "src/main/resources/reportes/reporte_generado_" + fechaActual + ".pdf";
+    String pdfPath = "src/main/resources/dinamic/reportes/reporte_generado_" + fechaActual + ".pdf";
     String imagePath = "https://github.com/fmosqueraalfaro/DDS/blob/main/ImagenesPrueba/Logo-UTNBA.png?raw=true";
     try {
 

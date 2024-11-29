@@ -5,6 +5,7 @@ import ar.edu.utn.frba.dds.simeal.models.dtos.ReporteDTO;
 import ar.edu.utn.frba.dds.simeal.models.dtos.VisitaTecnicaDTO;
 import ar.edu.utn.frba.dds.simeal.models.entities.heladera.VisitaTecnica;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
+import ar.edu.utn.frba.dds.simeal.service.cronjobs.GenerarReporte;
 import io.javalin.http.Context;
 
 import java.io.File;
@@ -25,13 +26,13 @@ public class ReportesController {
     model.put("username", app.sessionAttribute("user_name"));
     model.put("titulo", "Reportes");
 
-    String directoryPath = "src/main/resources/reportes";
+    String directoryPath = "src/main/resources/dinamic/reportes";
 
     File directory = new File(directoryPath);
 
     if (!directory.exists())
         directory.mkdirs();
-    List<Path> filePaths = Files.walk(Path.of("src/main/resources/reportes"))
+    List<Path> filePaths = Files.walk(Path.of("src/main/resources/dinamic/reportes"))
       .filter(Files::isRegularFile) // Filtrar solo archivos
       .toList(); // Guardar en una lista
     List<ReporteDTO> reportes = new ArrayList<>();
@@ -50,5 +51,10 @@ public class ReportesController {
     }
     model.put("visitas", visitaTecnicaDTOS);
     app.render("admin/reportes.hbs", model);
+  }
+
+  public void generarReporte(Context ctx) {
+    GenerarReporte.main(null);
+    ctx.redirect("/reportes");
   }
 }

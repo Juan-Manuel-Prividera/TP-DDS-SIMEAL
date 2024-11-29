@@ -10,6 +10,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ColaboracionRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.reporte.Reporte;
 
 import java.util.ArrayList;
@@ -34,6 +35,6 @@ public class GenerarReporte {
 
     Reporte reporte = new Reporte(heladeras, incidentes, viandas, distribuciones);
     reporte.generarReporte();
-    System.out.println("Reporte generado exitosamente");
+    Logger.info("Reporte generado exitosamente");
   }
 }

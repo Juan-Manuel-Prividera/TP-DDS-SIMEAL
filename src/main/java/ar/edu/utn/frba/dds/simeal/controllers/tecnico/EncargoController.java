@@ -62,16 +62,15 @@ public class EncargoController {
 
     if (encargoTecnico.getAceptado() == null || encargoTecnico.getAceptado()) {
       encargoTecnico.setAceptado(false);
-      repoEncargo.actualizar(encargoTecnico);
-      repoEncargo.refresh(encargoTecnico);
+      repoEncargo.desactivar(encargoTecnico);
+//      repoEncargo.refresh(encargoTecnico);
       Logger.debug("Se rechazo el encargo de id: " + encargoTecnico.getId());
       ctx.redirect("/tecnico/home?failed=false&action=rechazar");
 
       // Como el tecnico mas cercano rechazo, hay que avisar al segundo mas cercano
       Tecnico tecnicoNuevo = remplazarTecnico(encargoTecnico.getTecnico(),encargoTecnico.getIncidente());
-      encargoTecnico.setAceptado(null);
-      encargoTecnico.setTecnico(tecnicoNuevo);
-      repoEncargo.actualizar(encargoTecnico);
+      EncargoTecnico nuevoEncargo = new EncargoTecnico(encargoTecnico, tecnicoNuevo);
+      repoEncargo.guardar(nuevoEncargo);
       Mensaje mensaje = new Mensaje(
         encargoTecnico.getIncidente().getNotificacion(),
         "Aviso de Incidente en " + encargoTecnico.getIncidente().getHeladera().getUbicacion().getStringUbi() +

@@ -1,12 +1,19 @@
 package ar.edu.utn.frba.dds.simeal.handlers;
 
+import ar.edu.utn.frba.dds.simeal.models.dtos.ReporteDTO;
 import io.javalin.http.Context;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeHandler {
-    public void handle(Context context) {
+    public void handle(Context context) throws IOException {
         String username = context.sessionAttribute("user_name");
         if (username == null) {
             username = "NOT_FOUND \uD83D\uDC80";
@@ -33,6 +40,22 @@ public class HomeHandler {
             case "JURIDICO":
                 hbMap.put("esJuridico", true);
                 hbMap.put("user_type", "juridico");
+
+                String directoryPath = "src/main/resources/dinamic/reportes";
+
+                File directory = new File(directoryPath);
+
+                if (!directory.exists())
+                    directory.mkdirs();
+                List<Path> filePaths = Files.walk(Path.of("src/main/resources/dinamic/reportes"))
+                  .filter(Files::isRegularFile) // Filtrar solo archivos
+                  .toList(); // Guardar en una lista
+                List<ReporteDTO> reportes = new ArrayList<>();
+
+                for (Path path : filePaths) {
+                    reportes.add(new ReporteDTO(path.toString(), path.getFileName().toString()));
+                }
+                hbMap.put("reportes", reportes);
                 break;
         }
 

@@ -11,9 +11,6 @@ public class Repositorio implements WithSimplePersistenceUnit {
       try{
         beginTransaction();
         entityManager().persist(p);
-        entityManager().flush();
-        entityManager().refresh(p);
-        entityManager().clear();
         commitTransaction();
       } catch (Exception e) {
         rollbackTransaction();
@@ -54,6 +51,7 @@ public class Repositorio implements WithSimplePersistenceUnit {
           .createQuery("FROM " + clase.getName() + " WHERE activo = true")
           .getResultList();
         commitTransaction();
+
         return persistentes;
       } catch (Exception e) {
         rollbackTransaction();
@@ -63,7 +61,6 @@ public class Repositorio implements WithSimplePersistenceUnit {
 
     public Persistente buscarPorId(Long id, Class<? extends Persistente> clase) {
       try {
-        entityManager().clear();
         beginTransaction();
         Persistente persistente = entityManager().find(clase, id);
         commitTransaction();

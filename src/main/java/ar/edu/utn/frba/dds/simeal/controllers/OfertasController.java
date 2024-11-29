@@ -54,7 +54,7 @@ public class OfertasController {
     if(app.queryParam("confirmacionCompra") != null){
       if(app.queryParam("confirmacionCompra").equals("true")){
         model.put("popup_title", "Compra confirmada");
-        model.put("popup_message", "Re ha realizado la compra correctamente");
+        model.put("popup_message", "Se ha realizado la compra correctamente");
       }
       else if(app.queryParam("confirmacionCompra").equals("false")){
         model.put("popup_title", "Compra rechazada");

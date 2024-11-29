@@ -31,6 +31,7 @@ public class Router {
     app.get("migracion", ServiceLocator.getController(MigracionController.class)::index);
     app.post("migracion/upload", ServiceLocator.getController(MigracionController.class)::migrarColaboraciones);
     app.get("reportes", ServiceLocator.getController(ReportesController.class)::reportes);
+    app.get("reporte", ServiceLocator.getController(ReportesController.class)::generarReporte);
     app.get("cambiarmodo", ServiceLocator.getController(CambioModoController.class)::cambiarmodo);
 
     app.get("formularios", ServiceLocator.getController(FormularioController.class)::index);

@@ -33,7 +33,17 @@ public class EncargoTecnico extends Persistente {
   @Column(name = "imagen")
   private String imagen;
 
+  public EncargoTecnico(EncargoTecnico encargoTecnico, Tecnico tecnico) {
+    this.incidente = encargoTecnico.getIncidente();
+    this.imagen = encargoTecnico.getImagen();
+    this.aceptado = null; // Pendiente
+    this.visitasHechas = 0;
+    this.tecnico = tecnico;
+  }
+
   public void incrementVisitasHechas() {
     visitasHechas++;
   }
+
+
 }

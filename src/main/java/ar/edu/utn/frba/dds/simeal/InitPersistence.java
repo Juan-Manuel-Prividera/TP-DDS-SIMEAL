@@ -61,6 +61,7 @@ public class InitPersistence {
         Permiso getMigracion = new Permiso("migracion", TipoMetodoHttp.GET);
         Permiso postMigracionUpload = new Permiso("migracion/upload", TipoMetodoHttp.POST);
         Permiso getReportes = new Permiso("reportes", TipoMetodoHttp.GET);
+        Permiso getReporte = new Permiso("reporte", TipoMetodoHttp.GET);
         Permiso getCambiarModo = new Permiso("cambiarmodo", TipoMetodoHttp.GET);
 
         Permiso getFormularios = new Permiso("formularios", TipoMetodoHttp.GET);
@@ -168,7 +169,7 @@ public class InitPersistence {
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
                 getFormularios, getFormulario, postFormularios, postPregunta,
                 deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
-                postDonarDinero,
+                postDonarDinero, getReporte,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
                 getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
@@ -193,6 +194,8 @@ public class InitPersistence {
         Usuario usuarioHumano = new Usuario("humano", PasswordHasher.hashPassword("humano"), List.of(humano));
         Usuario usuarioJuridico = new Usuario("juridico", PasswordHasher.hashPassword("juridico"), List.of(juridico));
         Usuario usuarioTecnico = new Usuario("tecnico", PasswordHasher.hashPassword("tecnico"), List.of(tecnicoRol));
+        Usuario usuarioTecnico2 = new Usuario("pedro", PasswordHasher.hashPassword("pedro"), List.of(tecnicoRol));
+
 
         Colaborador colaboradorHumano = new Colaborador(
                 new Documento(TipoDocumento.DNI, "13"),
@@ -214,7 +217,7 @@ public class InitPersistence {
 
         Colaborador colaboradorJuridico = new Colaborador(
                 "Arcos dorados",
-                new Rubro("fastFood", alimentos)
+                new Rubro("Comida Rapida", alimentos)
         );
         LocalidadRepository localidadRepository = (LocalidadRepository) ServiceLocator.getRepository(LocalidadRepository.class);
         Localidad localidad = localidadRepository.buscarPorNombre("Almagro");
@@ -229,7 +232,7 @@ public class InitPersistence {
 
         Contacto contactoTecnico = new Contacto("jmprividera@gmail.com", new Email(EnviadorDeMails.getInstancia()));
         AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
-          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179, localidad), 10000.0);
+          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179, localidad), 25d);
         Tecnico tecnico = new Tecnico("Tomas", "Pauza",
           new Documento(TipoDocumento.DNI, "1234556677"),
             "2012334556599", List.of(contactoTecnico), contactoTecnico, areaDeCobertura
@@ -237,10 +240,21 @@ public class InitPersistence {
         tecnico.setUsuario(usuarioTecnico);
         repo.guardar(tecnico);
 
+        Contacto contactoTecnico2 = new Contacto("tpauzasager@frba.utn.edu.ar", new Email(EnviadorDeMails.getInstancia()));
+        AreaDeCobertura areaDeCobertura2 = new AreaDeCobertura(
+          new Ubicacion("Av Rivadavia",5000, Provincia.Buenos_Aires,1424, localidad), 25d);
+        Tecnico tecnico2 = new Tecnico("Pedro", "Pauza",
+          new Documento(TipoDocumento.DNI, "1234556677"),
+          "2012334556599", List.of(contactoTecnico2), contactoTecnico2, areaDeCobertura2
+        );
+        tecnico2.setUsuario(usuarioTecnico2);
+        repo.guardar(tecnico2);
+
         repo.guardar(usuarioAdmin);
         repo.guardar(usuarioHumano);
         repo.guardar(usuarioJuridico);
         repo.guardar(usuarioTecnico);
+        repo.guardar(usuarioTecnico2);
 
     }
     private static void initFormularios() {
