@@ -22,17 +22,15 @@
                 <p class="descripcion"><i>{{oferta.productoDes}}</i><p>
             </div>
 
-            {{#if esHumano}}
-                <a class="dark-btn" id="confirmarCompraBtn">Comprar</a>
+            <a class="dark-btn" id="confirmarCompraBtn">Comprar</a>
             <!-- Sección de Confirmación -->
-                <div class="confirmation-box overlayContent" id="confirmacionDisplay">
-                    <p class="confirmation-text"><b>¿Desea confirmar la compra?</b></p>
-                    <div class="confirmation-buttons">
-                        <a class="btn btn-success confirm-btn my-button redondeado" id="confirmarBtn" data-ofertaId="{{oferta.id}}">Confirmar</a>
-                        <a class="btn btn-danger cancel-btn my-button redondeado" id="cancelarBtn">Cancelar</a>
-                    </div>
+            <div class="confirmation-box overlayContent" id="confirmacionDisplay">
+                <p class="confirmation-text"><b>¿Desea confirmar la compra?</b></p>
+                <div class="confirmation-buttons">
+                    <a class="btn btn-success confirm-btn my-button redondeado" id="confirmarBtn" data-ofertaId="{{oferta.id}}">Confirmar</a>
+                    <a class="btn btn-danger cancel-btn my-button redondeado" id="cancelarBtn">Cancelar</a>
                 </div>
-            {{/if}}
+            </div>
         </div>
     </div>
 
@@ -41,4 +39,3 @@
 <script src="/js/btnComprarOferta.js"></script>
 {{/partial}}
 {{> templates/ofertas/oferta_upperBox}}
-

@@ -119,10 +119,10 @@ public class InitPersistence {
     // PERMISOS OFERTAS (all)
     Permiso getOfertas = new Permiso("ofertas", TipoMetodoHttp.GET);
     Permiso getOferta = new Permiso("ofertas/\\d+", TipoMetodoHttp.GET);
-
-    // PERMISOS OFERTAS (humano)
     Permiso getComprarOferta = new Permiso("ofertas/comprar", TipoMetodoHttp.GET);
     Permiso getOfertaCanjes = new Permiso("ofertas/misCanjes", TipoMetodoHttp.GET);
+
+    // PERMISOS OFERTAS (humano)
 
     // PERMISOS OFERTAS (juridico)
     Permiso getMisOfertas = new Permiso("ofertas/misOfertas", TipoMetodoHttp.GET);
@@ -155,9 +155,9 @@ public class InitPersistence {
           );
         Rol humano = new Rol(TipoRol.HUMANO, permisosHumano);
 
-        List<Permiso> permisosJuridico = List.of(
+       List<Permiso> permisosJuridico = List.of(
                 getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
-                getHeladeras, getOfertas, getOferta, getDonarDinero, postDonarDinero,
+                getHeladeras, getOfertas, getOferta, getComprarOferta, getOfertaCanjes, getDonarDinero, postDonarDinero,
                 getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
                 getConfiguracionColaboraciones, postConfiguracionColaboraciones, getVisitasHeladera,
                 getAlertasRecientes, getReportarFallo, postReportarFallo, getMisOfertas, getMiOferta, getPublicarOferta, getModificarOferta
