@@ -13,8 +13,8 @@ public class Repositorio implements WithSimplePersistenceUnit {
         entityManager().persist(p);
         entityManager().flush();
         entityManager().refresh(p);
-        commitTransaction();
         entityManager().clear();
+        commitTransaction();
       } catch (Exception e) {
         rollbackTransaction();
         throw e;
@@ -36,16 +36,15 @@ public class Repositorio implements WithSimplePersistenceUnit {
        entityManager().merge(p);
        entityManager().flush();
        entityManager().refresh(p);
+       entityManager().clear();
        commitTransaction();
-      entityManager().clear();
     }
 
     public void actualizar(Persistente p) {
         beginTransaction();
         entityManager().merge(p);
-        entityManager().flush();
-        entityManager().refresh(p);
         commitTransaction();
+        // Si ponemos lo de flush refresh y clear aca se rompe
     }
 
     public List<? extends Persistente> obtenerTodos(Class<? extends Persistente> clase) {
