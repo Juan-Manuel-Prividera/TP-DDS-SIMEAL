@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -49,7 +50,7 @@ public class Heladera extends Persistente {
   private Boolean activa;
 
   // Esto genera una tabla intermedia con dos heladera_id nomas
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
   @JoinTable(
     name = "heladeras_cercanas",
     joinColumns = @JoinColumn(name = "heladera_id", referencedColumnName = "id"),

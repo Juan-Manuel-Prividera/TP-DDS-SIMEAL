@@ -31,11 +31,13 @@ public class Sensor extends Persistente {
 
 
   public Alerta recibir(Medicion medicion) {
-    if (medicion.esDeTemperatura()) ultimaTemperaturaRegistrada = (MedicionTemperatura) medicion;
-    medicion.procesar(heladera);
+    if (medicion.esDeTemperatura())
+      ultimaTemperaturaRegistrada = (MedicionTemperatura) medicion;
+
+    Alerta alerta = medicion.procesar(heladera);
     medicion.setSensor(this);
 
-    return medicion.procesar(heladera);
+    return alerta;
   }
 
 }

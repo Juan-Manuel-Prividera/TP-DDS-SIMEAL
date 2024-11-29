@@ -38,7 +38,7 @@ public class MedicionController {
     // El procesamiento de cada tipo de medicion, desactivar la heladera,...
     Alerta alerta = sensor.recibir(medicionRecibida);
     repositorio.actualizar(sensor);
-
+    repositorio.actualizar(sensor.getHeladera());
     // Si la alerta es null esta t0do bien en la medicion no hacemos nada (NO es un Incidente)
     if (alerta != null) {
       Logger.debug("La medicion genero una alerta!!");
