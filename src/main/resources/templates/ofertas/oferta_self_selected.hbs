@@ -21,9 +21,37 @@
             <p class="descripcion"><i>{{oferta.productoDes}}</i><p>
         </div>
         <a class="dark-btn" href="/ofertas/misOfertas/{{oferta.id}}/modificar">Modificar</a>
-
+        <button class="btn dark-btn mt-3 mb-3" style="max-width:250px" id="confirmarCompraBtn">Eliminar</button>
+        <!-- Sección de Confirmación -->
+        <div class="confirmation-box overlayContent" id="confirmacionDisplay">
+            <p class="confirmation-text"><b>¿Desea confirmar la compra?</b></p>
+            <div class="confirmation-buttons">
+                <a class="btn btn-success confirm-btn my-button redondeado" id="eliminar" data-ofertaId="{{oferta.id}}">Confirmar</a>
+                <a class="btn btn-danger cancel-btn my-button redondeado" id="cancelarBtn">Cancelar</a>
+            </div>
+        </div>
     </div>
-
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('eliminar').addEventListener('click', function () {
+            fetch("/ofertas/misOfertas/{{ofertaId}}/modificar", {
+                method: "DELETE"
+            })
+                    .then(response => {
+                        if (response.status === 400) {
+                            window.location.href = "/ofertas/misOfertas?deleted=true";  // Redirigir al cliente
+                        } else if (response.status === 404) {
+                            window.location.href = "/ofertas/misOfertas?deleted=false";  // Redirigir al cliente
+                        } else {
+                            window.location.href = "/";
+                        }
+                    })
+                    .catch(error => console.error("Error en la solicitud:", error));
+        });
+    });
+</script>
+<script src="/js/displayConfirmarCompraOferta.js"></script>
 {{/partial}}
 {{> templates/ofertas/oferta_upperBox}}
