@@ -69,32 +69,9 @@
             <a type="button" class="btn btn-danger" href="/ofertas/misOfertas">Cancelar</a>
         </div>
     </form>
-    <div class="text-center">
-        <button class="btn dark-btn mt-3 mb-3" style="margin-top:30px" id="eliminar">Eliminar</button>
-    </div>
-</div>
 
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('eliminar').addEventListener('click', function () {
-            fetch("/ofertas/misOfertas/{{ofertaId}}/modificar", {
-                method: "DELETE"
-            })
-                .then(response => {
-                    if (response.status === 400) {
-                        window.location.href = "/ofertas/misOfertas?deleted=true";  // Redirigir al cliente
-                    } else if (response.status === 404) {
-                        window.location.href = "/ofertas/misOfertas?deleted=false";  // Redirigir al cliente
-                    } else {
-                        window.location.href = "/";
-                    }
-                })
-                .catch(error => console.error("Error en la solicitud:", error));
-        });
-    });
-</script>
 </body>
