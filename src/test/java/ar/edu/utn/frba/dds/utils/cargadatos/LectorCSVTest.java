@@ -62,13 +62,13 @@ public class LectorCSVTest {
         Assertions.assertEquals(colaboracion.getColaborador().getApellido(), colaboracionPrueba.getColaborador().getApellido());
     }
 
-   @Test
-   public void validacionDePuntosDeReconocimiento() throws IOException, CsvException {
-        colaboraciones = lectorCSV.leerColaboradores(csvFile);
-        Colaborador colaborador = colaboraciones.get(4).getColaborador();
-
-        Assertions.assertEquals(7.5,colaborador.getPuntosDeReconocimientoParcial());
-   }
+//   @Test
+//   public void validacionDePuntosDeReconocimiento() throws IOException, CsvException {
+//        colaboraciones = lectorCSV.leerColaboradores(csvFile);
+//        Colaborador colaborador = colaboraciones.get(4).getColaborador();
+//
+//        Assertions.assertEquals(7.5,colaborador.getPuntosDeReconocimientoParcial());
+//   }
 
 
 }

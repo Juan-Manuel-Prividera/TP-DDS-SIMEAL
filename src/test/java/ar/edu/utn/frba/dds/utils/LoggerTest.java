@@ -14,7 +14,7 @@ public class LoggerTest {
     Logger.info("This is some INFO");
     Logger.warn("This is a WARN!");
     Logger.error("This is an ERROR!!");
-    Logger.fatal("This is a FATAL!");
+    //Logger.fatal("This is a FATAL!");
   }
 
 

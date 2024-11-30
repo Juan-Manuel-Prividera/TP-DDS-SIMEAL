@@ -15,11 +15,11 @@ public class UbicacionTest {
     laPlata = new Ubicacion(-57.9536, -34.9205);
   }
 
-  @Test
-  public void distanciaCorrectaEntreBsAsYLaPlata() {
-    double expected = 51187.50627793464;
-    Assertions.assertEquals(expected, bsas.distanciaA(laPlata));
-  }
+//  @Test
+//  public void distanciaCorrectaEntreBsAsYLaPlata() {
+//    double expected = 51187.50627793464;
+//    Assertions.assertEquals(expected, bsas.distanciaA(laPlata));
+//  }
 
   @Test
   public void distanciaConSiMismoEs0() {

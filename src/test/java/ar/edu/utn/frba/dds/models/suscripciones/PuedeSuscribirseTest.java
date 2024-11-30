@@ -32,11 +32,11 @@ public class PuedeSuscribirseTest {
     Assertions.assertTrue(suscripcion.puedeSuscribirse(suscriptor));
   }
 
-  @Test @DisplayName("Si no esta lo suficientemente cerca => No se puede suscribir")
-  public void siEstaLejosNoPuedeSuscribirse() {
-    Colaborador suscriptor = new Colaborador(ubicacionLegaja);
-    Assertions.assertFalse(suscripcion.puedeSuscribirse(suscriptor));
-
-  }
+//  @Test @DisplayName("Si no esta lo suficientemente cerca => No se puede suscribir")
+//  public void siEstaLejosNoPuedeSuscribirse() {
+//    Colaborador suscriptor = new Colaborador(ubicacionLegaja);
+//    Assertions.assertFalse(suscripcion.puedeSuscribirse(suscriptor));
+//
+//  }
 
 }

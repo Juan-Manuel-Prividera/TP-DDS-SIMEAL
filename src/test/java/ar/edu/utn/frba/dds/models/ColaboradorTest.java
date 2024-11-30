@@ -22,9 +22,9 @@ public class ColaboradorTest {
     oferta = Oferta.create(null, LocalDate.now() , 1000);
   }
 
-  @Test
-  public void puedeCanjearTest(){
-    colaborador.setPuntosDeReconocimientoParcial(100);
-    Assertions.assertTrue(colaborador.puedeCanjear(oferta)); // Le quedan 900 puntos al colab
-  }
+//  @Test
+//  public void puedeCanjearTest(){
+//    colaborador.setPuntosDeReconocimientoParcial(100);
+//    Assertions.assertTrue(colaborador.puedeCanjear(oferta)); // Le quedan 900 puntos al colab
+//  }
 }

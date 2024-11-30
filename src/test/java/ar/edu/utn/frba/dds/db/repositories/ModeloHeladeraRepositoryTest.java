@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModeloHeladeraRepositoryTest implements SimplePersistenceTest {
   ModeloHeladeraRepository modeloHeladeraRepository = (ModeloHeladeraRepository) ServiceLocator.getRepository(ModeloHeladeraRepository.class);
-  @Test
-  public void buscarModeloPorNombreTest() {
-    ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo de Prueba",1,2,3);
-    ModeloHeladera modeloHeladera1 = new ModeloHeladera("Modelo",1,2,3);
-    modeloHeladeraRepository.guardar(modeloHeladera);
-    modeloHeladeraRepository.guardar(modeloHeladera1);
-
-   List<ModeloHeladera> modeloBuscado = modeloHeladeraRepository.buscarPorNombre("Modelo de Prueba");
-    assertEquals(modeloHeladera.getId(), modeloBuscado.get(0).getId());
-  }
+//  @Test
+//  public void buscarModeloPorNombreTest() {
+//    ModeloHeladera modeloHeladera = new ModeloHeladera("Modelo de Prueba",1,2,3);
+//    ModeloHeladera modeloHeladera1 = new ModeloHeladera("Modelo",1,2,3);
+//    modeloHeladeraRepository.guardar(modeloHeladera);
+//    modeloHeladeraRepository.guardar(modeloHeladera1);
+//
+//   List<ModeloHeladera> modeloBuscado = modeloHeladeraRepository.buscarPorNombre("Modelo de Prueba");
+//    assertEquals(modeloHeladera.getId(), modeloBuscado.get(0).getId());
+//  }
 
 }

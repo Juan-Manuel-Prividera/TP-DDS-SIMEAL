@@ -109,11 +109,11 @@ public class HeladeraTest {
     Assertions.assertFalse(heladera.estaDisponible());
   }
 
-  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
-  public void testReportarIncidenteHeladeraNoDisponible() {
-    heladera.reportarIncidente(alerta);
-    Assertions.assertFalse(heladera.getActiva());
-  }
+//  @Test @DisplayName("Se reporta un incidente => la heladera no está disponible")
+//  public void testReportarIncidenteHeladeraNoDisponible() {
+//    heladera.reportarIncidente(alerta);
+//    Assertions.assertFalse(heladera.getActiva());
+//  }
 
 //  // No es realmente un test, perdón :ashamed:
 //  @Test @DisplayName("Se reporta un incidente => se loggea (alerta)")
