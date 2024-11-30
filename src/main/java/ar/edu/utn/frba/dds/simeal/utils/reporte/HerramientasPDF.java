@@ -28,9 +28,9 @@ public class HerramientasPDF {
     table.addCell("Prividera");
     table.addCell("Elías Martín");
     table.addCell("Mouesca");
-    table.addCell("Felipe");
-    table.addCell("Russo");
-    table.addCell("Francisco");
-    table.addCell("Mosquera Alfaro");
+    table.addCell("---");
+    table.addCell("---");
+    table.addCell("---");
+    table.addCell("---");
   }
 }
