@@ -171,11 +171,11 @@ public class InitPersistence {
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
                 getReporteEspecifico,
                 getFormularios, getFormulario, postFormularios, postPregunta,
-                deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
-                postDonarDinero, getReporte,
+                deletePregunta, deleteFormulario,
+                getReporte,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
+                getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 
