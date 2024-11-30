@@ -62,6 +62,7 @@ public class InitPersistence {
         Permiso postMigracionUpload = new Permiso("migracion/upload", TipoMetodoHttp.POST);
         Permiso getReportes = new Permiso("reportes", TipoMetodoHttp.GET);
         Permiso getReporte = new Permiso("reporte", TipoMetodoHttp.GET);
+        Permiso getReporteEspecifico = new Permiso("reportes/.+\\.pdf", TipoMetodoHttp.GET);
         Permiso getCambiarModo = new Permiso("cambiarmodo", TipoMetodoHttp.GET);
 
         Permiso getFormularios = new Permiso("formularios", TipoMetodoHttp.GET);
@@ -158,6 +159,7 @@ public class InitPersistence {
 
        List<Permiso> permisosJuridico = List.of(
                 getHome, getHeladera, postHeladera, postDonarDinero, getColaboraciones,
+                getReporteEspecifico,
                 getHeladeras, getOfertas, getOferta, getComprarOferta, getOfertaCanjes, getDonarDinero, postDonarDinero,
                 getAdherirHeladera, postAdherirHeladera, getRecomendacion, getHistorialColaboraciones,
                 getConfiguracionColaboraciones, postConfiguracionColaboraciones, getVisitasHeladera,
@@ -167,12 +169,13 @@ public class InitPersistence {
 
         List<Permiso> permisosAdmin = List.of(
                 getMigracion, postMigracionUpload, getReportes, getCambiarModo,
+                getReporteEspecifico,
                 getFormularios, getFormulario, postFormularios, postPregunta,
-                deletePregunta, deleteFormulario, getTarjeta, getTarjetas, postTarjetas, getColaboraciones,
-                postDonarDinero, getReporte,
+                deletePregunta, deleteFormulario,
+                getReporte,
                 getHeladeraEspecifico, getHeladera, getHeladeras, postHeladera, getSuscribirHeladera,
                 getOferta, getOfertas, postSuscribirHeladera, getSuscripciones, deleteSuscripciones,
-                getHome, getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
+                getTecnico, postTecnico, getRegistroTecnico, deleteTecnicos, getDistribucionVianda, postDistribucionVianda
         );
         Rol admin = new Rol(TipoRol.ADMIN, permisosAdmin);
 

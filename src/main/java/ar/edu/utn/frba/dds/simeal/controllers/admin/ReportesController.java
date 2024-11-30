@@ -38,7 +38,8 @@ public class ReportesController {
     List<ReporteDTO> reportes = new ArrayList<>();
 
     for (Path path : filePaths) {
-      reportes.add(new ReporteDTO(path.toString(), path.getFileName().toString()));
+        String fileName = path.getFileName().toString();
+      reportes.add(new ReporteDTO("reportes/"+fileName, fileName));
     }
     model.put("reportes", reportes);
 
