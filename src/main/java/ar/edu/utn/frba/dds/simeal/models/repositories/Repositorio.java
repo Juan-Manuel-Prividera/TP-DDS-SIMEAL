@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.CacheRetrieveMode;
@@ -19,6 +20,7 @@ public class Repositorio implements WithSimplePersistenceUnit {
         rollbackTransaction();
         throw e;
       }
+      Logger.info("Se guardo la entidad: %s - Id: %s",p.getClass(), p.getId());
     }
 
     public void eliminar(Long id, Class< ? extends Persistente> clase) {
@@ -27,7 +29,9 @@ public class Repositorio implements WithSimplePersistenceUnit {
             beginTransaction();
             entityManager().remove(entity);
             commitTransaction();
+        Logger.info("Se eliminó la entidad: %s - Id: %s",entity.getClass(), entity.getId());
         }
+      Logger.warn("Se intentó eliminar la entidad que no existe en la bd");
     }
 
     public void desactivar(Persistente p) {
@@ -39,6 +43,8 @@ public class Repositorio implements WithSimplePersistenceUnit {
        entityManager().refresh(p);
 
        commitTransaction();
+
+       Logger.info("Se eliminó la entidad: %s - Id: %s",p.getClass(), p.getId());
     }
 
     public void actualizar(Persistente p) {
@@ -50,6 +56,7 @@ public class Repositorio implements WithSimplePersistenceUnit {
         entityManager().refresh(entidadGestionada);
 
         commitTransaction();
+      Logger.info("Se actualizó la entidad: %s - Id: %s",p.getClass(), p.getId());
         // Si ponemos lo de flush refresh y clear aca se rompe
     }
 
@@ -66,10 +73,13 @@ public class Repositorio implements WithSimplePersistenceUnit {
           for (Persistente persistente : persistentes) {
             entityManager().refresh(persistente);
           }
-        }
+          Logger.info("Entidades %s obtenidas: %s", persistentes.getClass(), persistentes.toString());
+        }else
+          Logger.warn("No se econtró ninguna entidad de tipo: %s",clase.getName());
         return persistentes;
       } catch (Exception e) {
         rollbackTransaction();
+        Logger.error("Ocurrió un error al obtener todos los %s - %s", clase.getName(), e);
         throw e;
       }
     }
@@ -85,16 +95,20 @@ public class Repositorio implements WithSimplePersistenceUnit {
         commitTransaction();
         if (persistente != null) {
           entityManager().refresh(persistente);
-        }
+          Logger.info("Entidad '%s' obtenida: %s", clase.getName(), persistente.toString());
+        } else
+          Logger.warn("No se encontró ninguna entidad de tipo: '%s' - Id: %s", clase.getName(), id);
+
         return persistente;
       } catch (Exception e) {
         rollbackTransaction();
+        Logger.error("Ocurrió un error al obtener '%s' por Id '%s' - %s", clase.getName(), id, e.toString());
         throw e;
       }
     }
 
     public void refresh(Persistente p) {
       entityManager().refresh(p);
+      Logger.info("Se refrescó la entidad '%s' con Id '%s'", p.getClass(), p.getId());
     }
-
 }
