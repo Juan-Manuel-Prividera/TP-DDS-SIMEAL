@@ -15,6 +15,7 @@ import ar.edu.utn.frba.dds.simeal.models.repositories.Repositorio;
 import ar.edu.utn.frba.dds.simeal.models.repositories.SensorRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.ViandaRepository;
 import ar.edu.utn.frba.dds.simeal.models.repositories.VisitaTecnicaRepository;
+import ar.edu.utn.frba.dds.simeal.utils.CalculadorHeladerasCercanas;
 import ar.edu.utn.frba.dds.simeal.utils.ConfigReader;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import io.javalin.http.Context;
@@ -64,13 +65,10 @@ public class HeladeraController {
     Long colabId = ctx.sessionAttribute("colaborador_id");
     Colaborador colaborador = (Colaborador) repositorio.buscarPorId(colabId, Colaborador.class);
     List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
-    List<Heladera> heladerasCercanas = new ArrayList<>();
-    for (Heladera heladera : heladeras) {
-      if (heladera.getUbicacion().estaCercaDe(ubicacion,Integer.parseInt(configReader.getProperty("cond.cercania"))))
-        heladerasCercanas.add(heladera);
-    }
 
-    Heladera heladera = new Heladera(nombre,ubicacion, LocalDate.now(),colaborador,modelo,true,heladerasCercanas);
+    Heladera heladera = new Heladera(nombre,ubicacion, LocalDate.now(),colaborador,modelo,true,null);
+    CalculadorHeladerasCercanas.setHeladerasCercanas(heladera);
+
     Sensor sensor = new Sensor(heladera,null);
     repositorio.guardar(heladera);
     repositorio.guardar(sensor);

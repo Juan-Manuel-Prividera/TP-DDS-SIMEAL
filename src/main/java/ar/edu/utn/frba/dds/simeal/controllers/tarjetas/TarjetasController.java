@@ -110,6 +110,7 @@ public class TarjetasController {
     model.put("popup_ruta", "/tarjeta/update");
     app.render("tarjetas/modificar_tarjeta.hbs", model);
   }
+
   // POST /tarjeta/delete/{numeroTarjeta}
   public void delete(Context app) {
     try {
@@ -166,7 +167,6 @@ public class TarjetasController {
     repository.refresh(tarjetaPersonaVulnerable);
     ServiceLocator.getController(AltaPersonaVulnerableController.class).create(tarjetaPersonaVulnerable, personaVulnerable, app);
   }
-
 
   private void setNavBar(HashMap<String, Object> model, Context ctx) {
     model.put("tarjetas", "seleccionado");
@@ -231,7 +231,6 @@ public class TarjetasController {
         }
         tarjetaPersonaVulnerableDTOS.add(tarjetaPersonaVulnerableDTO);
       }
-
     }
 
     model.put("tarjetasEntregadas", tarjetaPersonaVulnerableDTOS);

@@ -1,6 +1,7 @@
 package ar.edu.utn.frba.dds.simeal.service.CalculadorCoordenadas;
 
 import ar.edu.utn.frba.dds.simeal.models.entities.ubicacion.Coordenada;
+import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,10 +46,10 @@ public class CalculadorCoordenadasAdapter {
           String longitud = coordenadas.get("lon").asText();
           coordenada = new Coordenada(Double.parseDouble(latitud), Double.parseDouble(longitud));
         } else {
-          System.out.println("No se encontraron coordenadas para la dirección ingresada.");
+          Logger.warn("No se encontraron coordenadas para la dirección ingresada.");
         }
       } else {
-        System.out.println("Error en la solicitud: " + codigoRespuesta);
+        Logger.warn("Error en la solicitud: " + codigoRespuesta);
       }
     } catch (Exception e) {
       e.printStackTrace();
