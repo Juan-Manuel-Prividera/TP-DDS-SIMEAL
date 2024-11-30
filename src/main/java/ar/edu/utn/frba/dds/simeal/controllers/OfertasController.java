@@ -258,12 +258,11 @@ public class OfertasController {
     Logger.info("Delete oferta controller");
     String ofertaId = app.pathParam("oferta_id");
     Logger.info("Se quiere borrar la oferta: %s", ofertaId);
-    Oferta oferta = (Oferta) ServiceLocator.getRepository(OfertaRepository.class).buscarPorId(Long.valueOf(ofertaId), Oferta.class);
-    Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+    Oferta oferta = (Oferta) ofertaRepository.buscarPorId(Long.valueOf(ofertaId), Oferta.class);
     if(oferta != null){
       Logger.info("Se borró la oferta");
       repositorio.desactivar(oferta);
-      repositorio.refresh(oferta);
+//      repositorio.refresh(oferta);
       borrarArchivo(oferta.getImagen());
       app.status(400);
     }

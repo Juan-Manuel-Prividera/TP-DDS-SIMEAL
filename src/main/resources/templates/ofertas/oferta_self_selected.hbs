@@ -36,7 +36,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('eliminar').addEventListener('click', function () {
-            fetch("/ofertas/misOfertas/{{ofertaId}}/modificar", {
+            fetch("/ofertas/misOfertas/{{oferta.id}}/modificar", {
                 method: "DELETE"
             })
                     .then(response => {
