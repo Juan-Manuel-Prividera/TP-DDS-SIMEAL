@@ -17,6 +17,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -49,8 +50,7 @@ public class Heladera extends Persistente {
   @Column(name = "activa")
   private Boolean activa;
 
-  // Esto genera una tabla intermedia con dos heladera_id nomas
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
   @JoinTable(
     name = "heladeras_cercanas",
     joinColumns = @JoinColumn(name = "heladera_id", referencedColumnName = "id"),
@@ -58,15 +58,19 @@ public class Heladera extends Persistente {
   )
   private List<Heladera> heladerasCercanas;
 
+
+
   public Heladera(Ubicacion ubicacion, LocalDate fechaColocacion, String nombre, ModeloHeladera modelo) {
     this.ubicacion = ubicacion;
     this.fechaColocacion = fechaColocacion;
     this.nombre = nombre;
     this.modelo = modelo;
   }
+
   public Heladera(Ubicacion ubicacion) {
     this.ubicacion = ubicacion;
   }
+
 
   public void activar() {
     this.activa = true;
@@ -105,5 +109,12 @@ public class Heladera extends Persistente {
     String asunto = "Incidente reportado en " + this.ubicacion.getStringUbi() + ".";
 
     return new Mensaje(msj, asunto);
+  }
+
+  public void addHeladeraCercana(Heladera heladera) {
+    if (this.heladerasCercanas == null) {
+      heladerasCercanas = new ArrayList<>();
+    }
+    heladerasCercanas.add(heladera);
   }
 }

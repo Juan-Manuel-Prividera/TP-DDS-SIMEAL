@@ -1,6 +1,7 @@
 #!/bin/python
 import paho.mqtt.client as mqtt
 import random
+import signal
 
 
 # -- Este script simula una heladera mandando su temperatura --
@@ -18,6 +19,8 @@ heladera_id = "1234"
 temperatura = random.gauss(4.5, .75)
 medicion = f"{temperatura:.3}"
 tipo_medicion = "TEMPERATURA"
+
+
 
 def on_connect(client, userdata, flags, rc):
     if rc == 0:
@@ -38,5 +41,9 @@ client.on_connect = on_connect
 
 client.connect(broker_address, broker_port, 60)
 
+signal.signal(signal.SIGINT, exit(0)) 
 client.loop_forever()
+
+
+
 

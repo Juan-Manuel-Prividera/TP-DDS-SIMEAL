@@ -31,6 +31,10 @@ public class MedicionController {
     }
 
     Sensor sensor = sensorRepository.buscarPorHeladera(Long.parseLong(heladeraId));
+    if (sensor == null) {
+      Logger.error("No se encontro sensor asociado a la heladera de id: " + heladeraId + " probablemente no extista la heladera");
+    }
+
     medicionRecibida.setSensor(sensor);
     medicionRecibida.setFechaHora(LocalDateTime.now());
     repositorio.guardar(medicionRecibida);

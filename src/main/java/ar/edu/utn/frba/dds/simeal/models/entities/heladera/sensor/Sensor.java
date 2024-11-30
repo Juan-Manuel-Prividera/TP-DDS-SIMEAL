@@ -25,7 +25,7 @@ public class Sensor extends Persistente {
   // No interesa persistir este dato ya que se obtiene en ejecucion y se
   // actualiza constantemente
   @Setter
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   @Cascade({org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST})
   MedicionTemperatura ultimaTemperaturaRegistrada = null;
 

@@ -28,6 +28,7 @@ import ar.edu.utn.frba.dds.simeal.models.entities.vianda.TipoDeComida;
 import ar.edu.utn.frba.dds.simeal.models.entities.vianda.Vianda;
 import ar.edu.utn.frba.dds.simeal.models.repositories.*;
 import ar.edu.utn.frba.dds.simeal.models.usuario.*;
+import ar.edu.utn.frba.dds.simeal.utils.CalculadorHeladerasCercanas;
 import ar.edu.utn.frba.dds.simeal.utils.PasswordHasher;
 import ar.edu.utn.frba.dds.simeal.utils.logger.Logger;
 import ar.edu.utn.frba.dds.simeal.utils.notificaciones.EnviadorDeMails;
@@ -47,6 +48,7 @@ public class InitPersistence {
         initFormularios();
         Logger.info("Formularios cargados");
         initHeladeras();
+        setHeladerasCercanas();
         Logger.info("Heladeras cargadas");
         initOfertas();
         Logger.info("Carga terminada :)");
@@ -224,9 +226,11 @@ public class InitPersistence {
         );
         LocalidadRepository localidadRepository = (LocalidadRepository) ServiceLocator.getRepository(LocalidadRepository.class);
         Localidad localidad = localidadRepository.buscarPorNombre("Almagro");
+        Localidad localidad2 = localidadRepository.buscarPorNombre("Adrogué");
         colaboradorJuridico.setUsuario(usuarioJuridico);
         Ubicacion ubicacion0 = new Ubicacion("Av. Corrientes", 3966,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1179, localidad);
         Ubicacion ubicacion1 = new Ubicacion("Av. Cordoba",3821 ,Provincia.Ciudad_Autonoma_De_Buenos_Aires,1188, localidad);
+        colaboradorJuridico.setUbicacion(ubicacion0);
         colaboradorJuridico.setUbicaciones(List.of(ubicacion0, ubicacion1));
         Contacto contactoJuridico = new Contacto("tpauza@frba.utn.edu.ar", new Email(EnviadorDeMails.getInstancia()));
         colaboradorJuridico.setContactoPreferido(contactoJuridico);
@@ -235,7 +239,7 @@ public class InitPersistence {
 
         Contacto contactoTecnico = new Contacto("jmprividera@gmail.com", new Email(EnviadorDeMails.getInstancia()));
         AreaDeCobertura areaDeCobertura = new AreaDeCobertura(
-          new Ubicacion("Av Medrano",947, Provincia.Buenos_Aires,1179, localidad), 25d);
+          new Ubicacion("Amenedo",1400, Provincia.Buenos_Aires,1846, localidad2), 25d);
         Tecnico tecnico = new Tecnico("Tomas", "Pauza",
           new Documento(TipoDocumento.DNI, "1234556677"),
             "2012334556599", List.of(contactoTecnico), contactoTecnico, areaDeCobertura
@@ -307,6 +311,8 @@ public class InitPersistence {
         modeloRepo.guardar(modeloHeladera3);
 
         Colaborador colaborador0 = new Colaborador("UTN-BA", new Rubro("Educación"), TipoJuridico.INSTITUCION, new Contacto("uni@gmail.com", MedioDeContactoFactory.crearMedioDeContacto("email")));
+        colaborador0.setUbicacion(ubicacion1);
+        colaborador0.setUbicaciones(List.of(ubicacion1,ubicacion2));
         colaborador0.sumarPuntosReconocimiento(200);
         List<Rol> roles = (List<Rol>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Rol.class);
         Rol rolJuridico = null;
@@ -569,5 +575,18 @@ public class InitPersistence {
       ServiceLocator.getRepository(Repositorio.class).guardar(u1);
       ServiceLocator.getRepository(Repositorio.class).guardar(u2);
       ServiceLocator.getRepository(Repositorio.class).guardar(u3);
+    }
+
+    private static void setHeladerasCercanas() {
+        Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+        List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
+
+        for (Heladera h : heladeras) {
+            CalculadorHeladerasCercanas.setHeladerasCercanas(h);
+        }
+
+        for (Heladera h : heladeras) {
+            repositorio.guardar(h);
+        }
     }
 }

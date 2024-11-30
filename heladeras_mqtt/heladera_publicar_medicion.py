@@ -34,6 +34,7 @@ def send_message(client):
     payload = f"id:{heladera_id} {tipo_medicion} {medicion}"
     client.publish(topic, payload)
     print(f"Mensaje enviado: '{payload}'")
+    exit(0)
 
 
 client = mqtt.Client(heladera_id)
