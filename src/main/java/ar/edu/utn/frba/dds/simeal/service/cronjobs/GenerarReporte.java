@@ -23,11 +23,12 @@ import java.util.List;
 public class GenerarReporte {
 
   public static void main(String[] args) {
-    List<Heladera> heladeras = (List<Heladera>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Heladera.class);
-    List<FallaTecnica> fallaTecnicas = (List<FallaTecnica>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(FallaTecnica.class);
-    List<Alerta> alertas = (List<Alerta>) ServiceLocator.getRepository(Repositorio.class).obtenerTodos(Alerta.class);
-    List<Vianda> viandas = (List<Vianda>) ServiceLocator.getRepository(ViandaRepository.class).obtenerTodos(Vianda.class);
-    List<DistribuirVianda> distribuciones = (List<DistribuirVianda>) ServiceLocator.getRepository(ColaboracionRepository.class).obtenerTodos(DistribuirVianda.class);
+    Repositorio repositorio = ServiceLocator.getRepository(Repositorio.class);
+    List<Heladera> heladeras = (List<Heladera>) repositorio.obtenerTodos(Heladera.class);
+    List<FallaTecnica> fallaTecnicas = (List<FallaTecnica>) repositorio.obtenerTodos(FallaTecnica.class);
+    List<Alerta> alertas = (List<Alerta>) repositorio.obtenerTodos(Alerta.class);
+    List<Vianda> viandas = (List<Vianda>) repositorio.obtenerTodos(Vianda.class);
+    List<DistribuirVianda> distribuciones = (List<DistribuirVianda>) repositorio.obtenerTodos(DistribuirVianda.class);
 
     List<Incidente> incidentes = new ArrayList<>();
     incidentes.addAll(alertas);

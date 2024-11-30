@@ -40,12 +40,13 @@ public class UsuariosController {
         validarInputs(username,password,passwordRepeat,context);
 
         List<Usuario> usuarios = (List<Usuario>) this.repo.obtenerTodos(Usuario.class);
+        HashMap<String, Object> model = new HashMap<>();
         for (Usuario usuario : usuarios) {
             if (usuario.getUsername().equals(username)) {
-                HashMap<String, Object> model = new HashMap<>();
                 model.put("error", "ya existe");
                 model.put("popup_title", "Usuario repetido");
                 model.put("popup_message", "El usuario ingresado ya existe!");
+                model.put("popup_ruta", "/registro/" + rolParam);
                 context.render("/registroFormulario.hbs", model);
                 Logger.warn("El usuario ya existe");
                 return;
@@ -58,7 +59,11 @@ public class UsuariosController {
         PasswordValidator validator = new PasswordValidator(condiciones);
         String msg = validator.validate(password);
         if (msg != null) {
-            context.redirect("/registro/" + rolParam+"?error="+msg);
+            model.put("popup_title", "Contraseña inválida");
+            model.put("popup_message", msg);
+            model.put("popup_button", "Reintentar");
+            model.put("popup_ruta", "/registro/" + rolParam);
+            context.render("/registroFormulario.hbs", model);
             return;
         }
 

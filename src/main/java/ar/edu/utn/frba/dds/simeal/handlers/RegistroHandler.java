@@ -73,11 +73,7 @@ public class RegistroHandler {
         }
 
         if (context.queryParam("error") != null) {
-            map.put("error", context.queryParam("error"));
-            map.put("popup_message", context.queryParam("error"));
-            map.put("popup_title", "Error");
-            map.put("popup_button", "Reintentar");
-            map.put("popup_ruta", "/registro/" + context.pathParam("rol"));
+            Logger.warn("Usuario no tendría que haber entrado acá");
         }
 
         Logger.trace("Saliendo de registro handler");
