@@ -53,7 +53,8 @@ public class HomeHandler {
                 List<ReporteDTO> reportes = new ArrayList<>();
 
                 for (Path path : filePaths) {
-                    reportes.add(new ReporteDTO(path.toString(), path.getFileName().toString()));
+                    String filename = path.getFileName().toString();
+                    reportes.add(new ReporteDTO("/reportes/"+filename, filename));
                 }
                 hbMap.put("reportes", reportes);
                 break;
