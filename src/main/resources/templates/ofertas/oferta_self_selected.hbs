@@ -20,13 +20,13 @@
             <p class="descripcion">Puntos necesarios: <b>{{oferta.puntosNecesarios}}</b></p>
             <p class="descripcion"><i>{{oferta.productoDes}}</i><p>
         </div>
-        <a class="dark-btn" href="/ofertas/misOfertas/{{oferta.id}}/modificar">Modificar</a>
-        <button class="btn dark-btn mt-3 mb-3" style="max-width:250px" id="confirmarCompraBtn">Eliminar</button>
+        <a class="btn dark-btn mt-3 mb-3" style="max-width:250px" href="/ofertas/misOfertas/{{oferta.id}}/modificar">Modificar</a>
+        <a class="btn dark-btn mt-3 mb-3" style="max-width:250px" id="confirmarCompraBtn">Eliminar</a>
         <!-- Sección de Confirmación -->
         <div class="confirmation-box overlayContent" id="confirmacionDisplay">
-            <p class="confirmation-text"><b>¿Desea confirmar la compra?</b></p>
+            <p class="confirmation-text"><b>¿Deseas confirmar la eliminación de la oferta?</b></p>
             <div class="confirmation-buttons">
-                <a class="btn btn-success confirm-btn my-button redondeado" id="eliminar" data-ofertaId="{{oferta.id}}">Confirmar</a>
+                <a class="btn btn-success confirm-btn my-button redondeado" id="eliminar" data-ofertaId="{{oferta.id}}">Eliminar</a>
                 <a class="btn btn-danger cancel-btn my-button redondeado" id="cancelarBtn">Cancelar</a>
             </div>
         </div>
