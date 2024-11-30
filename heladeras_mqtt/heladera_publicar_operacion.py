@@ -29,8 +29,9 @@ def on_connect(client, userdata, flags, rc):
 
 def send_message(client):
     payload = f"id:{heladera_id} {operacion} {tarjeta_colaborador_id}"
-    print(f"Mensaje enviado: '{payload}'")
     client.publish(topic, payload)
+    print(f"Mensaje enviado: '{payload}'")
+    exit(0)
 
 client = mqtt.Client(heladera_id)
 client.username_pw_set(username, password)
