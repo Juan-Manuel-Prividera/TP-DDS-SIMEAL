@@ -83,7 +83,7 @@ public class Colaborador extends Persistente implements ReceptorDeNotificaciones
   @Enumerated(EnumType.STRING)
   private List<TipoColaboracion> formasDeColaborar = new ArrayList<>();
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name="usuario_id", referencedColumnName = "id")
   @Cascade({org.hibernate.annotations.CascadeType.PERSIST, org.hibernate.annotations.CascadeType.MERGE})
   private Usuario usuario;

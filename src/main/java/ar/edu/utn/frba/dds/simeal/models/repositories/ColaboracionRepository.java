@@ -1,5 +1,6 @@
 package ar.edu.utn.frba.dds.simeal.models.repositories;
 
+import ar.edu.utn.frba.dds.simeal.models.entities.Persistente.Persistente;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.AdherirHeladera;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.ColaboracionPuntuable;
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.DarDeAltaPersonaVulnerable;
@@ -8,6 +9,8 @@ import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.distribuirviand
 import ar.edu.utn.frba.dds.simeal.models.entities.colaboraciones.donardinero.DonarDinero;
 import lombok.Getter;
 
+import javax.persistence.CacheRetrieveMode;
+import javax.persistence.CacheStoreMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +22,16 @@ public class ColaboracionRepository extends Repositorio {
     colaboraciones = entityManager()
       .createQuery(" FROM " + clase.getName() + " WHERE colaborador_id= :id", clase)
       .setParameter("id", id)
+      .setHint("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS)
+      .setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS)
       .getResultList();
     commitTransaction();
+
+    if (colaboraciones != null) {
+      for (ColaboracionPuntuable c: colaboraciones) {
+        entityManager().refresh(c);
+      }
+    }
     return colaboraciones;
   }
 
