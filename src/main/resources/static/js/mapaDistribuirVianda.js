@@ -115,7 +115,7 @@ function vaciarCampos() {
 
 // Request al Back para traer todas las heladeras
 function obtenerHeladeras() {
-    return fetch("http://localhost:8080/heladeras")
+    return fetch("http://localhost:80/heladeras")
         .then(response => {
             if (!response.ok) {
                 throw new Error("No se pudieron obtener las heladeras: " + response.statusText)
