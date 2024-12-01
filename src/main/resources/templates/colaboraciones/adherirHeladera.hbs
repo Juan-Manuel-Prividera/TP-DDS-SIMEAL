@@ -41,7 +41,7 @@
 
 <script>
     function obtenerUbicacion() {
-        fetch("http://localhost:8080/recomendacion/ubicaciones")
+        fetch(`${window.origin}:80/recomendacion/ubicaciones`)
             .then(response => {
                 if (response.ok) {
                     return response.json()

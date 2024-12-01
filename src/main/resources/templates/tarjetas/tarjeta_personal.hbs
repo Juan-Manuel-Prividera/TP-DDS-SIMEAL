@@ -26,7 +26,7 @@
 
 <script>
     function realizarSolicitud(tarjetaId) {
-        fetch("http://localhost:8080/solicitud/" + tarjetaId, {
+        fetch(`${window.origin}:80/solicitud/` + tarjetaId, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' // Asegura que los datos se envían como JSON

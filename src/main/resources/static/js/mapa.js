@@ -1,16 +1,4 @@
 let map;
-// class Heladera {
-//     constructor(id, nombre, latitud, longitud,activa,altura,nombreCalle) {
-//         this.id = id;
-//         this.nombre = nombre;
-//         this.latitud = latitud;
-//         this.longitud = longitud;
-//         this.activa = activa;
-//         this.altura = altura;
-//         this.nombreCalle = nombreCalle;
-//
-//     }
-// }
 
 // Cuando el html termina de cargar ejecuta cargarMapa()
 $(document).ready(function() {
@@ -95,7 +83,7 @@ function agregarHeladera(heladera,map){
 
 // Request al Back para traer todas las heladeras
 function obtenerHeladeras() {
-    return fetch("http://localhost:80/heladeras")
+    return fetch(`${window.origin}:80/heladeras`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("No se pudieron obtener las heladeras: " + response.statusText)
@@ -121,14 +109,14 @@ function buscarHeladeraMapa() {
                     setTimeout(() => {
                         // Hacemos la request que nos lleva a ver el estado de esa heladera
                         // Si no entra al if la heladera que pidio no existe asi que no hacemos la request
-                        fetch("http://localhost:80/heladera/" + heladera.id)
+                        fetch(`${window.origin}:80/heladera/` + heladera.id)
                             .then(response => {
                                 console.log("ejecuto la request: /heladera/" + heladera.id)
                                 console.log(response.statusText)
                                 if (!response.ok)
                                     throw new Error("Error al hacer get sobre heladera seleccionada")
 
-                                window.location.href = "http://localhost:80/heladera/" + heladera.id;
+                                window.location.href = `${window.origin}:80/heladera/` + heladera.id;
                             })
                             .catch(error => {
                                 console.error(error)

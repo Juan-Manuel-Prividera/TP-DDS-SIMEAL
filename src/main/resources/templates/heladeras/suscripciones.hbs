@@ -57,7 +57,7 @@
     function deleteSubscription(subscriptionId) {
          if (confirm('¿Estás seguro de que deseas eliminar esta suscripción?')) {
             console.log("haciendo solicitud de eliminacion")
-            fetch(`http://localhost:8080/suscripcion/${subscriptionId}`, {
+            fetch(`${window.origin}:80/suscripcion/${subscriptionId}`, {
                 method: 'DELETE'
             })
                 .then(response => {
