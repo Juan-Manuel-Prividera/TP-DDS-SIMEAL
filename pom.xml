@@ -27,6 +27,12 @@
   </repositories>
 
   <dependencies>
+	  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>2.0.16</version>
+</dependency>
+
     <!-- Esto chequea que no tengamos dependencias de mierda (inseguras) -->
     <dependency>
       <groupId>org.owasp</groupId>
