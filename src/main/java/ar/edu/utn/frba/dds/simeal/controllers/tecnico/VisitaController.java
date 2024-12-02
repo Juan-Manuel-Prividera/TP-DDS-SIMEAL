@@ -182,7 +182,7 @@ public class VisitaController {
 //    }
 
     // Crear el directorio de destino si no existe
-    String uploadDir = "src/main/resources/static/img/visitas/";
+    String uploadDir = "src/main/resources/dinamic/img/visitas/";
     File directory = new File(uploadDir);
     if (!directory.exists()) {
       directory.mkdirs();
