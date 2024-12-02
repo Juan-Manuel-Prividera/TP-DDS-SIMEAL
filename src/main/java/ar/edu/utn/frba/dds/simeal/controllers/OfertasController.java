@@ -173,6 +173,16 @@ public class OfertasController {
 
     Logger.info("Cant de puntos necesarios de la nueva oferta: %s, nombre: %s", app.formParam("puntos"), app.formParam("nombre"));
 
+    HashMap <String, Object> model = new HashMap<>();
+    try{
+      Double.parseDouble(app.formParam("puntos"));
+    }catch (Exception e){
+      Logger.error("El usuario puso cualquier cosa en los puntos de la oferta - %s", e);
+      model.put("popup_title", "Error");
+      model.put("popup_message", "No se pudo crear la oferta.\nSeguramente no pusiste bien los puntos requeridos");
+      model.put("popup_ruta", "/ofertas/misOfertas");
+      app.render("ofertas/oferta_publicar_modificar.hbs", model);
+    }
 
     Oferta oferta = Oferta.create(
         colaborador,
@@ -184,7 +194,6 @@ public class OfertasController {
         producto
     );
 
-    HashMap <String, Object> model = new HashMap<>();
 
     try{
       repositorio.guardar(oferta);
