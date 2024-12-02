@@ -31,7 +31,7 @@ def send_message(client):
     payload = f"id:{heladera_id} {operacion} {tarjeta_colaborador_id}"
     client.publish(topic, payload)
     print(f"Mensaje enviado: '{payload}'")
-    exit(0)
+    client.disconnect()
 
 client = mqtt.Client(heladera_id)
 client.username_pw_set(username, password)

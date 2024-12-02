@@ -1,7 +1,6 @@
 #!/bin/python
 import paho.mqtt.client as mqtt
 import sys
-import signal
 
 # -- Este script publica y suscribe operaciones en la heladera --
 if len(sys.argv) < 2:
@@ -30,16 +29,6 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(f"Solicitud recibida : '{msg.payload.decode()}'")
 
-def leave_gracefully(sig, frame):
-    client.loop_stop()  # Stop the MQTT loop
-    client.disconnect()  # Disconnect from the broker
-    sys.exit(0)
-
-def leave_gracefully(sig, frame):
-    client.loop_stop()  # Stop the MQTT loop
-    client.disconnect()  # Disconnect from the broker
-    sys.exit(0)
-
 client = mqtt.Client(heladera_id)
 client.username_pw_set(username, password)
 client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)
@@ -49,6 +38,5 @@ client.on_message = on_message  # Set the on_message callback to handle incoming
 client.connect(broker_address, broker_port, 60)
 
 
-signal.signal(signal.SIGINT, leave_gracefully)
 client.loop_forever()
 
