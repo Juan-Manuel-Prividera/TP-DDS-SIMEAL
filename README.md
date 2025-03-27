@@ -1,7 +1,7 @@
 # Simeal
 _Sistema de Mejora Alimentaria_
 <p align="center">
-    <img src="https://github.com/Juan-Manuel-Prividera/2024-tpa-ma-ma-grupo-11/src/main/resources/static/img/heladera.png?raw=true" width="30%">
+    <img src="https://github.com/Juan-Manuel-Prividera/TP-DDS-SIMEAL/blob/main/src/main/resources/static/img/heladera.png?raw=true" width="30%">
 </p>
 
 > Lo que no se persiste, no existe
